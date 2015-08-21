@@ -1,0 +1,74 @@
+.table {
+	width          : 100%;
+	border         : 0px;
+	border-spacing : 0px;
+	&.bt {
+		.table-body-row-cell {
+            @include gridle_state(mobile) {
+                &:nth-child(1) {
+                	padding-top : 20px;
+                }
+                &:nth-last-child(1) {
+                	padding-bottom : 20px;
+                }
+            }			
+		}
+		.table-body-row-cell:nth-last-child(1) {
+			@include gridle_state(mobile) {
+				border-bottom : 1px solid rgba(0,0,0,0.08);
+			}	
+			@include gridle_state(tablet) {
+				border-top : 0px solid rgba(0,0,0,0.08);
+			}	
+		}
+	}
+}
+	.table-head {}
+		.table-head-row {}
+			.table-head-row-header {
+				padding     : 9px 32px;
+				font-size   : 14px;
+				font-size   : 0.9rem;
+				font-weight : 400;
+				text-align  : left;
+				&.sort {
+					&:before {
+						position    : relative;
+						top         : -1px;
+						margin      : 0px 5px 0px 0px;
+						content     : "\e813";
+						font-family : "hbs-modern";   
+						font-size   : 10px;
+						font-size   : 0.65rem;
+					}
+					&.asc {
+						color : #4cc1bc;
+						&:before {
+							content : "\e814";
+						}
+					}
+					&.desc {
+						color : #4cc1bc;
+						&:before {
+							content : "\e815";
+						}
+					}
+				}
+			}
+	.table-body {}
+		.table-body-row {
+			background  : transparent;
+			color       : #151515;
+		}		
+		.table-body-row:hover {
+			cursor      : pointer;
+			background  : #4CC1BC;
+			color       : #ffffff;
+		}
+			.table-body-row-cell {
+				padding     : 9px 32px;
+				font-size   : 12px;
+				font-size   : 0.79rem;
+				font-weight : 300;
+                @include prefix(text-stroke-width, 0.15px);
+			}

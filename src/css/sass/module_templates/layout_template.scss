@@ -1,0 +1,236 @@
+// NOTES
+    // currently properties and values are separated by a single "_", but this will eventually be migrated to a double "__"
+    // consider them to be single for now, but later will switch to double
+// REFERENCES 
+    // these are the accepted values for the [bracketed variables] that can be used
+    // [breakpoints] 
+        // "mobile", "phablet", "tablet", "laptop", "desktop", "retina"
+    // [sides]
+        // "top", "right", "bottom", "left"
+    // [visibility states]
+        // "block", "inline", "table"
+    // [transition values]
+        // "rotate-out", "rotate-in"
+    //[# of columns]
+        // this can be a number 1 through 12
+
+// VALUES AND PROPERTIES
+// [ui-core]
+    // position__relative/absolute/fixed
+    // width__flush/constrained
+    // align__center/left/right
+    // padding__[breakpoint]-[side]
+    // margin__[breakpoint]-[side]
+// [ui-state]
+    // visible/hidden__[breakpoint]-[visibility type, if not hidden]
+    // transition__[transition value]
+// [ui-grid]
+    // NOTE: only usable in the layout module.  Other modules with responsiveness should either use the gridle helper or be custom written for the module
+    // [breakpoint]__[# of columns]
+
+
+	$layout-default-padding       : 30px 30px;
+
+	$layout-flush-padding         : 0px;
+
+	$layout-constrained-max-width : 1050px;
+	$layout-constrained-padding   : 30px 30px;
+
+
+	
+    $breakpoint-list : "mobile","phablet","tablet","laptop","desktop","retina";
+    $side-list       : "top","right","bottom","left";
+    $size-list       : "xs","sm","md","lg","xl","xxl";
+    
+    * {
+        // VISIBLE AND HIDDEN STATES  -- START
+        @each $breakpoint in $breakpoint-list {
+            &[data-ui-state~="visible__#{$breakpoint}-block"] {
+                @include gridle_show($breakpoint);
+            }
+            &[data-ui-state~="visible__#{$breakpoint}-inlineblock"] {
+                @include gridle_show_inline($breakpoint);
+            }
+            &[data-ui-state~="visible__#{$breakpoint}-table"] {
+                @include gridle_show_inline($breakpoint);
+            }
+
+            &[data-ui-state~="hidden__#{$breakpoint}"] {
+                @include gridle_hide($breakpoint);
+            }
+        }   
+
+        &[data-ui-state="float__right"] {
+            float : right;
+        }
+        &[data-ui-state="float__left"] {
+            float : left;
+        }
+        // VISIBLE AND HIDDEN STATES  -- END     
+
+        // GRID SYSTEM  -- START
+            // this creates our grid system for us
+            // the css producted is something like: 
+                //[class^="layout-"][data-ui-grid~="desktop_1"]
+            // this can be used in conjunction with a class="layout-" data-ui-grid="mobile_12"
+        @each $breakpoint in $breakpoint-list {
+            @for $i from 1 through 12 {
+                &[data-ui-grid~="#{$breakpoint}__#{$i}"] {
+                    @include gridle($i, $breakpoint);
+                }
+            }
+        }
+        // GRID SYSTEM  -- END
+    }
+    [class^="layout"] {
+        // ***************************************************
+        // UI-CORE  -- START
+        // ***************************************************
+
+            // POSITION SETTINGS  -- START
+            &[data-ui-core~="position__relative"] {
+                position : relative;
+            }
+            &[data-ui-core~="position__absolute"] {
+                position : absolute;
+            }
+            &[data-ui-core~="position__fixed"] {
+                position : fixed;
+            }
+            // POSITION SETTINGS  -- END     
+
+
+            // WIDTH SETTINGS  -- START
+            &[data-ui-core~="width__flush"] {
+                width    : 100%;
+                padding  : $layout-flush-padding;
+                @extend .cf;
+            }
+            &[data-ui-core~="width__constrained"] {
+                max-width : $layout-constrained-max-width;
+                padding   : $layout-constrained-padding;
+                margin    : auto;
+            }
+            // WIDTH SETTINGS  -- END       
+
+
+            // PADDING AND MARGIN SETTINGS  -- START
+            $increment : 8;
+            @each $size in $size-list {
+                @each $breakpoint in $breakpoint-list {
+                    &[data-ui-core~="margin__#{$breakpoint}-#{$size}"] {
+                        margin : #{$increment}px;
+                    } 
+                    &[data-ui-core~="margin__#{$breakpoint}-horizontal-#{$size}"] {
+                        margin-left  : #{$increment}px;
+                        margin-right : #{$increment}px;
+                    } 
+                    &[data-ui-core~="margin__#{$breakpoint}-vertical-#{$size}"] {
+                        margin-top    : #{$increment}px;
+                        margin-bottom : #{$increment}px;
+                    } 
+
+                    &[data-ui-core~="padding__#{$breakpoint}-#{$size}"] {
+                        padding : #{$increment}px;
+                    } 
+                    &[data-ui-core~="padding__#{$breakpoint}-horizontal-#{$size}"] {
+                        padding-left  : #{$increment}px;
+                        padding-right : #{$increment}px;
+                    } 
+                    &[data-ui-core~="padding__#{$breakpoint}-vertical-#{$size}"] {
+                        padding-top    : #{$increment}px;
+                        padding-bottom : #{$increment}px;
+                    } 
+
+                    @each $side in $side-list {
+                        &[data-ui-core~="margin__#{$breakpoint}-#{$side}-#{$size}"] {
+                            margin-#{$side} : #{$increment}px;
+                        }
+                        &[data-ui-core~="padding__#{$breakpoint}-#{$side}-#{$size}"] {
+                            padding-#{$side} : #{$increment}px;
+                        }
+                    }
+                }
+                $increment : $increment + 8;
+            }
+            // PADDING AND MARGIN SETTINGS  -- END
+
+
+            // ALIGN SETTINGS  -- START
+            &[data-ui-core~="align__center"] {
+                text-align : center;
+            }
+            &[data-ui-core~="align__left"] {
+                text-align : left;
+            }
+            &[data-ui-core~="align__right"] {
+                text-align : right;
+            }
+            // ALIGN SETTINGS  -- END
+
+        // ***************************************************
+        // UI-CORE  -- END
+        // ***************************************************
+
+
+        // setting the font size to 0 eliminates the space between sibling DOM elements with a display property of 'inline' or 'inline-block'
+
+        // h1 {
+        //     font-family : lato;
+        //     font-weight : 300;
+        //     font-size   : 40px;
+        // }
+        // code {
+        //     display     : block;
+        //     width       : 100%;
+        //     font-family : lato;
+        //     font-weight : 300;
+        //     font-size   : 15px;
+        //     opacity     : 0.5;
+        //     @include prefix(transition, opacity 0.3s);
+
+        //     &:hover {
+        //         opacity : 1;
+        //         @include prefix(transition, opacity 0.3s);
+        //     }
+        // }
+        // span.code-attribute-title {
+        //     font-weight : 400;
+        //     font-size   : 16px;
+        // }
+        // span.code-attribute {
+        //     font-size   : 14px;
+        //     font-weight : 300;
+        // }
+        // span.code-indent {
+        //     padding-left : 120px;
+        // }
+
+
+
+
+
+
+
+    [class^="layout-default"] {
+        position : relative;
+        width    : 100%;
+        padding  : $layout-default-padding;
+        @extend .cf; 
+    }
+
+    [class^="layout-flush"] { // for elements that are unconstrained, full percent width
+        position : relative;
+        width    : 100%;
+        padding  : $layout-flush-padding;
+        @extend .cf;
+    }
+
+    [class^="layout-constrained"] {
+        position  : relative;
+        max-width : $layout-constrained-max-width;
+        padding   : $layout-constrained-padding;
+        margin    : auto;
+        @extend .cf;
+    }
+}

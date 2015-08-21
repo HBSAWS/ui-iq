@@ -1,0 +1,193 @@
+$navHeight       : 50;
+$half__navHeight : $navHeight/2; 
+
+// for white menu
+// $lightSurface  : #fff;
+// $mediumSurface : #ccc;
+// $darkSurface   : #e0e0e0;
+
+// for solid color menu
+$lightSurface  : #4cc1bc;
+$mediumSurface : darken( $lightSurface, 10% );
+$darkSurface   : darken( $lightSurface, 20% );
+
+*[data-ui-state~="adjusted__forNav"] {
+	padding-top : $navHeight + px;
+}
+
+
+.nav {
+	z-index     : 10;
+	position    : fixed;
+	top         : 0px;
+	left        : 0px;
+	width       : 100%;
+	height      : $navHeight + px;
+	perspective : 1000px;
+	@include prefix(transform,scale(0.975));
+}
+	.nav-rotator {
+		position : absolute;
+		width    : 100%;
+		height   : $navHeight + px;
+		@include prefix(transform-origin, "center center");
+		@include prefix(transform-style, preserve-3d);
+		@include prefix(box-shadow, 0 0 20px 0 rgba(0,0,0,.3));
+		> div {
+			position : absolute;
+			display  : table;
+			width    : 100%;
+			height   : $navHeight + px;
+			@include prefix(transition, "background-color 0.5s, transform 0.5s");			
+		}
+		&.rewind {
+			div {
+    			backface-visibility : hidden;
+			}
+		}
+
+		&.nav-rotator-back,&.nav-rotator-top {
+			@include prefix(transform, scale(-1));
+			a {
+				@include prefix(transform, scale(-1));
+			}
+		} 	
+
+		&[data-ui-state~="show__front"] {
+			.nav-rotator-front {
+				@include prefix(transform, rotateX( 0deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 4;
+				}
+			}
+			.nav-rotator-back {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 1;
+				}
+			}
+			.nav-rotator-top {
+				@include prefix(transform, rotateX( 90deg ) translateZ( $half__navHeight + px ));
+				background-color : $mediumSurface; 
+				&.done {
+					z-index : 3;
+				}
+			}
+			.nav-rotator-bottom {
+				@include prefix(transform, rotateX( -90deg ) translateZ( $half__navHeight + px ));
+				background-color : $darkSurface; 
+				&.done {
+					z-index : 2;
+				}
+			}
+		}	
+
+
+		&[data-ui-state~="show__bottom"] {
+			.nav-rotator-front {
+				@include prefix(transform, rotateX( 90deg ) translateZ( $half__navHeight + px ));
+				background-color : $mediumSurface; 
+				&.done {
+					z-index : 3;
+				}
+			}
+			.nav-rotator-back {
+				@include prefix(transform, rotateX( 270deg ) translateZ( $half__navHeight + px ));
+				background-color : $darkSurface; 
+				&.done {
+					z-index : 2;
+				}
+			}
+			.nav-rotator-top {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 1;
+				}
+			}
+			.nav-rotator-bottom {
+				@include prefix(transform, rotateX( 0deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 4;
+				}
+			}
+		}	
+
+
+		&[data-ui-state~="show__back"] {
+			.nav-rotator-front {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 1;
+				}
+			}
+			.nav-rotator-back {
+				@include prefix(transform, rotateX( 360deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 4;
+				}
+			}
+			.nav-rotator-top {
+				@include prefix(transform, rotateX( 270deg ) translateZ( $half__navHeight + px ));
+				background-color : $darkSurface; 
+				&.done {
+					z-index : 2;
+				}
+			}
+			.nav-rotator-bottom {
+				@include prefix(transform, rotateX( 90deg ) translateZ( $half__navHeight + px ));
+				background-color : $mediumSurface; 
+				&.done {
+					z-index : 3;
+				}
+			}
+		}
+
+
+		&[data-ui-state~="show__top"] {
+			.nav-rotator-front {
+				@include prefix(transform, rotateX( 270deg ) translateZ( $half__navHeight + px ));
+				background-color : $darkSurface; 
+				&.done {
+					z-index : 2;
+				}
+			}
+			.nav-rotator-back {
+				@include prefix(transform, rotateX( 450deg ) translateZ( $half__navHeight + px ));
+				background-color : $mediumSurface; 
+				&.done {
+					z-index : 3;
+				}
+			}
+			.nav-rotator-top {
+				@include prefix(transform, rotateX( 360deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 4;
+				}
+			}
+			.nav-rotator-bottom {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $half__navHeight + px ));
+				background-color : $lightSurface; 
+				&.done {
+					z-index : 1;
+				}
+			}
+		}
+	}
+
+	.nav-branding {
+		display        : table-cell;
+		padding-left   : 25px;
+		vertical-align : middle;
+		text-align     : left;
+		&:before {
+			font-size : 1.5rem;
+			color     : #ffffff;
+		}
+	}

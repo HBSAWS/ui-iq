@@ -1,0 +1,51 @@
+@import "gridle/gridle/gridle";
+
+@include gridle_setup( 
+	(
+		context      : 12,
+		gutter-width : 0px,
+		direction    : ltr,
+		classes      : false,
+		hide         : true,
+		show         : true,
+		show_inline  : true
+	) 
+);
+
+
+
+
+// extra large phone resolutions
+@include gridle_register_state ( 
+	phablet , (
+    	min-width : 480px
+	) 
+);
+
+// tablet resolutions
+@include gridle_register_state ( 
+	tablet , (
+    	min-width : 768px
+	) 
+);
+
+// laptop resolutions
+@include gridle_register_state ( 
+	laptop , (
+    	min-width : 950px
+	) 
+);
+
+// desktop resolutions
+@include gridle_register_state ( 
+	desktop , (
+    	min-width : 1300px
+	) 
+);
+
+// large desktop resolutions
+@include gridle_register_state ( 
+	retina , (
+    	min-width : 1600px
+	) 
+);

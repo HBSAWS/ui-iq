@@ -1,0 +1,32 @@
+* {
+	box-sizing : border-box;
+}
+html,body {
+	position    : relative;
+	width       : 100%;
+	height      : 100%;  
+	margin      : 0px;
+	font-family : 'Lato', sans-serif;
+	font-size   : 16px;
+	background  : #eee;
+	box-sizing  : border-box; 
+
+	color       : #151515;
+	background  : #232323; 
+}
+h1,h2,h3,h4,h5,p {
+    &[data-ui-core~="mode__inlineblock"] {
+        display : inline-block;
+    }
+}
+h1,h2 {
+	margin : 0px;
+}
+h1 {
+	font-size   : 1.6rem;
+	font-weight : 400;
+}
+h2 {
+	font-size   : 1.3rem;
+	font-weight : 400;
+}

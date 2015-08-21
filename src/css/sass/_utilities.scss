@@ -1,0 +1,34 @@
+@mixin prefix($attribute, $argument, $both: false) {
+    @if $both == false {
+    	-webkit-#{$attribute} : #{$argument};
+    	-ms-#{$attribute} 	  : #{$argument};
+    	-moz-#{$attribute} 	  : #{$argument};
+    	-o-#{$attribute} 	  : #{$argument};
+    	#{$attribute} 		  : #{$argument};
+    }
+    @else {
+        -webkit-#{$attribute} : -webkit-#{$argument};
+        -ms-#{$attribute}     : -ms-#{$argument};
+        -moz-#{$attribute}    : -moz-#{$argument};
+        -o-#{$attribute}      : -o-#{$argument};
+        #{$attribute}         : #{$argument};
+    }
+}
+
+// CLEAR FIX SOLUTION  -- apply to parent of floated children
+.cf:before,
+.cf:after {
+    content : " "; /* 1 */
+    display : table; /* 2 */
+}
+
+.cf:after {
+    clear   : both;
+}
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom   : 1;
+}

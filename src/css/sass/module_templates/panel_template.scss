@@ -1,0 +1,269 @@
+[class^="panels_"] {
+	position   : relative;
+	width      : 100%;
+	height     : 100%;
+    overflow-x : hidden;
+    overflow-y : auto;
+	@include prefix(perspective,1000);
+}
+	[class^="panels-panel_"] {
+		position       : relative;
+		box-sizing     : border-box;
+		position       : absolute;
+		float          : left;
+		display        : none;
+		// because we're animating these guys a lot, we to prompt hardware acceleration, but more importantly a new rendering layer is created
+		// which means we're not having to repaint all elements that these panels animate over
+		@include prefix(transform, translate3d(0,0,0));
+		@include prefix(transition, all .1s ease-out);
+		&[class$="_default"] {
+			background : #eee;
+		}
+		&[class$="_modal"] {
+			background : #fff;
+		}
+		&[class$="_card"] { 
+			background : #eee;
+		}
+
+		&[data-ui-core~="mode__split"] {
+			&[data-ui-state~="is__active"]:nth-child(1),&[data-ui-state~="was__active"]:nth-child(1) {
+				display : block;
+				top     : 0px;
+				left    : 0px;
+				@include gridle_state(mobile) {
+					width   : 100%;
+					padding : 30px 30px 15px 30px;
+				}
+				@include gridle_state(tablet) {
+					padding : 30px 12px 15px 30px;
+				}
+				&[data-ui-state~="is__secondary"] {
+					@include gridle(4,tablet);
+				}
+				&[data-ui-state~="is__primary"] {
+					@include gridle(8,tablet);
+				}
+			}
+			&[data-ui-state~="is__active"]:nth-child(2),&[data-ui-state~="was__active"]:nth-child(2) {
+				display : block;
+				top     : 0px;
+				right   : 0px;
+				&[data-ui-state~="is__secondary"] {
+					@include gridle_state(mobile) {
+						width   : 100%;
+						right   : -100%;
+						padding : 30px 30px 15px 30px;
+					}
+					@include gridle_state(tablet) {
+						right : 0px;
+					}
+					@include gridle(4,tablet);
+				}
+				&[data-ui-state~="is__primary"] {
+					@include gridle_state(mobile) {
+						width : 100%;
+						right : -100%;
+						padding : 30px 30px 15px 30px;
+					}
+					@include gridle_state(tablet) {
+						right   : 0px;
+						padding : 30px 30px 15px 12px;
+					}
+					@include gridle(8,tablet);
+				}
+			}
+		}
+		&[data-ui-core~="mode__full"] {
+			&[data-ui-state~="is__active"],&[data-ui-state~="is__active"]:nth-child(1),&[data-ui-state~="was__active"]:nth-child(1) {
+				display : block;
+				top     : 0px;
+				left    : 0px;
+				width   : 100%;
+				height  : 100%;
+			}
+		}
+
+
+
+
+
+// START OF SWAP STATES
+		&[data-ui-state~="swap__out-top"] {
+			right            : auto;
+			left             : 0px;
+			top              : -120% !important;
+			transform-origin : bottom;
+			@include prefix(transform, rotateX(15deg) translateZ(-100px));
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : visible;  
+				background : rgba(0,0,0,0.5);
+				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			}
+		}
+		&[data-ui-state~="swap__in-top"] {
+			right            : auto;
+			left             : 0px;
+			top              : 0px !important;
+			transform-origin : bottom;
+			@include prefix(transform, rotateX(0deg) translateZ(0px));
+			@include prefix(transition, "transform 0.23s ease-out 0.46s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+			}
+		}
+
+		&[data-ui-state~="swap__out-bottom"] {
+			right            : auto;
+			left             : 0px;
+			top              : 120% !important;
+			transform-origin : top;
+			@include prefix(transform, rotateX(-15deg) translateZ(-100px));
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : visible;  
+				background : rgba(0,0,0,0.5);
+				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			}
+		}
+		&[data-ui-state~="swap__in-bottom"] {
+			right            : auto;
+			left             : 0px;
+			top              : 0px !important;
+			transform-origin : top;
+			@include prefix(transform, rotateX(0deg) translateZ(0px));
+			@include prefix(transition, "transform 0.23s ease-out 0.46s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+			}
+		}
+
+		&[data-ui-state~="swap__out-left"] {
+			left             : -120% !important;
+			transform-origin : right;
+			@include prefix(transform, rotateY(-15deg) translateZ(-100px));
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : visible;  
+				background : rgba(0,0,0,0.5);
+				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			}
+		}
+		&[data-ui-state~="swap__in-left"] {
+			left             : 0px !important;
+			transform-origin : right;
+			@include prefix(transform, rotateY(0deg) translateZ(0px));
+			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+			}
+		}
+
+		&[data-ui-state~="swap__out-right"] {
+			left             : 120% !important;
+			transform-origin : right;
+			@include prefix(transform, rotateY(15deg) translateZ(-100px));
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : visible;  
+				background : rgba(0,0,0,0.5);
+				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			}
+		}
+		&[data-ui-state~="swap__in-right"] {
+			left             : 0px !important;
+			transform-origin : left;
+			@include prefix(transform, rotateY(0deg) translateZ(0px));
+			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+			}
+		}
+// END OF SWAP STATES
+
+
+
+
+
+
+
+// START OF MODAL STATES
+		&[data-ui-state~="modal__push-back"] {
+			@include prefix(transform, scale(0.8));
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s"); 
+			[class^="panels-panel-content-fader__default"] {
+				visibility : visible;  
+				background : rgba(0,0,0,0.5);
+				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			}			
+		}
+// END OF MODAL STATES
+
+
+		&[data-ui-state~="push__back-right"] {
+			@include prefix(transform, scale(0.8) rotateY(-10deg));
+			@include prefix(transition, all .65s cubic-bezier(0.39, 0.575, 0.565, 1));
+			[class^="panels-panel-content-fader_"] {
+				visibility : visible;  
+				background : rgba(0,0,0,0.5);
+				@include prefix(transition, all .7s cubic-bezier(0.39, 0.575, 0.565, 1));
+			}
+		}
+		&[data-ui-state~="slide__in-right"] {
+			right : 0px !important;
+			@include prefix(transition, all .72s cubic-bezier(0.19, 1, 0.22, 1));
+		}
+	}
+		[class^="panels-panel-content_"] {
+			position           : relative;
+			&[class$="_default"] {
+				height : 100%;
+			}
+			&[class$="_card"] {
+	            padding            : 15px 0px;
+				background         : white;
+				-webkit-box-shadow : 0 0 8px 0 rgba(0,0,0,0.09);
+				box-shadow         : 0 0 8px 0 rgba(0,0,0,0.09);  
+			}
+		}
+			[class^="panels-panel-content-fader_"] {
+				position   : absolute;
+				z-index    : 10;
+				top        : 0px;
+				left       : 0px;
+				width      : 100%;
+				height     : 100%;
+				background : rgba(0,0,0,0.0); 
+				visibility : hidden; 
+				@include prefix(transition, all .3s ease-out);
+			}
+			[class^="panels-panel-content-header_"] {
+				display   : table;
+				padding   : 0px 32px;
+				font-size : 21px;
+				font-size : 1.32rem;
+			}
+				[class^="panels-panel-content-header-primary_"] {
+					position       : relative;
+					display        : table-cell;
+					vertical-align : middle; 
+					width  		   : 100%;
+				}
+				[class^="panels-panel-content-header-secondary_"] {
+					position       : relative;
+					display        : table-cell;
+					vertical-align : middle; 
+					> div {
+						display      : table-cell;
+						padding-left : 5px;
+					}
+				}
