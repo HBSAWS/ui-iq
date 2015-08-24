@@ -182,12 +182,20 @@ $darkSurface   : darken( $lightSurface, 20% );
 	}
 
 	.nav-branding {
+		position       : relative;
 		display        : table-cell;
-		padding-left   : 25px;
+		left           : 30px;
+		padding-left   : 35px;
 		vertical-align : middle;
 		text-align     : left;
+		font-family    : lato; 
+		font-size      : 1rem;
+		line-height    : 1rem;
+		color          : #ffffff;
 		&:before {
-			font-size : 1.5rem;
-			color     : #ffffff;
+			position      : absolute;
+			left          : 0px;
+			padding-right : 8px;
+			font-size     : 1.5rem;
 		}
 	}

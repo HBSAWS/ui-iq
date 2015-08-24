@@ -112,32 +112,87 @@ $(document).ready(function() {
 
 
 
-        $('[data-js-target~="init_toggler"]').each(function() {
-			UI.toggler($(this));
-        });
 
-        var $panelsFiles = $('[data-js-target~="file_panels"]');
-        UI.panels($panelsFiles, {
-        	core : {
-        		mode : "split"
-        	},
-        	panels : {
-        		panels : ["zero","one","two","three","four"],
-        		first  : ["zero","secondary"],
-        		second : ["one","primary"]
-        	}
-        });
+
+      //   var $panelsFiles = $('[data-js-target~="file_panels"]');
+      //   UI.panels($panelsFiles, {
+      //   	core   : {
+      //   		mode : "cards"
+      //   	},
+      //   	panels : {
+      //   		all    : ["zero","one","two","three","four"],
+      //   		active : [
+						// 	{
+						// 		id       : "zero",
+						// 		position : "left",
+						// 		size     : "small"
+						// 	},
+						// 	{
+						// 		id       : "one",
+						// 		position : "middle",
+						// 		size     : "medium"
+						// 	}
+						// ]
+      //   	}
+      //   });
         
         var $panelsApp = $('[data-js-target~="app_panels"]');
-        UI.panels($panelsApp, {
-        	core : {
-        		mode : "full"
-        	},
-        	panels : {
-        		panels : ["appModal","appStage"],
-        		first  : ["appStage","primary"]
-        	}
-        });
+        UI.panels($panelsApp, [
+        		{
+        			id       : "zero",
+        			mode     : "card",
+        			size     : "small",
+        			position : "left",
+        			active   : true
+        		},
+        		{
+        			id       : "one",
+        			mode     : "card",
+        			size     : "medium",
+        			position : "middle",
+        			active   : true
+        		},
+        		{
+        			id       : "two",
+        			mode     : "card",
+        			size     : "medium",
+        			position : "none",
+        			active   : false
+        		},
+        		{
+        			id       : "three",
+        			mode     : "card",
+        			size     : "medium",
+        			position : "none",
+        			active   : false
+        		},
+        		{
+        			id       : "four",
+        			mode     : "modal",
+        			size     : "medium",
+        			position : "none",
+        			active   : false
+        		}
+        	]);
+
+
+
+
+      //   UI.panels($panelsApp, {
+      //   	core : {
+      //   		mode : "flush"
+      //   	},
+      //   	panels : {
+      //   		all    : ["appModal","appStage"],
+      //   		active : [
+						// 	{
+						// 		id       : "appStage",
+						// 		position : "left",
+						// 		size     : "large"
+						// 	}
+						// ]
+      //   	}
+      //   });
 
 		$("[data-js-handler~='filter__details-table']").on("click", function() {
 			if ($(window).width() < 1200) {
@@ -152,6 +207,7 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
 
 
 
@@ -159,8 +215,11 @@ $(document).ready(function() {
 
 
 
+        $('[data-js-target~="init_toggler"]').each(function() {
+			UI.toggler($(this));
+        });
 
-
+        var nav = UI.nav($("[data-js-target~='init__nav']"));
 
 
 

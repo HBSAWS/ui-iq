@@ -1,0 +1,80 @@
+	// MODULE START
+	// base structural values that remain the same always
+	[class^="button_"] { 
+		position    : relative;
+		z-index     : 1;
+		display     : inline-block;
+		outline     : none;
+		cursor      : pointer;
+		border      : 0px;
+		@include prefix(border-radius, 5px);
+
+		font-family : lato; 
+		font-weight : 300; 
+
+		&[class$="_transparent"] {
+			background : transparent;
+			color      : #fff;
+		}
+	}
+		[class^="button-icon_"] {
+			position : absolute;
+			&:before {
+				font-family : "hbs-modern";
+				display     : inline-block;
+			}
+		}
+		[class^="button-content_"] {
+			position : relative;
+			display  : inline-block;
+			margin   : 0px;
+		}
+
+
+
+
+
+
+	[class^="button_"] {
+		&[data-ui-core~="size__small"] {
+			padding : 9px;
+			&[data-ui-addon~="icon__left"] {
+				padding-left : 25px; 
+			}
+			&[data-ui-addon~="icon__right"] {
+				padding-right : 25px; 
+
+			}
+		}
+		&[data-ui-core~="size__large"] {
+			padding : 10px 17px;
+			&[data-ui-addon~="icon__left"] {
+				padding-left  : 30px; 
+			}
+			&[data-ui-addon~="icon__right"] {
+				padding-right : 30px; 
+			}
+		}
+	}
+		[class^="button-icon_"] {
+			&[data-ui-core~="size__small"] {
+				font-size   : 0.85rem;
+				line-height : 0.85rem;
+				&[data-ui-addon~="icon__left"] {
+					left  : 13px;
+				}
+				&[data-ui-addon~="icon__right"] {
+					right : 13px;
+				}
+			}
+			&[data-ui-core~="size__large"] {
+				font-size   : 0.85rem;
+				line-height : 0.85rem;
+				&[data-ui-addon~="icon__left"] {
+					left  : 13px;
+				}
+				&[data-ui-addon~="icon__right"] {
+					right : 13px;
+				}
+			}
+		}

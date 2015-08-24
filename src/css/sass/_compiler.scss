@@ -4,6 +4,8 @@
 @import "_base";
 
 // modules
+@import "module_templates/button_template";
+@import "module_templates/field_template";
 @import "module_templates/layout_template";
 @import "module_templates/nav_template";
 @import "module_templates/panel_template";

@@ -10,70 +10,103 @@
 		position       : relative;
 		box-sizing     : border-box;
 		position       : absolute;
-		float          : left;
 		display        : none;
 		// because we're animating these guys a lot, we to prompt hardware acceleration, but more importantly a new rendering layer is created
 		// which means we're not having to repaint all elements that these panels animate over
 		@include prefix(transform, translate3d(0,0,0));
-		@include prefix(transition, all .1s ease-out);
 		&[class$="_default"] {
 			background : #eee;
 		}
 		&[class$="_modal"] {
+			z-index    : 2; 
 			background : #fff;
 		}
-		&[class$="_card"] { 
-			background : #eee;
+
+		&[data-ui-core~="mode__flush"] {
+
+		}
+		&[data-ui-core~="mode__card"] {
+			padding : 30px 12px 15px 12px;
+			&:nth-child(1) {
+				padding : 30px 12px 15px 30px;
+			}
+			&:nth-last-child(1) {
+				padding : 30px 30px 15px 12px !important;
+			}
+		}
+		&[data-ui-core~="mode__modal"] {
+
+		}
+		&[data-ui-core~="mode__side"] {
+
 		}
 
-		&[data-ui-core~="mode__split"] {
-			&[data-ui-state~="is__active"]:nth-child(1),&[data-ui-state~="was__active"]:nth-child(1) {
-				display : block;
-				top     : 0px;
-				left    : 0px;
-				@include gridle_state(mobile) {
-					width   : 100%;
-					padding : 30px 30px 15px 30px;
-				}
-				@include gridle_state(tablet) {
-					padding : 30px 12px 15px 30px;
-				}
-				&[data-ui-state~="is__secondary"] {
-					@include gridle(4,tablet);
-				}
-				&[data-ui-state~="is__primary"] {
-					@include gridle(8,tablet);
-				}
-			}
-			&[data-ui-state~="is__active"]:nth-child(2),&[data-ui-state~="was__active"]:nth-child(2) {
-				display : block;
-				top     : 0px;
-				right   : 0px;
-				&[data-ui-state~="is__secondary"] {
-					@include gridle_state(mobile) {
-						width   : 100%;
-						right   : -100%;
-						padding : 30px 30px 15px 30px;
+
+
+		@for $i from 0 through 12 {
+			@if $i > 1 {
+				@if $i == 4 {
+					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__small"] {
+						width : gridle_get_column_width( $i );
+					}		
+					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__middle"] {
+						left : gridle_get_column_width( $i );
+					}				
+				} @else if $i == 8 {
+					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__medium"] {
+						width : gridle_get_column_width( $i );
+					}	
+					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__right"] {
+						left : gridle_get_column_width( $i );
 					}
-					@include gridle_state(tablet) {
-						right : 0px;
+				} @else if $i == 12 {
+					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__large"] {
+						width : gridle_get_column_width( $i );
+					}	
+				} @else {					
+					&[data-ui-core~="size__#{$i}"] {
+						width : gridle_get_column_width( $i );
 					}
-					@include gridle(4,tablet);
+					&[data-ui-core~="position__#{$i}"] {
+						left : gridle_get_column_width( $i );
+					}
 				}
-				&[data-ui-state~="is__primary"] {
-					@include gridle_state(mobile) {
-						width : 100%;
-						right : -100%;
-						padding : 30px 30px 15px 30px;
-					}
-					@include gridle_state(tablet) {
-						right   : 0px;
-						padding : 30px 30px 15px 12px;
-					}
-					@include gridle(8,tablet);
-				}
+			} @else {
+				&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__left"] {
+					left : #{$i} + px;
+				}				
 			}
 		}
+
+
+
+
+
+		&[data-ui-state~="is__active"] {
+			display : block;
+			height  : 100%;
+			top     : 0px;
+		}
+		&[data-ui-state~="is__size-small"] {
+			@include gridle(4);
+		}
+		&[data-ui-state~="is__size-medium"] {
+			@include gridle(8);
+		}
+		&[data-ui-state~="is__size-large"] {
+			@include gridle(12);
+		}
+
+		&[data-ui-state~="is__position-left"] {
+			left : 0px;
+		}
+		&[data-ui-state~="is__position-middle"] {
+			left : $gridle__4;
+		}
+		&[data-ui-state~="is__position-right"] {
+			left : $gridle__8;
+		}
+
 		&[data-ui-core~="mode__full"] {
 			&[data-ui-state~="is__active"],&[data-ui-state~="is__active"]:nth-child(1),&[data-ui-state~="was__active"]:nth-child(1) {
 				display : block;
@@ -89,102 +122,168 @@
 
 
 // START OF SWAP STATES
-		&[data-ui-state~="swap__out-top"] {
-			right            : auto;
+		%swap__out-top {
 			left             : 0px;
-			top              : -120% !important;
+			top              : -120%;
 			transform-origin : bottom;
-			@include prefix(transform, rotateX(15deg) translateZ(-100px));
-			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+			@include prefix(transform, rotateX(15deg) scale(0.8));
 			[class^="panels-panel-content-fader_"] {
 				visibility : visible;  
 				background : rgba(0,0,0,0.5);
-				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
 			}
 		}
-		&[data-ui-state~="swap__in-top"] {
-			right            : auto;
+		%swap__in-top {
 			left             : 0px;
-			top              : 0px !important;
+			top              : 0px;
 			transform-origin : bottom;
-			@include prefix(transform, rotateX(0deg) translateZ(0px));
-			@include prefix(transition, "transform 0.23s ease-out 0.46s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+			@include prefix(transform, rotateX(0deg) scale(1));
 			[class^="panels-panel-content-fader_"] {
 				visibility : hidden;  
 				background : rgba(0,0,0,0.0);
+			}
+		}
+
+		&[data-ui-state~="swap__out-top"] {
+			@extend %swap__out-top;
+		}
+		&[data-ui-animate~="swap__out-top"] {
+			@extend %swap__out-top;
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+			[class^="panels-panel-content-fader_"] {
+				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			}
+		}
+
+		&[data-ui-state~="swap__in-top"] {
+			@extend %swap__in-top;
+		}
+		&[data-ui-animate~="swap__in-top"] {
+			@extend %swap__in-top;
+			@include prefix(transition, "transform 0.23s ease-out 0.46s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 			}
 		}
 
-		&[data-ui-state~="swap__out-bottom"] {
-			right            : auto;
+
+		%swap__out-bottom {
 			left             : 0px;
-			top              : 120% !important;
+			top              : 120%;
 			transform-origin : top;
-			@include prefix(transform, rotateX(-15deg) translateZ(-100px));
-			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+			@include prefix(transform, rotateX(-15deg) scale(0.8));
 			[class^="panels-panel-content-fader_"] {
 				visibility : visible;  
 				background : rgba(0,0,0,0.5);
+			}
+		}
+		%swap__in-bottom {
+			left             : 0px;
+			top              : 0px;
+			transform-origin : top;
+			@include prefix(transform, rotateX(0deg) scale(1));
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+			}
+		}
+		&[data-ui-state~="swap__out-bottom"] {
+			@extend %swap__out-bottom;
+		}
+		&[data-ui-animate~="swap__out-bottom"] {
+			@extend %swap__out-bottom;
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
 			}
 		}
 		&[data-ui-state~="swap__in-bottom"] {
-			right            : auto;
-			left             : 0px;
-			top              : 0px !important;
-			transform-origin : top;
-			@include prefix(transform, rotateX(0deg) translateZ(0px));
+			@extend %swap__in-bottom;
+		}
+		&[data-ui-animate~="swap__in-bottom"] {
+			@extend %swap__in-bottom;
 			@include prefix(transition, "transform 0.23s ease-out 0.46s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
 			[class^="panels-panel-content-fader_"] {
-				visibility : hidden;  
-				background : rgba(0,0,0,0.0);
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 			}
 		}
 
-		&[data-ui-state~="swap__out-left"] {
-			left             : -120% !important;
+
+		%swap__out-left {
+			left             : -120%;
 			transform-origin : right;
-			@include prefix(transform, rotateY(-15deg) translateZ(-100px));
-			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
+			@include prefix(transform, rotateY(-15deg) scale(0.8));
 			[class^="panels-panel-content-fader_"] {
 				visibility : visible;  
 				background : rgba(0,0,0,0.5);
+			}
+		}
+		%swap__in-left {
+			left             : 0px;
+			transform-origin : right;
+			@include prefix(transform, rotateY(0deg) scale(1));
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+			}
+		}
+		&[data-ui-state~="swap__out-left"] {
+			@extend %swap__out-left;
+		}
+		&[data-ui-animate~="swap__out-left"] {
+			@extend %swap__out-left;
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
+			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
 			}
 		}
+
 		&[data-ui-state~="swap__in-left"] {
-			left             : 0px !important;
-			transform-origin : right;
-			@include prefix(transform, rotateY(0deg) translateZ(0px));
+			@extend %swap__in-left;
+		}
+		&[data-ui-animate~="swap__in-left"] {
+			@extend %swap__in-left;
 			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
 			[class^="panels-panel-content-fader_"] {
-				visibility : hidden;  
-				background : rgba(0,0,0,0.0);
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 			}
 		}
 
-		&[data-ui-state~="swap__out-right"] {
+
+		%swap__out-right {
 			left             : 120% !important;
 			transform-origin : right;
-			@include prefix(transform, rotateY(15deg) translateZ(-100px));
-			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
+			@include prefix(transform, rotateY(15deg) scale(0.8));
 			[class^="panels-panel-content-fader_"] {
 				visibility : visible;  
 				background : rgba(0,0,0,0.5);
+			}
+		}
+		%swap__in-right {
+			left             : 0px !important;
+			transform-origin : left;
+			@include prefix(transform, rotateY(0deg) scale(1));
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+			}
+		}
+		&[data-ui-state~="swap__out-right"] {
+			@extend %swap__out-right;
+		}
+		&[data-ui-animate~="swap__out-right"] {
+			@extend %swap__out-right;
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
+			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
 			}
 		}
 		&[data-ui-state~="swap__in-right"] {
-			left             : 0px !important;
-			transform-origin : left;
-			@include prefix(transform, rotateY(0deg) translateZ(0px));
+			@extend %swap__in-right;
+		}
+		&[data-ui-animate~="swap__in-right"] {
+			@extend %swap__in-right;
 			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
 			[class^="panels-panel-content-fader_"] {
-				visibility : hidden;  
-				background : rgba(0,0,0,0.0);
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 			}
 		}
