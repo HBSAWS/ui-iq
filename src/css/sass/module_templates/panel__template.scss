@@ -26,38 +26,61 @@
 
 		}
 		&[data-ui-core~="mode__card"] {
-			padding : 30px 12px 15px 12px;
-			&:nth-child(1) {
-				padding : 30px 12px 15px 30px;
+			@include gridle_state(mobile) {
+				padding : 0px;
 			}
-			&:nth-last-child(1) {
-				padding : 30px 30px 15px 12px !important;
+			@include gridle_state(phablet) {
+				padding : 30px 12px 15px 12px;
+				&:nth-child(1) {
+					padding : 30px 12px 15px 30px;
+				}
+				&:nth-last-child(1) {
+					padding : 30px 30px 15px 12px !important;
+				}
 			}
 		}
 		&[data-ui-core~="mode__modal"] {
-
+			height     : 85%;
+			margin-top : 5%;
+			@include prefix(box-shadow, 0 0 25px 0 rgba(0,0,0,0.2));
 		}
 		&[data-ui-core~="mode__side"] {
 
 		}
 
 
-
+		&[data-ui-core~="position__-1"] {
+			left : 120%;
+		}
 		@for $i from 0 through 12 {
 			@if $i > 1 {
 				@if $i == 4 {
 					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__small"] {
 						width : gridle_get_column_width( $i );
 					}		
-					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__middle"] {
+					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__middle"],&[data-ui-state~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
-					}				
+					}			
+					&[data-ui-animate~="slide-to__grid-#{$i}"] {
+						left : gridle_get_column_width( $i );
+						@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
+						[class^="panels-panel-content-fader_"] {
+							@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+						}
+					}	
 				} @else if $i == 8 {
 					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__medium"] {
 						width : gridle_get_column_width( $i );
 					}	
-					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__right"] {
+					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__right"],&[data-ui-state~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
+					}
+					&[data-ui-animate~="slide-to__grid-#{$i}"] {
+						left : gridle_get_column_width( $i );
+						@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
+						[class^="panels-panel-content-fader_"] {
+							@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+						}
 					}
 				} @else if $i == 12 {
 					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__large"] {
@@ -67,14 +90,27 @@
 					&[data-ui-core~="size__#{$i}"] {
 						width : gridle_get_column_width( $i );
 					}
-					&[data-ui-core~="position__#{$i}"] {
+					&[data-ui-core~="position__#{$i}"],&[data-ui-state~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
+					}
+					&[data-ui-animate~="slide-to__grid-#{$i}"] {
+						left : gridle_get_column_width( $i );
+						@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
+						[class^="panels-panel-content-fader_"] {
+							@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+						}
 					}
 				}
 			} @else {
-				&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__left"] {
-					left : #{$i} + px;
+				&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__left"],&[data-ui-state~="slide-to__grid-#{$i}"],&[data-ui-animate~="slide-to__grid-#{$i}"] {
+					left : #{$i}px;
 				}				
+				&[data-ui-animate~="slide-to__grid-#{$i}"] {
+					@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
+					[class^="panels-panel-content-fader_"] {
+						@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+					}
+				}
 			}
 		}
 
@@ -119,10 +155,41 @@
 
 
 
+		&[data-ui-animate~="scale__forward"] {
+			@include prefix(transform, scale(1));
+			[class^="panels-panel-content-fader_"] {
+				visibility : hidden;  
+				background : rgba(0,0,0,0.0);
+			}
+			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+			[class^="panels-panel-content-fader_"] {
+				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+			}
+		}
+
+		&[data-ui-animate~="scale__back"] {
+			@include prefix(transform, scale(0.8));
+			[class^="panels-panel-content-fader_"] {
+				visibility : visible;  
+				background : rgba(0,0,0,0.5);
+			}
+			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
+			[class^="panels-panel-content-fader_"] {
+				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			}
+		}
+
+
+
+
+
+
+
+
 
 
 // START OF SWAP STATES
-		%swap__out-top {
+		@mixin swap__out-top {
 			left             : 0px;
 			top              : -120%;
 			transform-origin : bottom;
@@ -132,7 +199,7 @@
 				background : rgba(0,0,0,0.5);
 			}
 		}
-		%swap__in-top {
+		@mixin swap__in-top {
 			left             : 0px;
 			top              : 0px;
 			transform-origin : bottom;
@@ -144,10 +211,10 @@
 		}
 
 		&[data-ui-state~="swap__out-top"] {
-			@extend %swap__out-top;
+			@include swap__out-top;
 		}
 		&[data-ui-animate~="swap__out-top"] {
-			@extend %swap__out-top;
+			@include swap__out-top;
 			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
@@ -155,10 +222,10 @@
 		}
 
 		&[data-ui-state~="swap__in-top"] {
-			@extend %swap__in-top;
+			@include swap__in-top;
 		}
 		&[data-ui-animate~="swap__in-top"] {
-			@extend %swap__in-top;
+			@include swap__in-top;
 			@include prefix(transition, "transform 0.23s ease-out 0.46s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
@@ -166,7 +233,7 @@
 		}
 
 
-		%swap__out-bottom {
+		@mixin swap__out-bottom {
 			left             : 0px;
 			top              : 120%;
 			transform-origin : top;
@@ -176,7 +243,7 @@
 				background : rgba(0,0,0,0.5);
 			}
 		}
-		%swap__in-bottom {
+		@mixin swap__in-bottom {
 			left             : 0px;
 			top              : 0px;
 			transform-origin : top;
@@ -187,20 +254,20 @@
 			}
 		}
 		&[data-ui-state~="swap__out-bottom"] {
-			@extend %swap__out-bottom;
+			@include swap__out-bottom;
 		}
 		&[data-ui-animate~="swap__out-bottom"] {
-			@extend %swap__out-bottom;
+			@include swap__out-bottom;
 			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
 			}
 		}
 		&[data-ui-state~="swap__in-bottom"] {
-			@extend %swap__in-bottom;
+			@include swap__in-bottom;
 		}
 		&[data-ui-animate~="swap__in-bottom"] {
-			@extend %swap__in-bottom;
+			@include swap__in-bottom;
 			@include prefix(transition, "transform 0.23s ease-out 0.46s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
@@ -208,7 +275,7 @@
 		}
 
 
-		%swap__out-left {
+		@mixin swap__out-left {
 			left             : -120%;
 			transform-origin : right;
 			@include prefix(transform, rotateY(-15deg) scale(0.8));
@@ -217,7 +284,7 @@
 				background : rgba(0,0,0,0.5);
 			}
 		}
-		%swap__in-left {
+		@mixin swap__in-left {
 			left             : 0px;
 			transform-origin : right;
 			@include prefix(transform, rotateY(0deg) scale(1));
@@ -227,10 +294,10 @@
 			}
 		}
 		&[data-ui-state~="swap__out-left"] {
-			@extend %swap__out-left;
+			@include swap__out-left;
 		}
 		&[data-ui-animate~="swap__out-left"] {
-			@extend %swap__out-left;
+			@include swap__out-left;
 			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
@@ -238,10 +305,10 @@
 		}
 
 		&[data-ui-state~="swap__in-left"] {
-			@extend %swap__in-left;
+			@include swap__in-left;
 		}
 		&[data-ui-animate~="swap__in-left"] {
-			@extend %swap__in-left;
+			@include swap__in-left;
 			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
@@ -249,8 +316,8 @@
 		}
 
 
-		%swap__out-right {
-			left             : 120% !important;
+		@mixin swap__out-right {
+			left             : 120%;
 			transform-origin : right;
 			@include prefix(transform, rotateY(15deg) scale(0.8));
 			[class^="panels-panel-content-fader_"] {
@@ -258,8 +325,8 @@
 				background : rgba(0,0,0,0.5);
 			}
 		}
-		%swap__in-right {
-			left             : 0px !important;
+		@mixin swap__in-right {
+			left             : 0px;
 			transform-origin : left;
 			@include prefix(transform, rotateY(0deg) scale(1));
 			[class^="panels-panel-content-fader_"] {
@@ -268,20 +335,20 @@
 			}
 		}
 		&[data-ui-state~="swap__out-right"] {
-			@extend %swap__out-right;
+			@include swap__out-right;
 		}
 		&[data-ui-animate~="swap__out-right"] {
-			@extend %swap__out-right;
+			@include swap__out-right;
 			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
 			}
 		}
 		&[data-ui-state~="swap__in-right"] {
-			@extend %swap__in-right;
+			@include swap__in-right;
 		}
 		&[data-ui-animate~="swap__in-right"] {
-			@extend %swap__in-right;
+			@include swap__in-right;
 			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
 			[class^="panels-panel-content-fader_"] {
 				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
@@ -327,8 +394,13 @@
 			&[class$="_default"] {
 				height : 100%;
 			}
+			&[class$="_light"] {
+				height : 100%;
+				width  : 100%;
+				background : white;
+			}
 			&[class$="_card"] {
-	            padding            : 15px 0px;
+	            padding            : 30px 0px;
 				background         : white;
 				-webkit-box-shadow : 0 0 8px 0 rgba(0,0,0,0.09);
 				box-shadow         : 0 0 8px 0 rgba(0,0,0,0.09);  
@@ -347,7 +419,7 @@
 			}
 			[class^="panels-panel-content-header_"] {
 				display   : table;
-				padding   : 0px 32px;
+				padding   : 0px 50px;
 				font-size : 21px;
 				font-size : 1.32rem;
 			}
@@ -364,5 +436,15 @@
 					> div {
 						display      : table-cell;
 						padding-left : 5px;
+					}
+				}
+				[class^="panels-panel-content-header-search_"] {
+					@include gridle_state(mobile) {
+						width   : 100%;
+						padding : 16px 32px 0px 32px;
+					}
+					@include gridle_state(tablet) {
+						width   : 100%;
+						padding : 10px 50px 0px 50px;
 					}
 				}

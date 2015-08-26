@@ -5,11 +5,12 @@
 	&.bt {
 		.table-body-row-cell {
             @include gridle_state(mobile) {
+            	padding : 7px 50px;
                 &:nth-child(1) {
-                	padding-top : 20px;
+                	padding-top : 30px;
                 }
                 &:nth-last-child(1) {
-                	padding-bottom : 20px;
+                	padding-bottom : 30px;
                 }
             }			
 		}
@@ -26,16 +27,17 @@
 	.table-head {}
 		.table-head-row {}
 			.table-head-row-header {
-				padding     : 9px 32px;
-				font-size   : 14px;
-				font-size   : 0.9rem;
-				font-weight : 400;
-				text-align  : left;
+				padding       : 9px 50px 20px 50px;
+				font-size     : 14px;
+				font-size     : 1.1rem;
+				font-weight   : 400;
+				text-align    : left;
+				border-bottom : 1px solid #f2f2f2;
 				&.sort {
 					&:before {
 						position    : relative;
-						top         : -1px;
-						margin      : 0px 5px 0px 0px;
+						top         : -2px;
+						margin      : 0px 8px 0px 0px;
 						content     : "\e813";
 						font-family : "hbs-modern";   
 						font-size   : 10px;
@@ -66,9 +68,9 @@
 			color       : #ffffff;
 		}
 			.table-body-row-cell {
-				padding     : 9px 32px;
+				padding     : 11px 50px;;
 				font-size   : 12px;
-				font-size   : 0.79rem;
+				font-size   : 0.9rem;
 				font-weight : 300;
                 @include prefix(text-stroke-width, 0.15px);
 			}

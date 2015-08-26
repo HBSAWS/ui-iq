@@ -4,6 +4,34 @@ $(document).ready(function() {
 	var recordsTable = '';
 	var detailsTable = '';
 
+
+	var fileOptionsPopover = '' +
+		'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-xs" class="layout">' +
+		    '<div id="file_options" data-ui-core="mode__segmentcontrol size__small" data-ui-grid="mobile__6" data-js-target="init_toggler" class="toggler_bold" data-ui-state="is__checked">' +
+		        '<input data-ui-core="mode__segmentcontrol size__small" type="radio" name="file-options__nav" value="settings" class="toggler-input_bold" data-ui-state="is__checked" checked>' +
+		        '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle_bold" data-ui-state="is__checked">' +
+		            '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle-indicator_bold" data-ui-state="is__checked">Settings</div>' +
+		        '</div>' +
+		    '</div>' +
+		    '<div id="file_stats" data-ui-core="mode__segmentcontrol size__small" data-ui-grid="mobile__6" data-js-target="init_toggler" class="toggler_bold" data-ui-state="">' +
+		        '<input data-ui-core="mode__segmentcontrol size__small" type="radio" name="file-options__nav" value="stats" class="toggler-input_bold" data-ui-state="">' +
+		        '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle_bold" data-ui-state="">' +
+		            '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle-indicator_bold" data-ui-state="">Stats</div>' +
+		        '</div>' +
+		    '</div>' +
+		'</div>';
+	var $fileOptionsPopover = $(fileOptionsPopover);
+	UI.toggler($fileOptionsPopover.find("#file_settings"));
+	UI.toggler($fileOptionsPopover.find("#file_stats"));
+	$('[data-js-target~="file-options__toggle"]').webuiPopover({title:'File Summary',content:$fileOptionsPopover});
+
+
+
+
+
+
+
+
 	$.get( "/api", function( data ) {
 		var recordsLength = data.length;
 		var listOptions;
@@ -96,12 +124,6 @@ $(document).ready(function() {
 		});
 
 
-
-
-
-
-
-
         $('[data-js-handler~="filter__details-table"]').on("click", function() {
         	var $this = $(this);
 
@@ -111,99 +133,162 @@ $(document).ready(function() {
 
 
 
+	
 
 
 
-      //   var $panelsFiles = $('[data-js-target~="file_panels"]');
-      //   UI.panels($panelsFiles, {
-      //   	core   : {
-      //   		mode : "cards"
-      //   	},
-      //   	panels : {
-      //   		all    : ["zero","one","two","three","four"],
-      //   		active : [
-						// 	{
-						// 		id       : "zero",
-						// 		position : "left",
-						// 		size     : "small"
-						// 	},
-						// 	{
-						// 		id       : "one",
-						// 		position : "middle",
-						// 		size     : "medium"
-						// 	}
-						// ]
-      //   	}
-      //   });
-        
-        var $panelsApp = $('[data-js-target~="app_panels"]');
-        UI.panels($panelsApp, [
+
+
+
+
+
+        var $filePanels = $('#users');
+        UI.panels($filePanels, [
+    		{
+    			id       : "zero",
+    			mode     : "card",
+    			size     : 4,
+    			position : 0,
+    			active   : true
+    		},
+    		{
+    			id       : "one",
+    			mode     : "card",
+    			size     : 8,
+    			position : 4,
+    			active   : true
+    		},
+    		{
+    			id       : "two",
+    			mode     : "card",
+    			size     : "medium",
+    			position : -1,
+    			active   : false
+    		},
+    		{
+    			id       : "three",
+    			mode     : "card",
+    			size     : 8,
+    			position : -1,
+    			active   : false
+    		},
+    		{
+    			id       : "four",
+    			mode     : "modal",
+    			size     : 8,
+    			position : -1,
+    			active   : false
+    		}
+    	]);
+		var responsiveFilePanels = function() {
+			var switchedToMobile = false;
+			var windowWidth      = $(window).width();
+			var filePanels = $('#users').data("UI");
+
+			if (windowWidth <= 950) {
+				switchedToMobile = true;
+
+				filePanels.panel("zero",{
+					id       : "zero",
+					mode     : "card",
+					size     : 12,
+					position : 0,
+					active   : true
+				});
+				filePanels.panel("one",{
+					id       : "one",
+					mode     : "card",
+					size     : 12,
+					position : -1,
+					active   : false
+				});
+			} else if ( windowWidth > 950 && windowWidth <= 1200 ) {
+				switchedToMobile = false;
+
+				filePanels.panel("zero",{
+					id       : "zero",
+					mode     : "card",
+					size     : 5,
+					position : 0,
+					active   : true
+				});
+				filePanels.panel("one",{
+					id       : "one",
+					mode     : "card",
+					size     : 7,
+					position : 5,
+					active   : true
+				});
+			} else if ( windowWidth > 1200 ) {
+				switchedToMobile = false;
+
+				filePanels.panel("zero",{
+					id       : "zero",
+					mode     : "card",
+					size     : 4,
+					position : 0,
+					active   : true
+				});
+				filePanels.panel("one",{
+					id       : "one",
+					mode     : "card",
+					size     : 8,
+					position : 4,
+					active   : true
+				});
+			}
+		};
+		responsiveFilePanels();
+		$(window).on("resize", function() {
+			responsiveFilePanels();
+		});
+
+		var $panelsApp = $("[data-js-target~='app_panels']");
+		UI.panels($panelsApp, [
         		{
-        			id       : "zero",
-        			mode     : "card",
-        			size     : "small",
-        			position : "left",
-        			active   : true
-        		},
-        		{
-        			id       : "one",
-        			mode     : "card",
-        			size     : "medium",
-        			position : "middle",
-        			active   : true
-        		},
-        		{
-        			id       : "two",
-        			mode     : "card",
-        			size     : "medium",
-        			position : "none",
-        			active   : false
-        		},
-        		{
-        			id       : "three",
-        			mode     : "card",
-        			size     : "medium",
-        			position : "none",
-        			active   : false
-        		},
-        		{
-        			id       : "four",
+        			id       : "appModal",
         			mode     : "modal",
-        			size     : "medium",
-        			position : "none",
+        			size     : 8,
+        			position : 2,
         			active   : false
+        		},
+        		{
+        			id       : "appStage",
+        			mode     : "flush",
+        			size     : 12,
+        			position : 0,
+        			active   : true
         		}
-        	]);
+		]);
 
-
-
-
-      //   UI.panels($panelsApp, {
-      //   	core : {
-      //   		mode : "flush"
-      //   	},
-      //   	panels : {
-      //   		all    : ["appModal","appStage"],
-      //   		active : [
-						// 	{
-						// 		id       : "appStage",
-						// 		position : "left",
-						// 		size     : "large"
-						// 	}
-						// ]
-      //   	}
-      //   });
+		var $panelsSkeleton = $("[data-js-target~='global_panels']");
+		UI.panels($panelsSkeleton, [
+        		{
+        			id       : "appsGrid",
+        			mode     : "flush",
+        			size     : 12,
+        			position : -1,
+        			active   : false
+        		},
+        		{
+        			id       : "skeletonStage",
+        			mode     : "flush",
+        			size     : 12,
+        			position : 0,
+        			active   : true
+        		}
+		]);
 
 		$("[data-js-handler~='filter__details-table']").on("click", function() {
-			if ($(window).width() < 1200) {
-				var panelsFiles = $panelsFiles.data("UI");
-				panelsFiles.switchPanels("one","swap","right");
+			if ($(window).width() < 950) {
+				var panelsFiles = $('[data-js-target~="file_panels"]').data("UI");
+				panelsFiles.swap("zero","one",true,"right");
 			}
 		});
 		$("[data-js-target~='back_toRecords']").on("click", function() {
-			if ($(window).width() < 1200) {
-				var panelsFiles = $panelsFiles.data("UI");
-				panelsFiles.switchPanels("zero","swap","right");
+			if ($(window).width() < 950) {
+				var panelsFiles = $('[data-js-target~="file_panels"]').data("UI");
+				panelsFiles.swap("one","zero",true,"right");
 			}
 		});
 	});
@@ -214,12 +299,11 @@ $(document).ready(function() {
 
 
 
+    $('[data-js-target~="init_toggler"]').each(function() {
+		UI.toggler($(this));
+    });
 
-        $('[data-js-target~="init_toggler"]').each(function() {
-			UI.toggler($(this));
-        });
-
-        var nav = UI.nav($("[data-js-target~='init__nav']"));
+    var nav = UI.cuboid($("[data-js-target~='init__cuboid']"));
 
 
 

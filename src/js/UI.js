@@ -136,76 +136,116 @@ UI_panels.prototype.initialize_module = function(settings) {
 	}
 };
 
-UI_panels.prototype.panel = function(id,panelSettings) {
-	var $panel = $("#" + id);
-	var core   = "mode__" + panelSettings.mode + " size__" + panelSettings.size + " position__" + panelSettings.position;
-	var state  = (panelSettings.active === true) ? "is__active" : "";
+UI_panels.prototype.showModal = function(id,side) {
+	var active       = this.active;
+	var activeLength = active.length;
 
-	$panel
-		.attr("data-ui-core", core)
-		.attr("data-ui-state", state);
-}; 
+	for (var i = 0;i < active.length;i++) {
+		$("#" + active[i]).attr("data-ui-animate", "scale__back");
+	}
+	$("#" + id)
+		.attr("data-ui-state", "is__active swap__in-" + side)
+		.css("height");
+	$("#" + id).attr("data-ui-animate", "swap__in-" + side);
+};
+
+UI_panels.prototype.hideModal = function(id,side) {
+	var active       = this.active;
+	var activeLength = active.length;
+
+	for (var i = 0;i < active.length;i++) {
+		$("#" + active[i]).attr("data-ui-animate", "scale__forward");
+	}
+	$("#" + id)
+		.attr("data-ui-state", "is__active swap__out-" + side)
+		.css("height");
+	$("#" + id).attr("data-ui-animate", "swap__out-" + side);
+};
 
 UI_panels.prototype.getPanelIndex = function(panelID) {
 	return this.panelIndex.indexOf(panelID);
 };
 
-UI_panels.prototype.swap = function(panelOneID,panelTwoID,toAnimate,side) {
-	var panels   = this.panels;
-	var active   = this.active;
-	var panelOne = panels[this.getPanelIndex(panelOneID)];
-	var panelTwo = panels[this.getPanelIndex(panelTwoID)];
+UI_panels.prototype.panel = function(id,panelSettings) {
+	var $panel = $("#" + id);
+	var core    = "mode__" + panelSettings.mode + " size__" + panelSettings.size + " position__" + panelSettings.position;
+	var state   = (panelSettings.active === true) ? "is__active" : "";
 
-	//if ( panelOne.active && panelTwo.active) {
+	$panel
+		.attr("data-ui-animate","")
+		.attr("data-ui-core", core)
+		.attr("data-ui-state", state);
+
+	if ( panelSettings.active && this.active.indexOf(id) < 0 ) {
+		this.active.push(id);
+	} else if ( !panelSettings.active && this.active.indexOf(id) > -1 ) {
+		var index = this.active.indexOf(id);
+		this.active.splice(index,1);
+	}		
+	$.extend(this.panels[this.getPanelIndex(id)],panelSettings);
+}; 
+
+UI_panels.prototype.swap = function(panelOneID,panelTwoID,toAnimate,side) {
+	var panels        = this.panels;
+	var active        = this.active;
+	var panelOneIndex = this.getPanelIndex(panelOneID);
+	var panelTwoIndex = this.getPanelIndex(panelTwoID);
+	var panelOne      = panels[panelOneIndex];
+	var panelTwo      = panels[panelTwoIndex];
+	var $panelOne     = $("#" + panelOneID);
+	var $panelTwo     = $("#" + panelTwoID);
+
+	if ( panelOne.active && panelTwo.active && active.length == 0) {
+		// BOTH PANELS ARE ACTIVE
 		// both panels are currently active we ignore the side and simple switch properties
+		var panelOneState,panelTwoState;
+		if ( panelOne.position > panelTwo.position ) {
+			// we are going to have to move panel one left and panel two right
+		} else {
+			// we are going to have to move panel one right and panel two left
+		}
+		// add data attributes here
+
+		$panelOne.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+			console.log(e);
+		});		
+		
+		// we have to update the active array for both panels
+		active[active.indexOf(panelOneID)] = panelTwoID;
+		active[active.indexOf(panelTwoID)] = panelOneID;
+	} else {
+		// ONE PANEL IS INACTIVE
+		active[active.indexOf(panelOneID)] = panelTwoID;
+
+
+	}
+
+	if ( !toAnimate ) {
 		this.panel(panelOne.id,panelTwo);
 		this.panel(panelTwo.id,panelOne);
-	//}
+	} else {
+		var swapOut = "swap__out-" + side;
+		var swapIn = "swap__in-" + side;
+
+		$panelOne
+			.attr("data-ui-state", "is__active")
+			.attr("data-ui-animate", swapOut);
+		$panelTwo
+			.attr("data-ui-state", "is__active " + swapIn)
+			.css("height");
+		$panelTwo.attr("data-ui-animate", swapIn);
+	}
+
+
+	// update the panel objects with their new values
+	var panelOneTemp = $.extend({},this.panels[panelOneIndex],panelTwo);
+	panelOneTemp.id = panelOneID;
+
+	$.extend(this.panels[panelTwoIndex],panelOne);
+	this.panels[panelTwoIndex].id = panelTwoID;
+
+	$.extend(this.panels[panelOneIndex],panelOneTemp);
 };
-// UI_panels.prototype.switchPanels = function(panelID,switchType,side) {
-// 	var old_activeOrder,new_activeOrder,old_activeAnimationAttributes,new_activePositionAttributes,new_activeAnimationAttributes;
-// 	var has__secondActivePanel   = ( this.core.mode === "full" ) ? false : true;
-// 	var panels                   = this.panels.panels;
-
-// 	var old__firstActivePanelID  = this.panels.first[0];
-// 	var old__secondActivePanelID = this.panels.second[0];
-// 	var new__firstActivePanelID  = panelID;
-// 	var new__secondActivePanelID = panels[panels.indexOf(panelID)];
-
-// 	// this is determine the order of the old active panel(s) in relation to the new active panel(s)
-// 	if ( panels.indexOf(old__firstActivePanelID) > panels.indexOf(new__firstActivePanelID) ) {
-// 		// if the current first active panel's id has a larger index than the new first active panel's id
-// 		// it means the new panel comes before the current one
-// 		old__activeOrder = "before";
-// 		new__activeOrder = "after";
-// 	} else {
-// 		// if the current first active panel's id has a smaller index than the new one
-// 		// it means the new panel comes after current one
-// 		old__activeOrder = "after";
-// 		new__activeOrder = "before";
-// 	}
-
-
-// 	old__firstActivePanelAnimation  = "was__active " + "is__" + this.panels.first[1] + " " + this[switchType][old__activeOrder] + side;
-// 	old__secondActivePanelAnimation = ( this.core.mode === "full" ) ? "" : "was__active " + "is__" + this.panels.second[1] + " " + this[switchType][old__activeOrder] + side;
-
-// 	new__firstActivePanelPosition   = "is__active " + "is__" + this.panels.first[1] + " " + this[switchType][new__activeOrder] + side;
-// 	new__firstActivePanelAnimation  = "is__active " + "is__" + this.panels.first[1] + " " + this[switchType][new__activeOrder] + side;
-
-// 	new__secondActivePanelPosition  = ( this.core.mode === "full" ) ? "" : "is__active " + "is__" + this.panels.second[1] + " " + this[switchType][new__activeOrder] + side;
-// 	new__secondActivePanelAnimation = ( this.core.mode === "full" ) ? "" : "is__active " + "is__" + this.panels.second[1] + " " + this[switchType][new__activeOrder] + side;
-
-
-// 	$("#" + old__firstActivePanelID).attr("data-ui-state", old__firstActivePanelAnimation);
-// 	$("#" + old__secondActivePanelID).attr("data-ui-state", old__secondActivePanelAnimation);
-
-// 	$("#" + new__firstActivePanelID)
-// 		.attr("data-ui-state", new__firstActivePanelPosition)
-// 		.attr("data-ui-state", new__firstActivePanelAnimation);
-// 	$("#" + new__secondActivePanelID)
-// 		.attr("data-ui-state", new__secondActivePanelPosition)
-// 		.attr("data-ui-state", new__secondActivePanelAnimation);
-// };
 
 
 
@@ -216,10 +256,7 @@ UI_panels.prototype.swap = function(panelOneID,panelTwoID,toAnimate,side) {
 
 
 
-function UI_nav(DOMelement,settings) {
-	this.addons = {
-		rotator : false
-	};
+function UI_cuboid(DOMelement,settings) {
 	this.states = {
 		show__front  : true,
 		show__bottom : false,
@@ -229,11 +266,11 @@ function UI_nav(DOMelement,settings) {
 	_UI.call(this,DOMelement,settings);
 };
 
-UI_nav.prototype = Object.create(_UI.prototype);
-UI_nav.prototype.initialize_module = function(settings) {
+UI_cuboid.prototype = Object.create(_UI.prototype);
+UI_cuboid.prototype.initialize_module = function(settings) {
 	var _self = this;
 };
-UI_nav.prototype.side = function(side) {
+UI_cuboid.prototype.side = function(side) {
 	switch(side) {
 		case "front":
 			this.updateStates({
@@ -279,8 +316,8 @@ UI_nav.prototype.side = function(side) {
 
 
 UI = {
-	nav     : function(DOMelement, settings) {
-		new UI_nav(DOMelement,settings);
+	cuboid   : function(DOMelement, settings) {
+		new UI_cuboid(DOMelement,settings);
 	},
 	panels  : function(DOMelement,settings) {
 		new UI_panels(DOMelement,settings);

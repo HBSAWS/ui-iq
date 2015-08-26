@@ -1,0 +1,155 @@
+$height__large : 60;
+$height__small : 50;
+$halfed__largeHeight : $height__large/2; 
+$halfed__smallHeight : $height__small/2;
+
+// for white menu
+$primarySurface__global  : #fff;
+$secondarySurface__global : #ccc;
+$tertiarySurface__global : #e0e0e0;
+
+// for solid color menu
+$primarySurface__app   : #4cc1bc;
+$secondarySurface__app : darken( $primarySurface__app, 10% );
+$tertiarySurface__app  : darken( $primarySurface__app, 20% );
+
+*[data-ui-state~="adjusted__forNav"] {
+	padding-top : $height__small + px;
+}
+%primarySurface {
+	&[class$="_global"] {
+		background-color : $primarySurface__global;
+	}
+	&[class$="_app"] {
+		background-color : $primarySurface__app;
+	}	
+}
+%secondarySurface {
+	&[class$="_global"] {
+		background-color : $secondarySurface__global;
+	}
+	&[class$="_app"] {
+		background-color : $secondarySurface__app;
+	}	
+}
+%tertiarySurface {
+	&[class$="_global"] {
+		background-color : $tertiarySurface__global;
+	}
+	&[class$="_app"] {
+		background-color : $tertiarySurface__app;
+	}	
+}
+
+
+[class^="cuboid_"] {
+	position    : relative; 
+	width       : 100%;
+	height      : $height__small + px;
+	perspective : 1000px;
+	@include prefix(transform,scale(0.975));
+}
+	[class^="cuboid-faces_"] {
+		position : absolute;
+		width    : 100%;
+		height   : $height__small + px;
+		@include prefix(transform-origin, "center center");
+		@include prefix(transform-style, preserve-3d);
+
+		&[class$="_global"] {}
+		&[class$="_app"] {
+			@include prefix(box-shadow, 0 0 20px 0 rgba(0,0,0,.3));
+		}
+
+		> div {
+			position : absolute;
+			display  : table;
+			width    : 100%;
+			height   : $height__small + px;
+			@include prefix(transition, "background-color 0.5s, transform 0.5s");			
+		}
+		&[data-ui-state~="is__rewinding"] {
+			div {
+    			backface-visibility : hidden;
+			}
+		}	
+
+		&[data-ui-state~="show__front"] {
+			[class^="cuboid-faces-front_"] {
+				@include prefix(transform, rotateX( 0deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+			[class^="cuboid-faces-back_"] {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+			[class^="cuboid-faces-top_"] {
+				@include prefix(transform, rotateX( 90deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %secondarySurface;
+			}
+			[class^="cuboid-faces-bottom_"] {
+				@include prefix(transform, rotateX( -90deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %tertiarySurface;
+			}
+		}	
+
+
+		&[data-ui-state~="show__bottom"] {
+			[class^="cuboid-faces-front_"] {
+				@include prefix(transform, rotateX( 90deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %secondarySurface;
+			}
+			[class^="cuboid-faces-back_"] {
+				@include prefix(transform, rotateX( 270deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %tertiarySurface;
+			}
+			[class^="cuboid-faces-top_"] {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+			[class^="cuboid-faces-bottom_"] {
+				@include prefix(transform, rotateX( 0deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+		}	
+
+
+		&[data-ui-state~="show__back"] {
+			[class^="cuboid-faces-front_"] {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+			[class^="cuboid-faces-back_"] {
+				@include prefix(transform, rotateX( 360deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+			[class^="cuboid-faces-top_"] {
+				@include prefix(transform, rotateX( 270deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %tertiarySurface;
+			}
+			[class^="cuboid-faces-bottom_"] {
+				@include prefix(transform, rotateX( 90deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %secondarySurface;
+			}
+		}
+
+
+		&[data-ui-state~="show__top"] {
+			[class^="cuboid-faces-front_"] {
+				@include prefix(transform, rotateX( 270deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %tertiarySurface;
+			}
+			[class^="cuboid-faces-back_"] {
+				@include prefix(transform, rotateX( 450deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %secondarySurface;
+			}
+			[class^="cuboid-faces-top_"] {
+				@include prefix(transform, rotateX( 360deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+			[class^="cuboid-faces-bottom_"] {
+				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
+				@extend %primarySurface;
+			}
+		}
+	}

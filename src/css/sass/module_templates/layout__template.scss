@@ -83,6 +83,7 @@
         // GRID SYSTEM  -- END
     }
     [class^="layout"] {
+            font-size : 0px;
         // ***************************************************
         // UI-CORE  -- START
         // ***************************************************
@@ -119,35 +120,51 @@
             @each $size in $size-list {
                 @each $breakpoint in $breakpoint-list {
                     &[data-ui-core~="margin__#{$breakpoint}-#{$size}"] {
-                        margin : #{$increment}px;
+                        @include gridle_state(#{$breakpoint}) {
+                            margin : #{$increment}px;
+                        }
                     } 
                     &[data-ui-core~="margin__#{$breakpoint}-horizontal-#{$size}"] {
-                        margin-left  : #{$increment}px;
-                        margin-right : #{$increment}px;
+                        @include gridle_state(#{$breakpoint}) {
+                            margin-left  : #{$increment}px;
+                            margin-right : #{$increment}px;
+                        }
                     } 
                     &[data-ui-core~="margin__#{$breakpoint}-vertical-#{$size}"] {
-                        margin-top    : #{$increment}px;
-                        margin-bottom : #{$increment}px;
+                        @include gridle_state(#{$breakpoint}) {
+                            margin-top    : #{$increment}px;
+                            margin-bottom : #{$increment}px;
+                        }
                     } 
 
                     &[data-ui-core~="padding__#{$breakpoint}-#{$size}"] {
-                        padding : #{$increment}px;
+                        @include gridle_state(#{$breakpoint}) {
+                            padding : #{$increment}px;
+                        }
                     } 
                     &[data-ui-core~="padding__#{$breakpoint}-horizontal-#{$size}"] {
-                        padding-left  : #{$increment}px;
-                        padding-right : #{$increment}px;
+                        @include gridle_state(#{$breakpoint}) {
+                            padding-left  : #{$increment}px;
+                            padding-right : #{$increment}px;
+                        }
                     } 
                     &[data-ui-core~="padding__#{$breakpoint}-vertical-#{$size}"] {
-                        padding-top    : #{$increment}px;
-                        padding-bottom : #{$increment}px;
+                        @include gridle_state(#{$breakpoint}) {
+                            padding-top    : #{$increment}px;
+                            padding-bottom : #{$increment}px;
+                        }
                     } 
 
                     @each $side in $side-list {
                         &[data-ui-core~="margin__#{$breakpoint}-#{$side}-#{$size}"] {
-                            margin-#{$side} : #{$increment}px;
+                            @include gridle_state(#{$breakpoint}) {
+                                margin-#{$side} : #{$increment}px;
+                            }
                         }
                         &[data-ui-core~="padding__#{$breakpoint}-#{$side}-#{$size}"] {
-                            padding-#{$side} : #{$increment}px;
+                            @include gridle_state(#{$breakpoint}) {
+                                padding-#{$side} : #{$increment}px;
+                            }
                         }
                     }
                 }

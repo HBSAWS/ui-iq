@@ -37,6 +37,10 @@
 			display : none;
 			cursor  : not-allowed;
 		}
+
+		&:checked {
+			
+		}
 	}
 	[class^="toggler-label_"] {
 

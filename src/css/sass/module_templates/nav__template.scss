@@ -1,0 +1,111 @@
+$navHeight       : 50;
+$half__navHeight : $navHeight/2; 
+
+// for white menu
+// $lightSurface  : #fff;
+// $mediumSurface : #ccc;
+// $darkSurface   : #e0e0e0;
+
+// for solid color menu
+// HBS real teal color : #4cc1bc;
+$lightSurface  : #15b5b3;
+$mediumSurface : darken( $lightSurface, 10% );
+$darkSurface   : darken( $lightSurface, 20% );
+
+*[data-ui-state~="adjusted__forNav"] {
+	padding-top : $navHeight + px;
+}
+
+
+[class^="nav_"] {
+	z-index     : 10;
+	position    : fixed;
+	top         : 0px;
+	left        : 0px;
+	width       : 100%;
+	height      : $navHeight + px;
+}
+
+	[class^="nav-branding_"] {
+		position       : relative;
+		display        : table-cell;
+		padding-left   : 35px;
+		vertical-align : middle;
+		text-align     : left;
+		font-family    : lato; 
+		font-size      : 1.65rem;
+		line-height    : 1.65rem;
+		color          : #ffffff;
+	}
+		[class^="nav-branding-icon_"] {
+			display        : table-cell;
+			padding-right  : 10px;
+			font-family    : "hbs-modern"; 
+			vertical-align : middle; 
+			
+			&[class$="_global"] {
+				padding-left : 3px;
+				color        : #a41034;
+			}
+			&[class$="_app"] {
+				color : #fff;
+			}	
+		}
+		[class^="nav-branding-title_"] {
+			display        : none;
+			vertical-align : middle; 
+			@include gridle_state(mobile) {
+				display : none;
+			}
+			@include gridle_state(tablet) {
+				display : table-cell;
+			}
+
+			&[class$="_global"] {
+				color          : #999999;
+				font-family    : lato;
+				color          : #999999;
+				text-transform : uppercase;
+				font-size      : .82rem;
+				line-height    : .82rem;
+				font-weight    : 400;
+			}
+			&[class$="_app"] {
+				font-family    : lato;
+				font-weight    : 300;
+				font-size      : 1.1rem;
+				line-height    : 1.1rem;
+			}	
+		}
+		[class^="nav-branding-abrtitle_"] {
+			display        : table-cell;
+			vertical-align : middle; 
+			@include gridle_state(mobile) {
+				display : table-cell;
+			}
+			@include gridle_state(tablet) {
+				display : none;
+			}
+
+			&[class$="_global"] {
+				color          : #999999;
+				font-family    : lato;
+				color          : #999999;
+				text-transform : uppercase;
+				font-size      : .82rem;
+				line-height    : .82rem;
+				font-weight    : 400;
+			}
+			&[class$="_app"] {
+				font-family    : lato;
+				font-weight    : 300;
+				font-size      : 1.1rem;
+				line-height    : 1.1rem;
+			}	
+		}
+	.nav-control {
+		display        : table-cell;
+		padding-right  : 10px;
+		text-align     : right;
+		vertical-align : middle;		
+	}
