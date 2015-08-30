@@ -6,6 +6,10 @@
  *  Made by Sandy Duan
  *  Under MIT License
  */
+
+  .popover-title-nav {
+      padding : 16px 80px;
+  }
 /*  webui popover  */
 .webui-popover {
   position           : absolute;
@@ -18,13 +22,13 @@
   padding            : 1px;
   text-align         : left;
   white-space        : normal;
-  background-color   : rgba(255,255,255,0.94);
+  background-color   : rgba(255,255,255,0.96);
   background-clip    : padding-box;
   border             : 0px solid #cccccc;
   border             : 0px solid rgba(0, 0, 0, 0.2);
   border-radius      : 4px;
-  -webkit-box-shadow : 0 0 22px 0 rgba(0,0,0,.14);
-  box-shadow         : 0 0 22px 0 rgba(0,0,0,.14);
+  -webkit-box-shadow : 0 0 22px 0 rgba(0,0,0,.18);
+  box-shadow         : 0 0 22px 0 rgba(0,0,0,.18);
 }
 .webui-popover.top,
 .webui-popover.top-left,
@@ -93,7 +97,7 @@
   border-radius: 4px 4px 0 0;
 }
 .webui-popover-content {
-  padding: 9px 14px;
+  padding: 9px 24px;
   overflow: auto;
 }
 .webui-popover-inverse {

@@ -3,15 +3,13 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>IQM</title>
-        <link rel="stylesheet" href="/static/IQ/css/style.css">
-        <link rel="stylesheet" href="/static/IQ/css/table.css">
-        <link rel="stylesheet" href="/static/IQ/css/jquery.webui-popover.css">
-        <link rel="stylesheet" href="/static/IQ/css/UI.css">
+<!--         <link rel="stylesheet" href="/static/IQ/css/UI.css"> -->
+        <link rel="stylesheet" href="css/UI.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic">
     </head>
     <body data-ui-state="adjusted__forNav">
         <nav class="nav__global">
-            <div data-js-target="init__cuboid" class="cuboid__global">
+            <div data-js-target="init__appSuite-cuboid" class="cuboid__global">
                 <div data-ui-state="show__front" class="cuboid-faces__global">
                     <div class="cuboid-faces-front__global">
                         <div class="nav-branding__global">
@@ -20,28 +18,34 @@
                             <div class="nav-branding-title__global">Harvard | Business | School</div>
                         </div>
                         <div style="text-align:right;" class="nav-control__global">
-                            <button data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-target="file-options__toggle" class="button__transparent">
-                                <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="file_settings_icon" style="font-size:1.4rem;" class="button-icon__transparent"></div>
-                                <div data-ui-core="size__large" data-ui-addon="icon__right" data-ui-icon="sort-down" class="button-icon__transparent"></div>
+                            <button data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-handler="show__appSuite-apps-panel show__appSuite-apps-cuboid" class="button__light">
+                                <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="th" style="font-size:1rem;" class="button-icon__transparent"></div>
                                 <p data-ui-core="size__large" data-ui-addon="icon__left icon__right" class="button-content__transparent"></p>
                             </button>
                         </div>
                     </div>
                     <div class="cuboid-faces-bottom__global"><a href="#">Show Back</a></div>
                     <div class="cuboid-faces-back__global"><a href="#">Show Top</a></div>
-                    <div class="cuboid-faces-top__global"><a href="#">Show Front</a></div>
+                    <div class="cuboid-faces-top__global">
+                        <div style="text-align:left;" class="nav-control__global">
+                            <button data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="show__appSuite-app-panel show__appSuite-app-cuboid" class="button__light">
+                                <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open" style="font-size:1rem;" class="button-icon__light"></div>
+                                <p data-ui-core="size__large" class="button-content__light">back</p>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
-        <div data-js-target="global_panels" class="panels_">
-            <div id="appsGrid" class="panels-panel__modal">
-                <div class="panels-panel-content__modal">
-                    <div class="panels-panel-content-fader__modal"></div>
+        <div data-js-target="panels__appSuite" class="panels_">
+            <div id="panel__appSuite-apps" class="panels-panel__light">
+                <div class="panels-panel-content__light">
+                    <div class="panels-panel-content-fader__light"></div>
                 </div>
             </div>
-            <div id="skeletonStage" class="panels-panel__default">
-                <div data-ui-state="adjusted__forNav" class="panels-panel-content__default">
-                    <div class="panels-panel-content-fader__default"></div>
+            <div id="panel__appSuite-app" class="panels-panel__dark">
+                <div data-ui-state="adjusted__forNav" class="panels-panel-content__dark">
+                    <div class="panels-panel-content-fader__dark"></div>
                     <nav class="nav__app">
                         <div data-js-target="init__cuboid" class="cuboid__app">
                             <div data-ui-state="show__front" class="cuboid-faces__app">
@@ -51,7 +55,7 @@
                                         <div class="nav-branding-abrtitle__app">IQM</div>
                                         <div class="nav-branding-title__app">Integrated Quality Manager</div>
                                     </div>
-                                    <div style="text-align:right;" class="nav-control">
+                                    <div style="text-align:right;" class="nav-control_">
                                         <button data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-target="file-options__toggle" class="button__transparent">
                                             <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="file_settings_icon" style="font-size:1.4rem;" class="button-icon__transparent"></div>
                                             <div data-ui-core="size__large" data-ui-addon="icon__right" data-ui-icon="sort-down" class="button-icon__transparent"></div>
@@ -65,17 +69,23 @@
                             </div>
                         </div>
                     </nav>
-                    <div data-js-target="app_panels" class="panels_">
-                        <div id="appModal" class="panels-panel__modal">
+                    <div data-js-target="panels__appIQM" class="panels_">
+                        <div id="panel__appIQM-iframe" class="panels-panel__light">
                             <div class="panels-panel-content__modal">
-                                <div class="panels-panel-content-fader__modal"></div>
+                                <div class="panels-panel-content-fader__light"></div>
+                                <div data-ui-core="mode__float" class="bar_">
+                                    <button data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="hide__iframe-panel" style="float:right;" class="button__light">
+                                        <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="cancel" style="font-size:1rem;" class="button-icon__transparent"></div>
+                                    </button>
+                                </div>
+                                <iframe src="#" style="width:100%;height:100%;"></iframe>
                             </div>
                         </div>
-                        <div id="appStage" class="panels-panel__default">
+                        <div id="panel__appIQM-stage" class="panels-panel__default">
                             <div class="panels-panel-content__default">
                                 <div class="panels-panel-content-fader__default"></div>
-                                <div id="users" data-js-target="file_panels" class="panels__card">
-                                    <div id="zero" class="panels-panel__card">
+                                <div id="users" data-js-target="panels__fileRecords" class="panels__card">
+                                    <div id="panel__fileRecords-records" class="panels-panel__card">
                                         <div class="panels-panel-content__card">
                                             <div class="panels-panel-content-header__card">
                                                 <div class="panels-panel-content-fader_"></div>
@@ -105,24 +115,24 @@
                                             </div>
                                             <div class="panels-panel-content-header-search_"><input placeholder="search" class="field_ search"></div>
                                             <div data-ui-core="padding__mobile-top-sm" class="layout">
-                                                <table id="recordsTable" data-js-target="recordsTable" class="table">
-                                                    <thead class="table-head">
-                                                        <tr class="table-head-row">
-                                                            <th class="table-head-row-header">First Name</th>
-                                                            <th class="table-head-row-header">Last Name</th>
+                                                <table id="recordsTable" data-ui-core="size__large" data-js-target="recordsTable" class="table_">
+                                                    <thead data-ui-core="size__large" class="table-head_">
+                                                        <tr data-ui-core="size__large" class="table-head-row_">
+                                                            <th data-ui-core="size__large" class="table-head-row-header_">First Name</th>
+                                                            <th data-ui-core="size__large" class="table-head-row-header_">Last Name</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="table-body"></tbody>
+                                                    <tbody data-ui-core="size__large" class="table-body_"></tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="one" data-ui-core="mode__split" class="panels-panel__card">
+                                    <div id="panel__fileRecords-record" class="panels-panel__card">
                                         <div data-ui-core="mode__split" class="panels-panel-content__card">
                                             <div class="panels-panel-content-header_">
                                                 <div class="panels-panel-content-fader_"></div>
                                                 <div class="panels-panel-content-header-secondary_">
-                                                    <h2 data-js-target="back_toRecords">Details</h2>
+                                                    <h2 data-js-handler="swap-panels__record&amp;records">Details</h2>
                                                 </div>
                                                 <div class="panels-panel-content-header-primary_">
                                                     <div id="test" data-ui-core="mode__check size__small position__left" data-js-target="init_toggler" class="toggler_bold">
@@ -161,144 +171,15 @@
                                                 </div>
                                             </div>
                                             <div data-ui-core="padding__mobile-top-lg" class="layout">
-                                                <table id="detailsTable" data-js-target="detailsTable" class="table">
-                                                    <thead class="table-head">
-                                                        <tr class="table-head-row">
-                                                            <th data-sort="field" class="table-head-row-header sort">Field</th>
-                                                            <th data-sort="error" class="table-head-row-header sort">Error</th>
-                                                            <th class="table-head-row-header">Content</th>
+                                                <table id="detailsTable" data-ui-core="size__large" data-js-target="detailsTable" class="table_">
+                                                    <thead data-ui-core="size__large" class="table-head_">
+                                                        <tr data-ui-core="size__large" class="table-head-row">
+                                                            <th data-ui-core="size__large" data-sort="field" class="table-head-row-header_ sort">Field</th>
+                                                            <th data-ui-core="size__large" data-sort="error" class="table-head-row-header_ sort">Error</th>
+                                                            <th data-ui-core="size__large" class="table-head-row-header_">Content</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="table-body list"></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="two" data-ui-core="mode__split" class="panels-panel_">
-                                        <div data-ui-core="mode__split" class="panels-panel-content__card">
-                                            <div class="panels-panel-content-header_">
-                                                <div class="panels-panel-content-fader_"></div>
-                                                <div class="panels-panel-content-header-secondary_">
-                                                    <h2>Details</h2>
-                                                </div>
-                                                <div class="panels-panel-content-header-primary_">
-                                                    <div id="test" data-ui-core="mode__button size__large position__left" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__left" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__left" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__left" data-ui-icon="file_exclusion" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="test" data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="pkloss@gmail.com" checked class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="test" data-ui-core="mode__button size__large position__right" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__right" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-icon="clock" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input placeholder="search" class="search">
-                                            <div data-ui-core="padding__mobile-top-lg" class="layout">
-                                                <table id="detailsTable" data-js-target="detailsTable" class="table">
-                                                    <thead class="table-head">
-                                                        <tr class="table-head-row">
-                                                            <th data-sort="field" class="table-head-row-header sort">Field</th>
-                                                            <th data-sort="error" class="table-head-row-header sort">Error</th>
-                                                            <th data-sort="content" class="table-head-row-header sort">Content</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-body list"></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="three" data-ui-core="mode__split" class="panels-panel_">
-                                        <div data-ui-core="mode__split" class="panels-panel-content__card">
-                                            <div class="panels-panel-content-header_">
-                                                <div class="panels-panel-content-fader_"></div>
-                                                <div class="panels-panel-content-header-secondary_">
-                                                    <h2>Details</h2>
-                                                </div>
-                                                <div class="panels-panel-content-header-primary_">
-                                                    <div id="test" data-ui-core="mode__button size__large position__left" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__left" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__left" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__left" data-ui-icon="file_exclusion" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="test" data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="pkloss@gmail.com" checked class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="test" data-ui-core="mode__button size__large position__right" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__right" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-icon="clock" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input placeholder="search" class="search">
-                                            <div data-ui-core="padding__mobile-top-lg" class="layout">
-                                                <table id="detailsTable" data-js-target="detailsTable" class="table">
-                                                    <thead class="table-head">
-                                                        <tr class="table-head-row">
-                                                            <th data-sort="field" class="table-head-row-header sort">Field</th>
-                                                            <th data-sort="error" class="table-head-row-header sort">Error</th>
-                                                            <th data-sort="content" class="table-head-row-header sort">Content</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-body list"></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="four" data-ui-core="mode__split" class="panels-panel_">
-                                        <div data-ui-core="mode__split" class="panels-panel-content__card">
-                                            <div class="panels-panel-content-header_">
-                                                <div class="panels-panel-content-fader_"></div>
-                                                <div class="panels-panel-content-header-secondary_">
-                                                    <h2>Details</h2>
-                                                </div>
-                                                <div class="panels-panel-content-header-primary_">
-                                                    <div id="test" data-ui-core="mode__button size__large position__left" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__left" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__left" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__left" data-ui-icon="file_exclusion" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="test" data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="pkloss@gmail.com" checked class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="test" data-ui-core="mode__button size__large position__right" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large position__right" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-icon="clock" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input placeholder="search" class="search">
-                                            <div data-ui-core="padding__mobile-top-lg" class="layout">
-                                                <table id="detailsTable" data-js-target="detailsTable" class="table">
-                                                    <thead class="table-head">
-                                                        <tr class="table-head-row">
-                                                            <th data-sort="field" class="table-head-row-header sort">Field</th>
-                                                            <th data-sort="error" class="table-head-row-header sort">Error</th>
-                                                            <th data-sort="content" class="table-head-row-header sort">Content</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-body list"></tbody>
+                                                    <tbody data-ui-core="size__large" class="table-body_ list"></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -310,11 +191,12 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-        <script src="/static/IQ/js/jquery.basictable.min.js"></script>
-        <script src="/static/IQ/js/list.min.js"></script>
-        <script src="/static/IQ/js/jquery.webui-popover.js"></script>
-        <script src="/static/IQ/js/iqm.js"></script>
-        <script src="/static/IQ/js/UI.js"></script>
+
+        <script src="<%= jquery%>"></script>
+        <script src="<%= _default%>jquery.basictable.js"></script>
+        <script src="<%= _default%>list.js"></script>
+        <script src="<%= _default%>jquery.webui-popover.js"></script>
+        <script src="<%= _default%>UI.js"></script>
+        <script src="<%= _default%>IQM.js"></script>
     </body>
 </html>

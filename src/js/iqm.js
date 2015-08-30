@@ -1,96 +1,535 @@
 $(document).ready(function() {
+	var App;
+	var selector = "[data-js-target~='";
     var $recordsTable = $("[data-js-target~='recordsTable']");
     var $detailsTable = $("[data-js-target~='detailsTable']");
 	var recordsTable = '';
 	var detailsTable = '';
 
+	var __templates = {
+		UI : {
+			toggler : function(mode,size,width,jsHook,type,name,value,state,content) {
+				var HTML = '' +
+					'<div id="file_options" data-ui-core="mode__' + mode + ' size__' + size + '" data-ui-grid="mobile__' + width + '" class="toggler_bold">' +
+						'<input data-js-target="' + jsHook + '" data-ui-core="mode__' + mode + ' size__' + size + '" type="' + type + '" name="' + name + '" value="' + value + '" class="toggler-input_bold" ' + state + '>' +
+						'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle_bold">' +
+							'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle-indicator_bold">' + content + '</div>' +
+						'</div>' +
+					'</div>';
 
-	var fileOptionsPopover = '' +
-		'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-xs" class="layout">' +
-		    '<div id="file_options" data-ui-core="mode__segmentcontrol size__small" data-ui-grid="mobile__6" data-js-target="init_toggler" class="toggler_bold" data-ui-state="is__checked">' +
-		        '<input data-ui-core="mode__segmentcontrol size__small" type="radio" name="file-options__nav" value="settings" class="toggler-input_bold" data-ui-state="is__checked" checked>' +
-		        '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle_bold" data-ui-state="is__checked">' +
-		            '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle-indicator_bold" data-ui-state="is__checked">Settings</div>' +
-		        '</div>' +
-		    '</div>' +
-		    '<div id="file_stats" data-ui-core="mode__segmentcontrol size__small" data-ui-grid="mobile__6" data-js-target="init_toggler" class="toggler_bold" data-ui-state="">' +
-		        '<input data-ui-core="mode__segmentcontrol size__small" type="radio" name="file-options__nav" value="stats" class="toggler-input_bold" data-ui-state="">' +
-		        '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle_bold" data-ui-state="">' +
-		            '<div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle-indicator_bold" data-ui-state="">Stats</div>' +
-		        '</div>' +
-		    '</div>' +
-		'</div>';
-	var $fileOptionsPopover = $(fileOptionsPopover);
-	UI.toggler($fileOptionsPopover.find("#file_settings"));
-	UI.toggler($fileOptionsPopover.find("#file_stats"));
-	$('[data-js-target~="file-options__toggle"]').webuiPopover({title:'File Summary',content:$fileOptionsPopover});
+				return HTML;
+			}
+		},
+		app : {
+			fileSummary : {
+				title    : function () {
+					var togglerTemplate,segmentcontrol__settings,segmentcontrol__stats,HTML;
+
+					togglerTemplate = __templates.UI.toggler;
+
+					segmentcontrol__settings = togglerTemplate("segmentcontrol","small","6","show__fileSummary-settings-panel","radio","file-summary__settings-toggle","settings","checked","Settings");
+					segmentcontrol__stats    = togglerTemplate("segmentcontrol","small","6","show__fileSummary-stats-panel","radio","file-summary__settings-toggle","stats","","Stats");
+
+					HTML = '' +
+					'File Summary' +
+					'<div class="popover-title-nav">' +
+						segmentcontrol__settings +
+						segmentcontrol__stats +
+					'</div>';
+
+					return HTML;
+				},
+				bodyHTML : function () {
+					var togglerTemplate,segmentcontrol__doctoral,segmentcontrol__MBA,segmentcontrol__admit,segmentcontrol__bio,segmentcontrol__fall,segmentcontrol__spring,segmentcontrol__prev,segmentcontrol__2015,segmentcontrol__2016,segmentcontrol__2017,segmentcontrol__2018,segmentcontrol__2019,HTML;
+
+					togglerTemplate = __templates.UI.toggler;
+
+					segmentcontrol__doctoral = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__programs-toggle","doctoral","checked","Doctoral");
+					segmentcontrol__MBA      = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__programs-toggle","MBA","","MBA");
+
+					segmentcontrol__admit    = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__department-toggle","admit","","Admit");
+					segmentcontrol__bio      = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__department-toggle","bio","checked","Bio");
+
+					segmentcontrol__fall     = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__semester-toggle","fall","","Fall");
+					segmentcontrol__spring   = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__semester-toggle","spring","checked","Spring");
+
+					segmentcontrol__prev     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","fall","","prev");
+					segmentcontrol__2015     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2015","checked","'15");
+					segmentcontrol__2016     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2016","","'16");
+					segmentcontrol__2017     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2017","","'17");
+					segmentcontrol__2018     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2018","","'18");
+					segmentcontrol__2019     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2019","","'19");
+
+
+					HTML = '' +
+					'<div class="panels_" data-js-target="panels__fileSummary">' +
+						'<div id="panel__fileSummary-settings" class="panels-panel_">' +
+							'<div class="panels-panel-content__default">' +
+								'<div class="panels-panel-content-fader"></div>' +
+								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
+									segmentcontrol__doctoral +
+									segmentcontrol__MBA +
+								'</div>' +
+								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
+									segmentcontrol__admit +
+									segmentcontrol__bio +
+								'</div>' +
+								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
+									segmentcontrol__fall +
+									segmentcontrol__spring +
+								'</div>' +
+								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
+									segmentcontrol__prev +
+									segmentcontrol__2015 +
+									segmentcontrol__2016 +
+									segmentcontrol__2017 +
+									segmentcontrol__2018 +
+									segmentcontrol__2019 +
+								'</div>' +
+								'<div data-ui-core="padding__mobile-left-sm padding__mobile-right-xs padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
+									'<button class="button__default" data-ui-core="size__small" data-ui-grid="mobile__12">' +
+										'<div class="button-content_" data-ui-core="size__small">download CSV</div>' +
+									'</button>' +
+								'</div>' +
+								'<div data-ui-core="padding__mobile-left-xs padding__mobile-right-sm padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
+									'<button class="button__default" data-ui-core="size__small" data-ui-grid="mobile__12">' +
+										'<div class="button-content_" data-ui-core="size__small">send file</div>' +
+									'</button>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+						'<div id="panel__fileSummary-stats" class="panels-panel_">' +
+							'<div class="panels-panel-content__default">' +
+								'<div class="panels-panel-content-fader"></div>' +
+								'<div class="layout">' +
+									'<table class="table_" data-ui-core="size__small">' +
+										'<thead class="table-head_" data-ui-core="size__small">' +
+											'<tr class="table-head-row_" data-ui-core="size__small">' +
+												'<th class="table-head-row-header_" data-ui-core="size__small"></th>' +
+												'<th class="table-head-row-header_" data-ui-core="size__small">Last</th>' +
+												'<th class="table-head-row-header_" data-ui-core="size__small">Current</th>' +
+											'</tr>' +
+										'</thead>' +
+										'<tbody class="table-body_" data-ui-core="size__small">' +
+											'<tr class="table-body-row_" data-ui-core="size__small">' +
+												'<td class="table-body-row-header_" data-ui-core="size__small">Records</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">500</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">600</td>' +
+											'</tr>' +
+											'<tr class="table-body-row_" data-ui-core="size__small">' +
+												'<td class="table-body-row-header_" data-ui-core="size__small">Exclusions</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">5</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">7</td>' +
+											'</tr>' +
+
+											'<tr class="table-body-row_" data-ui-core="size__small">' +
+												'<td class="table-body-row-header_" data-ui-core="size__small"></td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small"></td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small"></td>' +
+											'</tr>' +
+
+											'<tr class="table-body-row_" data-ui-core="size__small">' +
+												'<td class="table-body-row-header_" data-ui-core="size__small">Stat</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">300</td>' +
+											'</tr>' +
+											'<tr class="table-body-row_" data-ui-core="size__small">' +
+												'<td class="table-body-row-header_" data-ui-core="size__small">EC</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">300</td>' +
+											'</tr>' +
+											'<tr class="table-body-row_" data-ui-core="size__small">' +
+												'<td class="table-body-row-header_" data-ui-core="size__small">RC</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">300</td>' +
+											'</tr>' +
+										'</tbody>' +
+									'</table>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>';
+
+					return HTML;
+				},
+				$body : null
+			},
+			file : {
+				record : function (firstName,lastName) {
+					var HTML;
+
+					HTML = '' +
+						'<tr class="table-body-row_" data-recordID="' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="filter__details-table swap-panels__records&record">' +
+							'<td class="table-body-row-cell_" data-ui-core="size__large">' + firstName + '</td>' +
+							'<td class="table-body-row-cell_" data-ui-core="size__large">' + lastName + '</td>' +
+						'</tr>';
+					return HTML;
+				},
+				recordDetails : function(firstName,lastName,record) {
+					var HTML;
+
+					HTML = '' +
+						'<tr class="table-body-row_ field__usaCitizen" data-ui-core="size__large">' +
+							'<td class="table-body-row-cell_ field record__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">usaCitizen</td>' +
+							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
+							'<td class="table-body-row-cell_ ontent forRecord__' + firstName + '-' + lastName + '">' + record.citizenship.usaCitizen + '</td>' +
+						'</tr>' +
+						'<tr class="table-body-row_ field__citizenshipStatus forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
+							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">citizenshipStatus</td>' +
+							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
+							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.citizenship.citizenshipStatus + '</td>' +
+						'</tr>' +
+						'<tr class="table-body-row_ field__address forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
+							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">address</td>' +
+							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
+							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.address + '</td>' +
+						'</tr>' +
+						'<tr class="table-body-row_ field__city forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
+							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">city</td>' +
+							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
+							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.city + '</td>' +
+						'</tr>' +
+						'<tr class="table-body-row_ field__state forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
+							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">state</td>' +
+							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
+							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.state + '</td>' +
+						'</tr>' +
+						'<tr class="table-body-row_ field__postal forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
+							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">postal</td>' +
+							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
+							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.postal + '</td>' +
+						'</tr>';	
+
+					return HTML;
+				}
+			}
+		}
+	};
+
+
+
+	// UI module objects
+	var cuboids = {
+		appSuite : {
+			UI       : null,
+			$el      : $("[data-js-target~='init__appSuite-cuboid']"),
+			settings : [
+
+			],
+			init     : function() {
+				UI.cuboid( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+
+				$("[data-js-handler~='show__appSuite-apps-cuboid']").click(this.show__appsCuboid.bind(this));
+				$("[data-js-handler~='show__appSuite-app-cuboid']").click(this.show__appCuboid.bind(this));
+			},
+			show__appsCuboid : function() {
+				this.UI.show("top");
+			},
+			show__appCuboid : function() {
+				this.UI.show("front");
+			}
+		}
+	};
+
+
+
+
+	var panels = {
+		fileSummary : {
+			UI : null,
+			$el : $("[data-js-target~='panels__fileSummary']"),
+			settings : [
+				{
+					id       : "panel__fileSummary-settings",
+					mode     : "flush",
+					size     : 12,
+					position : 0,
+					active   : true
+				},
+				{
+					id       : "panel__fileSummary-stats",
+					mode     : "flush",
+					size     : 12,
+					position : 0,
+					active   : false
+				}
+			],
+			init     : function() {
+				this.$el = $("[data-js-target~='panels__fileSummary']");
+				UI.panels( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+
+				$("[data-js-target~='show__fileSummary-settings-panel']").click(this.show__settingsPanel.bind(this));
+				$("[data-js-target~='show__fileSummary-stats-panel']").click(this.show__statsPanel.bind(this));
+			},
+			show__settingsPanel : function () {
+				var settingsSettings,statsSettings;
+				settingsSettings = this.settings[0];
+				statsSettings    = this.settings[1];
+
+				settingsSettings.active = true;
+				statsSettings.active    = false;
+
+				this.UI.panel("panel__fileSummary-settings", settingsSettings);
+				this.UI.panel("panel__fileSummary-stats", statsSettings);
+			},
+			show__statsPanel : function () {
+				var settingsSettings,statsSettings;
+				settingsSettings = this.settings[0];
+				statsSettings    = this.settings[1];
+
+				settingsSettings.active = false;
+				statsSettings.active    = true;
+
+				this.UI.panel("panel__fileSummary-settings", settingsSettings);
+				this.UI.panel("panel__fileSummary-stats", statsSettings);
+			}
+
+		},
+		appSuite : {
+			UI 		 : null,
+			$el      : $("[data-js-target~='panels__appSuite']"),
+			settings : [
+				{
+					id       : "panel__appSuite-apps",
+					mode     : "flush",
+					size     : 12,
+					position : 0,
+					active   : false
+				},
+				{
+					id       : "panel__appSuite-app",
+					mode     : "flush",
+					size     : 12,
+					position : 0,
+					active   : true
+				}
+			],
+			init     : function() {
+				UI.panels( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+
+				$("[data-js-handler~='show__appSuite-apps-panel']").click(this.show__appsPanel.bind(this));
+				$("[data-js-handler~='show__appSuite-app-panel']").click(this.show__appPanel.bind(this));
+			},
+			show__appsPanel : function() {
+				this.UI.swap("panel__appSuite-app","panel__appSuite-apps",true,"top");
+			},
+			show__appPanel : function() {
+				this.UI.swap("panel__appSuite-apps","panel__appSuite-app",true,"top");
+			}
+		},
+		appIQM : {
+			UI 		 : null,
+			$el      : $("[data-js-target~='panels__appIQM']"),
+			settings : [
+				{
+					id       : "panel__appIQM-iframe",
+					mode     : "modal",
+					size     : 8,
+					position : 0,
+					active   : false
+				},
+				{
+					id       : "panel__appIQM-stage",
+					mode     : "flush",
+					size     : 12,
+					position : 0,
+					active   : true
+				}
+			],
+			init    : function() {
+				UI.panels( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+
+				$("[data-js-handler~='show__iframe-panel']").click(this.show__iframe.bind(this));
+				$("[data-js-handler~='hide__iframe-panel']").click(this.hide__iframe.bind(this));
+			},
+			show__iframe : function() {
+				this.UI.showModal("panel__appIQM-iframe","top");
+			},
+			hide__iframe : function() {
+				this.UI.hideModal("panel__appIQM-iframe","top");
+			}
+		},
+		fileRecords : {
+			UI 		 : null,
+			$el      : $("[data-js-target~='panels__fileRecords']"),
+			settings : [
+				{
+					id       : "panel__fileRecords-records",
+					mode     : "card",
+					size     : 4,
+					position : 0,
+					active   : true
+				},
+				{
+					id       : "panel__fileRecords-record",
+					mode     : "card",
+					size     : 8,
+					position : 4,
+					active   : true
+				}
+			],
+			init      : function() {
+				UI.panels( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+				panels.fileRecords.responsive($(window).width());
+
+				$("[data-js-handler~='swap-panels__records&record']").click(this.swap__RecordsRecord.bind(this));
+				$("[data-js-handler~='swap-panels__record&records']").click(this.swap__RecordRecords.bind(this));
+			},
+			swap__RecordsRecord : function() {
+				if ( $(window).width() <= 950 ) {
+					this.UI.swap("panel__fileRecords-records","panel__fileRecords-record",true,"right");
+				}
+			},
+			swap__RecordRecords : function() {
+				if ( $(window).width() <= 950 ) {
+					this.UI.swap("panel__fileRecords-record","panel__fileRecords-records",true,"right");
+				}
+			},
+			responsive : function(windowWidth) {
+				var panels, panelRecords__id, panelRecord__id;
+				panels           = this.UI;
+				panelRecords__id = "panel__fileRecords-records";
+				panelRecord__id  = "panel__fileRecords-record";
+
+
+				if (windowWidth <= 950) {
+					panels.panel(panelRecords__id,{
+						id       : panelRecords__id,
+						mode     : "card",
+						size     : 12,
+						position : 0,
+						active   : true
+					});
+					panels.panel(panelRecord__id ,{
+						id       : panelRecord__id ,
+						mode     : "card",
+						size     : 12,
+						position : 0,
+						active   : false
+					});
+				} else if ( windowWidth > 950 && windowWidth <= 1200 ) {
+					panels.panel(panelRecords__id,{
+						id       : panelRecords__id,
+						mode     : "card",
+						size     : 5,
+						position : 0,
+						active   : true
+					});
+					panels.panel(panelRecord__id ,{
+						id       : panelRecord__id ,
+						mode     : "card",
+						size     : 7,
+						position : 5,
+						active   : true
+					});
+				} else if ( windowWidth > 1200 ) {
+					panels.panel(panelRecords__id,{
+						id       : panelRecords__id,
+						mode     : "card",
+						size     : 4,
+						position : 0,
+						active   : true
+					});
+					panels.panel(panelRecord__id ,{
+						id       : panelRecord__id ,
+						mode     : "card",
+						size     : 8,
+						position : 4,
+						active   : true
+					});
+				}
+			}
+		}
+	};
+
+
+
+
+	var popovers = {
+		fileSummary : {
+			$el      : $('[data-js-target~="file-options__toggle"]'),
+			settings : {
+				title   : __templates.app.fileSummary.title(),
+				content : __templates.app.fileSummary.$body,
+				width   : 380,
+				height  : 265				
+			},
+			init     : function() {
+				var fileSummary,$fileSummary,settings;
+				this.settings.content = __templates.app.fileSummary.$body;
+				settings              = this.settings;
+
+				this.$el.webuiPopover(settings);
+				this.$el.webuiPopover('show');
+				$(".webui-popover").css({ opacity : 0 });
+
+				panels.fileSummary.init();
+
+				this.$el.webuiPopover('hide');
+				$(".webui-popover").css({ opacity : 1 });
+			}
+		}
+	};
+
+
+
+
+	App = {
+		init : function() {
+			cuboids.appSuite.init();
+			__templates.app.fileSummary.$body = $( __templates.app.fileSummary.bodyHTML() );
+
+			popovers.fileSummary.init();
+
+			panels.appSuite.init();
+			panels.appIQM.init();
+			panels.fileRecords.init();
+			$(window).on("resize", function() {
+				var windowWidth = $(this).width();
+				panels.fileRecords.responsive(windowWidth);
+			});
+		}
+	}
 
 
 
 
 
-
-
-
-	$.get( "/api", function( data ) {
-		var recordsLength = data.length;
-		var listOptions;
-
+	// call to the api
+	<%= get %>
+		var records     = data.records;
+		numberOfRecords = records.length;
 		var listOptions = {
 			valueNames: [ 'field', 'error', 'content' ]
 		};
 
-		for(var i=0;i < recordsLength;i++) {
-			var record    = data[i].record;
-			var firstName = record.name.firstName;
-			var lastName  = record.name.lastName;
+		for(var i=0;i < numberOfRecords;i++) {
+			var record,firstName,lastName,templates;
+			record    = records[i].record;
+			firstName = record.name.firstName;
+			lastName  = record.name.lastName;
+			templates = __templates.app.file;
 
-			
 			listOptions.valueNames.push("forRecord__" + firstName + '-' + lastName);
 
-			var recordRow = '<tr class="table-body-row" data-recordID="' + firstName + '-' + lastName + '" data-js-handler="filter__details-table">' +
-				'<td class="table-body-row-cell">' + firstName + '</td>' +
-				'<td class="table-body-row-cell">' + lastName + '</td>' +
-			'</tr>';
-			recordsTable += recordRow;
-
-			var detailRow = '' +
-			'<tr class="table-body-row field__usaCitizen">' +
-				'<td class="table-body-row-cell field forRecord__' + firstName + '-' + lastName + '">usaCitizen</td>' +
-				'<td class="table-body-row-cell error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
-				'<td class="table-body-row-cell ontent forRecord__' + firstName + '-' + lastName + '">' + record.citizenship.usaCitizen + '</td>' +
-			'</tr>' +
-			'<tr class="table-body-row field__citizenshipStatus forRecord__' + firstName + '-' + lastName + '">' +
-				'<td class="table-body-row-cell field forRecord__' + firstName + '-' + lastName + '">citizenshipStatus</td>' +
-				'<td class="table-body-row-cell error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
-				'<td class="table-body-row-cell content forRecord__' + firstName + '-' + lastName + '">' + record.citizenship.citizenshipStatus + '</td>' +
-			'</tr>' +
-			'<tr class="table-body-row field__address forRecord__' + firstName + '-' + lastName + '">' +
-				'<td class="table-body-row-cell field forRecord__' + firstName + '-' + lastName + '">address</td>' +
-				'<td class="table-body-row-cell error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
-				'<td class="table-body-row-cell content forRecord__' + firstName + '-' + lastName + '">' + record.mailAddress.address + '</td>' +
-			'</tr>' +
-			'<tr class="table-body-row field__city forRecord__' + firstName + '-' + lastName + '">' +
-				'<td class="table-body-row-cell field forRecord__' + firstName + '-' + lastName + '">city</td>' +
-				'<td class="table-body-row-cell error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
-				'<td class="table-body-row-cell content forRecord__' + firstName + '-' + lastName + '">' + record.mailAddress.city + '</td>' +
-			'</tr>' +
-			'<tr class="table-body-row field__state forRecord__' + firstName + '-' + lastName + '">' +
-				'<td class="table-body-row-cell field forRecord__' + firstName + '-' + lastName + '">state</td>' +
-				'<td class="table-body-row-cell error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
-				'<td class="table-body-row-cell content forRecord__' + firstName + '-' + lastName + '">' + record.mailAddress.state + '</td>' +
-			'</tr>' +
-			'<tr class="table-body-row field__postal forRecord__' + firstName + '-' + lastName + '">' +
-				'<td class="table-body-row-cell field forRecord__' + firstName + '-' + lastName + '">postal</td>' +
-				'<td class="table-body-row-cell error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
-				'<td class="table-body-row-cell content forRecord__' + firstName + '-' + lastName + '">' + record.mailAddress.postal + '</td>' +
-			'</tr>';			
-			detailsTable += detailRow;
+			recordsTable += templates.record(firstName,lastName);
+			detailsTable += templates.recordDetails(firstName,lastName,record);
 		}
 
+		// adds the table HTML to the record and details tabale
 		$recordsTable.append(recordsTable);
 		$detailsTable.append(detailsTable);
 
+
+
+
+
+		// initializes the responsiveness aspect of the tables
 		$("#detailsTable").basictable({
 			breakpoint : 480
 		});
@@ -99,10 +538,7 @@ $(document).ready(function() {
 
 
 
-
-
-
-
+		// sets up table filtering and sorting
         var detailsList = new List('users', listOptions);
 
         var sortDetailsTable = function(toSort) {
@@ -131,218 +567,8 @@ $(document).ready(function() {
         	filterDetailsTable(toFilter);
         });
 
-
-
-	
-
-
-
-
-
-
-
-
-        var $filePanels = $('#users');
-        UI.panels($filePanels, [
-    		{
-    			id       : "zero",
-    			mode     : "card",
-    			size     : 4,
-    			position : 0,
-    			active   : true
-    		},
-    		{
-    			id       : "one",
-    			mode     : "card",
-    			size     : 8,
-    			position : 4,
-    			active   : true
-    		},
-    		{
-    			id       : "two",
-    			mode     : "card",
-    			size     : "medium",
-    			position : -1,
-    			active   : false
-    		},
-    		{
-    			id       : "three",
-    			mode     : "card",
-    			size     : 8,
-    			position : -1,
-    			active   : false
-    		},
-    		{
-    			id       : "four",
-    			mode     : "modal",
-    			size     : 8,
-    			position : -1,
-    			active   : false
-    		}
-    	]);
-		var responsiveFilePanels = function() {
-			var switchedToMobile = false;
-			var windowWidth      = $(window).width();
-			var filePanels = $('#users').data("UI");
-
-			if (windowWidth <= 950) {
-				switchedToMobile = true;
-
-				filePanels.panel("zero",{
-					id       : "zero",
-					mode     : "card",
-					size     : 12,
-					position : 0,
-					active   : true
-				});
-				filePanels.panel("one",{
-					id       : "one",
-					mode     : "card",
-					size     : 12,
-					position : -1,
-					active   : false
-				});
-			} else if ( windowWidth > 950 && windowWidth <= 1200 ) {
-				switchedToMobile = false;
-
-				filePanels.panel("zero",{
-					id       : "zero",
-					mode     : "card",
-					size     : 5,
-					position : 0,
-					active   : true
-				});
-				filePanels.panel("one",{
-					id       : "one",
-					mode     : "card",
-					size     : 7,
-					position : 5,
-					active   : true
-				});
-			} else if ( windowWidth > 1200 ) {
-				switchedToMobile = false;
-
-				filePanels.panel("zero",{
-					id       : "zero",
-					mode     : "card",
-					size     : 4,
-					position : 0,
-					active   : true
-				});
-				filePanels.panel("one",{
-					id       : "one",
-					mode     : "card",
-					size     : 8,
-					position : 4,
-					active   : true
-				});
-			}
-		};
-		responsiveFilePanels();
-		$(window).on("resize", function() {
-			responsiveFilePanels();
-		});
-
-		var $panelsApp = $("[data-js-target~='app_panels']");
-		UI.panels($panelsApp, [
-        		{
-        			id       : "appModal",
-        			mode     : "modal",
-        			size     : 8,
-        			position : 2,
-        			active   : false
-        		},
-        		{
-        			id       : "appStage",
-        			mode     : "flush",
-        			size     : 12,
-        			position : 0,
-        			active   : true
-        		}
-		]);
-
-		var $panelsSkeleton = $("[data-js-target~='global_panels']");
-		UI.panels($panelsSkeleton, [
-        		{
-        			id       : "appsGrid",
-        			mode     : "flush",
-        			size     : 12,
-        			position : -1,
-        			active   : false
-        		},
-        		{
-        			id       : "skeletonStage",
-        			mode     : "flush",
-        			size     : 12,
-        			position : 0,
-        			active   : true
-        		}
-		]);
-
-		$("[data-js-handler~='filter__details-table']").on("click", function() {
-			if ($(window).width() < 950) {
-				var panelsFiles = $('[data-js-target~="file_panels"]').data("UI");
-				panelsFiles.swap("zero","one",true,"right");
-			}
-		});
-		$("[data-js-target~='back_toRecords']").on("click", function() {
-			if ($(window).width() < 950) {
-				var panelsFiles = $('[data-js-target~="file_panels"]').data("UI");
-				panelsFiles.swap("one","zero",true,"right");
-			}
-		});
+        // initializes the popover, panel and cuboid modules
+        App.init();
 	});
 	
-
-
-
-
-
-
-    $('[data-js-target~="init_toggler"]').each(function() {
-		UI.toggler($(this));
-    });
-
-    var nav = UI.cuboid($("[data-js-target~='init__cuboid']"));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	$('.front a').on('click', function(){
-	    $('#nav-box').removeShowClasses().addClass('show-bottom').children('div').addClass('done');
-	});
-	$('.bottom a').on('click', function(){
-	    $('#nav-box').removeShowClasses().addClass('show-back').children('div').addClass('done');
-	});
-	$('.back a').on('click', function(){
-	    $('#nav-box').removeShowClasses().addClass('show-top').children('div').addClass('done');
-	});
-	$('.top a').on('click', function(){
-	    $('#nav-box').removeShowClasses().addClass('show-back rewind');
-	    setTimeout(function(){
-	        $('#nav-box').removeShowClasses().addClass('show-bottom');
-	    }, 500);
-	    setTimeout(function(){
-	        $('#nav-box').removeShowClasses().addClass('show-front').removeClass('rewind');
-	    }, 1000);
-	});
-	    
-	jQuery.fn.removeShowClasses = function() {
-	    $(this).removeClass('show-front show-back show-top show-bottom done');
-	    return $(this);
-	};
 });

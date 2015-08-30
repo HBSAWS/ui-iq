@@ -16,6 +16,16 @@
 			background : transparent;
 			color      : #fff;
 		}
+
+		&[class$="_default"] {
+			background : #4cc1bc;
+			color      : #fff;
+		}
+
+		&[class$="_light"] {
+			background : transparent;
+			color      : #c0c0c0;
+		}
 	}
 		[class^="button-icon_"] {
 			position : absolute;
@@ -25,9 +35,10 @@
 			}
 		}
 		[class^="button-content_"] {
-			position : relative;
-			display  : inline-block;
-			margin   : 0px;
+			position  : relative;
+			display   : inline-block;
+			margin    : 0px;
+			font-size : 0.8rem;
 		}
 
 
@@ -68,8 +79,8 @@
 				}
 			}
 			&[data-ui-core~="size__large"] {
-				font-size   : 0.85rem;
-				line-height : 0.85rem;
+				font-size   : 1rem;
+				line-height : 1.07rem;
 				&[data-ui-addon~="icon__left"] {
 					left  : 13px;
 				}

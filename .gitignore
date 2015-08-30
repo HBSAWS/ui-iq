@@ -2,7 +2,7 @@
 .DS_Store?
 ._*
 
-
+dist/
 node_modules/
 bower_components/
 .sass-cache/

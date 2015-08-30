@@ -1,0 +1,24 @@
+{
+  "name": "\"Modular UI\"",
+  "version": "0.1",
+  "homepage": "https://github.com/HBSAWS/ui-iq",
+  "description": "\"A collection of reusable UI Modules.\"",
+  "main": "\"dist/\"",
+  "authors": [
+    "Peter Kloss"
+  ],
+  "license": "MIT",
+  "dependencies" : {
+    "jquery" : "1.11.1",
+    "basictable" : "https://github.com/jerrylow/basictable.git",
+    "webui-popover": "https://github.com/sandywalker/webui-popover.git",
+    "list":"https://github.com/javve/list.js.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

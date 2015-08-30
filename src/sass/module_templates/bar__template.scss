@@ -1,0 +1,19 @@
+[class^="bar_"] {
+	width : 100%;
+	&[data-ui-core~="mode__float"] {
+		// modes : <fixed> | <float> | <stationary>
+		position : absolute;
+		top      : 0px;
+		left     : 0px;
+	}
+
+}
+	[class^="barr-title_"] {
+
+	}
+	[class^="bar-button_"] {
+
+	}
+	[class^="bar-icon_"] {
+
+	}

@@ -66,7 +66,7 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			display  : table;
 			width    : 100%;
 			height   : $height__small + px;
-			@include prefix(transition, "background-color 0.5s, transform 0.5s");			
+			@include prefix(transition, "background-color 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)");			
 		}
 		&[data-ui-state~="is__rewinding"] {
 			div {

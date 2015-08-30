@@ -103,7 +103,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 				line-height    : 1.1rem;
 			}	
 		}
-	.nav-control {
+	[class^="nav-control_"] {
 		display        : table-cell;
 		padding-right  : 10px;
 		text-align     : right;
