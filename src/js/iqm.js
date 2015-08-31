@@ -7,9 +7,11 @@ $(document).ready(function() {
 	var detailsTable = '';
 	var stats = {
 		records : 0,
+		errors  : 0,
 		EC      : 0,
 		RC      : 0
 	};
+
 
 	var __templates = {
 		UI : {
@@ -453,51 +455,76 @@ $(document).ready(function() {
 	}
 
 
-
-
-
 	// call to the api
 	<%= get %>
-		 var records, numberOfRecords, listOptions,EC,RC;
-		var records     = data.records;
-		stats.records   = records.length;
-		var listOptions = {
+		var records, numberOfRecords, listOptions,EC,RC;
+		var records      = data.records;
+		var totalRecords = records.length;
+		stats.records    = totalRecords;
+		var listOptions  = {
 			valueNames: [ 'field', 'error', 'content' ]
 		};
+		var firstVisibleRecord;
+
 
 
 		var compiledRecords = Handlebars.templates.recordsTemplate;
 		var compiledDetails = Handlebars.templates.detailsTemplate;
 
-		for(var i=0;i < stats.records;i++) {
-			var record,firstName,lastName,templates;
-			record    = records[i].record;
-			firstName = record.name.firstName;
-			lastName  = record.name.lastName;
-			templates = __templates.app.file;
+		for(var __record=0;__record < totalRecords;__record++) {
+			var record,errors,firstName,lastName,templates;
+			record       = records[__record].record;
+			errors       = records[__record].errors;
+			totalErrors  = errors.length;
+			stats.errors += totalErrors;
+			firstName    = record.name.firstName;
+			lastName     = record.name.lastName;
+			templates    = __templates.app.file;
+
+			recordsTable += compiledRecords(record);
+
 			if (record.career.yearInProgram === "EC") {
 				stats.EC ++;
 			} else if (record.career.yearInProgram === "EC") {
 				stats.RC ++;
 			}
-
-
 			listOptions.valueNames.push("forRecord__" + firstName + '-' + lastName);
 
+			for (var fieldGroups in record) {
+				if (fieldGroups !== "updateDate" && fieldGroups !== "huid") {
+					var fieldGroup = record[fieldGroups];
+					for ( var field in fieldGroup) {
+						var errorValue = 'no error';
+						var has__error = false;
+						for (var __error=0;__error < totalErrors;__error++) {
+							var errorFieldName = errors[__error].field.split(".")[1];
 
+							if ( errorFieldName === field ) {
+								has__error = true;
+								errorValue = errors[__error].message;
+							} 
+						}
 
-			recordsTable += compiledRecords(record);
-			detailsTable += compiledDetails(record);
+						var row = {
+							firstName  : firstName,
+							lastName   : lastName,
+							fieldName  : field,
+							fieldValue : fieldGroup[field],
+							has__error : has__error,
+							errorValue : errorValue
+						};
+						console.log(row);
+						detailsTable += compiledDetails(row);
+					}
+				}
+			}
 
 			//detailsTable += templates.recordDetails(firstName,lastName,record);
 		}
 
 		// adds the table HTML to the record and details tabale
-        $records = $(recordsTable);
-        $details = $(detailsTable);
-
-        $recordsTable.append($records);
-		$detailsTable.append($details);
+        $recordsTable.append(recordsTable);
+		$detailsTable.append(detailsTable);
 
 		// initializes the responsiveness aspect of the tables
 
@@ -534,7 +561,7 @@ $(document).ready(function() {
         	var toFilter = "forRecord__" + $this.attr("data-recordid");
         	filterDetailsTable(toFilter);
         });
-
+        filterDetailsTable();
 
 
 
