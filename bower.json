@@ -8,11 +8,12 @@
     "Peter Kloss"
   ],
   "license": "MIT",
-  "dependencies" : {
-    "jquery" : "1.11.1",
-    "basictable" : "https://github.com/jerrylow/basictable.git",
-    "webui-popover": "https://github.com/sandywalker/webui-popover.git",
-    "list":"https://github.com/javve/list.js.git"
+  "dependencies": {
+    "basictable": "https://github.com/jerrylow/basictable.git",
+    "handlebars": "~3.0.3",
+    "jquery": "1.11.1",
+    "list": "https://github.com/javve/list.js.git",
+    "webui-popover": "https://github.com/sandywalker/webui-popover.git"
   },
   "ignore": [
     "**/.*",

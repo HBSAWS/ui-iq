@@ -21,9 +21,9 @@ config = {
 	is__installing : false,
 	env : {
 		testing : {
-			get      : "$.getJSON('js/test.json', function(data) {",
+			get      : '$.getJSON("js/test.json", function(data) {',
 			jquery   : 'js/jquery.js',
-			_default : "js/" 
+			_default : 'js/' 
 		},
 		staging : {
 			get      : "$.getJSON( 'http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/mba/bio.json?name=99', function( data ) {",
@@ -55,11 +55,14 @@ config = {
 				"basictable" : {
 					"main" : "jquery.basictable.js"
 				},
+				"handlebars" : {
+					"main" : "handlebars.js"
+				},
 				"jquery"     : {
 					"main" : "dist/jquery.js"
 				},
 				"list"       : {
-					"main" : "dist/list.js"
+					"main" : "dist/list.min.js"
 				},
 				"webui-popover" : {
 					"main" : "dist/jquery.webui-popover.js"
@@ -163,7 +166,7 @@ config = {
 
 		return gulp.src('./src/index.html')
         	.pipe(template(settings))
-			.pipe(minifyHTML())
+			// .pipe(minifyHTML())
 			.pipe(gulp.dest('./dist'))			
 			.on("end", function(){
 				if (config.server.is__running) {

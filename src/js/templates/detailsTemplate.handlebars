@@ -1,0 +1,32 @@
+{{#records}}
+    <tr class="table-body-row_ field__usaCitizen" data-ui-core="size__large">
+        <td class="table-body-row-cell_ field record__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">usaCitizen</td>
+        <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}">no error</td>
+        <td class="table-body-row-cell_ ontent forRecord__{{record.name.firstName}}-{{record.name.lastName}}">{{record.citizenship.usaCitizen}}</td>
+    </tr>
+    <tr class="table-body-row_ field__citizenshipStatus forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
+        <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">citizenshipStatus</td>
+        <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
+        <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.citizenship.citizenshipStatus}}</td>
+    </tr>
+    <tr class="table-body-row_ field__address forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
+        <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">address</td>
+        <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
+        <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.address}}</td>
+    </tr>
+    <tr class="table-body-row_ field__city forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
+        <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">city</td>
+        <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
+        <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.city}}</td>
+    </tr>
+    <tr class="table-body-row_ field__state forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
+        <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">state</td>
+        <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
+        <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.state}}</td>
+    </tr>
+    <tr class="table-body-row_ field__postal forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
+        <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">postal</td>
+        <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
+        <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.postal}}</td>
+    </tr>
+{{/records}}

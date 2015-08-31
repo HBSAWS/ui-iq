@@ -508,6 +508,13 @@ $(document).ready(function() {
 			valueNames: [ 'field', 'error', 'content' ]
 		};
 
+
+		var compiledRecords = Handlebars.templates.recordsTemplate;
+		var compiledDetails = Handlebars.templates.detailsTemplate;
+
+		$recordsTable.append(compiledRecords(data));
+		$detailsTable.append(compiledDetails(data));
+
 		for(var i=0;i < numberOfRecords;i++) {
 			var record,firstName,lastName,templates;
 			record    = records[i].record;
@@ -515,15 +522,16 @@ $(document).ready(function() {
 			lastName  = record.name.lastName;
 			templates = __templates.app.file;
 
+
 			listOptions.valueNames.push("forRecord__" + firstName + '-' + lastName);
 
-			recordsTable += templates.record(firstName,lastName);
-			detailsTable += templates.recordDetails(firstName,lastName,record);
+			// recordsTable += templates.record(firstName,lastName);
+			//detailsTable += templates.recordDetails(firstName,lastName,record);
 		}
 
 		// adds the table HTML to the record and details tabale
-		$recordsTable.append(recordsTable);
-		$detailsTable.append(detailsTable);
+
+
 
 
 
@@ -540,6 +548,7 @@ $(document).ready(function() {
 
 		// sets up table filtering and sorting
         var detailsList = new List('users', listOptions);
+        $("#users").data("list",detailsList);
 
         var sortDetailsTable = function(toSort) {
 			detailsList.sort(toSort, { order: "asc" });
