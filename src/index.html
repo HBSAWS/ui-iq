@@ -78,13 +78,13 @@
                                         <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="cancel" style="font-size:1rem;" class="button-icon__transparent"></div>
                                     </button>
                                 </div>
-                                <iframe src="#" style="width:100%;height:100%;"></iframe>
+                                <iframe src="" style="width:100%;height:100%;"></iframe>
                             </div>
                         </div>
                         <div id="panel__appIQM-stage" class="panels-panel__default">
                             <div class="panels-panel-content__default">
                                 <div class="panels-panel-content-fader__default"></div>
-                                <div id="users" data-js-target="panels__fileRecords" class="panels__card">
+                                <div data-js-target="panels__fileRecords" class="panels__card">
                                     <div id="panel__fileRecords-records" class="panels-panel__card">
                                         <div class="panels-panel-content__card">
                                             <div class="panels-panel-content-header__card">
@@ -128,7 +128,7 @@
                                         </div>
                                     </div>
                                     <div id="panel__fileRecords-record" class="panels-panel__card">
-                                        <div data-ui-core="mode__split" class="panels-panel-content__card">
+                                        <div class="panels-panel-content__card">
                                             <div class="panels-panel-content-header_">
                                                 <div class="panels-panel-content-fader_"></div>
                                                 <div class="panels-panel-content-header-secondary_">
@@ -193,55 +193,12 @@
         </div>
 
         <script src="<%= jquery%>"></script>
-        <script src="<%= _default%>handlebars.js"></script>
+        <script src="<%= _default%>handlebars.runtime.js"></script>
         <script src="<%= _default%>jquery.basictable.js"></script>
         <script src="<%= _default%>list.min.js"></script>
         <script src="<%= _default%>jquery.webui-popover.js"></script>
         <script src="<%= _default%>compiled.js"></script>
         <script src="<%= _default%>UI.js"></script>
         <script src="<%= _default%>IQM.js"></script>
-
-        <script id="records-template" type="text/x-handlebars-template">
-            {{#records}}
-                <tr class="table-body-row_" data-recordID="{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="filter__details-table swap-panels__records&record">
-                    <td class="table-body-row-cell_" data-ui-core="size__large">{{record.name.firstName}}</td>
-                    <td class="table-body-row-cell_" data-ui-core="size__large">{{record.name.lastName}}</td>
-                </tr>;
-            {{/records}}
-        </script>
-        <script id="details-template" type="text/x-handlebars-template">
-            {{#records}}
-                <tr class="table-body-row_ field__usaCitizen" data-ui-core="size__large">
-                    <td class="table-body-row-cell_ field record__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">usaCitizen</td>
-                    <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}">no error</td>
-                    <td class="table-body-row-cell_ ontent forRecord__{{record.name.firstName}}-{{record.name.lastName}}">{{record.citizenship.usaCitizen}}</td>
-                </tr>
-                <tr class="table-body-row_ field__citizenshipStatus forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
-                    <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">citizenshipStatus</td>
-                    <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
-                    <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.citizenship.citizenshipStatus}}</td>
-                </tr>
-                <tr class="table-body-row_ field__address forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
-                    <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">address</td>
-                    <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
-                    <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.address}}</td>
-                </tr>
-                <tr class="table-body-row_ field__city forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
-                    <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">city</td>
-                    <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
-                    <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.city}}</td>
-                </tr>
-                <tr class="table-body-row_ field__state forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
-                    <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">state</td>
-                    <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
-                    <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.state}}</td>
-                </tr>
-                <tr class="table-body-row_ field__postal forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="show__iframe-panel">
-                    <td class="table-body-row-cell_ field forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">postal</td>
-                    <td class="table-body-row-cell_ error forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">no error</td>
-                    <td class="table-body-row-cell_ content forRecord__{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large">{{record.mailAddress.postal}}</td>
-                </tr>
-            {{/records}}
-        </script>
     </body>
 </html>

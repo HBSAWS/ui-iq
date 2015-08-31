@@ -1,6 +1,4 @@
-{{#records}}
-    <tr class="table-body-row_" data-recordID="{{record.name.firstName}}-{{record.name.lastName}}" data-ui-core="size__large" data-js-handler="filter__details-table swap-panels__records&record">
-        <td class="table-body-row-cell_" data-ui-core="size__large">{{record.name.firstName}}</td>
-        <td class="table-body-row-cell_" data-ui-core="size__large">{{record.name.lastName}}</td>
-    </tr>;
-{{/records}}
+<tr class="table-body-row_" data-recordID="{{name.firstName}}-{{name.lastName}}" data-ui-core="size__large" data-js-handler="filter__details-table swap-panels__records&record">
+    <td class="table-body-row-cell_" data-ui-core="size__large">{{name.firstName}}</td>
+    <td class="table-body-row-cell_" data-ui-core="size__large">{{name.lastName}}</td>
+</tr>

@@ -5,6 +5,11 @@ $(document).ready(function() {
     var $detailsTable = $("[data-js-target~='detailsTable']");
 	var recordsTable = '';
 	var detailsTable = '';
+	var stats = {
+		records : 0,
+		EC      : 0,
+		RC      : 0
+	};
 
 	var __templates = {
 		UI : {
@@ -153,55 +158,6 @@ $(document).ready(function() {
 					return HTML;
 				},
 				$body : null
-			},
-			file : {
-				record : function (firstName,lastName) {
-					var HTML;
-
-					HTML = '' +
-						'<tr class="table-body-row_" data-recordID="' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="filter__details-table swap-panels__records&record">' +
-							'<td class="table-body-row-cell_" data-ui-core="size__large">' + firstName + '</td>' +
-							'<td class="table-body-row-cell_" data-ui-core="size__large">' + lastName + '</td>' +
-						'</tr>';
-					return HTML;
-				},
-				recordDetails : function(firstName,lastName,record) {
-					var HTML;
-
-					HTML = '' +
-						'<tr class="table-body-row_ field__usaCitizen" data-ui-core="size__large">' +
-							'<td class="table-body-row-cell_ field record__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">usaCitizen</td>' +
-							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '">' + 'no error' + '</td>' +
-							'<td class="table-body-row-cell_ ontent forRecord__' + firstName + '-' + lastName + '">' + record.citizenship.usaCitizen + '</td>' +
-						'</tr>' +
-						'<tr class="table-body-row_ field__citizenshipStatus forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
-							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">citizenshipStatus</td>' +
-							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
-							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.citizenship.citizenshipStatus + '</td>' +
-						'</tr>' +
-						'<tr class="table-body-row_ field__address forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
-							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">address</td>' +
-							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
-							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.address + '</td>' +
-						'</tr>' +
-						'<tr class="table-body-row_ field__city forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
-							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">city</td>' +
-							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
-							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.city + '</td>' +
-						'</tr>' +
-						'<tr class="table-body-row_ field__state forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
-							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">state</td>' +
-							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
-							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.state + '</td>' +
-						'</tr>' +
-						'<tr class="table-body-row_ field__postal forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">' +
-							'<td class="table-body-row-cell_ field forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">postal</td>' +
-							'<td class="table-body-row-cell_ error forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + 'no error' + '</td>' +
-							'<td class="table-body-row-cell_ content forRecord__' + firstName + '-' + lastName + '" data-ui-core="size__large">' + record.mailAddress.postal + '</td>' +
-						'</tr>';	
-
-					return HTML;
-				}
 			}
 		}
 	};
@@ -502,8 +458,9 @@ $(document).ready(function() {
 
 	// call to the api
 	<%= get %>
+		 var records, numberOfRecords, listOptions,EC,RC;
 		var records     = data.records;
-		numberOfRecords = records.length;
+		stats.records   = records.length;
 		var listOptions = {
 			valueNames: [ 'field', 'error', 'content' ]
 		};
@@ -512,43 +469,46 @@ $(document).ready(function() {
 		var compiledRecords = Handlebars.templates.recordsTemplate;
 		var compiledDetails = Handlebars.templates.detailsTemplate;
 
-		$recordsTable.append(compiledRecords(data));
-		$detailsTable.append(compiledDetails(data));
-
-		for(var i=0;i < numberOfRecords;i++) {
+		for(var i=0;i < stats.records;i++) {
 			var record,firstName,lastName,templates;
 			record    = records[i].record;
 			firstName = record.name.firstName;
 			lastName  = record.name.lastName;
 			templates = __templates.app.file;
+			if (record.career.yearInProgram === "EC") {
+				stats.EC ++;
+			} else if (record.career.yearInProgram === "EC") {
+				stats.RC ++;
+			}
 
 
 			listOptions.valueNames.push("forRecord__" + firstName + '-' + lastName);
 
-			// recordsTable += templates.record(firstName,lastName);
+
+
+			recordsTable += compiledRecords(record);
+			detailsTable += compiledDetails(record);
+
 			//detailsTable += templates.recordDetails(firstName,lastName,record);
 		}
 
 		// adds the table HTML to the record and details tabale
+        $records = $(recordsTable);
+        $details = $(detailsTable);
 
-
-
-
-
-
+        $recordsTable.append($records);
+		$detailsTable.append($details);
 
 		// initializes the responsiveness aspect of the tables
-		$("#detailsTable").basictable({
-			breakpoint : 480
-		});
+
 
 
 
 
 
 		// sets up table filtering and sorting
-        var detailsList = new List('users', listOptions);
-        $("#users").data("list",detailsList);
+        var detailsList = new List('panel__fileRecords-record', listOptions);
+        $("#panel__fileRecords-record").data("list",detailsList);
 
         var sortDetailsTable = function(toSort) {
 			detailsList.sort(toSort, { order: "asc" });
@@ -562,19 +522,26 @@ $(document).ready(function() {
 			return false;
         };
 
-        $("[name='mobile__sort-details']").on("change", function() {
+        $detailsTable.find("[name='mobile__sort-details']").on("change", function() {
         	var toSort = $("[name='mobile__sort-details']:checked").val();
 
         	sortDetailsTable(toSort);
 		});
 
-
-        $('[data-js-handler~="filter__details-table"]').on("click", function() {
+        $recordsTable.find('[data-js-handler~="filter__details-table"]').on("click", function() {
         	var $this = $(this);
 
         	var toFilter = "forRecord__" + $this.attr("data-recordid");
         	filterDetailsTable(toFilter);
         });
+
+
+
+
+
+		$detailsTable.basictable({
+			breakpoint : 480
+		});
 
         // initializes the popover, panel and cuboid modules
         App.init();

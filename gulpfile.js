@@ -56,7 +56,7 @@ config = {
 					"main" : "jquery.basictable.js"
 				},
 				"handlebars" : {
-					"main" : "handlebars.js"
+					"main" : "handlebars.runtime.js"
 				},
 				"jquery"     : {
 					"main" : "dist/jquery.js"
@@ -207,8 +207,6 @@ gulp.task('serve-testing', function () {
 	    startPath : "./dist/index.html"
     });
 
-    config.server.is__running = true;
-
     gulp.watch('./src/**/*.scss', ['compile-sass']);
     gulp.watch('./dist/css/*.css').on('change', testingServer.reload);
 
@@ -217,6 +215,8 @@ gulp.task('serve-testing', function () {
 
     gulp.watch('./src/*.html', ['compile-html']);
     gulp.watch('./dist/*.html').on('change', testingServer.reload);    
+
+    config.server.is__running = true;
 });
 
 
