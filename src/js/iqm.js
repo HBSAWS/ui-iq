@@ -349,57 +349,49 @@ $(document).ready(function() {
 				}
 			},
 			responsive : function(windowWidth) {
-				var panels, panelRecords__id, panelRecord__id;
-				panels           = this.UI;
-				panelRecords__id = "panel__fileRecords-records";
-				panelRecord__id  = "panel__fileRecords-record";
+				var panels, panelRecords__id, panelRecord__id,recordsSettings,recordSettings;
+				panels              = this.UI;
+				panelRecords__id    = "panel__fileRecords-records";
+				recordsSettings     = this.settings[0];
+
+				panelDetails__id    = "panel__fileRecords-record";
+				detailsSettings     = this.settings[1];
 
 
 				if (windowWidth <= 950) {
-					panels.panel(panelRecords__id,{
-						id       : panelRecords__id,
-						mode     : "card",
-						size     : 12,
-						position : 0,
-						active   : true
-					});
-					panels.panel(panelRecord__id ,{
-						id       : panelRecord__id ,
-						mode     : "card",
-						size     : 12,
-						position : 0,
-						active   : false
-					});
+
+					recordsSettings.active   = true;
+					recordsSettings.size     = 12;
+					recordsSettings.porition = 0;
+					
+					detailsSettings.active   = false;
+					detailsSettings.size     = 12;
+					detailsSettings.position = 0;
+
+					panels.panel(panelRecords__id, recordsSettings);
+					panels.panel(panelDetails__id, detailsSettings);
 				} else if ( windowWidth > 950 && windowWidth <= 1200 ) {
-					panels.panel(panelRecords__id,{
-						id       : panelRecords__id,
-						mode     : "card",
-						size     : 5,
-						position : 0,
-						active   : true
-					});
-					panels.panel(panelRecord__id ,{
-						id       : panelRecord__id ,
-						mode     : "card",
-						size     : 7,
-						position : 5,
-						active   : true
-					});
+					recordsSettings.active   = true;
+					recordsSettings.size     = 5;
+					recordsSettings.porition = 0;
+					
+					detailsSettings.active   = true;
+					detailsSettings.size     = 7;
+					detailsSettings.position = 5;
+
+					panels.panel(panelRecords__id, recordsSettings);
+					panels.panel(panelDetails__id, detailsSettings);
 				} else if ( windowWidth > 1200 ) {
-					panels.panel(panelRecords__id,{
-						id       : panelRecords__id,
-						mode     : "card",
-						size     : 4,
-						position : 0,
-						active   : true
-					});
-					panels.panel(panelRecord__id ,{
-						id       : panelRecord__id ,
-						mode     : "card",
-						size     : 8,
-						position : 4,
-						active   : true
-					});
+					recordsSettings.active   = true;
+					recordsSettings.size     = 4;
+					recordsSettings.porition = 0;
+					
+					detailsSettings.active   = true;
+					detailsSettings.size     = 8;
+					detailsSettings.position = 4;
+
+					panels.panel(panelRecords__id, recordsSettings);
+					panels.panel(panelDetails__id, detailsSettings);
 				}
 			}
 		}
@@ -436,6 +428,85 @@ $(document).ready(function() {
 
 
 
+	var tables = {
+		records : {
+			$el      : $("#recordsTable"),
+			UI       : null,
+			settings : {
+				tableID         : "recordsTable",
+				valueNames      : ['is__firstName','is__lastName','has__error','is__exclusion','is__pending'], 
+				searchHandlerID : "recordsTable__search",
+				sortHandlerID   : "recordsTable__sort", 
+				filterHandlerID : "recordsTable__filter"
+			},
+			init     : function() {
+				var _self = this;
+				UI.table( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+
+				this.UI.filter("has__error");
+
+				$("[data-js-handler~='recordsTable__filter']").on("change", function() {
+					var $this = $(this);
+					var toFilter = $this.val();
+
+					if ($this.is(":checked")) {
+						_self.UI.filter(toFilter);
+					} else {
+						_self.UI.unfilter(toFilter);
+					}
+				});
+			}
+		},
+		details : {
+			$el      : $("#detailsTable"),
+			UI       : null,
+			settings : {
+				tableID         : "detailsTable",
+				valueNames      : ['is__field','is__error','has__error','is__exclusion','is__pending'], 
+				searchHandlerID : "detailsTable__search",
+				sortHandlerID   : "detailsTable__sort", 
+				filterHandlerID : "detailsTable__filter"
+			},
+			activeRecord : null,
+			init     : function() {
+				var _self = this;
+				UI.table( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+
+				$("[data-js-handler~='detailsTable__filter']").on("change", function() {
+					var $this = $(this);
+					var toFilter = $this.val();
+
+					if ($this.is(":checked")) {
+						_self.UI.filter(toFilter);
+					} else {
+						_self.UI.unfilter(toFilter);
+					}
+				});
+				$("[data-js-handler~='detailsTable__filter-record']").on("click", function() {
+					var $this,old__activeRecord,new__activeRecord,recordName;
+					$this = $(this);
+
+					old__activeRecord  = "detailOf__" + _self.activeRecord;
+					_self.activeRecord = $this.attr("data-record");
+					recordName         = $this.find("td:nth-child(1)").html() + " " + $this.find("td:nth-child(2)").html();
+					new__activeRecord = "detailOf__" + _self.activeRecord;
+
+					$("[data-js-target~='recordName']").html(recordName);
+					_self.UI.unfilter(old__activeRecord);
+					_self.UI.filter(new__activeRecord);
+				});
+				
+				this.UI.filter("has__error");
+				tables.records.$el.find("tbody tr").first().trigger("click");
+			}
+
+		}
+	};
+
+
+
 
 	App = {
 		init : function() {
@@ -447,6 +518,9 @@ $(document).ready(function() {
 			panels.appSuite.init();
 			panels.appIQM.init();
 			panels.fileRecords.init();
+
+			tables.records.init();
+			tables.details.init();
 			$(window).on("resize", function() {
 				var windowWidth = $(this).width();
 				panels.fileRecords.responsive(windowWidth);
@@ -461,9 +535,6 @@ $(document).ready(function() {
 		var records      = data.records;
 		var totalRecords = records.length;
 		stats.records    = totalRecords;
-		var listOptions  = {
-			valueNames: [ 'field', 'error', 'content' ]
-		};
 		var firstVisibleRecord;
 
 
@@ -472,27 +543,36 @@ $(document).ready(function() {
 		var compiledDetails = Handlebars.templates.detailsTemplate;
 
 		for(var __record=0;__record < totalRecords;__record++) {
-			var record,errors,firstName,lastName,templates;
-			record       = records[__record].record;
-			errors       = records[__record].errors;
-			totalErrors  = errors.length;
-			stats.errors += totalErrors;
-			firstName    = record.name.firstName;
-			lastName     = record.name.lastName;
-			templates    = __templates.app.file;
+			var currentRecord,details,errors,huid,firstName,lastName,templates, recordsRow;
+			currentRecord = records[__record];
+			details       = currentRecord.record;
+			errors        = currentRecord.errors;
+			huid          = details.huid;
+			firstName     = details.name.firstName;
+			lastName      = details.name.lastName;
 
-			recordsTable += compiledRecords(record);
+			totalErrors   = errors.length;
+			stats.errors  += totalErrors;
+			templates     = __templates.app.file;
 
-			if (record.career.yearInProgram === "EC") {
+			recordsRow = {
+				huid       : huid,
+				firstName  : firstName, 
+				lastName   : lastName, 
+				has__error : errors.length > 0 ? true : false
+			};
+			recordsTable += compiledRecords(recordsRow);
+
+			if (details.career.yearInProgram === "EC") {
 				stats.EC ++;
-			} else if (record.career.yearInProgram === "EC") {
+			} else if (details.career.yearInProgram === "RC") {
 				stats.RC ++;
 			}
-			listOptions.valueNames.push("forRecord__" + firstName + '-' + lastName);
+			tables.details.settings.valueNames.push("detailOf__" + huid);
 
-			for (var fieldGroups in record) {
+			for (var fieldGroups in details) {
 				if (fieldGroups !== "updateDate" && fieldGroups !== "huid") {
-					var fieldGroup = record[fieldGroups];
+					var fieldGroup = details[fieldGroups];
 					for ( var field in fieldGroup) {
 						var errorValue = 'no error';
 						var has__error = false;
@@ -505,7 +585,8 @@ $(document).ready(function() {
 							} 
 						}
 
-						var row = {
+						var detailsRow = {
+							huid       : huid,
 							firstName  : firstName,
 							lastName   : lastName,
 							fieldName  : field,
@@ -513,8 +594,9 @@ $(document).ready(function() {
 							has__error : has__error,
 							errorValue : errorValue
 						};
-						console.log(row);
-						detailsTable += compiledDetails(row);
+						console.log(detailsRow);
+
+						detailsTable += compiledDetails(detailsRow);
 					}
 				}
 			}
@@ -527,45 +609,6 @@ $(document).ready(function() {
 		$detailsTable.append(detailsTable);
 
 		// initializes the responsiveness aspect of the tables
-
-
-
-
-
-
-		// sets up table filtering and sorting
-        var detailsList = new List('panel__fileRecords-record', listOptions);
-        $("#panel__fileRecords-record").data("list",detailsList);
-
-        var sortDetailsTable = function(toSort) {
-			detailsList.sort(toSort, { order: "asc" });
-		};
-
-        var filterDetailsTable = function(filter) {
-        	var toFilter = filter;
-        	detailsList.filter(function(item) {
-				return item.values()[toFilter] !== "";
-        	});
-			return false;
-        };
-
-        $detailsTable.find("[name='mobile__sort-details']").on("change", function() {
-        	var toSort = $("[name='mobile__sort-details']:checked").val();
-
-        	sortDetailsTable(toSort);
-		});
-
-        $recordsTable.find('[data-js-handler~="filter__details-table"]').on("click", function() {
-        	var $this = $(this);
-
-        	var toFilter = "forRecord__" + $this.attr("data-recordid");
-        	filterDetailsTable(toFilter);
-        });
-        filterDetailsTable();
-
-
-
-
 		$detailsTable.basictable({
 			breakpoint : 480
 		});

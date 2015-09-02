@@ -210,7 +210,7 @@ gulp.task('serve-testing', function () {
     gulp.watch('./src/**/*.scss', ['compile-sass']);
     gulp.watch('./dist/css/*.css').on('change', testingServer.reload);
 
-    gulp.watch('./src/js/*.js', ['compile-js']);
+    gulp.watch('./src/**/*.js', ['compile-js']);
     gulp.watch('./dist/js/*.js').on('change', testingServer.reload);
 
     gulp.watch('./src/*.html', ['compile-html']);

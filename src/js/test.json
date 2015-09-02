@@ -1,28 +1,7 @@
 {
   "records" :[
     {
-      "errors": [
-        {
-          "type": "E",
-          "message": "maximum length is 30 characters",
-          "field": "name.firstName"
-        },
-        {
-          "type": "E",
-          "message": "maximum length is 30 characters",
-          "field": "name.middleName"
-        },
-        {
-          "type": "E",
-          "message": "maximum length is 30 characters",
-          "field": "name.lastName"
-        },
-        {
-          "type": "E",
-          "message": "invalid value. Valid from 001 to 064",
-          "field": "ethnicity.ethnicityCode"
-        }
-      ],
+      "errors": [],
       "record": {
         "updateDate": "Wednesday, February 5, 2014 11:57 AM",
         "huid": 53971,
