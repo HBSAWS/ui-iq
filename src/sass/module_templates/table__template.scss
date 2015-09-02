@@ -248,9 +248,14 @@ table.bt tbody td .bt-content {
 		[class^="table-body-row_"] {
 			background  : transparent;
 			color       : #151515;
+			cursor      : pointer;
+			
+			&[data-ui-state~="is__selected"] {
+				background  : #4CC1BC;
+				color       : #ffffff;
+			}
 		}		
 		[class^="table-body-row_"]:hover {
-			cursor      : pointer;
 			background  : #4CC1BC;
 			color       : #ffffff;
 		}

@@ -121,7 +121,7 @@ $(document).ready(function() {
 											'<tr class="table-body-row_" data-ui-core="size__small">' +
 												'<td class="table-body-row-header_" data-ui-core="size__small">Records</td>' +
 												'<td class="table-body-row-cell_" data-ui-core="size__small">500</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">600</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">' + stats.records + '</td>' +
 											'</tr>' +
 											'<tr class="table-body-row_" data-ui-core="size__small">' +
 												'<td class="table-body-row-header_" data-ui-core="size__small">Exclusions</td>' +
@@ -143,12 +143,12 @@ $(document).ready(function() {
 											'<tr class="table-body-row_" data-ui-core="size__small">' +
 												'<td class="table-body-row-header_" data-ui-core="size__small">EC</td>' +
 												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">300</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">' + stats.EC + '</td>' +
 											'</tr>' +
 											'<tr class="table-body-row_" data-ui-core="size__small">' +
 												'<td class="table-body-row-header_" data-ui-core="size__small">RC</td>' +
 												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">300</td>' +
+												'<td class="table-body-row-cell_" data-ui-core="size__small">' + stats.RC + '</td>' +
 											'</tr>' +
 										'</tbody>' +
 									'</table>' +
@@ -456,6 +456,12 @@ $(document).ready(function() {
 						_self.UI.unfilter(toFilter);
 					}
 				});
+
+				this.$el.find("[data-js-handler~='detailsTable__filter-record']").on("click", function() {
+					_self.$el.find("[data-js-handler~='detailsTable__filter-record']").attr("data-ui-state","");
+					$(this).attr("data-ui-state","is__selected");
+
+				});
 			}
 		},
 		details : {
@@ -497,7 +503,7 @@ $(document).ready(function() {
 					_self.UI.unfilter(old__activeRecord);
 					_self.UI.filter(new__activeRecord);
 				});
-				
+
 				this.UI.filter("has__error");
 				tables.records.$el.find("tbody tr").first().trigger("click");
 			}
@@ -527,6 +533,7 @@ $(document).ready(function() {
 			});
 		}
 	}
+
 
 
 	// call to the api

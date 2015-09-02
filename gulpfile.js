@@ -5,6 +5,7 @@ var gulp = require('gulp'),
 	browserSync    = require('browser-sync'),
 	concat 		   = require('gulp-concat'),
 	del 		   = require('del'),
+	dummyJSON      = require('dummy-json'),
 	jshint         = require('gulp-jshint'),
 	mainBowerFiles = require('main-bower-files'),
 	merge 		   = require("merge-stream"),
@@ -202,9 +203,9 @@ gulp.task('serve-testing', function () {
 	    },
 	    server : {
 	    	directory : true,
-	    	baseDir : './'
+	    	baseDir : './dist/'
 	    },
-	    startPath : "./dist/index.html"
+	    startPath : "./index.html"
     });
 
     gulp.watch('./src/**/*.scss', ['compile-sass']);

@@ -1,0 +1,5602 @@
+[
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, January 2, 2015 5:11 AM",
+      "huid": 948024,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Monday, October 27, 2014 1:27 PM",
+      "lastDateAttend": "Saturday, October 18, 2014 10:26 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, January 30, 2014 12:46 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 7535,
+      "state": "Montana",
+      "city": "Westboro",
+      "address2": "   ",
+      "address1": "444 Argyle Road",
+      "countryCode": "sint",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 60,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Mcbride",
+      "firstName": "Bonnie",
+      "lastName": "Jefferson",
+      "gender": "M",
+      "birthDate": "Monday, November 24, 2014 5:33 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, February 15, 2014 1:49 PM",
+      "huid": 467442,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Saturday, July 11, 2015 5:32 AM",
+      "lastDateAttend": "Thursday, February 20, 2014 1:52 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, April 18, 2014 11:58 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 407,
+      "state": "Kansas",
+      "city": "Marienthal",
+      "address2": "   ",
+      "address1": "466 Calder Place",
+      "countryCode": "incididunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 69,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Melton",
+      "firstName": "Garrett",
+      "lastName": "Grant",
+      "gender": "M",
+      "birthDate": "Wednesday, May 6, 2015 2:51 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, May 27, 2015 7:16 PM",
+      "huid": 139544,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, June 20, 2014 11:13 PM",
+      "lastDateAttend": "Friday, January 23, 2015 1:37 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, July 18, 2015 3:06 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 9533,
+      "state": "Nevada",
+      "city": "Dubois",
+      "address2": "   ",
+      "address1": "419 Bryant Street",
+      "countryCode": "sunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 52,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Pate",
+      "firstName": "Cecile",
+      "lastName": "Hurley",
+      "gender": "M",
+      "birthDate": "Friday, January 2, 2015 1:50 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, February 1, 2014 10:36 AM",
+      "huid": 426706,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, November 30, 2014 10:57 PM",
+      "lastDateAttend": "Thursday, February 26, 2015 3:10 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, January 29, 2015 8:56 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 408,
+      "state": "Arizona",
+      "city": "Morgandale",
+      "address2": "   ",
+      "address1": "259 Lawn Court",
+      "countryCode": "ullamco",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 94,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Valentine",
+      "firstName": "Sexton",
+      "lastName": "Lester",
+      "gender": "U",
+      "birthDate": "Sunday, June 29, 2014 11:45 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, January 26, 2015 6:21 AM",
+      "huid": 954469,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Thursday, January 2, 2014 7:02 AM",
+      "lastDateAttend": "Monday, May 11, 2015 6:43 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, April 7, 2014 6:26 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 4670,
+      "state": "Idaho",
+      "city": "Robinette",
+      "address2": "   ",
+      "address1": "415 Bogart Street",
+      "countryCode": "sit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 48,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Rhodes",
+      "firstName": "Mcdaniel",
+      "lastName": "Murray",
+      "gender": "M",
+      "birthDate": "Wednesday, July 23, 2014 9:59 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, June 26, 2015 9:42 PM",
+      "huid": 568472,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, December 23, 2014 3:14 AM",
+      "lastDateAttend": "Wednesday, February 18, 2015 6:23 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, January 9, 2015 7:28 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18S",
+      "postal": 8109,
+      "state": "Guam",
+      "city": "Crisman",
+      "address2": "   ",
+      "address1": "905 Midwood Street",
+      "countryCode": "reprehenderit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 42,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Michael",
+      "firstName": "Beatriz",
+      "lastName": "Cameron",
+      "gender": "M",
+      "birthDate": "Friday, January 23, 2015 3:49 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, December 5, 2014 7:08 AM",
+      "huid": 40420,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, March 13, 2015 10:48 AM",
+      "lastDateAttend": "Thursday, November 6, 2014 4:27 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, April 17, 2015 12:14 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 9873,
+      "state": "Federated States Of Micronesia",
+      "city": "Bynum",
+      "address2": "   ",
+      "address1": "744 Woods Place",
+      "countryCode": "ullamco",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 19,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Martin",
+      "firstName": "Jessica",
+      "lastName": "Nguyen",
+      "gender": "F",
+      "birthDate": "Sunday, September 7, 2014 10:41 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, June 7, 2015 6:33 PM",
+      "huid": 75447,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Wednesday, May 21, 2014 8:16 AM",
+      "lastDateAttend": "Thursday, January 2, 2014 2:53 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, September 20, 2014 2:05 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 8248,
+      "state": "New Hampshire",
+      "city": "Downsville",
+      "address2": "   ",
+      "address1": "512 Danforth Street",
+      "countryCode": "aliquip",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 87,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Cooley",
+      "firstName": "Dunlap",
+      "lastName": "Dalton",
+      "gender": "M",
+      "birthDate": "Monday, June 15, 2015 11:46 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, August 3, 2015 9:22 PM",
+      "huid": 579090,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Sunday, July 5, 2015 6:51 PM",
+      "lastDateAttend": "Tuesday, October 14, 2014 4:45 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, September 6, 2014 3:40 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 8427,
+      "state": "Oregon",
+      "city": "Rockhill",
+      "address2": "   ",
+      "address1": "200 Dunham Place",
+      "countryCode": "ut",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 46,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Le",
+      "firstName": "Carole",
+      "lastName": "Moore",
+      "gender": "M",
+      "birthDate": "Monday, July 13, 2015 11:12 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, October 25, 2014 3:18 PM",
+      "huid": 926364,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Friday, August 21, 2015 11:13 PM",
+      "lastDateAttend": "Friday, July 17, 2015 8:58 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, March 25, 2014 3:45 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 4499,
+      "state": "Virgin Islands",
+      "city": "Cassel",
+      "address2": "   ",
+      "address1": "762 Coleridge Street",
+      "countryCode": "cupidatat",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 68,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Solomon",
+      "firstName": "Althea",
+      "lastName": "Bartlett",
+      "gender": "T",
+      "birthDate": "Monday, February 23, 2015 11:15 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, May 3, 2015 1:38 AM",
+      "huid": 757675,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Friday, July 24, 2015 6:08 AM",
+      "lastDateAttend": "Saturday, October 18, 2014 11:00 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, December 24, 2014 5:13 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 1619,
+      "state": "Kentucky",
+      "city": "Brambleton",
+      "address2": "   ",
+      "address1": "964 Fanchon Place",
+      "countryCode": "consectetur",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 44,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Harvey",
+      "firstName": "Glenda",
+      "lastName": "Randall",
+      "gender": "U",
+      "birthDate": "Friday, May 9, 2014 10:58 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, August 13, 2014 9:59 PM",
+      "huid": 541843,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, November 23, 2014 9:21 PM",
+      "lastDateAttend": "Friday, February 20, 2015 12:11 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, February 24, 2015 10:39 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 7724,
+      "state": "Indiana",
+      "city": "Wawona",
+      "address2": "   ",
+      "address1": "772 Irving Place",
+      "countryCode": "irure",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 36,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Leon",
+      "firstName": "Earline",
+      "lastName": "Delacruz",
+      "gender": "T",
+      "birthDate": "Friday, May 1, 2015 9:18 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, January 24, 2015 1:29 PM",
+      "huid": 583064,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Wednesday, October 22, 2014 6:45 AM",
+      "lastDateAttend": "Thursday, August 20, 2015 3:23 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, April 12, 2015 5:08 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 2463,
+      "state": "West Virginia",
+      "city": "Crenshaw",
+      "address2": "   ",
+      "address1": "376 Albemarle Road",
+      "countryCode": "aute",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 78,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Hewitt",
+      "firstName": "Rita",
+      "lastName": "Peterson",
+      "gender": "T",
+      "birthDate": "Monday, November 24, 2014 4:06 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, September 4, 2014 9:38 AM",
+      "huid": 112428,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, July 28, 2015 1:51 AM",
+      "lastDateAttend": "Wednesday, November 12, 2014 2:41 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, March 17, 2015 8:32 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 3418,
+      "state": "Maryland",
+      "city": "Vallonia",
+      "address2": "   ",
+      "address1": "328 Bradford Street",
+      "countryCode": "voluptate",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 1,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Cortez",
+      "firstName": "Jayne",
+      "lastName": "Lopez",
+      "gender": "T",
+      "birthDate": "Monday, August 3, 2015 2:42 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, May 17, 2014 9:53 AM",
+      "huid": 386960,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Sunday, January 18, 2015 4:27 AM",
+      "lastDateAttend": "Tuesday, October 7, 2014 12:11 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, January 11, 2015 7:56 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18S",
+      "postal": 6600,
+      "state": "American Samoa",
+      "city": "Witmer",
+      "address2": "   ",
+      "address1": "226 Llama Court",
+      "countryCode": "voluptate",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 93,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Fletcher",
+      "firstName": "Alvarado",
+      "lastName": "Wade",
+      "gender": "M",
+      "birthDate": "Wednesday, January 8, 2014 7:44 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, February 14, 2015 3:36 AM",
+      "huid": 887784,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Monday, May 4, 2015 6:27 PM",
+      "lastDateAttend": "Wednesday, January 8, 2014 5:58 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, July 7, 2014 4:09 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 5953,
+      "state": "New Mexico",
+      "city": "Greensburg",
+      "address2": "   ",
+      "address1": "617 Horace Court",
+      "countryCode": "esse",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 97,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Cunningham",
+      "firstName": "Lynch",
+      "lastName": "Foley",
+      "gender": "M",
+      "birthDate": "Tuesday, February 10, 2015 6:36 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, September 17, 2014 1:06 AM",
+      "huid": 884656,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Sunday, December 28, 2014 11:06 AM",
+      "lastDateAttend": "Saturday, June 20, 2015 8:11 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, January 14, 2014 3:43 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19S",
+      "postal": 8698,
+      "state": "Oklahoma",
+      "city": "Clarence",
+      "address2": "   ",
+      "address1": "979 Corbin Place",
+      "countryCode": "anim",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 9,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Guerra",
+      "firstName": "Randi",
+      "lastName": "Swanson",
+      "gender": "U",
+      "birthDate": "Friday, March 28, 2014 9:57 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, November 14, 2014 11:31 PM",
+      "huid": 13018,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, February 17, 2015 8:02 AM",
+      "lastDateAttend": "Sunday, August 23, 2015 2:13 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, January 15, 2014 2:28 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 6841,
+      "state": "Northern Mariana Islands",
+      "city": "Dyckesville",
+      "address2": "   ",
+      "address1": "956 Murdock Court",
+      "countryCode": "dolor",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 36,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Tran",
+      "firstName": "Katelyn",
+      "lastName": "Henderson",
+      "gender": "F",
+      "birthDate": "Monday, July 13, 2015 7:07 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, June 20, 2014 7:43 AM",
+      "huid": 658350,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Saturday, May 2, 2015 10:59 PM",
+      "lastDateAttend": "Monday, March 9, 2015 10:01 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, January 19, 2014 9:28 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 6509,
+      "state": "Ohio",
+      "city": "Breinigsville",
+      "address2": "   ",
+      "address1": "212 Tompkins Avenue",
+      "countryCode": "incididunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 10,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Carson",
+      "firstName": "Hoffman",
+      "lastName": "Walker",
+      "gender": "T",
+      "birthDate": "Sunday, February 16, 2014 1:37 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, July 22, 2015 10:08 AM",
+      "huid": 940991,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Friday, March 6, 2015 4:34 AM",
+      "lastDateAttend": "Friday, July 17, 2015 9:41 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, May 13, 2015 8:21 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 776,
+      "state": "Minnesota",
+      "city": "Cornucopia",
+      "address2": "   ",
+      "address1": "758 Perry Place",
+      "countryCode": "laboris",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 91,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Lamb",
+      "firstName": "Brianna",
+      "lastName": "England",
+      "gender": "T",
+      "birthDate": "Thursday, July 30, 2015 6:50 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, March 13, 2015 9:36 PM",
+      "huid": 427622,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Thursday, May 15, 2014 4:46 AM",
+      "lastDateAttend": "Friday, March 14, 2014 2:18 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, February 9, 2015 8:33 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 7416,
+      "state": "Mississippi",
+      "city": "Bentley",
+      "address2": "   ",
+      "address1": "422 Rugby Road",
+      "countryCode": "dolor",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 97,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Hayes",
+      "firstName": "Bertha",
+      "lastName": "Hopkins",
+      "gender": "M",
+      "birthDate": "Thursday, August 6, 2015 5:49 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, August 12, 2014 12:12 PM",
+      "huid": 281430,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, May 16, 2014 4:45 AM",
+      "lastDateAttend": "Monday, August 17, 2015 11:07 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, March 10, 2014 4:40 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 3764,
+      "state": "Massachusetts",
+      "city": "Cazadero",
+      "address2": "   ",
+      "address1": "275 Lorraine Street",
+      "countryCode": "dolore",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 30,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Mcguire",
+      "firstName": "Albert",
+      "lastName": "Mcfadden",
+      "gender": "T",
+      "birthDate": "Tuesday, March 31, 2015 4:57 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, May 18, 2014 11:57 PM",
+      "huid": 701283,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Thursday, December 18, 2014 1:07 AM",
+      "lastDateAttend": "Monday, July 20, 2015 10:13 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, January 26, 2015 10:49 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 5902,
+      "state": "Florida",
+      "city": "Summertown",
+      "address2": "   ",
+      "address1": "973 Williams Place",
+      "countryCode": "et",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 11,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Mckenzie",
+      "firstName": "Bush",
+      "lastName": "Spence",
+      "gender": "F",
+      "birthDate": "Thursday, February 20, 2014 11:25 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, April 26, 2014 5:41 AM",
+      "huid": 91707,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, January 4, 2015 8:40 AM",
+      "lastDateAttend": "Thursday, February 12, 2015 6:01 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, January 11, 2015 4:24 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 6619,
+      "state": "Alabama",
+      "city": "Foscoe",
+      "address2": "   ",
+      "address1": "926 Times Placez",
+      "countryCode": "deserunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 75,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Sosa",
+      "firstName": "Hendricks",
+      "lastName": "Vaughn",
+      "gender": "F",
+      "birthDate": "Thursday, February 6, 2014 5:59 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, May 23, 2015 6:11 AM",
+      "huid": 255848,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Wednesday, July 2, 2014 5:34 PM",
+      "lastDateAttend": "Wednesday, November 19, 2014 11:54 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, January 18, 2015 12:20 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 7284,
+      "state": "North Dakota",
+      "city": "Biddle",
+      "address2": "   ",
+      "address1": "899 Hall Street",
+      "countryCode": "dolore",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 97,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Morgan",
+      "firstName": "Leola",
+      "lastName": "Farley",
+      "gender": "T",
+      "birthDate": "Monday, November 24, 2014 9:32 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, April 5, 2015 12:17 PM",
+      "huid": 973666,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Monday, October 13, 2014 4:55 AM",
+      "lastDateAttend": "Friday, April 18, 2014 6:41 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, October 12, 2014 3:56 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 1373,
+      "state": "Puerto Rico",
+      "city": "Kiskimere",
+      "address2": "   ",
+      "address1": "648 Jerome Avenue",
+      "countryCode": "sint",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 59,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Jordan",
+      "firstName": "Nolan",
+      "lastName": "Stanley",
+      "gender": "F",
+      "birthDate": "Wednesday, January 7, 2015 11:49 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, May 1, 2015 5:25 PM",
+      "huid": 58471,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, August 23, 2015 12:44 PM",
+      "lastDateAttend": "Saturday, March 22, 2014 10:36 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, July 26, 2015 2:13 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 7065,
+      "state": "Texas",
+      "city": "Takilma",
+      "address2": "   ",
+      "address1": "568 Classon Avenue",
+      "countryCode": "exercitation",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 19,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Harrell",
+      "firstName": "Felicia",
+      "lastName": "Berger",
+      "gender": "U",
+      "birthDate": "Monday, October 13, 2014 8:07 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, May 17, 2015 2:06 PM",
+      "huid": 425178,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Wednesday, March 4, 2015 7:17 AM",
+      "lastDateAttend": "Friday, March 13, 2015 12:38 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, February 11, 2014 11:19 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18S",
+      "postal": 8417,
+      "state": "California",
+      "city": "Trexlertown",
+      "address2": "   ",
+      "address1": "501 Nichols Avenue",
+      "countryCode": "culpa",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 88,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Garrett",
+      "firstName": "Aurelia",
+      "lastName": "Buckner",
+      "gender": "F",
+      "birthDate": "Sunday, May 3, 2015 3:43 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, December 29, 2014 10:35 PM",
+      "huid": 913314,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Saturday, July 4, 2015 3:35 AM",
+      "lastDateAttend": "Wednesday, April 30, 2014 4:46 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, June 2, 2015 10:20 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 1459,
+      "state": "Washington",
+      "city": "Islandia",
+      "address2": "   ",
+      "address1": "717 Croton Loop",
+      "countryCode": "veniam",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 80,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Reilly",
+      "firstName": "Mcknight",
+      "lastName": "Roberts",
+      "gender": "F",
+      "birthDate": "Saturday, March 22, 2014 6:11 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, March 1, 2015 9:59 AM",
+      "huid": 433345,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, December 23, 2014 2:58 AM",
+      "lastDateAttend": "Friday, December 12, 2014 10:54 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, February 11, 2014 9:29 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 4456,
+      "state": "Wisconsin",
+      "city": "Kylertown",
+      "address2": "   ",
+      "address1": "211 Meserole Street",
+      "countryCode": "mollit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 87,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Skinner",
+      "firstName": "Robin",
+      "lastName": "Pickett",
+      "gender": "T",
+      "birthDate": "Tuesday, February 25, 2014 5:35 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, May 3, 2014 8:14 PM",
+      "huid": 309635,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Sunday, August 23, 2015 4:24 AM",
+      "lastDateAttend": "Thursday, February 20, 2014 3:30 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, January 31, 2015 7:15 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 3103,
+      "state": "North Carolina",
+      "city": "Darlington",
+      "address2": "   ",
+      "address1": "512 Duryea Court",
+      "countryCode": "ipsum",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 84,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Chan",
+      "firstName": "Mollie",
+      "lastName": "Hunt",
+      "gender": "M",
+      "birthDate": "Sunday, August 23, 2015 10:44 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, June 28, 2015 8:11 AM",
+      "huid": 429400,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Monday, May 4, 2015 5:40 PM",
+      "lastDateAttend": "Monday, January 12, 2015 10:33 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, May 3, 2014 9:09 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 1184,
+      "state": "Hawaii",
+      "city": "Tampico",
+      "address2": "   ",
+      "address1": "895 Cleveland Street",
+      "countryCode": "sint",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 45,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Mcclure",
+      "firstName": "Dalton",
+      "lastName": "Payne",
+      "gender": "F",
+      "birthDate": "Friday, April 25, 2014 11:11 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, June 1, 2014 12:15 AM",
+      "huid": 905237,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Thursday, February 27, 2014 12:31 AM",
+      "lastDateAttend": "Sunday, December 7, 2014 12:50 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, February 22, 2014 12:57 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 5309,
+      "state": "Palau",
+      "city": "Keyport",
+      "address2": "   ",
+      "address1": "507 Prospect Street",
+      "countryCode": "cillum",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 76,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Mullins",
+      "firstName": "Grace",
+      "lastName": "Weaver",
+      "gender": "U",
+      "birthDate": "Sunday, February 16, 2014 8:22 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, July 21, 2014 11:37 AM",
+      "huid": 161896,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Monday, October 6, 2014 9:38 AM",
+      "lastDateAttend": "Sunday, December 14, 2014 7:03 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, February 5, 2015 10:48 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19S",
+      "postal": 3192,
+      "state": "Nebraska",
+      "city": "Loomis",
+      "address2": "   ",
+      "address1": "343 Myrtle Avenue",
+      "countryCode": "nostrud",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 52,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Stafford",
+      "firstName": "Carla",
+      "lastName": "Waller",
+      "gender": "T",
+      "birthDate": "Wednesday, December 10, 2014 2:08 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, February 12, 2014 3:50 AM",
+      "huid": 551639,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Saturday, April 19, 2014 2:16 AM",
+      "lastDateAttend": "Saturday, October 11, 2014 1:00 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, September 15, 2014 10:11 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 2382,
+      "state": "Delaware",
+      "city": "Cornfields",
+      "address2": "   ",
+      "address1": "748 Monaco Place",
+      "countryCode": "adipisicing",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 58,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Green",
+      "firstName": "Oliver",
+      "lastName": "Sutton",
+      "gender": "U",
+      "birthDate": "Thursday, April 30, 2015 10:12 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, January 29, 2015 8:28 AM",
+      "huid": 635577,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Thursday, April 3, 2014 7:32 AM",
+      "lastDateAttend": "Friday, July 10, 2015 8:30 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, May 24, 2015 6:30 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 3373,
+      "state": "Missouri",
+      "city": "Boomer",
+      "address2": "   ",
+      "address1": "425 Bayview Place",
+      "countryCode": "labore",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 47,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Mills",
+      "firstName": "Vonda",
+      "lastName": "Copeland",
+      "gender": "T",
+      "birthDate": "Monday, June 30, 2014 4:37 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, March 26, 2014 12:05 PM",
+      "huid": 338138,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, January 28, 2014 8:00 PM",
+      "lastDateAttend": "Sunday, November 9, 2014 10:15 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, February 28, 2014 12:54 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 6544,
+      "state": "Marshall Islands",
+      "city": "Fannett",
+      "address2": "   ",
+      "address1": "798 Duryea Place",
+      "countryCode": "adipisicing",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 1,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Contreras",
+      "firstName": "Doyle",
+      "lastName": "Knox",
+      "gender": "M",
+      "birthDate": "Saturday, September 13, 2014 5:08 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, July 30, 2015 2:27 AM",
+      "huid": 644437,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Wednesday, May 7, 2014 7:31 PM",
+      "lastDateAttend": "Wednesday, June 3, 2015 11:36 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, November 7, 2014 1:41 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 327,
+      "state": "Maine",
+      "city": "Gouglersville",
+      "address2": "   ",
+      "address1": "588 Church Lane",
+      "countryCode": "do",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 65,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Black",
+      "firstName": "Stephanie",
+      "lastName": "Baxter",
+      "gender": "M",
+      "birthDate": "Sunday, December 21, 2014 2:14 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, March 15, 2015 6:16 AM",
+      "huid": 270056,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, September 30, 2014 4:06 PM",
+      "lastDateAttend": "Sunday, April 26, 2015 3:04 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, June 4, 2015 11:58 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 1842,
+      "state": "Wyoming",
+      "city": "Eastvale",
+      "address2": "   ",
+      "address1": "614 Dare Court",
+      "countryCode": "amet",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 52,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Barrera",
+      "firstName": "Margo",
+      "lastName": "Puckett",
+      "gender": "U",
+      "birthDate": "Thursday, January 15, 2015 11:00 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, July 18, 2015 8:08 PM",
+      "huid": 730538,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, June 16, 2015 3:25 PM",
+      "lastDateAttend": "Friday, October 10, 2014 2:26 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, June 26, 2014 10:57 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 9044,
+      "state": "Louisiana",
+      "city": "Sardis",
+      "address2": "   ",
+      "address1": "279 Sandford Street",
+      "countryCode": "tempor",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 42,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Morrison",
+      "firstName": "Sandoval",
+      "lastName": "Vang",
+      "gender": "T",
+      "birthDate": "Monday, December 1, 2014 1:21 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, May 15, 2015 6:42 AM",
+      "huid": 273521,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, April 7, 2015 5:48 PM",
+      "lastDateAttend": "Monday, September 22, 2014 7:24 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, May 21, 2014 1:10 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 4488,
+      "state": "Georgia",
+      "city": "Topaz",
+      "address2": "   ",
+      "address1": "353 Woodruff Avenue",
+      "countryCode": "ad",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 1,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Day",
+      "firstName": "Wanda",
+      "lastName": "Kim",
+      "gender": "F",
+      "birthDate": "Thursday, August 13, 2015 6:39 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, July 1, 2014 1:57 AM",
+      "huid": 266329,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, February 2, 2014 11:22 AM",
+      "lastDateAttend": "Wednesday, July 16, 2014 11:01 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, November 17, 2014 7:44 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 135,
+      "state": "Alaska",
+      "city": "Gibsonia",
+      "address2": "   ",
+      "address1": "281 Aster Court",
+      "countryCode": "nostrud",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 28,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Ayala",
+      "firstName": "Daphne",
+      "lastName": "Whitley",
+      "gender": "M",
+      "birthDate": "Monday, March 23, 2015 5:33 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, February 5, 2014 11:27 AM",
+      "huid": 53062,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, May 16, 2014 10:01 PM",
+      "lastDateAttend": "Saturday, February 28, 2015 3:16 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, February 13, 2015 9:28 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18S",
+      "postal": 3544,
+      "state": "Tennessee",
+      "city": "Barstow",
+      "address2": "   ",
+      "address1": "318 Buffalo Avenue",
+      "countryCode": "exercitation",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 0,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Stanton",
+      "firstName": "Agnes",
+      "lastName": "Curry",
+      "gender": "U",
+      "birthDate": "Sunday, August 10, 2014 6:40 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, August 22, 2014 10:31 AM",
+      "huid": 365268,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Thursday, February 26, 2015 3:50 AM",
+      "lastDateAttend": "Friday, February 27, 2015 9:07 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, July 7, 2015 6:50 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 2932,
+      "state": "Colorado",
+      "city": "Orick",
+      "address2": "   ",
+      "address1": "598 Lafayette Walk",
+      "countryCode": "mollit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 63,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Craft",
+      "firstName": "Socorro",
+      "lastName": "Donovan",
+      "gender": "M",
+      "birthDate": "Sunday, January 19, 2014 6:22 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, August 14, 2014 12:08 PM",
+      "huid": 607998,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Thursday, January 23, 2014 6:38 PM",
+      "lastDateAttend": "Monday, July 21, 2014 9:47 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, April 5, 2014 12:01 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 9429,
+      "state": "South Carolina",
+      "city": "Jennings",
+      "address2": "   ",
+      "address1": "263 Story Court",
+      "countryCode": "ex",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 31,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Grimes",
+      "firstName": "Suarez",
+      "lastName": "Ramsey",
+      "gender": "M",
+      "birthDate": "Sunday, January 19, 2014 10:43 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, January 11, 2014 2:14 PM",
+      "huid": 838371,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Thursday, June 11, 2015 3:10 AM",
+      "lastDateAttend": "Monday, June 23, 2014 2:34 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, February 20, 2015 8:59 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 3877,
+      "state": "Virginia",
+      "city": "Idamay",
+      "address2": "   ",
+      "address1": "872 Herkimer Place",
+      "countryCode": "veniam",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 64,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Knowles",
+      "firstName": "Henson",
+      "lastName": "Mueller",
+      "gender": "U",
+      "birthDate": "Monday, June 9, 2014 6:04 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, August 28, 2015 5:05 PM",
+      "huid": 438234,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Sunday, March 8, 2015 1:34 PM",
+      "lastDateAttend": "Tuesday, November 4, 2014 6:55 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, January 10, 2014 10:34 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 4494,
+      "state": "New York",
+      "city": "Hebron",
+      "address2": "   ",
+      "address1": "826 Hinsdale Street",
+      "countryCode": "sunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 93,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Rosa",
+      "firstName": "Finley",
+      "lastName": "Everett",
+      "gender": "F",
+      "birthDate": "Wednesday, May 27, 2015 1:28 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, April 22, 2014 3:21 PM",
+      "huid": 951886,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Sunday, June 1, 2014 9:52 PM",
+      "lastDateAttend": "Tuesday, June 24, 2014 6:05 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, August 9, 2015 12:48 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 188,
+      "state": "Vermont",
+      "city": "Frystown",
+      "address2": "   ",
+      "address1": "327 Preston Court",
+      "countryCode": "esse",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 4,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Church",
+      "firstName": "Lilia",
+      "lastName": "Koch",
+      "gender": "U",
+      "birthDate": "Saturday, March 22, 2014 7:25 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, December 21, 2014 11:36 PM",
+      "huid": 911346,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, June 26, 2015 8:44 PM",
+      "lastDateAttend": "Saturday, January 11, 2014 7:59 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, January 17, 2015 2:00 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 4562,
+      "state": "Rhode Island",
+      "city": "Reinerton",
+      "address2": "   ",
+      "address1": "778 Forrest Street",
+      "countryCode": "laboris",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 67,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Quinn",
+      "firstName": "Marci",
+      "lastName": "Castro",
+      "gender": "M",
+      "birthDate": "Friday, April 18, 2014 3:53 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, January 6, 2015 7:52 AM",
+      "huid": 39106,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Thursday, March 12, 2015 7:27 PM",
+      "lastDateAttend": "Tuesday, May 5, 2015 2:10 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, August 28, 2015 11:00 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 4364,
+      "state": "Michigan",
+      "city": "Woodlake",
+      "address2": "   ",
+      "address1": "581 Reeve Place",
+      "countryCode": "voluptate",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 86,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Adams",
+      "firstName": "Abby",
+      "lastName": "Watts",
+      "gender": "F",
+      "birthDate": "Tuesday, July 7, 2015 1:54 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, September 11, 2014 6:37 PM",
+      "huid": 401371,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, May 26, 2015 7:21 PM",
+      "lastDateAttend": "Thursday, May 14, 2015 4:23 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, February 27, 2014 2:46 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 8354,
+      "state": "Illinois",
+      "city": "Warren",
+      "address2": "   ",
+      "address1": "897 Eldert Lane",
+      "countryCode": "dolore",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 100,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Caldwell",
+      "firstName": "Rodgers",
+      "lastName": "Valencia",
+      "gender": "M",
+      "birthDate": "Wednesday, June 10, 2015 12:15 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, July 23, 2015 7:42 PM",
+      "huid": 221619,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, May 26, 2015 3:57 PM",
+      "lastDateAttend": "Saturday, June 27, 2015 1:55 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, January 22, 2014 1:59 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 4515,
+      "state": "New Jersey",
+      "city": "Martell",
+      "address2": "   ",
+      "address1": "385 Waldane Court",
+      "countryCode": "aliqua",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 92,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Hines",
+      "firstName": "Hinton",
+      "lastName": "Lawson",
+      "gender": "T",
+      "birthDate": "Tuesday, January 13, 2015 9:02 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, October 7, 2014 12:48 PM",
+      "huid": 644033,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, December 9, 2014 8:54 PM",
+      "lastDateAttend": "Monday, March 24, 2014 1:52 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, March 6, 2015 9:29 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19S",
+      "postal": 1730,
+      "state": "Utah",
+      "city": "Frierson",
+      "address2": "   ",
+      "address1": "156 Miller Avenue",
+      "countryCode": "qui",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 68,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Larsen",
+      "firstName": "Morse",
+      "lastName": "Lindsay",
+      "gender": "M",
+      "birthDate": "Tuesday, May 20, 2014 10:11 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, January 29, 2015 10:41 PM",
+      "huid": 210206,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, October 14, 2014 12:04 AM",
+      "lastDateAttend": "Friday, October 31, 2014 5:09 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, May 2, 2015 6:24 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 5894,
+      "state": "Pennsylvania",
+      "city": "Coultervillle",
+      "address2": "   ",
+      "address1": "618 Oliver Street",
+      "countryCode": "tempor",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 98,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Clarke",
+      "firstName": "Jessie",
+      "lastName": "Holcomb",
+      "gender": "M",
+      "birthDate": "Thursday, January 8, 2015 4:43 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, April 20, 2015 1:44 AM",
+      "huid": 562903,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, July 29, 2014 9:25 PM",
+      "lastDateAttend": "Monday, March 24, 2014 9:18 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, June 25, 2014 10:36 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 6214,
+      "state": "Iowa",
+      "city": "Finzel",
+      "address2": "   ",
+      "address1": "457 Seba Avenue",
+      "countryCode": "magna",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 49,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Chapman",
+      "firstName": "Leila",
+      "lastName": "Brewer",
+      "gender": "F",
+      "birthDate": "Sunday, March 30, 2014 6:01 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, June 9, 2014 1:38 AM",
+      "huid": 863132,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Thursday, October 16, 2014 2:48 AM",
+      "lastDateAttend": "Monday, December 8, 2014 6:56 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, January 29, 2015 7:42 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 8513,
+      "state": "Arkansas",
+      "city": "Vale",
+      "address2": "   ",
+      "address1": "343 Rutledge Street",
+      "countryCode": "magna",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 53,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Ward",
+      "firstName": "Willa",
+      "lastName": "Hamilton",
+      "gender": "U",
+      "birthDate": "Saturday, June 14, 2014 9:58 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, March 3, 2015 8:29 AM",
+      "huid": 364069,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Thursday, June 18, 2015 4:26 PM",
+      "lastDateAttend": "Friday, June 26, 2015 10:11 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, April 19, 2015 11:44 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 1470,
+      "state": "South Dakota",
+      "city": "Winston",
+      "address2": "   ",
+      "address1": "168 Humboldt Street",
+      "countryCode": "labore",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 37,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Stevenson",
+      "firstName": "Cline",
+      "lastName": "Callahan",
+      "gender": "T",
+      "birthDate": "Thursday, October 23, 2014 8:09 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, April 4, 2015 11:22 AM",
+      "huid": 570086,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Saturday, August 16, 2014 4:48 PM",
+      "lastDateAttend": "Wednesday, July 1, 2015 4:51 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, May 31, 2015 6:28 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 7534,
+      "state": "Connecticut",
+      "city": "Alamo",
+      "address2": "   ",
+      "address1": "729 Livingston Street",
+      "countryCode": "nisi",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 39,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Griffin",
+      "firstName": "Gilliam",
+      "lastName": "Dawson",
+      "gender": "F",
+      "birthDate": "Friday, May 15, 2015 7:52 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, July 1, 2014 11:34 AM",
+      "huid": 957786,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Wednesday, September 10, 2014 4:21 PM",
+      "lastDateAttend": "Wednesday, January 7, 2015 11:09 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, March 19, 2014 9:59 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 4230,
+      "state": "Montana",
+      "city": "Gilgo",
+      "address2": "   ",
+      "address1": "871 Gem Street",
+      "countryCode": "ipsum",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 6,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Jacobson",
+      "firstName": "Sara",
+      "lastName": "Jackson",
+      "gender": "U",
+      "birthDate": "Wednesday, February 5, 2014 1:39 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, May 18, 2014 5:37 PM",
+      "huid": 519276,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Wednesday, December 31, 2014 8:18 AM",
+      "lastDateAttend": "Sunday, May 31, 2015 12:22 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, May 18, 2015 9:38 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 9688,
+      "state": "Kansas",
+      "city": "Hackneyville",
+      "address2": "   ",
+      "address1": "290 Johnson Street",
+      "countryCode": "reprehenderit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 27,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Schwartz",
+      "firstName": "Rosetta",
+      "lastName": "Boyle",
+      "gender": "U",
+      "birthDate": "Wednesday, March 5, 2014 5:20 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, June 10, 2015 7:13 AM",
+      "huid": 689234,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, July 25, 2014 9:07 PM",
+      "lastDateAttend": "Wednesday, July 30, 2014 1:56 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, December 24, 2014 2:41 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 6954,
+      "state": "Nevada",
+      "city": "Brantleyville",
+      "address2": "   ",
+      "address1": "131 Ryerson Street",
+      "countryCode": "dolore",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 5,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Blackwell",
+      "firstName": "Wendi",
+      "lastName": "Gilbert",
+      "gender": "U",
+      "birthDate": "Wednesday, January 28, 2015 3:03 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, August 25, 2015 7:04 PM",
+      "huid": 15456,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Wednesday, August 26, 2015 3:17 PM",
+      "lastDateAttend": "Friday, June 27, 2014 5:20 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, March 18, 2015 1:35 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 4608,
+      "state": "Arizona",
+      "city": "Chumuckla",
+      "address2": "   ",
+      "address1": "433 Baltic Street",
+      "countryCode": "pariatur",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 49,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Marquez",
+      "firstName": "Dillard",
+      "lastName": "Collier",
+      "gender": "F",
+      "birthDate": "Saturday, January 31, 2015 8:11 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, March 7, 2014 6:11 AM",
+      "huid": 774030,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Thursday, November 20, 2014 2:12 PM",
+      "lastDateAttend": "Monday, June 15, 2015 10:19 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, November 29, 2014 8:29 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 9254,
+      "state": "Idaho",
+      "city": "Driftwood",
+      "address2": "   ",
+      "address1": "844 Lott Street",
+      "countryCode": "reprehenderit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 60,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Chen",
+      "firstName": "Lynne",
+      "lastName": "Bennett",
+      "gender": "F",
+      "birthDate": "Thursday, September 25, 2014 4:15 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, March 22, 2014 6:52 AM",
+      "huid": 647933,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Wednesday, September 24, 2014 1:54 AM",
+      "lastDateAttend": "Friday, March 13, 2015 10:04 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, January 7, 2015 8:12 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 6142,
+      "state": "Guam",
+      "city": "Concho",
+      "address2": "   ",
+      "address1": "782 Berriman Street",
+      "countryCode": "nostrud",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 56,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Stephenson",
+      "firstName": "Rosario",
+      "lastName": "Dyer",
+      "gender": "M",
+      "birthDate": "Friday, August 21, 2015 1:37 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, February 23, 2015 9:45 AM",
+      "huid": 314288,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, March 11, 2014 12:18 AM",
+      "lastDateAttend": "Monday, November 24, 2014 8:31 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, April 3, 2015 6:49 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19S",
+      "postal": 778,
+      "state": "Federated States Of Micronesia",
+      "city": "Lavalette",
+      "address2": "   ",
+      "address1": "839 Roder Avenue",
+      "countryCode": "commodo",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 56,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Camacho",
+      "firstName": "Sherri",
+      "lastName": "Espinoza",
+      "gender": "T",
+      "birthDate": "Sunday, November 16, 2014 4:29 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, December 20, 2014 3:13 AM",
+      "huid": 443781,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, February 24, 2015 10:40 PM",
+      "lastDateAttend": "Friday, August 21, 2015 6:03 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, June 8, 2015 5:52 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 5137,
+      "state": "New Hampshire",
+      "city": "Charco",
+      "address2": "   ",
+      "address1": "802 Ainslie Street",
+      "countryCode": "laborum",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 78,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Coffey",
+      "firstName": "Rosalyn",
+      "lastName": "Maddox",
+      "gender": "U",
+      "birthDate": "Tuesday, October 21, 2014 10:16 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, November 13, 2014 5:50 PM",
+      "huid": 547149,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Monday, September 29, 2014 8:15 AM",
+      "lastDateAttend": "Thursday, January 9, 2014 4:55 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, January 23, 2014 3:46 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19S",
+      "postal": 6353,
+      "state": "Oregon",
+      "city": "Wauhillau",
+      "address2": "   ",
+      "address1": "210 Harway Avenue",
+      "countryCode": "incididunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 88,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Dotson",
+      "firstName": "Sarah",
+      "lastName": "Carr",
+      "gender": "T",
+      "birthDate": "Saturday, December 13, 2014 8:27 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, August 12, 2014 5:57 PM",
+      "huid": 320586,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Monday, March 17, 2014 11:43 AM",
+      "lastDateAttend": "Saturday, January 10, 2015 2:50 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, February 1, 2014 10:27 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 499,
+      "state": "Virgin Islands",
+      "city": "Bradenville",
+      "address2": "   ",
+      "address1": "181 Lincoln Terrace",
+      "countryCode": "non",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 76,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Waters",
+      "firstName": "Kemp",
+      "lastName": "Woodward",
+      "gender": "F",
+      "birthDate": "Wednesday, January 29, 2014 5:18 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, March 11, 2015 4:52 PM",
+      "huid": 377467,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Monday, August 10, 2015 11:34 AM",
+      "lastDateAttend": "Wednesday, February 12, 2014 8:57 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, March 17, 2014 2:36 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18S",
+      "postal": 4889,
+      "state": "Kentucky",
+      "city": "Mayfair",
+      "address2": "   ",
+      "address1": "311 Meeker Avenue",
+      "countryCode": "aliquip",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 71,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Ortega",
+      "firstName": "Strickland",
+      "lastName": "Daniel",
+      "gender": "T",
+      "birthDate": "Saturday, July 4, 2015 3:30 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, May 20, 2014 9:45 AM",
+      "huid": 514783,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Wednesday, May 6, 2015 10:25 PM",
+      "lastDateAttend": "Friday, July 4, 2014 7:16 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, July 5, 2015 2:31 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 3397,
+      "state": "Indiana",
+      "city": "Elfrida",
+      "address2": "   ",
+      "address1": "991 Church Avenue",
+      "countryCode": "tempor",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 45,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Rosales",
+      "firstName": "Lori",
+      "lastName": "Avery",
+      "gender": "M",
+      "birthDate": "Monday, June 8, 2015 3:11 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, January 31, 2014 8:59 PM",
+      "huid": 48776,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, December 9, 2014 12:33 AM",
+      "lastDateAttend": "Monday, March 16, 2015 11:00 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, October 17, 2014 5:22 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 8140,
+      "state": "West Virginia",
+      "city": "Thornport",
+      "address2": "   ",
+      "address1": "368 Mill Road",
+      "countryCode": "ullamco",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 45,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Reed",
+      "firstName": "Kramer",
+      "lastName": "Trujillo",
+      "gender": "F",
+      "birthDate": "Saturday, July 4, 2015 3:13 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, April 7, 2015 7:06 AM",
+      "huid": 626121,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, January 2, 2015 6:00 PM",
+      "lastDateAttend": "Saturday, January 3, 2015 7:49 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, May 18, 2015 2:44 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 1333,
+      "state": "Maryland",
+      "city": "Kansas",
+      "address2": "   ",
+      "address1": "711 Gates Avenue",
+      "countryCode": "cillum",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 48,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Evans",
+      "firstName": "Cecelia",
+      "lastName": "Klein",
+      "gender": "M",
+      "birthDate": "Wednesday, January 8, 2014 3:50 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, June 5, 2015 12:43 PM",
+      "huid": 480820,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Monday, February 16, 2015 8:46 PM",
+      "lastDateAttend": "Thursday, November 13, 2014 11:50 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, February 12, 2014 4:29 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 1858,
+      "state": "American Samoa",
+      "city": "Bath",
+      "address2": "   ",
+      "address1": "899 Creamer Street",
+      "countryCode": "culpa",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 28,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Mccarthy",
+      "firstName": "Tabitha",
+      "lastName": "Daugherty",
+      "gender": "T",
+      "birthDate": "Sunday, March 1, 2015 10:26 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, April 11, 2014 7:34 PM",
+      "huid": 235350,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Wednesday, November 26, 2014 11:42 PM",
+      "lastDateAttend": "Tuesday, June 9, 2015 12:05 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, July 21, 2015 2:41 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 7365,
+      "state": "New Mexico",
+      "city": "Salvo",
+      "address2": "   ",
+      "address1": "600 Montrose Avenue",
+      "countryCode": "adipisicing",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 3,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Mann",
+      "firstName": "Riddle",
+      "lastName": "Wells",
+      "gender": "M",
+      "birthDate": "Sunday, May 24, 2015 1:23 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, April 10, 2014 10:33 PM",
+      "huid": 665180,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Monday, July 21, 2014 5:32 AM",
+      "lastDateAttend": "Thursday, March 6, 2014 2:58 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, August 24, 2014 3:39 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 8127,
+      "state": "Oklahoma",
+      "city": "Hollins",
+      "address2": "   ",
+      "address1": "492 Garden Street",
+      "countryCode": "aliquip",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 33,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Sargent",
+      "firstName": "Kim",
+      "lastName": "Winters",
+      "gender": "M",
+      "birthDate": "Wednesday, November 26, 2014 10:09 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, August 12, 2014 12:00 AM",
+      "huid": 68447,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Wednesday, March 12, 2014 1:47 PM",
+      "lastDateAttend": "Tuesday, February 4, 2014 10:46 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, March 18, 2015 11:05 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 2276,
+      "state": "Northern Mariana Islands",
+      "city": "Lloyd",
+      "address2": "   ",
+      "address1": "337 Girard Street",
+      "countryCode": "aliquip",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 45,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Boyd",
+      "firstName": "Wiggins",
+      "lastName": "Thomas",
+      "gender": "T",
+      "birthDate": "Tuesday, April 15, 2014 7:18 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, May 10, 2014 9:05 AM",
+      "huid": 409634,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, August 18, 2015 1:49 PM",
+      "lastDateAttend": "Friday, January 9, 2015 4:26 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, July 3, 2014 3:57 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19S",
+      "postal": 4301,
+      "state": "Ohio",
+      "city": "Bluetown",
+      "address2": "   ",
+      "address1": "277 Bay Avenue",
+      "countryCode": "excepteur",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 19,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Haley",
+      "firstName": "Byers",
+      "lastName": "Hopper",
+      "gender": "F",
+      "birthDate": "Thursday, August 13, 2015 11:59 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, May 15, 2014 4:38 AM",
+      "huid": 606677,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Thursday, January 23, 2014 4:25 AM",
+      "lastDateAttend": "Wednesday, July 8, 2015 6:41 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, July 8, 2014 1:33 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 1717,
+      "state": "Minnesota",
+      "city": "Starks",
+      "address2": "   ",
+      "address1": "821 Kent Street",
+      "countryCode": "eu",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 0,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Cochran",
+      "firstName": "Janet",
+      "lastName": "Briggs",
+      "gender": "U",
+      "birthDate": "Sunday, May 10, 2015 3:33 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Wednesday, November 19, 2014 5:10 AM",
+      "huid": 493497,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, September 30, 2014 5:51 AM",
+      "lastDateAttend": "Monday, July 20, 2015 10:57 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, July 9, 2014 11:23 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 7011,
+      "state": "Mississippi",
+      "city": "Aguila",
+      "address2": "   ",
+      "address1": "770 Crystal Street",
+      "countryCode": "laboris",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 88,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Craig",
+      "firstName": "Calderon",
+      "lastName": "Patton",
+      "gender": "U",
+      "birthDate": "Wednesday, September 24, 2014 2:12 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, September 30, 2014 12:42 AM",
+      "huid": 434349,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Saturday, July 18, 2015 6:20 AM",
+      "lastDateAttend": "Friday, December 19, 2014 2:26 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, October 3, 2014 3:47 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "19F",
+      "postal": 6809,
+      "state": "Massachusetts",
+      "city": "Oneida",
+      "address2": "   ",
+      "address1": "978 Pineapple Street",
+      "countryCode": "eu",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 65,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Sawyer",
+      "firstName": "Collins",
+      "lastName": "Atkins",
+      "gender": "U",
+      "birthDate": "Sunday, June 22, 2014 8:12 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, September 11, 2014 3:09 PM",
+      "huid": 309686,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Friday, January 30, 2015 6:03 PM",
+      "lastDateAttend": "Tuesday, January 21, 2014 7:19 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, February 15, 2014 2:29 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 7727,
+      "state": "Florida",
+      "city": "Glasgow",
+      "address2": "   ",
+      "address1": "349 Clinton Street",
+      "countryCode": "sunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 52,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Delaney",
+      "firstName": "Brewer",
+      "lastName": "Russo",
+      "gender": "T",
+      "birthDate": "Thursday, January 8, 2015 10:02 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, May 24, 2014 4:39 AM",
+      "huid": 104961,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, May 24, 2015 12:38 PM",
+      "lastDateAttend": "Thursday, April 16, 2015 3:08 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, January 26, 2014 8:23 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 7616,
+      "state": "Alabama",
+      "city": "Grandview",
+      "address2": "   ",
+      "address1": "675 Aviation Road",
+      "countryCode": "cillum",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 2,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Mcleod",
+      "firstName": "Marietta",
+      "lastName": "Velazquez",
+      "gender": "U",
+      "birthDate": "Monday, July 28, 2014 2:30 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, January 26, 2014 9:56 PM",
+      "huid": 786482,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, December 23, 2014 2:49 AM",
+      "lastDateAttend": "Monday, July 14, 2014 10:41 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, January 24, 2014 1:44 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18S",
+      "postal": 7775,
+      "state": "North Dakota",
+      "city": "Cressey",
+      "address2": "   ",
+      "address1": "509 Kane Street",
+      "countryCode": "magna",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 82,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Myers",
+      "firstName": "Gabriela",
+      "lastName": "Bishop",
+      "gender": "T",
+      "birthDate": "Tuesday, June 2, 2015 10:40 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, October 16, 2014 5:31 AM",
+      "huid": 224349,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Sunday, December 14, 2014 5:50 AM",
+      "lastDateAttend": "Tuesday, July 28, 2015 12:24 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, February 24, 2014 12:12 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 3657,
+      "state": "Puerto Rico",
+      "city": "Hayden",
+      "address2": "   ",
+      "address1": "223 Jay Street",
+      "countryCode": "sint",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 98,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Berry",
+      "firstName": "Moran",
+      "lastName": "Daniels",
+      "gender": "M",
+      "birthDate": "Tuesday, May 26, 2015 3:24 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, August 22, 2014 6:48 PM",
+      "huid": 952756,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, June 3, 2014 5:23 AM",
+      "lastDateAttend": "Wednesday, November 12, 2014 3:29 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, November 27, 2014 1:58 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15S",
+      "postal": 9104,
+      "state": "Texas",
+      "city": "Thomasville",
+      "address2": "   ",
+      "address1": "350 Newport Street",
+      "countryCode": "mollit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 44,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Guy",
+      "firstName": "Corine",
+      "lastName": "Holland",
+      "gender": "U",
+      "birthDate": "Saturday, April 18, 2015 6:55 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, January 13, 2015 3:05 PM",
+      "huid": 574616,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, February 1, 2015 8:28 PM",
+      "lastDateAttend": "Saturday, January 10, 2015 4:20 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Thursday, May 22, 2014 11:10 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 8643,
+      "state": "California",
+      "city": "Southmont",
+      "address2": "   ",
+      "address1": "804 Ferris Street",
+      "countryCode": "quis",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 62,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Parks",
+      "firstName": "Anthony",
+      "lastName": "Foreman",
+      "gender": "F",
+      "birthDate": "Wednesday, April 9, 2014 6:53 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, November 29, 2014 9:43 AM",
+      "huid": 845768,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Saturday, April 12, 2014 4:18 AM",
+      "lastDateAttend": "Sunday, April 13, 2014 8:36 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, July 15, 2015 3:27 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16S",
+      "postal": 8006,
+      "state": "Washington",
+      "city": "Clay",
+      "address2": "   ",
+      "address1": "478 Aberdeen Street",
+      "countryCode": "reprehenderit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 2,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Dickerson",
+      "firstName": "Deidre",
+      "lastName": "Mcdonald",
+      "gender": "U",
+      "birthDate": "Friday, August 7, 2015 8:42 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, October 4, 2014 11:07 AM",
+      "huid": 702476,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, January 20, 2015 3:48 AM",
+      "lastDateAttend": "Thursday, January 22, 2015 1:07 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, May 31, 2014 7:01 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 4752,
+      "state": "Wisconsin",
+      "city": "Stollings",
+      "address2": "   ",
+      "address1": "317 Cooke Court",
+      "countryCode": "aliquip",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 30,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Prince",
+      "firstName": "Lorena",
+      "lastName": "Leonard",
+      "gender": "U",
+      "birthDate": "Saturday, February 28, 2015 12:11 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, May 27, 2014 1:57 AM",
+      "huid": 359581,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, March 6, 2015 2:34 AM",
+      "lastDateAttend": "Friday, May 29, 2015 11:32 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Sunday, April 20, 2014 3:08 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 5121,
+      "state": "North Carolina",
+      "city": "Roulette",
+      "address2": "   ",
+      "address1": "589 Holmes Lane",
+      "countryCode": "consequat",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 73,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Ryan",
+      "firstName": "Preston",
+      "lastName": "Stout",
+      "gender": "F",
+      "birthDate": "Wednesday, April 30, 2014 9:47 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Monday, February 24, 2014 1:23 AM",
+      "huid": 458892,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Thursday, March 5, 2015 11:01 PM",
+      "lastDateAttend": "Sunday, February 22, 2015 6:26 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, March 14, 2015 8:03 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17S",
+      "postal": 6171,
+      "state": "Hawaii",
+      "city": "Romeville",
+      "address2": "   ",
+      "address1": "247 Elmwood Avenue",
+      "countryCode": "enim",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 47,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Alston",
+      "firstName": "Hart",
+      "lastName": "Stevens",
+      "gender": "T",
+      "birthDate": "Monday, April 28, 2014 7:14 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Sunday, December 7, 2014 6:26 PM",
+      "huid": 758952,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Friday, November 21, 2014 1:38 PM",
+      "lastDateAttend": "Monday, September 22, 2014 2:02 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, June 12, 2015 6:09 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18S",
+      "postal": 8827,
+      "state": "Palau",
+      "city": "Gardners",
+      "address2": "   ",
+      "address1": "583 Bevy Court",
+      "countryCode": "mollit",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 19,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Case",
+      "firstName": "Edwina",
+      "lastName": "Avila",
+      "gender": "T",
+      "birthDate": "Thursday, January 16, 2014 3:16 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, January 3, 2015 3:15 AM",
+      "huid": 664869,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Tuesday, February 10, 2015 1:04 PM",
+      "lastDateAttend": "Tuesday, September 30, 2014 11:50 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, June 26, 2015 12:13 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 1190,
+      "state": "Nebraska",
+      "city": "Cochranville",
+      "address2": "   ",
+      "address1": "738 Provost Street",
+      "countryCode": "Lorem",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 25,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "Y",
+      "middleName": "Britt",
+      "firstName": "Perkins",
+      "lastName": "Pearson",
+      "gender": "T",
+      "birthDate": "Wednesday, October 15, 2014 1:22 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, December 2, 2014 10:40 PM",
+      "huid": 132794,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Friday, August 1, 2014 8:51 AM",
+      "lastDateAttend": "Sunday, November 30, 2014 1:27 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, August 23, 2014 12:00 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 7303,
+      "state": "Delaware",
+      "city": "Stevens",
+      "address2": "   ",
+      "address1": "439 Aitken Place",
+      "countryCode": "commodo",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 13,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Johns",
+      "firstName": "Summers",
+      "lastName": "Ferrell",
+      "gender": "M",
+      "birthDate": "Wednesday, January 21, 2015 11:16 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, September 4, 2014 9:47 PM",
+      "huid": 525584,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, July 19, 2015 4:33 PM",
+      "lastDateAttend": "Monday, November 24, 2014 6:28 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, September 5, 2014 8:39 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 7142,
+      "state": "Missouri",
+      "city": "Echo",
+      "address2": "   ",
+      "address1": "782 Milton Street",
+      "countryCode": "nisi",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 61,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Hutchinson",
+      "firstName": "Leta",
+      "lastName": "Villarreal",
+      "gender": "M",
+      "birthDate": "Wednesday, January 21, 2015 11:57 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, July 11, 2015 4:08 AM",
+      "huid": 555166,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Tuesday, December 23, 2014 7:50 AM",
+      "lastDateAttend": "Saturday, June 13, 2015 7:29 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, August 28, 2015 9:33 AM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "17F",
+      "postal": 2709,
+      "state": "Marshall Islands",
+      "city": "Avoca",
+      "address2": "   ",
+      "address1": "732 Cheever Place",
+      "countryCode": "anim",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 7,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Thompson",
+      "firstName": "Soto",
+      "lastName": "Cline",
+      "gender": "F",
+      "birthDate": "Thursday, June 5, 2014 12:01 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Saturday, January 24, 2015 6:49 PM",
+      "huid": 287674,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Sunday, July 27, 2014 4:13 PM",
+      "lastDateAttend": "Friday, January 3, 2014 4:35 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Tuesday, July 29, 2014 1:19 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "18F",
+      "postal": 6898,
+      "state": "Maine",
+      "city": "Vowinckel",
+      "address2": "   ",
+      "address1": "786 Landis Court",
+      "countryCode": "adipisicing",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 12,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "N",
+      "middleName": "Acevedo",
+      "firstName": "Roy",
+      "lastName": "Anderson",
+      "gender": "U",
+      "birthDate": "Friday, May 15, 2015 9:53 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, December 12, 2014 12:39 PM",
+      "huid": 830796,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Saturday, September 27, 2014 8:23 PM",
+      "lastDateAttend": "Saturday, June 28, 2014 12:42 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Saturday, April 19, 2014 2:32 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "DOC",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 7285,
+      "state": "Wyoming",
+      "city": "Succasunna",
+      "address2": "   ",
+      "address1": "733 Degraw Street",
+      "countryCode": "excepteur",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 59,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "C",
+      "usaCitizen": "Y",
+      "middleName": "Hunter",
+      "firstName": "Lynnette",
+      "lastName": "Cleveland",
+      "gender": "T",
+      "birthDate": "Thursday, April 24, 2014 7:32 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Thursday, June 25, 2015 11:04 PM",
+      "huid": 623372,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Wednesday, July 2, 2014 8:33 PM",
+      "lastDateAttend": "Thursday, January 1, 2015 8:23 AM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Wednesday, March 26, 2014 3:33 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 4153,
+      "state": "Louisiana",
+      "city": "Hoehne",
+      "address2": "   ",
+      "address1": "936 Harwood Place",
+      "countryCode": "deserunt",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 19,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "N",
+      "usaCitizen": "N",
+      "middleName": "Terrell",
+      "firstName": "Evans",
+      "lastName": "Steele",
+      "gender": "T",
+      "birthDate": "Friday, May 8, 2015 2:47 AM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Tuesday, March 18, 2014 1:57 PM",
+      "huid": 596045,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "RC",
+      "degreeCandidate": "Y",
+      "expectedGradDate": "Monday, May 26, 2014 6:47 PM",
+      "lastDateAttend": "Saturday, March 15, 2014 10:47 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Friday, January 17, 2014 9:10 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "16F",
+      "postal": 4620,
+      "state": "Georgia",
+      "city": "Englevale",
+      "address2": "   ",
+      "address1": "599 Montieth Street",
+      "countryCode": "eu",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 46,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "N",
+      "middleName": "Sexton",
+      "firstName": "Irene",
+      "lastName": "Blair",
+      "gender": "T",
+      "birthDate": "Wednesday, July 23, 2014 12:18 PM"
+    }
+  },
+  {
+    "errors": [
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.firstName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.middleName"
+      },
+      {
+        "type": "E",
+        "message": "maximum length is 30 characters",
+        "field": "name.lastName"
+      },
+      {
+        "type": "E",
+        "message": "invalid value. Valid from 001 to 064",
+        "field": "ethnicity.ethnicityCode"
+      }
+    ],
+    "record": {
+      "updateDate": "Friday, June 5, 2015 3:04 AM",
+      "huid": 819655,
+      "academicPlan": "MBA-BUSAD",
+      "yearInProgram": "EC",
+      "degreeCandidate": "N",
+      "expectedGradDate": "Saturday, January 18, 2014 11:27 AM",
+      "lastDateAttend": "Thursday, April 16, 2015 6:11 PM",
+      "registrationStatus": "GR",
+      "careerEffdt": "Monday, June 30, 2014 3:08 PM",
+      "degreeProgramNumber": 1,
+      "degreeProgram": "MBA",
+      "careerSchoolCode": "HBSM",
+      "yearTerm": "15F",
+      "postal": 5812,
+      "state": "Alaska",
+      "city": "Ellerslie",
+      "address2": "   ",
+      "address1": "101 Remsen Avenue",
+      "countryCode": "qui",
+      "addressEffdt": "2012-01-01T20:00:00.000+0000",
+      "ethnicityCode": 86,
+      "ethnicityValue": [],
+      "nonCitizenCountry": "   ",
+      "citizenshipStatus": "P",
+      "usaCitizen": "Y",
+      "middleName": "Floyd",
+      "firstName": "Lang",
+      "lastName": "Sweeney",
+      "gender": "M",
+      "birthDate": "Tuesday, January 6, 2015 11:48 AM"
+    }
+  }
+]
