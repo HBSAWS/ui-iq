@@ -40,7 +40,7 @@
 	
     $breakpoint-list : "mobile","phablet","tablet","laptop","desktop","retina";
     $side-list       : "top","right","bottom","left";
-    $size-list       : "xs","sm","md","lg","xl","xxl";
+    $size-list       : "xxs","xs","sm","md","lg","xl","xxl";
     
     * {
         // VISIBLE AND HIDDEN STATES  -- START
@@ -60,10 +60,10 @@
             }
         }   
 
-        &[data-ui-state="float__right"] {
+        &[data-ui-core~="float__right"] {
             float : right;
         }
-        &[data-ui-state="float__left"] {
+        &[data-ui-core~="float__left"] {
             float : left;
         }
         // VISIBLE AND HIDDEN STATES  -- END     
@@ -81,6 +81,109 @@
             }
         }
         // GRID SYSTEM  -- END
+
+
+        // PADDING AND MARGIN SETTINGS  -- START
+        &[data-ui-core~="margin__none"] {
+            margin : 0px !important;
+        }
+        &[data-ui-core~="margin__top-none"] {
+            margin-top : 0px !important;
+        }
+        &[data-ui-core~="margin__right-none"] {
+            margin-right : 0px !important;
+        }
+        &[data-ui-core~="margin__left-none"] {
+            margin-left : 0px !important;
+        }
+        &[data-ui-core~="margin__bottom-none"] {
+            margin-bottom : 0px !important;
+        }
+
+        &[data-ui-core~="padding__none"] {
+            padding : 0px !important;
+        }
+        &[data-ui-core~="padding__top-none"] {
+            padding-top : 0px !important;
+        }
+        &[data-ui-core~="padding__right-none"] {
+            padding-right : 0px !important;
+        }
+        &[data-ui-core~="padding__left-none"] {
+            padding-left : 0px !important;
+        }
+        &[data-ui-core~="padding__bottom-none"] {
+            padding-bottom : 0px !important;
+        }
+        $increment : 4;
+        @each $size in $size-list {
+            @each $side in $side-list {
+                &[data-ui-core~="margin__#{$side}-#{$size}"] {
+                    margin-#{$side} : #{$increment}px;
+                }
+                &[data-ui-core~="padding__#{$side}-#{$size}"] {
+                        padding-#{$side} : #{$increment}px;
+                }
+            }
+            @each $breakpoint in $breakpoint-list {
+                &[data-ui-core~="margin__#{$breakpoint}-#{$size}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        margin : #{$increment}px;
+                    }
+                } 
+                &[data-ui-core~="margin__#{$breakpoint}-horizontal-#{$size}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        margin-left  : #{$increment}px;
+                        margin-right : #{$increment}px;
+                    }
+                } 
+                &[data-ui-core~="margin__#{$breakpoint}-vertical-#{$size}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        margin-top    : #{$increment}px;
+                        margin-bottom : #{$increment}px;
+                    }
+                } 
+
+                &[data-ui-core~="padding__-#{$size}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        padding : #{$increment}px;
+                    }
+                }                     
+                &[data-ui-core~="padding__#{$breakpoint}-#{$size}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        padding : #{$increment}px;
+                    }
+                } 
+                &[data-ui-core~="padding__#{$breakpoint}-horizontal-#{$size}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        padding-left  : #{$increment}px;
+                        padding-right : #{$increment}px;
+                    }
+                } 
+                &[data-ui-core~="padding__#{$breakpoint}-vertical-#{$size}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        padding-top    : #{$increment}px;
+                        padding-bottom : #{$increment}px;
+                    }
+                } 
+
+                @each $side in $side-list {
+                    &[data-ui-core~="margin__#{$breakpoint}-#{$side}-#{$size}"] {
+                        @include gridle_state(#{$breakpoint}) {
+                            margin-#{$side} : #{$increment}px;
+                        }
+                    }
+
+                    &[data-ui-core~="padding__#{$breakpoint}-#{$side}-#{$size}"] {
+                        @include gridle_state(#{$breakpoint}) {
+                            padding-#{$side} : #{$increment}px;
+                        }
+                    }
+                }
+            }
+            $increment : $increment + 8;
+        }
+        // PADDING AND MARGIN SETTINGS  -- END
     }
     [class^="layout"] {
             font-size : 0px;
@@ -115,62 +218,7 @@
             // WIDTH SETTINGS  -- END       
 
 
-            // PADDING AND MARGIN SETTINGS  -- START
-            $increment : 8;
-            @each $size in $size-list {
-                @each $breakpoint in $breakpoint-list {
-                    &[data-ui-core~="margin__#{$breakpoint}-#{$size}"] {
-                        @include gridle_state(#{$breakpoint}) {
-                            margin : #{$increment}px;
-                        }
-                    } 
-                    &[data-ui-core~="margin__#{$breakpoint}-horizontal-#{$size}"] {
-                        @include gridle_state(#{$breakpoint}) {
-                            margin-left  : #{$increment}px;
-                            margin-right : #{$increment}px;
-                        }
-                    } 
-                    &[data-ui-core~="margin__#{$breakpoint}-vertical-#{$size}"] {
-                        @include gridle_state(#{$breakpoint}) {
-                            margin-top    : #{$increment}px;
-                            margin-bottom : #{$increment}px;
-                        }
-                    } 
 
-                    &[data-ui-core~="padding__#{$breakpoint}-#{$size}"] {
-                        @include gridle_state(#{$breakpoint}) {
-                            padding : #{$increment}px;
-                        }
-                    } 
-                    &[data-ui-core~="padding__#{$breakpoint}-horizontal-#{$size}"] {
-                        @include gridle_state(#{$breakpoint}) {
-                            padding-left  : #{$increment}px;
-                            padding-right : #{$increment}px;
-                        }
-                    } 
-                    &[data-ui-core~="padding__#{$breakpoint}-vertical-#{$size}"] {
-                        @include gridle_state(#{$breakpoint}) {
-                            padding-top    : #{$increment}px;
-                            padding-bottom : #{$increment}px;
-                        }
-                    } 
-
-                    @each $side in $side-list {
-                        &[data-ui-core~="margin__#{$breakpoint}-#{$side}-#{$size}"] {
-                            @include gridle_state(#{$breakpoint}) {
-                                margin-#{$side} : #{$increment}px;
-                            }
-                        }
-                        &[data-ui-core~="padding__#{$breakpoint}-#{$side}-#{$size}"] {
-                            @include gridle_state(#{$breakpoint}) {
-                                padding-#{$side} : #{$increment}px;
-                            }
-                        }
-                    }
-                }
-                $increment : $increment + 8;
-            }
-            // PADDING AND MARGIN SETTINGS  -- END
 
 
             // ALIGN SETTINGS  -- START

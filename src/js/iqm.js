@@ -93,14 +93,14 @@ $(document).ready(function() {
 									segmentcontrol__2018 +
 									segmentcontrol__2019 +
 								'</div>' +
-								'<div data-ui-core="padding__mobile-left-sm padding__mobile-right-xs padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
-									'<button class="button__default" data-ui-core="size__small" data-ui-grid="mobile__12">' +
-										'<div class="button-content_" data-ui-core="size__small">download CSV</div>' +
+								'<div data-ui-core="padding__mobile-left-sm padding__mobile-right-xxs padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
+									'<button class="button__offset" data-ui-core="size__small" data-ui-grid="mobile__12">' +
+										'<div class="button-content__offset" data-ui-core="size__small">download CSV</div>' +
 									'</button>' +
 								'</div>' +
-								'<div data-ui-core="padding__mobile-left-xs padding__mobile-right-sm padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
-									'<button class="button__default" data-ui-core="size__small" data-ui-grid="mobile__12">' +
-										'<div class="button-content_" data-ui-core="size__small">send file</div>' +
+								'<div data-ui-core="padding__mobile-left-xxs padding__mobile-right-sm padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
+									'<button class="button__offset" data-ui-core="size__small" data-ui-grid="mobile__12">' +
+										'<div class="button-content__offset" data-ui-core="size__small">send file</div>' +
 									'</button>' +
 								'</div>' +
 							'</div>' +
@@ -405,13 +405,13 @@ $(document).ready(function() {
 			$el      : $('[data-js-target~="file-options__toggle"]'),
 			settings : {
 				title   : __templates.app.fileSummary.title(),
-				content : __templates.app.fileSummary.$body,
+				content : null,
 				width   : 380,
-				height  : 265				
+				height  : 280				
 			},
 			init     : function() {
-				var fileSummary,$fileSummary,settings;
-				this.settings.content = __templates.app.fileSummary.$body;
+				var settings;
+				this.settings.content = __templates.app.fileSummary.$body[0];
 				settings              = this.settings;
 
 				this.$el.webuiPopover(settings);
@@ -601,7 +601,7 @@ $(document).ready(function() {
 							has__error : has__error,
 							errorValue : errorValue
 						};
-						console.log(detailsRow);
+						//console.log(detailsRow);
 
 						detailsTable += compiledDetails(detailsRow);
 					}

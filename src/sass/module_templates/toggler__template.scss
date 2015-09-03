@@ -8,20 +8,6 @@
 		pointer-events : none;
 	}
 }
-[class^="toggler_"][data-ui-core~="position__left"] {
-	float        : left;
-	padding-left : 5px;
-}
-[class^="toggler_"][data-ui-core~="position__left"]:nth-last-child(1) {
-	padding-left : 0px;
-}
-[class^="toggler_"][data-ui-core~="position__right"] {
-	float         : right;
-	padding-right : 5px;
-}
-[class^="toggler_"][data-ui-core~="position__right"]:nth-child(1) {
-	padding-right : 0px;
-}
 	[class^="toggler-input_"] {
 		z-index  : 2;
 		position : absolute;
@@ -29,12 +15,15 @@
 		top      : 0px;
 		left     : 0px;
 		width    : 100%;
-		height   : 100%;
+		margin   : 0px;
 		cursor   : pointer;
 		opacity  : 0 !important;
 		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 
 		&:checked {
+			~ [class^="toggler-label_"] {
+				color : #4cc1bc;
+			}
 			+ [class^="toggler-toggle_"] {
 				background : #4cc1bc;
 				color      : rgba(255,255,255,1.0);
@@ -60,6 +49,9 @@
 		&:disabled {
 			display : none;
 			cursor  : not-allowed;
+			~ [class^="toggler-label_"] {
+				color : rgba(0,0,0,0.13);
+			}
 			+ [class^="toggler-toggle_"] {
 				background : rgba(0,0,0,0.1);
 				color      : rgba(0,0,0,0.13);
@@ -74,7 +66,12 @@
 			}		
 		}
 	}
-	[class^="toggler-label_"] {}
+	[class^="toggler-label_"] {
+		font-size   : 0.85rem;
+		font-weight : 300;
+		font-family : lato;		
+		@include prefix(transition, all .1s ease-out);
+	}
 	[class^="toggler-toggle_"] {
 			position : relative;
 			display  : inline-block;
@@ -104,7 +101,16 @@
 
 // ** mode__switch ** CSS -- START
 [class^="toggler_"] {}
-	[class^="toggler-input_"] {}
+	[class^="toggler-input_"] {
+		&[data-ui-core~="mode__switch"] {
+			&[data-ui-core~="size__large"] {
+				height : 30px;
+			}
+			&[data-ui-core~="size__small"] {
+				height : 25px;
+			}
+		}
+	}
 	[class^="toggler-toggle_"] {
 		&[data-ui-core~="mode__switch"] {
 			&[data-ui-core~="size__large"] {
@@ -207,7 +213,16 @@
 
 // ** mode__check ** CSS -- START
 [class^="toggler_"] {}
-	[class^="toggler-input_"] {}
+	[class^="toggler-input_"] {
+		&[data-ui-core~="mode__check"],&[data-ui-core~="mode__button"] {
+			&[data-ui-core~="size__large"] {
+				height : 30px;
+			}
+			&[data-ui-core~="size__small"] {
+				height : 25px;
+			}
+		}
+	}
 	[class^="toggler-toggle_"] {
 		&[data-ui-core~="mode__check"],&[data-ui-core~="mode__button"] {
 			&[data-ui-core~="size__large"] {
@@ -270,7 +285,16 @@
 
 // ** mode__radio ** CSS -- START
 [class^="toggler_"] {}
-	[class^="toggler-input"] {}
+	[class^="toggler-input"] {
+		&[data-ui-core~="mode__radio"] {
+			&[data-ui-core~="size__large"] {
+				height : 30px;
+			}
+			&[data-ui-core~="size__small"] {
+				height : 25px;
+			}
+		}
+	}
 	[class^="toggler-toggle_"] {
 		&[data-ui-core~="mode__radio"] {
 			&[data-ui-core~="size__large"] {
@@ -386,6 +410,7 @@ div[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-child(1) {
 		}
 	}
 	[class^="toggler-input"] {
+		height : 100%;
 		&:checked {
 			+ [class^="toggler-toggle_"] {
 				@include prefix(transition, all .1s ease-out);

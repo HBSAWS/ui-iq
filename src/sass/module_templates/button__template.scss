@@ -12,33 +12,43 @@
 		font-family : lato; 
 		font-weight : 300; 
 
-		&[class$="_transparent"] {
-			background : transparent;
-			color      : #fff;
-		}
-
 		&[class$="_default"] {
-			background : #EBEAEB;
+			background : transparent;
 			color      : #151515;
+		}		
+		&[class$="_inverted"] {
+			background : transparent;
+			color      : #ffffff;
 		}
-
 		&[class$="_light"] {
 			background : transparent;
 			color      : #c0c0c0;
 		}
+
+		&[class$="_offset"] {
+			background : #ebeaea;
+			color      : #ababab;
+		}
+		&[class$="_bold"] {
+			background : #4cc1bc;
+			color      : #fff;
+		}
 	}
 		[class^="button-icon_"] {
-			position : absolute;
+			position       : relative;
+			display        : inline-block;
+			vertical-align : middle; 
 			&:before {
 				font-family : "hbs-modern";
 				display     : inline-block;
 			}
 		}
 		[class^="button-content_"] {
-			position  : relative;
-			display   : inline-block;
-			margin    : 0px;
-			font-size : 0.8rem;
+			position       : relative;
+			display        : inline-block;
+			vertical-align : middle; 
+			margin    	   : 0px;
+			font-size 	   : 0.8rem;
 		}
 
 
@@ -49,22 +59,12 @@
 	[class^="button_"] {
 		&[data-ui-core~="size__small"] {
 			padding : 9px;
-			&[data-ui-addon~="icon__left"] {
-				padding-left : 25px; 
-			}
-			&[data-ui-addon~="icon__right"] {
-				padding-right : 25px; 
-
-			}
 		}
 		&[data-ui-core~="size__large"] {
 			padding : 10px 17px;
-			&[data-ui-addon~="icon__left"] {
-				padding-left  : 30px; 
-			}
-			&[data-ui-addon~="icon__right"] {
-				padding-right : 30px; 
-			}
+		}
+		&[data-ui-core~="mode__stripped"] {
+			padding : 0px;
 		}
 	}
 		[class^="button-icon_"] {
@@ -72,20 +72,34 @@
 				font-size   : 0.85rem;
 				line-height : 0.85rem;
 				&[data-ui-addon~="icon__left"] {
-					left  : 13px;
+					padding-right : 5px;
+				}
+				&[data-ui-addon~="icon__left"] {
+					padding-right :  5px;
+				}
+
+				&[data-ui-addon~="icon__right"] {
+					padding-left :  5px;
 				}
 				&[data-ui-addon~="icon__right"] {
-					right : 13px;
+					padding-left :  5px;
 				}
 			}
 			&[data-ui-core~="size__large"] {
 				font-size   : 1rem;
 				line-height : 1.07rem;
 				&[data-ui-addon~="icon__left"] {
-					left  : 13px;
+					padding-right : 10px;
+				}
+				&[data-ui-addon~="icon__left"] {
+					padding-right :  10px;
+				}
+
+				&[data-ui-addon~="icon__right"] {
+					padding-left :  10px;
 				}
 				&[data-ui-addon~="icon__right"] {
-					right : 13px;
+					padding-left :  10px;
 				}
 			}
 		}

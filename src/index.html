@@ -18,8 +18,8 @@
                             <div class="nav-branding-title__global">Harvard | Business | School</div>
                         </div>
                         <div style="text-align:right;" class="nav-control__global">
-                            <button data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-handler="show__appSuite-apps-panel show__appSuite-apps-cuboid" class="button__light">
-                                <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="th" style="font-size:1rem;" class="button-icon__transparent"></div>
+                            <button class="button__light" data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-handler="show__appSuite-apps-panel show__appSuite-apps-cuboid">
+                                <div class="button-icon__transparent" data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="th" style="font-size:1rem;"></div>
                                 <p data-ui-core="size__large" data-ui-addon="icon__left icon__right" class="button-content__transparent"></p>
                             </button>
                         </div>
@@ -28,9 +28,9 @@
                     <div class="cuboid-faces-back__global"><a href="#">Show Top</a></div>
                     <div class="cuboid-faces-top__global">
                         <div style="text-align:left;" class="nav-control__global">
-                            <button data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="show__appSuite-app-panel show__appSuite-app-cuboid" class="button__light">
-                                <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open" style="font-size:1rem;" class="button-icon__light"></div>
-                                <p data-ui-core="size__large" class="button-content__light">back</p>
+                            <button class="button__light" data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="show__appSuite-app-panel show__appSuite-app-cuboid">
+                                <div class="button-icon__light" data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
+                                <div class="button-content__light" data-ui-core="size__large">back</div>
                             </button>
                         </div>
                     </div>
@@ -56,10 +56,11 @@
                                         <div class="nav-branding-title__app">Integrated Quality Manager</div>
                                     </div>
                                     <div style="text-align:right;" class="nav-control_">
-                                        <button data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-target="file-options__toggle" class="button__transparent">
-                                            <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="file_settings_icon" style="font-size:1.4rem;" class="button-icon__transparent"></div>
-                                            <div data-ui-core="size__large" data-ui-addon="icon__right" data-ui-icon="sort-down" class="button-icon__transparent"></div>
-                                            <p data-ui-core="size__large" data-ui-addon="icon__left icon__right" class="button-content__transparent"></p>
+                                        <button class="button__inverted" data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-target="file-options__toggle">
+                                            <div class="button-content__inverted" data-ui-core="size__large" data-ui-addon="icon__left icon__right">
+                                                <div data-ui-icon="file_settings_icon size__large"></div>
+                                            </div>
+                                            <div class="button-icon__inverted" data-ui-core="size__small" data-ui-addon="icon__right" data-ui-icon="sort-down"></div>
                                         </button>
                                     </div>
                                 </div>
@@ -75,7 +76,7 @@
                                 <div class="panels-panel-content-fader__light"></div>
                                 <div data-ui-core="mode__float" class="bar_">
                                     <button data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="hide__iframe-panel" style="float:right;" class="button__light">
-                                        <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="cancel" style="font-size:1rem;" class="button-icon__transparent"></div>
+                                        <div data-ui-icon="cancel size__medium"></div>
                                     </button>
                                 </div>
                                 <iframe src="" style="width:100%;height:100%;"></iframe>
@@ -87,34 +88,32 @@
                                 <div data-js-target="panels__fileRecords" class="panels__card">
                                     <div id="panel__fileRecords-records" class="panels-panel__card">
                                         <div class="panels-panel-content__card">
+                                            <div class="panels-panel-content-fader_"></div>
                                             <div class="panels-panel-content-header__card">
-                                                <div class="panels-panel-content-fader_"></div>
-                                                <div class="panels-panel-content-header-primary_">
-                                                    <h2>Records</h2>
-                                                </div>
-                                                <div class="panels-panel-content-header-secondary_">
-                                                    <div data-ui-core="mode__button size__large" data-ui-state="is__checked" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input_bold" data-js-handler="recordsTable__filter">
-                                                        <div data-ui-core="mode__button size__large" data-ui-state="is__checked" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator_bold"></div>
+                                                <h2>Records</h2>
+                                                <div data-ui-core="float__right">
+                                                    <div data-ui-core="mode__button size__large" data-ui-state="is__checked" class="toggler__bold">
+                                                        <input data-ui-core="mode__button size__large" type="checkbox" value="has__error" checked class="toggler-input__bold" data-js-handler="recordsTable__filter">
+                                                        <div data-ui-core="mode__button size__large" data-ui-state="is__checked" class="toggler-toggle__bold">
+                                                            <div data-ui-core="mode__button size__large" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
                                                     </div>
-                                                    <div data-ui-core="mode__button size__large" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large" data-ui-icon="file_exclusion" class="toggler-toggle-indicator_bold"></div>
+                                                    <div data-ui-core="mode__button size__large" data-js-target="init_toggler" class="toggler__bold">
+                                                        <input data-ui-core="mode__button size__large" type="checkbox" class="toggler-input__bold">
+                                                        <div data-ui-core="mode__button size__large" class="toggler-toggle__bold">
+                                                            <div data-ui-core="mode__button size__large" data-ui-icon="file_exclusion" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
                                                     </div>
-                                                    <div data-ui-core="mode__button size__large" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large" type="checkbox" name="name-3" value="pkloss@gmail.com" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__button size__large" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large" data-ui-icon="clock" class="toggler-toggle-indicator_bold"></div>
+                                                    <div data-ui-core="mode__button size__large" class="toggler__bold">
+                                                        <input data-ui-core="mode__button size__large" type="checkbox" class="toggler-input__bold">
+                                                        <div data-ui-core="mode__button size__large" class="toggler-toggle__bold">
+                                                            <div data-ui-core="mode__button size__large" data-ui-icon="clock" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="panels-panel-content-header-search_">
-                                                <input placeholder="search" class="field_" data-js-handler="recordsTable__search">
+                                                <div data-ui-core="padding__top-xxs" data-ui-grid="mobile__12">
+                                                    <input placeholder="search" class="field_" data-js-handler="recordsTable__search">
+                                                </div>
                                             </div>
                                             <div data-ui-core="padding__mobile-top-lg" class="layout">
                                                 <table id="recordsTable" data-ui-core="size__large" data-js-target="recordsTable" class="table_">
@@ -131,47 +130,61 @@
                                     </div>
                                     <div id="panel__fileRecords-record" class="panels-panel__card">                                        
                                         <div class="panels-panel-notification_">
-                                            <h3>Exclusions</h3>
+                                            <span data-ui-icon="file_exclusion"></span>
+                                            <h3>Exclusion</h3>
+                                            <div data-ui-core="float__right">
+                                                <button class="button__inverted" data-ui-core="size__small padding__none" data-ui-addon="icon__left icon__right">
+                                                    <div class="button-content__inverted" data-ui-core="size__small" data-ui-addon="icon__left icon__right">
+                                                        <div data-ui-icon="cancel size__medium"></div>
+                                                    </div>
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="panels-panel-content__card">
+                                            <div class="panels-panel-content-fader_"></div>
                                             <div class="panels-panel-content-header_">
-                                                <div class="panels-panel-content-fader_"></div>
-                                                <div class="panels-panel-content-header-secondary_">
-                                                    <h2 data-js-target="recordName" style="width:200px;" data-js-handler="swap-panels__record&amp;records">Details</h2>
+                                                <button data-ui-core="size__large padding__left-none" data-ui-addon="icon__left" data-js-handler="swap-panels__record&amp;records" data-ui-state="visible__mobile-inline-block hidden__laptop" class="button__light">
+                                                    <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open" class="button-icon__light"></div>
+                                                    <div data-ui-core="size__large" class="button-content__light">back</div>
+                                                </button>
+                                                <h2 data-js-target="recordName">Details</h2>
+
+                                                <div data-ui-core="mode__check size__small padding__left-xxs" class="toggler__bold">
+                                                    <input data-ui-core="mode__check size__small" type="checkbox" value="is__exclusion" class="toggler-input__bold">
+                                                    <div data-ui-core="mode__check size__small" class="toggler-toggle__bold">
+                                                        <div data-ui-core="mode__check size__small" class="toggler-toggle-indicator__bold"></div>
+                                                    </div>
+                                                    <label class="toggler-label__bold">exclusion</label>
                                                 </div>
-                                                <div class="panels-panel-content-header-primary_">
-                                                    <div data-ui-core="mode__check size__small position__left" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__check size__small position__left" type="checkbox" name="name-3" value="is__exclusion" class="toggler-input_bold">
-                                                        <div data-ui-core="mode__check size__small position__left" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__check size__small position__left" class="toggler-toggle-indicator_bold"></div>
+                                                <div data-ui-core="float__right">
+                                                    <div data-ui-core="mode__button size__large" data-ui-state="is__checked" class="toggler_bold">
+                                                        <input data-ui-core="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input__bold" data-js-handler="detailsTable__filter">
+                                                        <div data-ui-core="mode__button size__large" data-ui-state="is__checked" class="toggler-toggle__bold">
+                                                            <div data-ui-core="mode__button size__large" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
                                                     </div>
-                                                    <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="has__error" checked class="toggler-input_bold" data-js-handler="detailsTable__filter">
-                                                        <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator_bold"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div data-ui-core="mode__button size__large position__right" data-js-target="init_toggler" class="toggler_bold">
-                                                        <input data-ui-core="mode__button size__large position__right" type="checkbox" name="name-3" value="is__pending" class="toggler-input_bold" data-js-handler="detailsTable__filter">
-                                                        <div data-ui-core="mode__button size__large position__right" class="toggler-toggle_bold">
-                                                            <div data-ui-core="mode__button size__large position__right" data-ui-icon="clock" class="toggler-toggle-indicator_bold"></div>
+                                                    <div data-ui-core="mode__button size__large" class="toggler__bold">
+                                                        <input data-ui-core="mode__button size__large" type="checkbox" value="is__pending" class="toggler-input__bold" data-js-handler="detailsTable__filter">
+                                                        <div data-ui-core="mode__button size__large" class="toggler-toggle__bold">
+                                                            <div data-ui-core="mode__button size__large" data-ui-icon="clock" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="panels-panel-content-header-search_"><input placeholder="search" class="field_" data-js-handler="detailsTable__search"></div>
-                                            <div data-ui-core="padding__mobile-horizontal-lg padding__mobile-top-xs" data-ui-state="visible__mobile-block hidden__phablet" class="layout">
-                                                <div id="test" data-ui-core="mode__segmentcontrol size__small" data-ui-grid="mobile__6" data-js-target="init_toggler" class="toggler_bold">
-                                                    <input data-ui-core="mode__segmentcontrol size__small" type="radio" name="mobile__sort-details" value="field" class="toggler-input_bold">
-                                                    <div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle_bold">
-                                                        <div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle-indicator_bold">Sort Fields</div>
-                                                    </div>
+                                                <div data-ui-core="padding__top-xxs" data-ui-grid="mobile__12">
+                                                    <input placeholder="search" class="field_" data-js-handler="detailsTable__search">
                                                 </div>
-                                                <div id="test" data-ui-core="mode__segmentcontrol size__small" data-ui-grid="mobile__6" data-js-target="init_toggler" class="toggler_bold">
-                                                    <input data-ui-core="mode__segmentcontrol size__small" type="radio" name="mobile__sort-details" value="error" class="toggler-input_bold">
-                                                    <div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle_bold">
-                                                        <div data-ui-core="mode__segmentcontrol size__small" class="toggler-toggle-indicator_bold">Sort Errors</div>
+                                                <div data-ui-core="padding__mobile-top-xxs" data-ui-state="visible__mobile-block hidden__phablet" data-ui-grid="mobile__12" class="layout">
+                                                    <div data-ui-core="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
+                                                        <input data-ui-core="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" class="toggler-input__bold">
+                                                        <div data-ui-core="mode__segmentcontrol size__large" class="toggler-toggle__bold">
+                                                            <div data-ui-core="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Fields</div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-ui-core="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
+                                                        <input data-ui-core="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" value="error" class="toggler-input__bold">
+                                                        <div data-ui-core="mode__segmentcontrol size__large" class="toggler-toggle__bold">
+                                                            <div data-ui-core="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Errors</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

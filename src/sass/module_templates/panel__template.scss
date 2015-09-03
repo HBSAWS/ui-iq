@@ -311,10 +311,13 @@
 				@include prefix(transition, all .3s ease-out);
 			}
 			[class^="panels-panel-content-header_"] {
-				display   : table;
+				display   : block;
 				padding   : 0px 50px;
 				font-size : 21px;
 				font-size : 1.32rem;
+				h2,div {
+					vertical-align : middle;
+				}
 			}
 				[class^="panels-panel-content-header-primary_"] {
 					position       : relative;
