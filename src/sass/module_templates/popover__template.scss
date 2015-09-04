@@ -22,7 +22,7 @@
   padding            : 1px;
   text-align         : left;
   white-space        : normal;
-  background-color   : rgba(255,255,255,0.96);
+  background         : rgba(47, 50, 56, 0.97);
   background-clip    : padding-box;
   border             : 0px solid #cccccc;
   border             : 0px solid rgba(0, 0, 0, 0.2);
@@ -89,12 +89,12 @@
     font-family : lato;
     font-weight : 300;
     font-size   : 1.3rem;
+    color       : #fff;
 
 
   padding: 12px 14px;
   margin: 0;
-  background-color: rgba(255,255,255,0.94);
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
   border-radius: 4px 4px 0 0;
 }
 .webui-popover-content {
@@ -175,7 +175,7 @@
   left: 1px;
   bottom: -10px;
   border-left-width: 0;
-  border-right-color: #ffffff;
+  border-right-color: rgba(47, 50, 56, 0.97)
 }
 .webui-popover.bottom > .arrow,
 .webui-popover.bottom-right > .arrow,
@@ -191,7 +191,7 @@
   content: " ";
   top: 1px;
   margin-left: -10px;
-  border-bottom-color: #ffffff;
+  border-bottom-color: rgba(47, 50, 56, 0.97);
   border-top-width: 0;
 }
 .webui-popover.left > .arrow,
@@ -210,7 +210,7 @@
   content: " ";
   right: 1px;
   border-right-width: 0;
-  border-left-color: #ffffff;
+  border-left-color: rgba(47, 50, 56, 0.97);
   bottom: -10px;
 }
 .webui-popover-inverse.top > .arrow,

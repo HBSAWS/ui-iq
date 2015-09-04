@@ -1,0 +1,135 @@
+* {
+	&[data-ui-state~="animate__off"] {
+		@include prefix(transition, "all 0s"); 
+		[class^="panels-panel-content-fader_"] {
+			@include prefix(transition, "all 0s");
+		}
+	}
+	&[data-ui-state~="animate__in"] {
+		@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
+		[class^="panels-panel-content-fader_"] {
+			@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+		}
+	}
+	&[data-ui-state~="animate__out"] {
+		@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+		[class^="panels-panel-content-fader_"] {
+			@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+		}
+	}
+
+
+
+
+
+
+
+	@mixin fader__out {
+		[class^="panels-panel-content-fader_"] {
+			visibility : visible;  
+			background : rgba(0,0,0,0.5);
+		}
+	}
+	@mixin fader__in {
+		[class^="panels-panel-content-fader_"] {
+			visibility : hidden;  
+			background : rgba(0,0,0,0.0);
+		}		
+	}
+
+
+	&[data-ui-state~="scale__out"] {
+		@include prefix(transform, scale(0.8));
+		@include fader__out;
+	}
+	&[data-ui-state~="scale__in"] {
+		@include prefix(transform, scale(1));
+		@include fader__in;
+	}
+
+
+	&[data-ui-state~="rotate__out-right"] {
+		transform-origin : right;
+		@include prefix(transform, rotateY(15deg));
+		&[data-ui-state~="scale__out"] {
+			@include prefix(transform, rotateY(15deg) scale(0.8));
+		}
+		@include fader__out;
+	}
+	&[data-ui-state~="rotate__in-right"] {
+		transform-origin : left;
+		@include prefix(transform, rotateY(0deg));
+		&[data-ui-state~="scale__in"] {
+			@include prefix(transform, rotateY(0deg) scale(1));
+		}
+		@include fader__in;
+	}
+
+
+	&[data-ui-state~="rotate__out-left"] {
+		transform-origin : right;
+		@include prefix(transform, rotateY(-15deg));
+		&[data-ui-state~="scale__out"] {
+			@include prefix(transform, rotateY(-15deg) scale(0.8));
+		}
+		@include fader__out;
+	}
+	&[data-ui-state~="rotate__in-left"] {
+		transform-origin : right;
+		@include prefix( transform, rotateY(0deg) );
+		&[data-ui-state~="scale__in"] {
+			@include prefix(transform, rotateY(0deg) scale(1));
+		}
+		@include fader__in;
+	}
+
+
+	&[data-ui-state~="rotate__out-top"] {
+		transform-origin : bottom;
+		@include prefix( transform, rotateX(15deg) );
+		&[data-ui-state~="scale__out"] {
+			@include prefix( transform, rotateX(15deg) scale(0.8) );
+		}
+		@include fader__out;
+	}
+	&[data-ui-state~="rotate__in-top"] {
+		transform-origin : bottom;
+		@include prefix( transform, rotateX(0deg) );
+		&[data-ui-state~="scale__in"] {
+			@include prefix( ransform, rotateX(0deg) scale(1) );
+		}
+		@include fader__in;
+	}
+
+
+	&[data-ui-state~="rotate__out-bottom"] {
+		transform-origin : top;
+		@include prefix( transform, rotateX(-15deg) );
+		&[data-ui-state~="scale__out"] {
+			@include prefix( transform, rotateX(-15deg) scale(0.8) );
+		}
+		@include fader__out;
+	}
+	&[data-ui-state~="rotate__in-bottom"] {
+		transform-origin : top;
+		@include prefix( transform, rotateX(0deg) );
+		&[data-ui-state~="scale__in"] {
+			@include prefix( transform, rotateX(0deg) scale(1) );
+		}
+		@include fader__in;
+	}
+
+
+	&[data-ui-state~="move__out-left"] {
+		left : -120%;
+	}
+	&[data-ui-state~="move__out-right"] {
+		left : 120%;
+	}
+	&[data-ui-state~="move__out-top"] {
+		top : -120%;
+	}
+	&[data-ui-state~="move__out-bottom"] {
+		top : 120%;
+	}
+}

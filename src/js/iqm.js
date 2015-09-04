@@ -17,10 +17,10 @@ $(document).ready(function() {
 		UI : {
 			toggler : function(mode,size,width,jsHook,type,name,value,state,content) {
 				var HTML = '' +
-					'<div id="file_options" data-ui-core="mode__' + mode + ' size__' + size + '" data-ui-grid="mobile__' + width + '" class="toggler_bold">' +
-						'<input data-js-target="' + jsHook + '" data-ui-core="mode__' + mode + ' size__' + size + '" type="' + type + '" name="' + name + '" value="' + value + '" class="toggler-input_bold" ' + state + '>' +
-						'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle_bold">' +
-							'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle-indicator_bold">' + content + '</div>' +
+					'<div id="file_options" data-ui-core="mode__' + mode + ' size__' + size + '" data-ui-grid="mobile__' + width + '" class="toggler__inverted">' +
+						'<input data-js-target="' + jsHook + '" data-ui-core="mode__' + mode + ' size__' + size + '" type="' + type + '" name="' + name + '" value="' + value + '" class="toggler-input__inverted" ' + state + '>' +
+						'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle__inverted">' +
+							'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle-indicator__inverted">' + content + '</div>' +
 						'</div>' +
 					'</div>';
 
@@ -94,13 +94,13 @@ $(document).ready(function() {
 									segmentcontrol__2019 +
 								'</div>' +
 								'<div data-ui-core="padding__mobile-left-sm padding__mobile-right-xxs padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
-									'<button class="button__offset" data-ui-core="size__small" data-ui-grid="mobile__12">' +
-										'<div class="button-content__offset" data-ui-core="size__small">download CSV</div>' +
+									'<button class="button__outline" data-ui-core="size__small" data-ui-grid="mobile__12">' +
+										'<div class="button-content__outline" data-ui-core="size__small">download CSV</div>' +
 									'</button>' +
 								'</div>' +
 								'<div data-ui-core="padding__mobile-left-xxs padding__mobile-right-sm padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
-									'<button class="button__offset" data-ui-core="size__small" data-ui-grid="mobile__12">' +
-										'<div class="button-content__offset" data-ui-core="size__small">send file</div>' +
+									'<button class="button__outline" data-ui-core="size__small" data-ui-grid="mobile__12">' +
+										'<div class="button-content__outline" data-ui-core="size__small">send file</div>' +
 									'</button>' +
 								'</div>' +
 							'</div>' +
@@ -109,46 +109,46 @@ $(document).ready(function() {
 							'<div class="panels-panel-content__default">' +
 								'<div class="panels-panel-content-fader"></div>' +
 								'<div class="layout">' +
-									'<table class="table_" data-ui-core="size__small">' +
-										'<thead class="table-head_" data-ui-core="size__small">' +
-											'<tr class="table-head-row_" data-ui-core="size__small">' +
-												'<th class="table-head-row-header_" data-ui-core="size__small"></th>' +
-												'<th class="table-head-row-header_" data-ui-core="size__small">Last</th>' +
-												'<th class="table-head-row-header_" data-ui-core="size__small">Current</th>' +
+									'<table class="table__inverted" data-ui-core="size__small">' +
+										'<thead class="table-head__inverted" data-ui-core="size__small">' +
+											'<tr class="table-head-row__inverted" data-ui-core="size__small">' +
+												'<th class="table-head-row-header__inverted" data-ui-core="size__small"></th>' +
+												'<th class="table-head-row-header__inverted" data-ui-core="size__small">Last</th>' +
+												'<th class="table-head-row-header__inverted" data-ui-core="size__small">Current</th>' +
 											'</tr>' +
 										'</thead>' +
-										'<tbody class="table-body_" data-ui-core="size__small">' +
-											'<tr class="table-body-row_" data-ui-core="size__small">' +
-												'<td class="table-body-row-header_" data-ui-core="size__small">Records</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">500</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">' + stats.records + '</td>' +
+										'<tbody class="table-body__inverted" data-ui-core="size__small">' +
+											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
+												'<td class="table-body-row-header__inverted" data-ui-core="size__small">Records</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">500</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">' + stats.records + '</td>' +
 											'</tr>' +
-											'<tr class="table-body-row_" data-ui-core="size__small">' +
-												'<td class="table-body-row-header_" data-ui-core="size__small">Exclusions</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">5</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">7</td>' +
-											'</tr>' +
-
-											'<tr class="table-body-row_" data-ui-core="size__small">' +
-												'<td class="table-body-row-header_" data-ui-core="size__small"></td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small"></td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small"></td>' +
+											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
+												'<td class="table-body-row-header__inverted" data-ui-core="size__small">Exclusions</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">5</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">7</td>' +
 											'</tr>' +
 
-											'<tr class="table-body-row_" data-ui-core="size__small">' +
-												'<td class="table-body-row-header_" data-ui-core="size__small">Stat</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">300</td>' +
+											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
+												'<td class="table-body-row-header__inverted" data-ui-core="size__small"></td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small"></td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small"></td>' +
 											'</tr>' +
-											'<tr class="table-body-row_" data-ui-core="size__small">' +
-												'<td class="table-body-row-header_" data-ui-core="size__small">EC</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">' + stats.EC + '</td>' +
+
+											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
+												'<td class="table-body-row-header__inverted" data-ui-core="size__small">Stat</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">200</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">300</td>' +
 											'</tr>' +
-											'<tr class="table-body-row_" data-ui-core="size__small">' +
-												'<td class="table-body-row-header_" data-ui-core="size__small">RC</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell_" data-ui-core="size__small">' + stats.RC + '</td>' +
+											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
+												'<td class="table-body-row-header__inverted" data-ui-core="size__small">EC</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">200</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">' + stats.EC + '</td>' +
+											'</tr>' +
+											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
+												'<td class="table-body-row-header__inverted" data-ui-core="size__small">RC</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">200</td>' +
+												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">' + stats.RC + '</td>' +
 											'</tr>' +
 										'</tbody>' +
 									'</table>' +
@@ -407,7 +407,7 @@ $(document).ready(function() {
 				title   : __templates.app.fileSummary.title(),
 				content : null,
 				width   : 380,
-				height  : 280				
+				height  : 290				
 			},
 			init     : function() {
 				var settings;
@@ -531,6 +531,9 @@ $(document).ready(function() {
 				var windowWidth = $(this).width();
 				panels.fileRecords.responsive(windowWidth);
 			});
+
+			FastClick.attach(document.body);
+
 		}
 	}
 

@@ -175,6 +175,10 @@ table.bt tbody td .bt-content {
 				font-weight   : 400;
 				text-align    : left;
 				border-bottom : 1px solid #f2f2f2;
+				&[class$="_inverted"] {
+					color 		  : rgba(255,255,255,0.6);
+					border-bottom : 1px solid rgba(255, 255, 255, 0.3);
+				}
 				&.sort,&[data-ui-state~="is__sortable"] {
 					&:before {
 						position    : relative;
@@ -236,7 +240,7 @@ table.bt tbody td .bt-content {
 				&[data-ui-core~="size__small"] {
 					padding   : 6px 20px 15px 20px;
 					font-size : 14px;
-					font-size : 0.85rem;
+					font-size : 1rem;
 				}
 				&[data-ui-core~="size__large"] {
 					padding   : 9px 50px 20px 50px;
@@ -246,44 +250,58 @@ table.bt tbody td .bt-content {
 			}
 	[class^="table-body_"] {}
 		[class^="table-body-row_"] {
-			background  : transparent;
-			color       : #151515;
-			cursor      : pointer;
-			
+			background : transparent;
+			color      : #151515;
+			cursor     : pointer;
+
+			[class$="_inverted"] {
+				color : #ffffff;
+				cursor : auto;
+			}
 			&[data-ui-state~="is__selected"] {
-				background  : #4CC1BC;
-				color       : #ffffff;
+				background : #F5F3F3 !important;
+				color      : #4cc1bc !important;
 			}
 		}		
 		[class^="table-body-row_"]:hover {
 			background  : #4CC1BC;
 			color       : #ffffff;
+			&[class$="_inverted"] {
+				background : transparent;
+				color      : #151515;
+			}
 		}
 			[class^="table-body-row-header_"] {
-				font-weight   : 400;
-				text-align    : left;
+				font-weight : 400;
+				text-align  : left;
 				&[data-ui-core~="size__small"] {
-					padding     : 6px 20px;;
-					font-size   : 12px;
-					font-size   : 0.8rem;
+					padding   : 6px 20px;;
+					font-size : 12px;
+					font-size : 1rem;
 				}
 				&[data-ui-core~="size__large"] {
-					padding     : 11px 50px;;
-					font-size   : 12px;
-					font-size   : 0.9rem;
+					padding   : 11px 50px;;
+					font-size : 12px;
+					font-size : 0.9rem;
+				}
+				&[class$="_inverted"] {
+					color : rgba(255,255,255,0.6);
 				}
 			}
 			[class^="table-body-row-cell_"] {
 				font-weight : 300;
                 @include prefix(text-stroke-width, 0.15px);
 				&[data-ui-core~="size__small"] {
-					padding     : 11px 20px;;
-					font-size   : 12px;
-					font-size   : 0.8rem;
+					padding   : 11px 20px;;
+					font-size : 12px;
+					font-size : 0.8rem;
 				}
 				&[data-ui-core~="size__large"] {
-					padding     : 11px 50px;;
-					font-size   : 12px;
-					font-size   : 0.9rem;
+					padding   : 11px 50px;;
+					font-size : 12px;
+					font-size : 0.9rem;
+				}
+				&[class$="_inverted"] {
+					color : #ffffff;
 				}
 			}

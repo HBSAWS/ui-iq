@@ -80,6 +80,11 @@
 
 			background : #ebeaea;
 			color      : #ababab;
+
+			&[class$="_inverted"] {
+				background : rgba(255, 255, 255, 0.23);
+				color      : rgba(255, 255, 255, 0.6);
+			}
 			@include prefix(transition, all .1s ease-in);
 	}
 		[class^="toggler-toggle-indicator_"] {

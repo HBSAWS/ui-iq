@@ -1,16 +1,17 @@
 	// MODULE START
 	// base structural values that remain the same always
 	[class^="button_"] { 
-		position    : relative;
-		z-index     : 1;
-		display     : inline-block;
-		outline     : none;
-		cursor      : pointer;
-		border      : 0px;
-		@include prefix(border-radius, 5px);
+		position     : relative;
+		z-index      : 1;
+		display      : inline-block;
+		outline      : none;
+		cursor       : pointer;
+		border       : 0px;
+		@include prefix(border-radius, 4px);
+		touch-action : manipulation;
 
-		font-family : lato; 
-		font-weight : 300; 
+		font-family  : lato; 
+		font-weight  : 300; 
 
 		&[class$="_default"] {
 			background : transparent;
@@ -23,6 +24,11 @@
 		&[class$="_light"] {
 			background : transparent;
 			color      : #c0c0c0;
+		}
+		&[class$="_outline"] {
+			background : transparent;
+			color      : rgba(255, 255, 255, 0.6);
+			border     : 1px solid rgba(255, 255, 255, 0.6);
 		}
 
 		&[class$="_offset"] {
