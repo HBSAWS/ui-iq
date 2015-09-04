@@ -13,9 +13,11 @@
 		height     : 100%;
 		overflow-y : auto;
 		display    : none;
+		@include prefix(transform-style, preserve-3d);
+		@include prefix(perspective, 1000);
 		// because we're animating these guys a lot, we to prompt hardware acceleration, but more importantly a new rendering layer is created
 		// which means we're not having to repaint all elements that these panels animate over
-		@include prefix(transform, translate3d(0,0,0));
+		@include prefix(transform, translateZ(0));
 
 
 
@@ -25,7 +27,9 @@
 		}
 		&[class$="_light"] {
 			z-index    : 2; 
-			background : #fff;
+			> [class^="panels-panel-content_"] {
+				background : #fff;
+			}
 		}
 		&[class$="_dark"] {
 			z-index    : 2; 
@@ -101,21 +105,38 @@
 		}
 
 		&[data-ui-state~="animate__off"] {
-			@include prefix(transition, "all 0s"); 
-			[class^="panels-panel-content-fader_"] {
-				@include prefix(transition, "all 0s");
+			@include prefix(transition, transform 0s); 
+			-webkit-transition : -webkit-transform 0s;
+			> [class^="panels-panel-content_"] {
+				@include prefix(transition, transform 0s); 
+				-webkit-transition : -webkit-transform 0s; 
+				> [class^="panels-panel-content-fader_"] {
+					@include prefix(transition, "visibility 0s, opacity 0s");
+				}
 			}
 		}
 		&[data-ui-state~="animate__in"] {
-			@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s"); 
-			[class^="panels-panel-content-fader_"] {
-				@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
+			@include prefix(transition, transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
+			-webkit-transition : -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s; 
+			//@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s");
+			> [class^="panels-panel-content_"] {
+				@include prefix(transition, transform 0.23s ease-out 0.46s);
+				-webkit-transition : -webkit-transform 0.23s ease-out 0.46s;
+				> [class^="panels-panel-content-fader_"] {
+					@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.38s");
+				}
 			}
 		}
 		&[data-ui-state~="animate__out"] {
-			@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
-			[class^="panels-panel-content-fader_"] {
-				@include prefix(transition, "visibility 0s, background 0.3s ease-out 0.09s");
+			@include prefix(transition, transform 0.4s cubic-bezier(.43,0,0,1) 0.19s); 
+			-webkit-transition : -webkit-transform 0.4s cubic-bezier(.43,0,0,1) 0.19s; 
+			//@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
+			> [class^="panels-panel-content_"] {
+				@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s); 
+				-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s; 
+				> [class^="panels-panel-content-fader_"] {
+					@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0.09s");
+				}
 			}
 		}
 
@@ -186,118 +207,175 @@
 
 
 		@mixin fader__out {
-			[class^="panels-panel-content-fader_"] {
+			> [class^="panels-panel-content-fader_"] {
 				visibility : visible;  
-				background : rgba(0,0,0,0.5);
+				opacity    : 0.5;
 			}
 		}
 		@mixin fader__in {
-			[class^="panels-panel-content-fader_"] {
+			> [class^="panels-panel-content-fader_"] {
 				visibility : hidden;  
-				background : rgba(0,0,0,0.0);
+				opacity    : 0;
 			}		
 		}
 
 
 		&[data-ui-state~="scale__out"] {
-			@include prefix(transform, scale(0.8));
-			@include fader__out;
+			> [class^="panels-panel-content_"] {
+				@include prefix(transform, scale(0.8));
+				@include fader__out;
+			}
 		}
 		&[data-ui-state~="scale__in"] {
-			@include prefix(transform, scale(1));
-			@include fader__in;
+			> [class^="panels-panel-content_"] {
+				@include prefix(transform, scale(1));
+				@include fader__in;
+			}
 		}
 
 
 		&[data-ui-state~="rotate__out-right"] {
-			transform-origin : right;
-			@include prefix(transform, rotateY(15deg));
-			&[data-ui-state~="scale__out"] {
-				@include prefix(transform, rotateY(15deg) scale(0.8));
+			> [class^="panels-panel-content_"] {
+				transform-origin : top center;
+				@include prefix(transform, rotateY(15deg));
+				@include fader__out;
 			}
-			@include fader__out;
+			&[data-ui-state~="scale__out"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : top center;
+					@include prefix(transform, rotateY(15deg) scale(0.8));
+					@include fader__out;
+				}
+			}
 		}
 		&[data-ui-state~="rotate__in-right"] {
-			transform-origin : left;
-			@include prefix(transform, rotateY(0deg));
-			&[data-ui-state~="scale__in"] {
-				@include prefix(transform, rotateY(0deg) scale(1));
+			> [class^="panels-panel-content_"] {
+				transform-origin : top center;
+				@include prefix(transform, rotateY(0deg));
+				@include fader__in;
 			}
-			@include fader__in;
+			&[data-ui-state~="scale__in"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : top center;
+					@include prefix(transform, rotateY(0deg) scale(1));
+					@include fader__in;
+				}
+			}
 		}
 
 
 		&[data-ui-state~="rotate__out-left"] {
-			transform-origin : right;
-			@include prefix(transform, rotateY(-15deg));
-			&[data-ui-state~="scale__out"] {
-				@include prefix(transform, rotateY(-15deg) scale(0.8));
+			> [class^="panels-panel-content_"] {
+				transform-origin : top center;
+				@include prefix(transform, rotateY(-15deg));
+				@include fader__out;
 			}
-			@include fader__out;
+			&[data-ui-state~="scale__out"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : top center;
+					@include prefix(transform, rotateY(-15deg) scale(0.8));
+					@include fader__out;
+				}
+			}
 		}
 		&[data-ui-state~="rotate__in-left"] {
-			transform-origin : right;
-			@include prefix( transform, rotateY(0deg) );
-			&[data-ui-state~="scale__in"] {
-				@include prefix(transform, rotateY(0deg) scale(1));
+			> [class^="panels-panel-content_"] {
+				transform-origin : top center;
+				@include prefix( transform, rotateY(0deg) );
+				@include fader__in;
 			}
-			@include fader__in;
+			&[data-ui-state~="scale__in"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : top center;
+					@include prefix(transform, rotateY(0deg) scale(1));
+					@include fader__in;
+				}
+			}
 		}
 
 
 		&[data-ui-state~="rotate__out-top"] {
-			transform-origin : bottom;
-			@include prefix( transform, rotateX(15deg) );
-			&[data-ui-state~="scale__out"] {
-				@include prefix( transform, rotateX(15deg) scale(0.8) );
+			> [class^="panels-panel-content_"] {
+				transform-origin : bottom;
+				@include prefix( transform, rotateX(15deg) );
+				@include fader__out;
 			}
-			@include fader__out;
+			&[data-ui-state~="scale__out"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : bottom;
+					@include prefix( transform, rotateX(15deg) scale(0.8) );
+					@include fader__out;
+				}
+			}
 		}
 		&[data-ui-state~="rotate__in-top"] {
-			transform-origin : bottom;
-			@include prefix( transform, rotateX(0deg) );
-			&[data-ui-state~="scale__in"] {
-				@include prefix( ransform, rotateX(0deg) scale(1) );
+			> [class^="panels-panel-content_"] {
+				transform-origin : bottom;
+				@include prefix( transform, rotateX(0deg) );
+				@include fader__in;
 			}
-			@include fader__in;
+			&[data-ui-state~="scale__in"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : bottom;
+					@include prefix( transform, rotateX(0deg) scale(1) );
+					@include fader__in;
+				}
+			}
 		}
 
 
 		&[data-ui-state~="rotate__out-bottom"] {
-			transform-origin : top;
-			@include prefix( transform, rotateX(-15deg) );
-			&[data-ui-state~="scale__out"] {
-				@include prefix( transform, rotateX(-15deg) scale(0.8) );
+			> [class^="panels-panel-content_"] {
+				transform-origin : top;
+				@include prefix( transform, rotateX(-15deg) );
+				@include fader__out;
 			}
-			@include fader__out;
+			&[data-ui-state~="scale__out"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : top;
+					@include prefix( transform, rotateX(-15deg) scale(0.8) );
+					@include fader__out;
+				}
+			}
 		}
 		&[data-ui-state~="rotate__in-bottom"] {
-			transform-origin : top;
-			@include prefix( transform, rotateX(0deg) );
-			&[data-ui-state~="scale__in"] {
-				@include prefix( transform, rotateX(0deg) scale(1) );
+			> [class^="panels-panel-content_"] {
+				transform-origin : top;
+				@include prefix( transform, rotateX(0deg) );
+				@include fader__in;
 			}
-			@include fader__in;
+			&[data-ui-state~="scale__in"] {
+				> [class^="panels-panel-content_"] {
+					transform-origin : top;
+					@include prefix( transform, rotateX(0deg) scale(1) );
+					@include fader__in;
+				}
+			}
 		}
 
 
 		&[data-ui-state~="move__out-left"] {
-			left : -120%;
+			@include prefix(transform, translateX(-120%));
+			//left : -120%;
 		}
 		&[data-ui-state~="move__out-right"] {
-			left : 120%;
+			@include prefix(transform, translateX(120%));
+			//left : 120%;
 		}
 		&[data-ui-state~="move__out-top"] {
-			top : -120%;
+			@include prefix(transform, translateY(-120%));
+			//top : -120%;
 		}
 		&[data-ui-state~="move__out-bottom"] {
-			top : 120%;
+			@include prefix(transform, translateY(120%));
+			//top : 120%;
 		}
 	}
 		[class^="panels-panel-content_"] {
 			position   : relative;
 			min-height : 100%; 
 			text-align : left; 
+			@include prefix(transform, translateZ(0));
 		}
 			[class^="panels-panel-content-fader_"] {
 				position   : absolute;
@@ -306,9 +384,15 @@
 				left       : 0px;
 				width      : 100%;
 				height     : 100%;
-				background : rgba(0,0,0,0.0); 
 				visibility : hidden; 
 				@include prefix(transition, all .3s ease-out);
+				&:before {
+					content    : " ";
+					position   : absolute;
+					width      : 100%;
+					height     : 100%;
+					background : #000000; 
+				}
 			}
 			[class^="panels-panel-content-header_"] {
 				display   : block;
