@@ -40,12 +40,12 @@
         <div data-js-target="panels__appSuite" class="panels_">
             <div id="panel__appSuite-apps" class="panels-panel__light">
                 <div class="panels-panel-content__light">
-                    <div class="panels-panel-content-fader__light"></div>
+                    <div class="fader_light"></div>
                 </div>
             </div>
             <div id="panel__appSuite-app" class="panels-panel__dark" data-ui-state="is__active">
                 <div data-ui-state="adjusted__forNav" class="panels-panel-content__dark">
-                    <div class="panels-panel-content-fader__dark"></div>
+                    <div class="fader_dark"></div>
                     <nav class="nav__app">
                         <div data-js-target="init__cuboid" class="cuboid__app">
                             <div data-ui-state="show__front" class="cuboid-faces__app">
@@ -73,7 +73,7 @@
                     <div data-js-target="panels__appIQM" class="panels_">
                         <div id="panel__appIQM-iframe" class="panels-panel__light">
                             <div class="panels-panel-content__modal">
-                                <div class="panels-panel-content-fader__light"></div>
+                                <div class="fader_light"></div>
                                 <div data-ui-core="mode__float" class="bar_">
                                     <button data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="hide__iframe-panel" style="float:right;" class="button__light">
                                         <div data-ui-icon="cancel size__medium"></div>
@@ -84,11 +84,11 @@
                         </div>
                         <div id="panel__appIQM-stage" class="panels-panel__default" data-ui-state="is__active">
                             <div class="panels-panel-content__default">
-                                <div class="panels-panel-content-fader__default"></div>
+                                <div class="fader_default"></div>
                                 <div data-js-target="panels__fileRecords" class="panels__card">
                                     <div id="panel__fileRecords-records" class="panels-panel__card">
                                         <div class="panels-panel-content__card">
-                                            <div class="panels-panel-content-fader_"></div>
+                                            <div class="fader"></div>
                                             <div class="panels-panel-content-header__card">
                                                 <h2>Records</h2>
                                                 <div data-ui-core="float__right">
@@ -123,13 +123,14 @@
                                                             <th data-ui-core="size__large" data-js-handler="recordsTable__sort" data-sort="is__lastName" class="table-head-row-header_">Last Name</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody data-ui-core="size__large" class="table-body_"></tbody>
+                                                    <!-- <tbody data-ui-core="size__large" class="table-body_"></tbody> -->
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                     <div id="panel__fileRecords-record" class="panels-panel__card">                                        
                                         <div class="panels-panel-notification_">
+                                            <div class="fader"></div>
                                             <span data-ui-icon="file_exclusion"></span>
                                             <h3>Exclusion</h3>
                                             <div data-ui-core="float__right">
@@ -141,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="panels-panel-content__card">
-                                            <div class="panels-panel-content-fader_"></div>
+                                            <div class="fader"></div>
                                             <div class="panels-panel-content-header_">
                                                 <button data-ui-core="size__large padding__left-none" data-ui-addon="icon__left" data-js-handler="swap-panels__record&amp;records" data-ui-state="visible__mobile-inline-block hidden__laptop" class="button__light">
                                                     <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open" class="button-icon__light"></div>
@@ -197,7 +198,7 @@
                                                             <th data-ui-core="size__large" class="table-head-row-header_">Content</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody data-ui-core="size__large" class="table-body_"></tbody>
+                                                    <!-- <tbody data-ui-core="size__large" class="table-body_"></tbody> -->
                                                 </table>
                                             </div>
                                         </div>
@@ -211,12 +212,12 @@
         </div>
 
         <script src="<%= jquery%>"></script>
-        <script src="<%= _default%>handlebars.runtime.js"></script>
+
         <script src="<%= _default%>jquery.basictable.js"></script>
         <script src="<%= _default%>list.min.js"></script>
         <script src="<%= _default%>jquery.webui-popover.js"></script>
         <script src="<%= _default%>fastclick.min.js"></script>
-        <script src="<%= _default%>compiled.js"></script>
+
         <script src="<%= _default%>UI.js"></script>
         <script src="<%= _default%>IQM.js"></script>
     </body>

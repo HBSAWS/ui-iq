@@ -107,10 +107,10 @@
 		&[data-ui-state~="animate__off"] {
 			@include prefix(transition, transform 0s); 
 			-webkit-transition : -webkit-transform 0s;
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				@include prefix(transition, transform 0s); 
 				-webkit-transition : -webkit-transform 0s; 
-				> [class^="panels-panel-content-fader_"] {
+				> [class^="fader"] {
 					@include prefix(transition, "visibility 0s, opacity 0s");
 				}
 			}
@@ -119,10 +119,10 @@
 			@include prefix(transition, transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
 			-webkit-transition : -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s; 
 			//@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s");
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				@include prefix(transition, transform 0.23s ease-out 0.46s);
 				-webkit-transition : -webkit-transform 0.23s ease-out 0.46s;
-				> [class^="panels-panel-content-fader_"] {
+				> [class^="fader"] {
 					@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.38s");
 				}
 			}
@@ -131,10 +131,10 @@
 			@include prefix(transition, transform 0.4s cubic-bezier(.43,0,0,1) 0.19s); 
 			-webkit-transition : -webkit-transform 0.4s cubic-bezier(.43,0,0,1) 0.19s; 
 			//@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s); 
 				-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s; 
-				> [class^="panels-panel-content-fader_"] {
+				> [class^="fader"] {
 					@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0.09s");
 				}
 			}
@@ -154,7 +154,7 @@
 					&[data-ui-animate~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
 						@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
-						[class^="panels-panel-content-fader_"] {
+						[class^="fader"] {
 							@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 						}
 					}	
@@ -168,7 +168,7 @@
 					&[data-ui-animate~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
 						@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
-						[class^="panels-panel-content-fader_"] {
+						[class^="fader"] {
 							@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 						}
 					}
@@ -186,7 +186,7 @@
 					&[data-ui-animate~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
 						@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
-						[class^="panels-panel-content-fader_"] {
+						[class^="fader"] {
 							@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 						}
 					}
@@ -197,7 +197,7 @@
 				}				
 				&[data-ui-animate~="slide-to__grid-#{$i}"] {
 					@include prefix(transition, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
-					[class^="panels-panel-content-fader_"] {
+					[class^="fader"] {
 						@include prefix(transition, "visibility 1.3s, background 0.3s ease-in 0.38s");
 					}
 				}
@@ -207,13 +207,13 @@
 
 
 		@mixin fader__out {
-			> [class^="panels-panel-content-fader_"] {
+			> [class^="fader"] {
 				visibility : visible;  
 				opacity    : 0.5;
 			}
 		}
 		@mixin fader__in {
-			> [class^="panels-panel-content-fader_"] {
+			> [class^="fader"] {
 				visibility : hidden;  
 				opacity    : 0;
 			}		
@@ -221,13 +221,13 @@
 
 
 		&[data-ui-state~="scale__out"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				@include prefix(transform, scale(0.8));
 				@include fader__out;
 			}
 		}
 		&[data-ui-state~="scale__in"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				@include prefix(transform, scale(1));
 				@include fader__in;
 			}
@@ -235,13 +235,13 @@
 
 
 		&[data-ui-state~="rotate__out-right"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : top center;
 				@include prefix(transform, rotateY(15deg));
 				@include fader__out;
 			}
 			&[data-ui-state~="scale__out"] {
-				> [class^="panels-panel-content_"] {
+				> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 					transform-origin : top center;
 					@include prefix(transform, rotateY(15deg) scale(0.8));
 					@include fader__out;
@@ -249,13 +249,13 @@
 			}
 		}
 		&[data-ui-state~="rotate__in-right"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : top center;
 				@include prefix(transform, rotateY(0deg));
 				@include fader__in;
 			}
 			&[data-ui-state~="scale__in"] {
-				> [class^="panels-panel-content_"] {
+				> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 					transform-origin : top center;
 					@include prefix(transform, rotateY(0deg) scale(1));
 					@include fader__in;
@@ -265,13 +265,13 @@
 
 
 		&[data-ui-state~="rotate__out-left"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : top center;
 				@include prefix(transform, rotateY(-15deg));
 				@include fader__out;
 			}
 			&[data-ui-state~="scale__out"] {
-				> [class^="panels-panel-content_"] {
+				> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 					transform-origin : top center;
 					@include prefix(transform, rotateY(-15deg) scale(0.8));
 					@include fader__out;
@@ -279,13 +279,13 @@
 			}
 		}
 		&[data-ui-state~="rotate__in-left"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : top center;
 				@include prefix( transform, rotateY(0deg) );
 				@include fader__in;
 			}
 			&[data-ui-state~="scale__in"] {
-				> [class^="panels-panel-content_"] {
+				> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 					transform-origin : top center;
 					@include prefix(transform, rotateY(0deg) scale(1));
 					@include fader__in;
@@ -295,7 +295,7 @@
 
 
 		&[data-ui-state~="rotate__out-top"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : bottom;
 				@include prefix( transform, rotateX(15deg) );
 				@include fader__out;
@@ -309,13 +309,13 @@
 			}
 		}
 		&[data-ui-state~="rotate__in-top"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : bottom;
 				@include prefix( transform, rotateX(0deg) );
 				@include fader__in;
 			}
 			&[data-ui-state~="scale__in"] {
-				> [class^="panels-panel-content_"] {
+				> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 					transform-origin : bottom;
 					@include prefix( transform, rotateX(0deg) scale(1) );
 					@include fader__in;
@@ -325,7 +325,7 @@
 
 
 		&[data-ui-state~="rotate__out-bottom"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : top;
 				@include prefix( transform, rotateX(-15deg) );
 				@include fader__out;
@@ -339,13 +339,13 @@
 			}
 		}
 		&[data-ui-state~="rotate__in-bottom"] {
-			> [class^="panels-panel-content_"] {
+			> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 				transform-origin : top;
 				@include prefix( transform, rotateX(0deg) );
 				@include fader__in;
 			}
 			&[data-ui-state~="scale__in"] {
-				> [class^="panels-panel-content_"] {
+				> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
 					transform-origin : top;
 					@include prefix( transform, rotateX(0deg) scale(1) );
 					@include fader__in;
@@ -371,13 +371,32 @@
 			//top : 120%;
 		}
 	}
+		[class^="panels-panel-notification_"] {
+			position : relative; 
+			[class^="fader"] {
+				position   : absolute;
+				z-index    : 10;
+				top        : 0px;
+				left       : 0px;
+				width      : 100%;
+				height     : 100%;
+				visibility : hidden; 
+				@include prefix(transition, all .3s ease-out);
+				&:before {
+					content    : " ";
+					position   : absolute;
+					width      : 100%;
+					height     : 100%;
+					background : #000000; 
+				}
+			}			
+		}
 		[class^="panels-panel-content_"] {
 			position   : relative;
-			min-height : 100%; 
 			text-align : left; 
 			@include prefix(transform, translateZ(0));
 		}
-			[class^="panels-panel-content-fader_"] {
+			[class^="fader"] {
 				position   : absolute;
 				z-index    : 10;
 				top        : 0px;

@@ -3,10 +3,10 @@ function UI_panels(DOMelement,settings) {
 	this.panelIndex = [];
 	this.active     = [];
 
-	_UI.call(this,DOMelement,settings);
+	__Animation.call(this,DOMelement);
 };
 
-UI_panels.prototype = Object.create(_UI.prototype);
+UI_panels.prototype = Object.create(__Animation.prototype);
 
 UI_panels.prototype.initialize_module = function(settings) {
 	var _self       = this;
