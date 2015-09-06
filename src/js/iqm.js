@@ -521,15 +521,24 @@
 			panels.appIQM.init();
 			panels.fileRecords.init();
 
-			tables.records.init();
-			tables.details.init();
+			// $("[data-js-target~='recordsList__wrapper'] ul").alphaNav({
+			// 	letters: [
+			// 		"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+			// 		"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+			// 	],
+			// });
+			
 			$(window).on("resize", function() {
 				var windowWidth = $(this).width();
 				panels.fileRecords.responsive(windowWidth);
 			});
+			//tables.records.init();
+			tables.details.init();
+			$("[data-js-target~='detailsTable']").basictable({
+				breakpoint : 480
+			});
 
 			FastClick.attach(document.body);
-
 		}
 	}
 
@@ -549,14 +558,11 @@
 
 		var recRow = 1;
 		var recordTableBodyHTML = [];
-		recordTableBodyHTML[0] = '<tbody data-ui-core="size__large" class="table-body_">';
+		recordTableBodyHTML[0] = '<ul id="recordsTable" data-ui-core="size__large" data-js-target="recordsTable" class="table_" style="font-size:0.9rem;">';
 
 		var detRow = 1;
 		var detailTableBodyHTML = [];
 		detailTableBodyHTML[0] = '<tbody data-ui-core="size__large" class="table-body_">';
-
-		//var compiledRecords = Handlebars.templates.recordsTemplate;
-		//var compiledDetails = Handlebars.templates.detailsTemplate;
 
 		for(var __record=0;__record < totalRecords;__record++) {
 			var currentRecord,details,errors,huid,firstName,lastName,templates, recordsRow;
@@ -576,30 +582,14 @@
 			}
 			tables.details.settings.valueNames.push("detailOf__" + huid);
 
-			// recordsRow = {
-			// 	huid       : huid,
-			// 	firstName  : firstName, 
-			// 	lastName   : lastName, 
-			// 	has__error : errors.length > 0 ? true : false
-			// };
+
+
 			var has__error = errors.length > 0 ? " has__error" : "";
 
+			recordTableBodyHTML[recRow++] = '<li data-ui-grid="mobile__6">' + firstName + '</li>';
+			recordTableBodyHTML[recRow++] = '<li data-ui-grid="mobile__6">' + lastName + '</li>';
 
-			// var recordsTableRow = document.createElement("tr");
-			// 	recordsTableRow.setAttribute("class","table-body-row_");
-			// 	recordsTableRow.setAttribute("data-record", huid);
-			// 	recordsTableRow.setAttribute("data-ui-core", "size__large");
-			// 	recordsTableRow.setAttribute("data-js-handler", "detailsTable__filter-record swap-panels__records&record");
-			//recordsTableRow.innerHTML = compiledRecords(recordsRow);
-			// recordsTableRow.innerHTML = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-core="size__large">' + firstName + '</td>' +
-			// 				  			'<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-core="size__large">' + lastName + '</td>';
 
-			// fragmentRecords.appendChild( recordsTableRow );
-
-			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + huid + '" data-ui-core="size__large" data-js-handler="detailsTable__filter-record swap-panels__records&record">';
-			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-core="size__large">' + firstName + '</td>';
-			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-core="size__large">' + lastName + '</td>';
-			recordTableBodyHTML[recRow++] = '</tr>';
 
 			for (var fieldGroups in details) {
 				if (fieldGroups !== "updateDate" && fieldGroups !== "huid") {
@@ -616,29 +606,8 @@
 							} 
 						}
 
-						// var detailsRow = {
-						// 	huid       : huid,
-						// 	firstName  : firstName,
-						// 	lastName   : lastName,
-						// 	fieldName  : field,
-						// 	fieldValue : fieldGroup[field],
-						// 	has__error : has__error,
-						// 	errorValue : errorValue
-						// };
 						var has__error = has__error == true ? " has__error" : "";
-						//console.log(detailsRow);
-						// var detailsTableRow = document.createElement("tr");
-						// 	detailsTableRow.setAttribute("class","table-body-row_ field__" + field);
-						// 	detailsTableRow.setAttribute("data-ui-core", "size__large");
-						// 	detailsTableRow.setAttribute("data-js-handler", "show__iframe-panel");
-						//detailsTableRow.innerHTML = compiledDetails(detailsRow);
-						// detailsTableRow.innerHTML = '<td class="table-body-row-cell_ is__field' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + field + '</td>' +
-						// 							'<td class="table-body-row-cell_ is__error' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + errorValue + '</td>' +
-						// 							'<td class="table-body-row-cell_ content' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + fieldGroup[field] + '</td>';
 
-						//fragmentDetails.appendChild( detailsTableRow );
-
-						//detailTableBodyHTML[row++] = compiledDetails(detailsRow);
 						detailTableBodyHTML[detRow++] = '<tr class="table-body-row_ field__' + field + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">';
 						detailTableBodyHTML[detRow++] = '<td class="table-body-row-cell_ is__field' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + field + '</td>';
 						detailTableBodyHTML[detRow++] = '<td class="table-body-row-cell_ is__error' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + errorValue + '</td>';
@@ -648,23 +617,26 @@
 				}
 			}
 		}
-		recordTableBodyHTML[recRow++] = '</tbody>';
+		recordTableBodyHTML[recRow++] = '</ul>';
 		detailTableBodyHTML[detRow++] = '</tbody>';
+
+		var testA = recordTableBodyHTML.join('');
+		var testB = detailTableBodyHTML.join('');
 		// var recordsTable = document.querySelectorAll("[data-js-target~='recordsTable'] tbody")[0];  
   //   	var detailsTable = document.querySelectorAll("[data-js-target~='detailsTable'] tbody")[0]; 
 
     	//recordsTable.appendChild( fragmentRecords );
     	//detailsTable.appendChild( fragmentDetails );
-		$("[data-js-target~='recordsTable']").append( recordTableBodyHTML.join('') );
-    	$("[data-js-target~='detailsTable']").append( detailTableBodyHTML.join('') );
+		$("[data-js-target~='recordsList__wrapper']").append( testA );
+    	$("[data-js-target~='detailsTable']").append( testB );
+
+
 		// adds the table HTML to the record and details tabale
   //       $recordsTable.html(recordsTable);
 		// $detailsTable.html(detailsTable);
 
 		// initializes the responsiveness aspect of the tables
-		$("[data-js-target~='detailsTable']").basictable({
-			breakpoint : 480
-		});
+
 
         // initializes the popover, panel and cuboid modules
         App.init();
