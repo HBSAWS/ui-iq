@@ -1,6 +1,6 @@
 (function($) {
 	var App;
-	var selector = "[data-js-target~='";
+	var recordsData = {};
 	var stats = {
 		records : 0,
 		errors  : 0,
@@ -522,7 +522,7 @@
 			panels.fileRecords.init();
 
 			tables.records.init();
-			tables.details.init();
+			//tables.details.init();
 			$(window).on("resize", function() {
 				var windowWidth = $(this).width();
 				panels.fileRecords.responsive(windowWidth);
@@ -573,10 +573,24 @@
 			}
 			tables.details.settings.valueNames.push("detailOf__" + huid);
 
+			recordsData[huid] = {};
+			if ( currentRecord.errors !== undefined ) {
+				recordsData[huid]["errors"] = [];
+				for ( var error = 0; error < totalErrors; error++ ) {
+					var currentError = errors[error];
+					recordsData[huid]["errors"].push({
+						type    : currentError["type"],
+						message : currentError["message"],
+						field   : currentError["field"].split(".").pop()
+					});
+				}
+			}
+
+
 
 			var has__error = errors.length > 0 ? " has__error" : "";
 
-			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + huid + '" data-ui-core="size__large" data-js-handler="detailsTable__filter-record swap-panels__records&record">';
+			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + huid + '" data-ui-core="size__large" data-js-handler="load__record">';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-core="size__large">' + firstName + '</td>';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-core="size__large">' + lastName + '</td>';
 			recordTableBodyHTML[recRow++] = '</tr>';
@@ -596,6 +610,8 @@
 							} 
 						}
 
+						recordsData[huid][field] = fieldGroup[field];
+
 						var has__error = has__error == true ? " has__error" : "";
 						detailTableBodyHTML[detRow++] = '<tr class="table-body-row_ field__' + field + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">';
 						detailTableBodyHTML[detRow++] = '<td class="table-body-row-cell_ is__field' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + field + '</td>';
@@ -607,14 +623,32 @@
 			}
 		}
 		recordTableBodyHTML[recRow++] = '</tbody>';
-		detailTableBodyHTML[detRow++] = '</tbody>';
+		//detailTableBodyHTML[detRow++] = '</tbody>';
 		
 		$("[data-js-target~='recordsTable']").append( recordTableBodyHTML.join('') );
-    	$("[data-js-target~='detailsTable']").append( detailTableBodyHTML.join('') );
+    	//$("[data-js-target~='detailsTable']").append( detailTableBodyHTML.join('') );
 
 		// initializes the responsiveness aspect of the tables
 		$("[data-js-target~='detailsTable']").basictable({
 			breakpoint : 480
+		});
+
+
+
+		$("[data-js-handler~='load__record']").on("click", function() {
+			var $this,recordID,record;
+			$this    = $(this); 
+			recordID = $this.attr("data-record");
+			record   = recordsData[recordID];
+
+			recordRow  = 1;
+			recordRows = [];
+			recordRows = '<tbody data-ui-core="size__large" class="table-body_">';
+
+			for ( var field in record ) {
+
+			};
+
 		});
 
         // initializes the popover, panel and cuboid modules

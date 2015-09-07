@@ -35,10 +35,10 @@ UI_panels.prototype.panel = function(id,panelSettings) {
 	var core    = "mode__" + panelSettings.mode + " size__" + panelSettings.size + " position__" + panelSettings.position;
 	var state   = (panelSettings.active === true) ? "is__active" : "";
 
-	$panel
-		.attr("data-ui-animate","")
-		.attr("data-ui-core", core)
-		.attr("data-ui-state", state);
+	fastdom.write(function() {
+		$panel[0].setAttribute("data-ui-core", core);
+		$panel[0].setAttribute("data-ui-state", state);
+	});
 
 	if ( panelSettings.active && this.active.indexOf(id) < 0 ) {
 		this.active.push(id);
@@ -87,14 +87,31 @@ UI_panels.prototype.swap = function(panelOneID,panelTwoID,animate,side) {
 		this.panel(panelOne.id,panelTwo);
 		this.panel(panelTwo.id,panelOne);
 	} else {
-		var animateOut = " rotate__out-" + side + " scale__out move__out-" + side;
-		var animateIn  = " rotate__in-" + side + " scale__in";
+		// array, [panelTwo content setup, panelOne content animate out]
+		var settings__contentAnimateOut = { timing : ["off","out"], delay  : false, modes : ["rotate","scale"], rotate : "top", scale : "down" };
+		var compiled__contentAnimateOut = this.__compileAnimation(settings__contentAnimateOut); 
 
-		$panelOne.attr("data-ui-state", "was__active animate__out" + animateOut);
-		$panelTwo
-			.attr("data-ui-state", "is__active animate__off" + animateOut)
-			.css("height");
-		$panelTwo.attr("data-ui-state", "is__active animate__in" + animateIn);
+		// array, [panelTwo panel setup, panelOne panel animate out]
+		var settings__panelAnimateOut = { timing : ["off","out"], delay  : true, modes : ["move"], move : "top"};
+		var compiled__panelAnimateOut = this.__compileAnimation(settings__panelAnimateOut);
+
+		fastdom.write(function() {
+			$panelOne[0].setAttribute("data-ui-state", "was__active " + compiled__panelAnimateOut[1]);
+			$panelOne.find("> [class^='panels-panel-content']")[0].setAttribute("data-ui-state", "was__active " + compiled__contentAnimateOut[1]);
+		});
+
+		requestAnimationFrame(function() {
+
+			$panelTwo
+				.attr("data-ui-state", "is__active " + compiled__panelAnimateOut[0])
+				.css("height");
+			$panelTwo.find("> [class^='panels-panel-content']")
+				.attr("data-ui-state", "is__active " + compiled__contentAnimateOut[0])
+				.css("height");
+
+			$panelTwo.attr("data-ui-state", "is__active animate__in-delay");
+			$panelTwo.find("> [class^='panels-panel-content']").attr("data-ui-state", "is__active animate__in");
+		});
 	}
 
 

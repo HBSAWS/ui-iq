@@ -30,6 +30,7 @@ UI_table.prototype.initialize_module = function(settings) {
 		listClass  : tableID
 	});
 
+	
 	$("[data-js-handler~='" + this.sortHandlerID + "']")
 		.attr("data-ui-state", "is__sortable")
 		.on("click", function() {
@@ -129,6 +130,7 @@ UI_table.prototype.clear = function() {
 
 
 UI_table.prototype.appendRow = function(rowColumnArray) {
+	
 
 };
 UI_table.prototype.prependRow = function(rowColumnArray) {

@@ -15,9 +15,10 @@ _UI.prototype.initialize = function(settings) {
 	return this;
 };
 _UI.prototype.updateStates = function(updatedStates) {
-	var states,active_state,checked_state,disabled_state,compiled_states;
-	compiled_states    = '';
- 	states             = this.states;
+	var _self,states,active_state,checked_state,disabled_state,compiled_states;
+	_self           = this;
+	compiled_states = '';
+ 	states          = this.states;
  	if ( typeof updatedStates !== "undefined" ) {
 		$.extend(this.states, updatedStates);
 	}
@@ -27,18 +28,23 @@ _UI.prototype.updateStates = function(updatedStates) {
 			compiled_states += state + " ";
 		}
 	}
-
-	this.$el.attr("data-ui-state", compiled_states);
+	fastdom.write(function() {
+		_self.$el[0].setAttribute("data-ui-state", compiled_states);
+	});
 	this.$el.find("*").attr("data-ui-state", compiled_states);
 };
 _UI.prototype.updateCore = function(property,setting) {
-	var compiled_core = "";
+	var _self,compiled_core;
+	_self         = this;
+	compiled_core = "";
 
 	this.core[property] = setting;
 	for (var property in this.core) {
 		compiled_core += property + "__" + this.core[property] + " ";
 	}
-	
-	this.$el.attr("data-ui-core", compiled_core);
+
+	fastdom.write(function() {
+		_self.$el[0].setAttribute("data-ui-state", compiled_core);
+	});	
 	this.$el.find("*").attr("data-ui-core", compiled_core);
 };

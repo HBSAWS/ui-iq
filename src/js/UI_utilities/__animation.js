@@ -25,25 +25,78 @@ __Animation.prototype = Object.create(_UI.prototype);
 //		animate   : <true><false>
 // 	}
 // ]
+
+// setting = {
+// 	timing : out/in/off,
+// 	delay  : true/false,
+// 	modes  : [rotate/scale/move],
+// 	rotate : "right",
+// 	scale  : "down",
+// 	move   : "left"
+// }
 __Animation.prototype.__compileAnimation = function(settings) {
-	var animations, compiledAnimationState;
-	animations 			   = settings.length;
-	compiledAnimationState = '';
+	var timing,modes,compiledModes,modeCount,compiledAnimationState;
+	timing 		  = settings.timing;
+	modes         = settings.modes;
+	compiledModes = [];
+	modeCount     = 0;
 
-	for ( var currentAnimation = 0; currentAnimation < animations; currentAnimation++ ) {
-		var animation,animationName,animationDirection,animationSide,animate;
-
-		animation          = currentAnimation[i];
-		animationName      = animation["name"] + '__';
-		animationDirection = animation["direction"];
-		animationSide      = animation["side"] == undefined ? ' ' : '-' + animation.side + ' ';
-		animate 	  	   = animation["animate"] == true ? 'animate__' + animationDirection + ' ' : "animate__off ";
-
-		compiledAnimationState += animate + animationName + animationDirection + animationSide;
+	
+	for ( var mode = 0,totalModes = modes.length; mode < totalModes; mode++) {
+		var currentMode = modes[mode];
+		
+		compiledModes[modeCount++] = currentMode;
+		compiledModes[modeCount++] = "__";
+		compiledModes[modeCount++] = settings[currentMode];
+		if ( mode + 1 != totalModes ) {
+			compiledModes[modeCount++] = " ";
+		}
 	}
+
+	if ( timing.constructor == Array ) {
+		compiledAnimationState = [];
+		for ( var timingMethod = 0, totalTimingMethods = timing.length; timingMethod < totalTimingMethods; timingMethod++ ) {
+			var delay,state;
+			if ( timing[timingMethod] === "off" ) {
+				delay = " ";
+			} else {
+				delay  = ( settings.delay == false ) ? " " : "-delay ";
+			}
+			state = 'animate__' + timing[timingMethod] + delay + compiledModes.join('');
+
+			compiledAnimationState.push(state);
+		}
+	} else {
+		var delay  = ( settings.delay == false ) ? " " : "-delay ";
+		compiledAnimationState = 'animate__' + timing + delay + compiledModes.join('');
+	}
+
 	return compiledAnimationState;
 };
 __Animation.prototype.animate = function(settings) {
 	var compiledAnimationState = this.__compile(settings);
 	this.$el.attr("data-ui-state", compiledAnimationState);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
