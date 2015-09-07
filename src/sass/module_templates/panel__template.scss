@@ -54,7 +54,7 @@
 					width         : 100%;
 					padding       : 15px 50px;
 					margin-bottom : 15px;
-					box-shadow    : 0 0 8px 0 rgba(0, 0, 0, 0.09);
+					@include prefix(box-shadow, 0 0 10px 0 rgba(0, 0, 0, .06));
 					text-align    : left;
 
 					background    : #F2C248;
@@ -63,8 +63,8 @@
 				> [class^="panels-panel-content_"] {
 		            padding            : 30px 0px;
 					background         : white;
-					-webkit-box-shadow : 0 0 8px 0 rgba(0,0,0,0.09);
-					box-shadow         : 0 0 8px 0 rgba(0,0,0,0.09);  					
+					@include prefix(box-shadow, 0 0 5px 0 rgba(0, 0, 0, 0.08));
+					//-webkit-box-shadow : 0 0 8px 0 rgba(0,0,0,0.09);					
 				}
 			}
 			@include gridle_state(phablet) {

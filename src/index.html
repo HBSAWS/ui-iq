@@ -3,8 +3,6 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>IQM</title>
-<!--         <link rel="stylesheet" href="/static/IQ/css/UI.css"> -->
-        <link rel="stylesheet" href="css/alphaNav.min.css">
         <link rel="stylesheet" href="css/UI.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic">
     </head>
@@ -87,7 +85,7 @@
                             <div class="panels-panel-content__default">
                                 <div class="fader_default"></div>
                                 <div data-js-target="panels__fileRecords" class="panels__card">
-                                    <div id="panel__fileRecords-records" class="panels-panel__card">
+                                    <div id="panel__fileRecords-records" class="panels-panel__card" style="overflow:hidden;padding-left:75px;">
                                         <div class="panels-panel-content__card">
                                             <div class="fader"></div>
                                             <div class="panels-panel-content-header__card">
@@ -116,7 +114,7 @@
                                                     <input placeholder="search" class="field_" data-js-handler="recordsTable__search">
                                                 </div>
                                             </div>
-                                            <div data-ui-core="padding__mobile-top-lg" class="layout" data-js-target="recordsList__wrapper">
+                                            <div id="content" data-ui-core="padding__mobile-top-lg" class="layout" data-js-target="recordsList__wrapper">
                                             </div>
                                         </div>
                                     </div>

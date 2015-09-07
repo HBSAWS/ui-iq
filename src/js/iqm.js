@@ -533,10 +533,10 @@
 				panels.fileRecords.responsive(windowWidth);
 			});
 			//tables.records.init();
-			tables.details.init();
-			$("[data-js-target~='detailsTable']").basictable({
-				breakpoint : 480
-			});
+			//tables.details.init();
+			// $("[data-js-target~='detailsTable']").basictable({
+			// 	breakpoint : 480
+			// });
 
 			FastClick.attach(document.body);
 		}
@@ -553,8 +553,18 @@
 		var firstVisibleRecord;
 
 
-		//var fragmentRecords = document.createDocumentFragment();
-		// var fragmentDetails = document.createDocumentFragment();
+
+		var alphabet = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+		var sortingBy = "lastName";
+		var sorter = function(a, b) {
+		    if(a[sortingBy] < b[sortingBy]) return -1;
+		    if(a[sortingBy] > b[sortingBy]) return 1;
+		    return 0;
+		};
+		var alphaRow         = 1;
+		var recordsAlphaHTML = [];
+		recordsAlphaHTML[0]  = '<ul id="list-content" style="font-size:0.9rem;height:105%;overflow:scroll;">';
+		var recordsAlpha     = {};
 
 		var recRow = 1;
 		var recordTableBodyHTML = [];
@@ -572,6 +582,19 @@
 			huid          = details.huid;
 			firstName     = details.name.firstName;
 			lastName      = details.name.lastName;
+
+
+
+			var lastNameLetter = lastName.split('').shift().toLowerCase();
+
+			if ( typeof recordsAlpha[lastNameLetter] == 'undefined' ) {
+				recordsAlpha[lastNameLetter] = [];
+			}
+			recordsAlpha[lastNameLetter].push({firstName : firstName,lastName : lastName, huid : huid});
+
+
+
+
 
 			totalErrors   = errors.length;
 			stats.errors  += totalErrors;
@@ -595,6 +618,15 @@
 				if (fieldGroups !== "updateDate" && fieldGroups !== "huid") {
 					var fieldGroup = details[fieldGroups];
 					for ( var field in fieldGroup) {
+
+
+
+
+
+
+
+
+
 						var errorValue = 'no error';
 						var has__error = false;
 						for (var __error=0;__error < totalErrors;__error++) {
@@ -617,18 +649,68 @@
 				}
 			}
 		}
-		recordTableBodyHTML[recRow++] = '</ul>';
-		detailTableBodyHTML[detRow++] = '</tbody>';
 
-		var testA = recordTableBodyHTML.join('');
-		var testB = detailTableBodyHTML.join('');
+		for ( var letter in alphabet ) {
+			var currentAlphaLetter  = alphabet[letter];
+
+			if ( recordsAlpha[currentAlphaLetter] !== undefined ) {
+				recordsAlphaHTML[alphaRow++] = '<li class="alphanav-header-' + currentAlphaLetter.toUpperCase() + '">';
+                recordsAlphaHTML[alphaRow++] = '<span class="title">' + currentAlphaLetter.toUpperCase() + '</span>';
+                recordsAlphaHTML[alphaRow++] = '<ul class="list-section-content">';
+
+				var currentAlphaRecords	= recordsAlpha[currentAlphaLetter].sort(sorter);
+				var totalLetterRecords  = currentAlphaRecords.length;
+
+				for ( var rec = 0; rec < totalLetterRecords; rec++ ) {
+					var currentRecord = currentAlphaRecords[rec];
+
+					recordsAlphaHTML[alphaRow++] = '<li data-ui-grid="mobile__6">' + currentRecord.firstName + '</li>';
+					recordsAlphaHTML[alphaRow++] = '<li data-ui-grid="mobile__6">' + currentRecord.lastName + '</li>';
+				}
+				recordsAlphaHTML[alphaRow++] = '</li>';
+                recordsAlphaHTML[alphaRow++] = '</ul>';
+			}
+
+		};
+		recordsAlphaHTML[alphaRow++] = '</ul>';
+		recordTableBodyHTML[recRow++] = '</ul>';
+		//detailTableBodyHTML[detRow++] = '</tbody>';
+
+		var testA  = recordsAlphaHTML.join('');
+		var $testA = $(testA);
+		//var testB = detailTableBodyHTML.join('');
 		// var recordsTable = document.querySelectorAll("[data-js-target~='recordsTable'] tbody")[0];  
   //   	var detailsTable = document.querySelectorAll("[data-js-target~='detailsTable'] tbody")[0]; 
 
     	//recordsTable.appendChild( fragmentRecords );
     	//detailsTable.appendChild( fragmentDetails );
-		$("[data-js-target~='recordsList__wrapper']").append( testA );
-    	$("[data-js-target~='detailsTable']").append( testB );
+
+
+		$testA.alphaNav({
+            autoHeight        : true,
+            arrows            : false,
+            debug             : false,
+            growEffect        : true,
+            overlay           : true,
+            scrollDuration    : '250ms',
+            trimList          : true,
+            listSide          : 'left',
+            height            : $(window).height - 259,
+            container         : "#content",
+            wrapperAttributes : {
+                id   : 'content',
+                class: 'tab-pane rates-subpage active'
+            },
+            onScrollComplete: function (elements) {
+                console.log("onScrollComplete! ", elements);
+            }
+		});
+		$("#content").css({
+			"height": $(window).height() - 259
+		});
+		$("[data-js-target~='recordsList__wrapper']").append( $testA );
+		
+    	//$("[data-js-target~='detailsTable']").append( testB );
 
 
 		// adds the table HTML to the record and details tabale
