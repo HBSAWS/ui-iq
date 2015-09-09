@@ -345,7 +345,7 @@
 					}
 				});
 				$("[data-js-handler~='toggle__exclusion']").on("click", function() {
-					$("[data-js-handler~='toggle__panelNotification']").trigger("click");
+					$("[data-js-handler~='toggle__panelNotification']").prop("checked", false).change();
 				});
 			},
 			swap__RecordsRecord : function() {
