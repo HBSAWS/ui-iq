@@ -297,8 +297,8 @@
 				UI.panels( this.$el, this.settings );
 				this.UI = this.$el.data("UI");
 
-				$("[data-js-handler~='show__iframe-panel']").click(this.show__iframe.bind(this));
-				$("[data-js-handler~='hide__iframe-panel']").click(this.hide__iframe.bind(this));
+				$("[data-js-handler~='show__iframe']").click(this.show__iframe.bind(this));
+				$("[data-js-handler~='hide__iframe']").click(this.hide__iframe.bind(this));
 			},
 			show__iframe : function() {
 				this.UI.showModal("panel__appIQM-iframe","top");
@@ -327,12 +327,26 @@
 				}
 			],
 			init      : function() {
+				var _self = this;
 				UI.panels( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
+				_self.UI = this.$el.data("UI");
 				panels.fileRecords.responsive($(window).width());
+				_self.UI.hideNotification("panel__fileRecords-record",false);
 
-				$("[data-js-handler~='swap-panels__records&record']").click(this.swap__RecordsRecord.bind(this));
+				$("[data-js-handler~='load__record']").click(this.swap__RecordsRecord.bind(this));
 				$("[data-js-handler~='swap-panels__record&records']").click(this.swap__RecordRecords.bind(this));
+
+				$("[data-js-handler~='toggle__panelNotification']").on("change", function() {
+					var $this = $(this);
+					if ( $this.is(":checked") ) {
+						_self.UI.showNotification("panel__fileRecords-record",true);
+					} else {
+						_self.UI.hideNotification("panel__fileRecords-record",true);
+					}
+				});
+				$("[data-js-handler~='toggle__exclusion']").on("click", function() {
+					$("[data-js-handler~='toggle__panelNotification']").trigger("click");
+				});
 			},
 			swap__RecordsRecord : function() {
 				if ( $(window).width() <= 950 ) {
@@ -465,7 +479,7 @@
 			UI       : null,
 			settings : {
 				tableID         : "detailsTable",
-				valueNames      : ['is__field','is__error','has__error','is__exclusion','is__pending'], 
+				valueNames      : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content'], 
 				searchHandlerID : "detailsTable__search",
 				sortHandlerID   : "detailsTable__sort", 
 				filterHandlerID : "detailsTable__filter"
@@ -522,7 +536,7 @@
 			panels.fileRecords.init();
 
 			tables.records.init();
-			//tables.details.init();
+			tables.details.init();
 			$(window).on("resize", function() {
 				var windowWidth = $(this).width();
 				panels.fileRecords.responsive(windowWidth);
@@ -544,7 +558,6 @@
 		var firstVisibleRecord;
 
 
-
 		var recRow = 1;
 		var recordTableBodyHTML = [];
 		recordTableBodyHTML[0] = '<tbody data-ui-core="size__large" class="table-body_">';
@@ -552,7 +565,6 @@
 		var detRow = 1;
 		var detailTableBodyHTML = [];
 		detailTableBodyHTML[0] = '<tbody data-ui-core="size__large" class="table-body_">';
-
 
 
 		for(var __record=0;__record < totalRecords;__record++) {
@@ -575,14 +587,17 @@
 
 			recordsData[huid] = {};
 			if ( currentRecord.errors !== undefined ) {
-				recordsData[huid]["errors"] = [];
+				recordsData[huid]["errors"] = {};
+
 				for ( var error = 0; error < totalErrors; error++ ) {
-					var currentError = errors[error];
-					recordsData[huid]["errors"].push({
+					var currentError      = errors[error];
+					var currentErrorField = currentError.field.split(".").pop();
+
+					recordsData[huid]["errors"][currentErrorField] = {
 						type    : currentError["type"],
 						message : currentError["message"],
-						field   : currentError["field"].split(".").pop()
-					});
+						field   : currentErrorField
+					};
 				}
 			}
 
@@ -599,25 +614,7 @@
 				if (fieldGroups !== "updateDate" && fieldGroups !== "huid") {
 					var fieldGroup = details[fieldGroups];
 					for ( var field in fieldGroup) {
-						var errorValue = 'no error';
-						var has__error = false;
-						for (var __error=0;__error < totalErrors;__error++) {
-							var errorFieldName = errors[__error].field.split(".")[1];
-
-							if ( errorFieldName === field ) {
-								has__error = true;
-								errorValue = errors[__error].message;
-							} 
-						}
-
 						recordsData[huid][field] = fieldGroup[field];
-
-						var has__error = has__error == true ? " has__error" : "";
-						detailTableBodyHTML[detRow++] = '<tr class="table-body-row_ field__' + field + '" data-ui-core="size__large" data-js-handler="show__iframe-panel">';
-						detailTableBodyHTML[detRow++] = '<td class="table-body-row-cell_ is__field' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + field + '</td>';
-						detailTableBodyHTML[detRow++] = '<td class="table-body-row-cell_ is__error' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + errorValue + '</td>';
-						detailTableBodyHTML[detRow++] = '<td class="table-body-row-cell_ content' + has__error + ' detailOf__' + huid + '" data-ui-core="size__large">' + fieldGroup[field] + '</td>';
-						detailTableBodyHTML[detRow++] = '</tr>';
 					}
 				}
 			}
@@ -641,12 +638,17 @@
 			recordID = $this.attr("data-record");
 			record   = recordsData[recordID];
 
-			recordRow  = 1;
-			recordRows = [];
-			recordRows = '<tbody data-ui-core="size__large" class="table-body_">';
-
 			for ( var field in record ) {
-
+				var errorMessage = "no error";
+				if ( record.errors != undefined && field !== "errors" ) {
+					if ( record["errors"].hasOwnProperty(field) == true ) {
+						errorMessage = record["errors"][field]["message"];
+					}
+				}
+				$("[data-field~='" + field + "'] .content").html(record[field]);
+				$("[data-field~='" + field + "'] .is__error")
+					.addClass("has__error")
+					.html(errorMessage);
 			};
 
 		});

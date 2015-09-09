@@ -49,13 +49,18 @@
 				padding : 0px;
 				> [class^="panels-panel-notification_"] {
 					width         : 100%;
-					padding       : 15px 50px;
 					margin-bottom : 15px;
-					@include prefix(box-shadow,0 0 11px 0 rgba(0, 0, 0, 0.05));
-					text-align    : left;
+					@include prefix(transform-style, preserve-3d);
+	
+					[class^="panels-panel-notification-content_"] {
+						@include prefix(box-shadow,0 0 11px 0 rgba(0, 0, 0, 0.05));
+						text-align    : left;
+						padding       : 15px 50px;
 
-					background    : #F2C248;
-					color         : white;					
+						background    : #F2C248;
+						color         : white;	
+						@include prefix(transform-style, preserve-3d);
+					}			
 				}
 				> [class^="panels-panel-content_"] {
 		            padding            : 30px 0px;
@@ -99,41 +104,7 @@
 			display : inline-block;
 		}
 
-		// &[data-ui-state~="animate__off"] {
-		// 	@include prefix(transition, transform 0s); 
-		// 	-webkit-transition : -webkit-transform 0s;
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		@include prefix(transition, transform 0s); 
-		// 		-webkit-transition : -webkit-transform 0s; 
-		// 		> [class^="fader"] {
-		// 			@include prefix(transition, "visibility 0s, opacity 0s");
-		// 		}
-		// 	}
-		// }
-		// &[data-ui-state~="animate__in"] {
-		// 	@include prefix(transition, transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
-		// 	-webkit-transition : -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s; 
-		// 	//@include prefix(transition, "transform 0.23s ease-out 0.46s, left 0.27s cubic-bezier(.19,1,.22,.97) 0.32s, top 0.27s cubic-bezier(.19,1,.22,.97) 0.32s");
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		@include prefix(transition, transform 0.23s ease-out 0.46s);
-		// 		-webkit-transition : -webkit-transform 0.23s ease-out 0.46s;
-		// 		> [class^="fader"] {
-		// 			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.38s");
-		// 		}
-		// 	}
-		// }
-		// &[data-ui-state~="animate__out"] {
-		// 	@include prefix(transition, transform 0.4s cubic-bezier(.43,0,0,1) 0.19s); 
-		// 	-webkit-transition : -webkit-transform 0.4s cubic-bezier(.43,0,0,1) 0.19s; 
-		// 	//@include prefix(transition, "transform 0.46s cubic-bezier(.43,0,0,1) 0s, left 0.3s cubic-bezier(.43,0,0,1) 0.15s, top 0.4s cubic-bezier(.43,0,0,1) 0.19s"); 
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s); 
-		// 		-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s; 
-		// 		> [class^="fader"] {
-		// 			@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0.09s");
-		// 		}
-		// 	}
-		// }
+
 
 
 
@@ -201,170 +172,6 @@
 
 
 
-		// @mixin fader__out {
-		// 	> [class^="fader"] {
-		// 		visibility : visible;  
-		// 		opacity    : 0.5;
-		// 	}
-		// }
-		// @mixin fader__in {
-		// 	> [class^="fader"] {
-		// 		visibility : hidden;  
-		// 		opacity    : 0;
-		// 	}		
-		// }
-
-
-		// &[data-ui-state~="scale__out"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		@include prefix(transform, scale(0.8));
-		// 		@include fader__out;
-		// 	}
-		// }
-		// &[data-ui-state~="scale__in"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		@include prefix(transform, scale(1));
-		// 		@include fader__in;
-		// 	}
-		// }
-
-
-		// &[data-ui-state~="rotate__out-right"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : top center;
-		// 		@include prefix(transform, rotateY(15deg));
-		// 		@include fader__out;
-		// 	}
-		// 	&[data-ui-state~="scale__out"] {
-		// 		> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 			transform-origin : top center;
-		// 			@include prefix(transform, rotateY(15deg) scale(0.8));
-		// 			@include fader__out;
-		// 		}
-		// 	}
-		// }
-		// &[data-ui-state~="rotate__in-right"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : top center;
-		// 		@include prefix(transform, rotateY(0deg));
-		// 		@include fader__in;
-		// 	}
-		// 	&[data-ui-state~="scale__in"] {
-		// 		> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 			transform-origin : top center;
-		// 			@include prefix(transform, rotateY(0deg) scale(1));
-		// 			@include fader__in;
-		// 		}
-		// 	}
-		// }
-
-
-		// &[data-ui-state~="rotate__out-left"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : top center;
-		// 		@include prefix(transform, rotateY(-15deg));
-		// 		@include fader__out;
-		// 	}
-		// 	&[data-ui-state~="scale__out"] {
-		// 		> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 			transform-origin : top center;
-		// 			@include prefix(transform, rotateY(-15deg) scale(0.8));
-		// 			@include fader__out;
-		// 		}
-		// 	}
-		// }
-		// &[data-ui-state~="rotate__in-left"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : top center;
-		// 		@include prefix( transform, rotateY(0deg) );
-		// 		@include fader__in;
-		// 	}
-		// 	&[data-ui-state~="scale__in"] {
-		// 		> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 			transform-origin : top center;
-		// 			@include prefix(transform, rotateY(0deg) scale(1));
-		// 			@include fader__in;
-		// 		}
-		// 	}
-		// }
-
-
-		// &[data-ui-state~="rotate__out-top"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : bottom;
-		// 		@include prefix( transform, rotateX(15deg) );
-		// 		@include fader__out;
-		// 	}
-		// 	&[data-ui-state~="scale__out"] {
-		// 		> [class^="panels-panel-content_"] {
-		// 			transform-origin : bottom;
-		// 			@include prefix( transform, rotateX(15deg) scale(0.8) );
-		// 			@include fader__out;
-		// 		}
-		// 	}
-		// }
-		// &[data-ui-state~="rotate__in-top"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : bottom;
-		// 		@include prefix( transform, rotateX(0deg) );
-		// 		@include fader__in;
-		// 	}
-		// 	&[data-ui-state~="scale__in"] {
-		// 		> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 			transform-origin : bottom;
-		// 			@include prefix( transform, rotateX(0deg) scale(1) );
-		// 			@include fader__in;
-		// 		}
-		// 	}
-		// }
-
-
-		// &[data-ui-state~="rotate__out-bottom"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : top;
-		// 		@include prefix( transform, rotateX(-15deg) );
-		// 		@include fader__out;
-		// 	}
-		// 	&[data-ui-state~="scale__out"] {
-		// 		> [class^="panels-panel-content_"] {
-		// 			transform-origin : top;
-		// 			@include prefix( transform, rotateX(-15deg) scale(0.8) );
-		// 			@include fader__out;
-		// 		}
-		// 	}
-		// }
-		// &[data-ui-state~="rotate__in-bottom"] {
-		// 	> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 		transform-origin : top;
-		// 		@include prefix( transform, rotateX(0deg) );
-		// 		@include fader__in;
-		// 	}
-		// 	&[data-ui-state~="scale__in"] {
-		// 		> [class^="panels-panel-content_"], > [class^="panels-panel-notification_"] {
-		// 			transform-origin : top;
-		// 			@include prefix( transform, rotateX(0deg) scale(1) );
-		// 			@include fader__in;
-		// 		}
-		// 	}
-		// }
-
-
-		// &[data-ui-state~="move__out-left"] {
-		// 	@include prefix(transform, translateX(-120%));
-		// 	//left : -120%;
-		// }
-		// &[data-ui-state~="move__out-right"] {
-		// 	@include prefix(transform, translateX(120%));
-		// 	//left : 120%;
-		// }
-		// &[data-ui-state~="move__out-top"] {
-		// 	@include prefix(transform, translateY(-120%));
-		// 	//top : -120%;
-		// }
-		// &[data-ui-state~="move__out-bottom"] {
-		// 	@include prefix(transform, translateY(120%));
-		// 	//top : 120%;
-		// }
 	}
 		[class^="panels-panel-notification_"] {
 			position : relative; 
@@ -388,6 +195,32 @@
 				}
 			}			
 		}
+
+			[class^="panels-panel-notification-content-textarea_"] {
+				width         : 100%;
+				background    : transparent;
+				border        : 0px;
+				border-bottom : 1px solid white;
+				resize        : none;
+				overflow      : auto;
+				outline       : none;
+				cursor        : text;
+				font-family   : lato;
+				font-size     : 0.8rem;
+				font-weight   : 300;
+				margin-top    : 15px;
+				padding-bottom: 3px;
+				&:empty:before {
+					content : attr(placeholder);
+					display : block; /* For Firefox */
+					font-family : lato;
+					font-weight : 300;
+					font-size   : 0.8rem;
+					line-height : 0.8rem; 
+					font-style  : italic;
+					color       : rgba(255,255,255, 0.7);
+				}
+			}
 		[class^="panels-panel-content_"] {
 			position   : relative;
 			text-align : left; 

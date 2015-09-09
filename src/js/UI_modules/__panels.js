@@ -35,10 +35,10 @@ UI_panels.prototype.panel = function(id,panelSettings) {
 	var core    = "mode__" + panelSettings.mode + " size__" + panelSettings.size + " position__" + panelSettings.position;
 	var state   = (panelSettings.active === true) ? "is__active" : "";
 
-	fastdom.write(function() {
+	// fastdom.write(function() {
 		$panel[0].setAttribute("data-ui-core", core);
 		$panel[0].setAttribute("data-ui-state", state);
-	});
+	// });
 
 	if ( panelSettings.active && this.active.indexOf(id) < 0 ) {
 		this.active.push(id);
@@ -88,11 +88,11 @@ UI_panels.prototype.swap = function(panelOneID,panelTwoID,animate,side) {
 		this.panel(panelTwo.id,panelOne);
 	} else {
 		// array, [panelTwo content setup, panelOne content animate out]
-		var settings__contentAnimateOut = { timing : ["off","out"], delay  : false, modes : ["rotate","scale"], rotate : "top", scale : "down" };
+		var settings__contentAnimateOut = { timing : ["off","out"], delay  : false, modes : ["rotate","scale"], rotate : side, scale : "down" };
 		var compiled__contentAnimateOut = this.__compileAnimation(settings__contentAnimateOut); 
 
 		// array, [panelTwo panel setup, panelOne panel animate out]
-		var settings__panelAnimateOut = { timing : ["off","out"], delay  : true, modes : ["move"], move : "top"};
+		var settings__panelAnimateOut = { timing : ["off","out"], delay  : true, modes : ["move"], move : side};
 		var compiled__panelAnimateOut = this.__compileAnimation(settings__panelAnimateOut);
 
 		fastdom.write(function() {
@@ -123,6 +123,36 @@ UI_panels.prototype.swap = function(panelOneID,panelTwoID,animate,side) {
 	this.panels[panelTwoIndex].id = panelTwoID;
 
 	$.extend(this.panels[panelOneIndex],panelOneTemp);
+};
+
+UI_panels.prototype.showNotification = function(panelID, toAnimate) {
+	var $panelContent,$panelNotification,notificationHeight,animateState;
+	$panelContent      = this.$el.find("#" + panelID + " > [class^='panels-panel-content_']");
+	$panelNotification = this.$el.find("#" + panelID + " > [class^='panels-panel-notification_']");
+	notificationHeight = 0 + "px";
+
+	animateState = ( toAnimate == true ) ? "animate__in-delay" : "animate__off";
+	$panelContent.attr("data-ui-state", animateState);
+	$panelContent.css("transform", "translateY(" + notificationHeight + ")");
+	$panelNotification.attr("data-ui-state", animateState);
+
+	animateState = ( toAnimate == true ) ? "animate__in" : "animate__off";	
+	$panelNotification.children("[class^='panels-panel-notification-content_']").attr("data-ui-state", animateState);
+};
+UI_panels.prototype.hideNotification = function(panelID, toAnimate) {
+	var $panelContent,$panelNotification,notificationHeight,animateState;
+	$panelContent      = this.$el.find("#" + panelID + " > [class^='panels-panel-content_']");
+	$panelNotification = this.$el.find("#" + panelID + " > [class^='panels-panel-notification_']");
+	notificationHeight = ($panelNotification.height() + 15) * -1 + "px";
+
+
+	animateState = ( toAnimate == true ) ? "animate__out-delay" : "animate__off";
+	$panelContent.attr("data-ui-state", animateState);
+	$panelContent.css("transform", "translateY(" + notificationHeight + ")");
+	$panelNotification.attr("data-ui-state", animateState + " move__bottom");
+
+	animateState = ( toAnimate == true ) ? "animate__out" : "animate__off";
+	$panelNotification.find("[class^='panels-panel-notification-content_']").attr("data-ui-state", animateState + " rotate__bottom scale__down");
 };
 
 UI_panels.prototype.showModal = function(id,side) {

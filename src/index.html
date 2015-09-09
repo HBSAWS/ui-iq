@@ -75,8 +75,8 @@
                             <div class="panels-panel-content__modal">
                                 <div class="fader_light"></div>
                                 <div data-ui-core="mode__float" class="bar_">
-                                    <button data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="hide__iframe-panel" style="float:right;" class="button__light">
-                                        <div data-ui-icon="cancel size__medium"></div>
+                                    <button data-ui-core="size__large" data-ui-addon="icon__left" data-js-handler="hide__iframe" style="float:right;" class="button__light">
+                                        <div data-ui-icon="cancel size__medium" data-js-handler="toggle__exclusion"></div>
                                     </button>
                                 </div>
                                 <iframe src="" style="width:100%;height:100%;"></iframe>
@@ -129,16 +129,19 @@
                                         </div>
                                     </div>
                                     <div id="panel__fileRecords-record" class="panels-panel__card">                                        
-                                        <div class="panels-panel-notification_">
-                                            <div class="fader"></div>
-                                            <span data-ui-icon="file_exclusion"></span>
-                                            <h3>Exclusion</h3>
-                                            <div data-ui-core="float__right">
-                                                <button class="button__inverted" data-ui-core="size__small padding__none" data-ui-addon="icon__left icon__right">
-                                                    <div class="button-content__inverted" data-ui-core="size__small" data-ui-addon="icon__left icon__right">
-                                                        <div data-ui-icon="cancel size__medium"></div>
-                                                    </div>
-                                                </button>
+                                        <div class="panels-panel-notification_" data-ui-state="animate__out move__bottom">
+                                            <div class="panels-panel-notification-content_" data-ui-state="animate__out rotate__bottom scale__down">
+                                                <div class="fader"></div>
+                                                <span data-ui-icon="file_exclusion"></span>
+                                                <h3>Exclusion</h3>
+                                                <div data-ui-core="float__right">
+                                                    <button class="button__inverted" data-ui-core="size__small padding__none" data-ui-addon="icon__left icon__right">
+                                                        <div class="button-content__inverted" data-ui-core="size__small" data-ui-addon="icon__left icon__right">
+                                                            <div data-ui-icon="cancel size__medium"></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                <div class="panels-panel-notification-content-textarea_" contenteditable="true" placeholder="reason for excluding record..."></div>
                                             </div>
                                         </div>
                                         <div class="panels-panel-content__card">
@@ -151,7 +154,7 @@
                                                 <h2 data-js-target="recordName">Details</h2>
 
                                                 <div data-ui-core="mode__check size__small padding__left-xxs" class="toggler__bold">
-                                                    <input data-ui-core="mode__check size__small" type="checkbox" value="is__exclusion" class="toggler-input__bold">
+                                                    <input data-ui-core="mode__check size__small" data-js-handler="toggle__panelNotification" type="checkbox" value="is__exclusion" class="toggler-input__bold">
                                                     <div data-ui-core="mode__check size__small" class="toggler-toggle__bold">
                                                         <div data-ui-core="mode__check size__small" class="toggler-toggle-indicator__bold"></div>
                                                     </div>
@@ -192,13 +195,149 @@
                                             <div data-ui-core="padding__mobile-top-lg" class="layout">
                                                 <table id="detailsTable" data-ui-core="size__large" data-js-target="detailsTable" class="table_">
                                                     <thead data-ui-core="size__large" class="table-head_">
-                                                        <tr data-ui-core="size__large" class="table-head-row">
+                                                        <tr data-ui-core="size__large" data-field="academicPlan" class="table-head-row">
                                                             <th data-ui-core="size__large" data-ui-state="is__sortable" data-sort="is__field" data-js-handler="detailsTable__sort" class="table-head-row-header_">Field</th>
                                                             <th data-ui-core="size__large" data-ui-state="is__sortable" data-sort="is__error" data-js-handler="detailsTable__sort" class="table-head-row-header_">Error</th>
                                                             <th data-ui-core="size__large" class="table-head-row-header_">Content</th>
                                                         </tr>
                                                     </thead>
-                                                    <!-- <tbody data-ui-core="size__large" class="table-body_"></tbody> -->
+                                                    <tbody data-ui-core="size__large" data-js-target="updateRecord" class="table-body_">
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="address1" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Address 1</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="address2" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Address 2</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="addressEffdt" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Address Effdt</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="birthDate" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Birth Date</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="careerEffdt" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Career Effdt</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="careerSchoolCode" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Career School Code</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="citizenshipStatus" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Citizenship Status</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="city" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">City</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="countryCode" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Country Code</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="degreeCandidate" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Degree Candidate</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="degreeProgram" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Degree Program</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="degreeProgramNumber" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Degree Program Number</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="etdnicityCode" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Etdnicity Code</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="etdnicityValue" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Etdnicity Value</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="expectedGradDate" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Expected Graduation Date</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="firstName" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">First Name</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="gender" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Gender</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="lastDateAttend" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Last Date Attended</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="lastName" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Last Name</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="middleName" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Middle Name</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="nonCitizenCountry" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">None Citizen Country</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="postal" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Postal</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="registrationStatus" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Registration Status</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="State" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">State</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="usaCitizen" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">USA Citizen</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="yearInProgram" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Year In Program</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                        <tr data-ui-core="size__large" data-js-handler="show__iframe" data-field="yearTerm" class="table-head-row">
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__field">Year Term</td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ is__error"></td>
+                                                            <td data-ui-core="size__large" class="table-body-row-cell_ content"></td>
+                                                        </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
