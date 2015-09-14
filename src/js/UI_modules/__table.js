@@ -129,11 +129,11 @@ UI_table.prototype.clear = function() {
 };
 
 
-UI_table.prototype.appendRow = function(rowColumnArray) {
-	
-
+UI_table.prototype.add = function(toAdd) {
+	this.list.add(toAdd);	
 };
-UI_table.prototype.prependRow = function(rowColumnArray) {
+UI_table.prototype.remove = function(valueName,valueToRemove) {
+	this.list.remove(valueName, valueToRemove);	
 
 };
 UI_table.prototype.addRow = function(rowColumnArray,rowIndex) {

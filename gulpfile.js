@@ -5,17 +5,19 @@ var gulp = require('gulp'),
 	browserSync    = require('browser-sync'),
 	concat 		   = require('gulp-concat'),
 	del 		   = require('del'),
-	dummyJSON      = require('dummy-json'),
+	fs             = require('fs'),
 	jshint         = require('gulp-jshint'),
 	mainBowerFiles = require('main-bower-files'),
 	merge 		   = require("merge-stream"),
 	minifyHTML	   = require('gulp-minify-html'),
+	parseString    = require('xml2js').parseString,
 	rename   	   = require("gulp-rename"),
 	sass           = require('gulp-ruby-sass'),
 	sourcemaps 	   = require('gulp-sourcemaps'),
 	template  	   = require('gulp-template'),
 	uglifyCSS	   = require('gulp-uglifycss'),
-	uglify	   	   = require('gulp-uglify');
+	uglify	   	   = require('gulp-uglify'),
+	xml2js         = require('xml2js');
 
 var config;
 config = {
@@ -56,8 +58,8 @@ config = {
 				"basictable" : {
 					"main" : "jquery.basictable.js"
 				},
-				"handlebars" : {
-					"main" : "handlebars.runtime.js"
+				"drop" : {
+					"main" : "dist/js/drop.js"
 				},
 				"jquery"     : {
 					"main" : "dist/jquery.js"
@@ -65,8 +67,8 @@ config = {
 				"list"       : {
 					"main" : "dist/list.min.js"
 				},
-				"webui-popover" : {
-					"main" : "dist/jquery.webui-popover.js"
+				"tether" : {
+					"main" : "dist/js/tether.js"
 				}
 			}
 		}))
@@ -221,6 +223,12 @@ gulp.task('serve-testing', function () {
 });
 
 
+
+
+
+
+
+
 // start with $npm install
 // then $gulp install
 // this will install all required libraries, compile and move all source files
@@ -238,6 +246,29 @@ gulp.task("install",['cleanup-bower-files'], function() {
 gulp.task("compile", ['compile-sass','compile-js', 'compile-html']);
 // to test locally type $gulp serve-testing
 gulp.task('default',['serve-testing']);
+
+
+
+
+
+
+
+
+
+
+
+
+gulp.task("convertXML", function() {
+	var parser = new xml2js.Parser();
+	fs.readFile(__dirname + '/src/xml/bio.xml', function(err, data) {
+		console.log(data);
+	    parser.parseString(data, function (err, result) {
+	        var convertedJSON = JSON.stringify(result);
+	       	fs.writeFile('./src/js/bio.json',convertedJSON );
+	    });
+	});
+});
+
 
 
 

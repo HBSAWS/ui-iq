@@ -31,7 +31,7 @@ UI_panels.prototype.getPanelIndex = function(panelID) {
 };
 
 UI_panels.prototype.panel = function(id,panelSettings) {
-	var $panel = $("#" + id);
+	var $panel  = $("#" + id);
 	var core    = "mode__" + panelSettings.mode + " size__" + panelSettings.size + " position__" + panelSettings.position;
 	var state   = (panelSettings.active === true) ? "is__active" : "";
 
@@ -160,12 +160,16 @@ UI_panels.prototype.showModal = function(id,side) {
 	var activeLength = active.length;
 
 	for (var i = 0;i < active.length;i++) {
-		$("#" + active[i]).attr("data-ui-state", "is__active animate__out scale__out");
+		$("#" + active[i]).attr("data-ui-state", "is__active animate__out scale__down");
 	}
 	$("#" + id)
-		.attr("data-ui-state", "is__active animate__off rotate_out-" + side + "  scale__out move__out-" + side)
+		.attr("data-ui-state", "is__active animate__off move__" + side)
 		.css("height");
-	$("#" + id).attr("data-ui-state", "is__active animate__in rotate__in-" + side + " scale__in");
+	$("#" + id + " > [class^='panels-panel-content_']:first")
+		.attr("data-ui-state","animate__off rotate__" + side + "  scale__down")
+		.css("height");
+	$("#" + id).attr("data-ui-state", "is__active animate__in-delay");
+	$("#" + id + " > [class^='panels-panel-content_']:first").attr("data-ui-state","animate__in");
 };
 
 UI_panels.prototype.hideModal = function(id,side) {
@@ -175,6 +179,6 @@ UI_panels.prototype.hideModal = function(id,side) {
 	for (var i = 0;i < active.length;i++) {
 		$("#" + active[i]).attr("data-ui-state", "is__active animate__in scale__in");
 	}
-	$("#" + id)
-		.attr("data-ui-state", "is__active animate__out rotate_out-" + side + "  scale__out move__out-" + side);
+	$("#" + id).attr("data-ui-state", "was__active animate__out-delay move__top");
+	$("#" + id + " > [class^='panels-panel-content_']:first").attr("data-ui-state", "animate__out rotate__" + side + "  scale__down")
 };

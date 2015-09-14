@@ -3,7 +3,7 @@
 	&[data-ui-state~="animate__off"] {
 		@include prefix(transition, transform 0s); 
 		-webkit-transition : -webkit-transform 0s; 
-		> [class^="fader"] {
+		> [class^="fader"]:first {
 			@include prefix(transition, "visibility 0s, opacity 0s");
 		}
 	}
@@ -11,14 +11,14 @@
 	&[data-ui-state~="animate__in"] {
 		@include prefix(transition, transform 0.23s ease-out 0.46s);
 		-webkit-transition : -webkit-transform 0.23s ease-out 0.46s;
-		> [class^="fader"] {
+		> [class^="fader"]:first {
 			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.38s");
 		}
 	}
 	&[data-ui-state~="animate__in-delay"] {
 		@include prefix(transition, transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
 		-webkit-transition : -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s; 
-		> [class^="fader"] {
+		> [class^="fader"]:first {
 			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.38s");
 		}
 	}
@@ -26,14 +26,14 @@
 	&[data-ui-state~="animate__out"] {
 		@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s); 
 		-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s; 
-		> [class^="fader"] {
+		> [class^="fader"]:first {
 			@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0.09s");
 		}
 	}
 	&[data-ui-state~="animate__out-delay"] {
 		@include prefix(transition, transform 0.4s cubic-bezier(.43,0,0,1) 0.19s); 
 		-webkit-transition : -webkit-transform 0.4s cubic-bezier(.43,0,0,1) 0.19s; 
-		> [class^="fader"] {
+		[class^="fader"]:first {
 			@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0.09s");
 		}
 	}

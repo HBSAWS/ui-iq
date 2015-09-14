@@ -1,6 +1,9 @@
 (function($) {
 	var App;
-	var recordsData = {};
+	var userData    = {};
+	var recordsData = {
+		active : undefined
+	};
 	var stats = {
 		records : 0,
 		errors  : 0,
@@ -294,17 +297,30 @@
 				}
 			],
 			init    : function() {
+				var _self = this;
 				UI.panels( this.$el, this.settings );
 				this.UI = this.$el.data("UI");
 
-				$("[data-js-handler~='show__iframe']").click(this.show__iframe.bind(this));
-				$("[data-js-handler~='hide__iframe']").click(this.hide__iframe.bind(this));
+				tables.details.$el.on("click",function(e) {
+					if ($(e.target).parent().is("[data-js-handler~='show__iframe']")) {
+						var pdmId     = recordsData.active;
+						var pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
+						var newURL    = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
+						pdmIframe.setAttribute('src', newURL);
+						_self.show__iframe(_self);
+					}
+				});
+				$("[data-js-handler~='hide__iframe']").on("click",function() {
+					_self.UI.hideModal("panel__appIQM-iframe","top");
+				});
+				$(document).keyup(function(e) {
+				     if (e.keyCode == 27) { // escape key maps to keycode `27`
+				        _self.UI.hideModal("panel__appIQM-iframe","top");
+				    }
+				});
 			},
-			show__iframe : function() {
-				this.UI.showModal("panel__appIQM-iframe","top");
-			},
-			hide__iframe : function() {
-				this.UI.hideModal("panel__appIQM-iframe","top");
+			show__iframe : function(_self) {
+				_self.UI.showModal("panel__appIQM-iframe","top");
 			}
 		},
 		fileRecords : {
@@ -472,6 +488,7 @@
 					$(this).attr("data-ui-state","is__selected");
 
 				});
+				_self.$el.find("tbody tr").first().trigger("click");
 			}
 		},
 		details : {
@@ -479,7 +496,7 @@
 			UI       : null,
 			settings : {
 				tableID         : "detailsTable",
-				valueNames      : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content'], 
+				valueNames      : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
 				searchHandlerID : "detailsTable__search",
 				sortHandlerID   : "detailsTable__sort", 
 				filterHandlerID : "detailsTable__filter"
@@ -500,22 +517,53 @@
 						_self.UI.unfilter(toFilter);
 					}
 				});
-				$("[data-js-handler~='detailsTable__filter-record']").on("click", function() {
-					var $this,old__activeRecord,new__activeRecord,recordName;
-					$this = $(this);
 
-					old__activeRecord  = "detailOf__" + _self.activeRecord;
-					_self.activeRecord = $this.attr("data-record");
-					recordName         = $this.find("td:nth-child(1)").html() + " " + $this.find("td:nth-child(2)").html();
-					new__activeRecord = "detailOf__" + _self.activeRecord;
 
-					$("[data-js-target~='recordName']").html(recordName);
-					_self.UI.unfilter(old__activeRecord);
-					_self.UI.filter(new__activeRecord);
+				var init = true;
+				$("[data-js-handler~='load__record']").on("click", function() {
+					var $this,recordID,record,toAdd;
+					$this      = $(this); 
+					recordID   = $this.attr("data-record");
+					record     = recordsData[recordID];
+					toAdd      = [];
+
+					for ( var field in record ) {
+						var errorMessage = "no error";
+						var has__error   = "";
+						if ( record.errors != undefined && field !== "errors" ) {
+							if ( record["errors"].hasOwnProperty(field) == true ) {
+								errorMessage = record["errors"][field]["message"];
+								has__error   = errorMessage;
+							}
+						}
+						var row = {
+							'is__field'     : field,
+							'is__error'     : errorMessage,
+							'has__error'    : has__error,
+							'is__exclusion' : "",
+							'is__pending'   : "", 
+							'content'       : record[field],
+							'hbsId'         : recordID
+						};
+						if ( field !== "errors" ) {
+							toAdd.push(row);
+						}
+					};
+					$("[data-js-handler~='detailsTable__filter']").prop("checked", false).change();
+
+					_self.UI.add(toAdd);
+					_self.UI.remove("hbsId", recordsData.active);
+					_self.UI.remove("hbsId", "");
+					recordsData.active = recordID;
+
+					$("[data-js-handler~='detailsTable__filter']").prop("checked", true).change();
+
+					tables.records.$el.find("[data-ui-state~='is__selected']").removeAttr("data-ui-state");
+					$this.attr("data-ui-state","is__selected");
+					$("[data-js-target~='recordName']").html(record.firstName + " " + record.lastName);
+
+					init = false;
 				});
-
-				this.UI.filter("has__error");
-				tables.records.$el.find("tbody tr").first().trigger("click");
 			}
 
 		}
@@ -524,8 +572,36 @@
 
 
 
+	var tooltips = {
+		errors : {
+			settings : {
+				target   : undefined,
+				position : 'bottom center',
+				content  : "filter errors",
+				classes  : 'tooltip-theme-arrows'
+			},
+			init : function() {
+				var _self,errorFilters__checkbox; 
+				_self = this;
+				errorFilters__checkbox = document.querySelectorAll("[data-js-target~='tooltip__error']");
+
+				for (var currentFilter = 0, len = errorFilters__checkbox.length; currentFilter < len; currentFilter++) {
+					_self.settings.target = errorFilters__checkbox[currentFilter];
+					new Tooltip(_self.settings);
+				}
+			}
+		}
+	};
+
+
+
+
 	App = {
 		init : function() {
+			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+			if( !is__mobile ) {
+				tooltips.errors.init();
+			}
 			cuboids.appSuite.init();
 			__templates.app.fileSummary.$body = $( __templates.app.fileSummary.bodyHTML() );
 
@@ -537,22 +613,63 @@
 
 			tables.records.init();
 			tables.details.init();
+			
 			$(window).on("resize", function() {
 				var windowWidth = $(this).width();
 				panels.fileRecords.responsive(windowWidth);
 			});
 
 			FastClick.attach(document.body);
-
 		}
 	}
 
 
+	var nanoOptions = {
+		bg: 'rgba(0,0,0,0.2)',
 
-	// call to the api
-	<%= get %>
+		// leave target blank for global nanobar
+		target: document.getElementById('globalLoader'),
+
+		// id for new nanobar
+		id: 'mynano'
+	};
+
+	var nanobar = new Nanobar( nanoOptions );
+
+
+	$.when(
+		// the config
+		$.ajax({
+			dataType : "json",
+			url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
+		}),	
+		// the records
+		$.ajax({
+			xhr: function() {
+				var xhr = new window.XMLHttpRequest();
+				//Download progress
+				xhr.addEventListener("progress", function(evt){
+					if (evt.lengthComputable) {
+				    	var percentComplete = evt.loaded / evt.total;
+				    	//Do something with download progress
+				    	console.log(percentComplete * 100);
+				    	nanobar.go( percentComplete * 100 );
+					}
+				}, false);
+				return xhr;
+			},
+			dataType : "json",
+			url      : "js/bio.json"
+		})
+	).done(function ( dataConfig,dataRecords ) {
+
+		console.log("done");
 		var records, numberOfRecords, listOptions,EC,RC;
-		var records      = data.records;
+		var user    = dataConfig[0].userInfo;
+		var records = dataRecords[0].records;
+		userData["PDM"] = dataConfig[0].config.PDM_URL;
+
+
 		var totalRecords = records.length;
 		stats.records    = totalRecords;
 		var firstVisibleRecord;
@@ -568,11 +685,15 @@
 
 
 		for(var __record=0;__record < totalRecords;__record++) {
-			var currentRecord,details,errors,huid,firstName,lastName,templates, recordsRow;
+			var currentRecord,details,errors,hbsId,firstName,lastName,templates, recordsRow;
 			currentRecord = records[__record];
 			details       = currentRecord.record;
 			errors        = currentRecord.errors;
-			huid          = details.huid;
+			if ( currentRecord["hbsId"] !== undefined ) {
+				hbsId = currentRecord["hbsId"].toString();
+			} else {
+				hbsId = details.huid;
+			}
 			firstName     = details.name.firstName;
 			lastName      = details.name.lastName;
 
@@ -583,17 +704,17 @@
 			} else if (details.career.yearInProgram === "RC") {
 				stats.RC ++;
 			}
-			tables.details.settings.valueNames.push("detailOf__" + huid);
+			tables.details.settings.valueNames.push("detailOf__" + hbsId);
 
-			recordsData[huid] = {};
+			recordsData[hbsId] = {};
 			if ( currentRecord.errors !== undefined ) {
-				recordsData[huid]["errors"] = {};
+				recordsData[hbsId]["errors"] = {};
 
 				for ( var error = 0; error < totalErrors; error++ ) {
 					var currentError      = errors[error];
 					var currentErrorField = currentError.field.split(".").pop();
 
-					recordsData[huid]["errors"][currentErrorField] = {
+					recordsData[hbsId]["errors"][currentErrorField] = {
 						type    : currentError["type"],
 						message : currentError["message"],
 						field   : currentErrorField
@@ -605,16 +726,16 @@
 
 			var has__error = errors.length > 0 ? " has__error" : "";
 
-			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + huid + '" data-ui-core="size__large" data-js-handler="load__record">';
+			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + hbsId + '" data-ui-core="size__large" data-js-handler="load__record">';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-core="size__large">' + firstName + '</td>';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-core="size__large">' + lastName + '</td>';
 			recordTableBodyHTML[recRow++] = '</tr>';
 
 			for (var fieldGroups in details) {
-				if (fieldGroups !== "updateDate" && fieldGroups !== "huid") {
+				if (fieldGroups !== "updateDate" && fieldGroups !== "hbsId") {
 					var fieldGroup = details[fieldGroups];
 					for ( var field in fieldGroup) {
-						recordsData[huid][field] = fieldGroup[field];
+						recordsData[hbsId][field] = fieldGroup[field];
 					}
 				}
 			}
@@ -632,29 +753,13 @@
 
 
 
-		$("[data-js-handler~='load__record']").on("click", function() {
-			var $this,recordID,record;
-			$this    = $(this); 
-			recordID = $this.attr("data-record");
-			record   = recordsData[recordID];
-
-			for ( var field in record ) {
-				var errorMessage = "no error";
-				if ( record.errors != undefined && field !== "errors" ) {
-					if ( record["errors"].hasOwnProperty(field) == true ) {
-						errorMessage = record["errors"][field]["message"];
-					}
-				}
-				$("[data-field~='" + field + "'] .content").html(record[field]);
-				$("[data-field~='" + field + "'] .is__error")
-					.addClass("has__error")
-					.html(errorMessage);
-			};
-
-		});
-
         // initializes the popover, panel and cuboid modules
         App.init();
+
+
+
+		
+		$("#recordsTable tbody tr:first").trigger("click");
 	});
 	
 }(jQuery));

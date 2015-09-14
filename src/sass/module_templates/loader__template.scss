@@ -1,0 +1,12 @@
+[class^="loader_"] {
+    position : absolute;
+    top      : 0px;
+    left     : 0px;
+    height   : 8px;
+    width    : 100%;
+    left     : -100%;
+    z-index  : 9;
+    @include prefix(transition, transform .3s);
+
+    background: rgba(0,0,0,0.13);
+}

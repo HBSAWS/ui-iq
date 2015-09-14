@@ -15,6 +15,7 @@
 		display    : none;
 		@include prefix(transform-style, preserve-3d);
 		@include prefix(perspective, 1000);
+		
 
 
 
@@ -93,10 +94,10 @@
 			vertical-align : middle;
 			text-align     : center;
 			padding        : 0px;
-			@include prefix(box-shadow, 0 0 25px 0 rgba(0,0,0,0.2));
 
 			> [class^="panels-panel-content_"] {
 				height : 100%;
+				@include prefix(box-shadow, 0 0 25px 0 rgba(0,0,0,0.2));
 			}
 		}
 
@@ -231,7 +232,7 @@
 		}
 			[class^="fader"] {
 				position   : absolute;
-				z-index    : 10;
+				z-index    : 11;
 				top        : 0px;
 				left       : 0px;
 				width      : 100%;

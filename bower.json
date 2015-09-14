@@ -9,11 +9,14 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "basictable": "https://github.com/jerrylow/basictable.git",
-    "handlebars": "~3.0.3",
-    "jquery": "1.11.1",
-    "list": "https://github.com/javve/list.js.git",
-    "webui-popover": "https://github.com/sandywalker/webui-popover.git"
+    "basictable" : "https://github.com/jerrylow/basictable.git",
+    "drop"       : "https://github.com/HubSpot/drop.git",
+    "fastclick"  : "https://github.com/ftlabs/fastclick.git",
+    "fastDOM"    : "https://github.com/wilsonpage/fastdom.git",
+    "jquery"     : "1.11.1",
+    "list"       : "https://github.com/javve/list.js.git",
+    "tether"     : "https://github.com/HubSpot/tether.git",
+    "tooltip"    : "https://github.com/HubSpot/tooltip.git"
   },
   "ignore": [
     "**/.*",
