@@ -119,6 +119,12 @@
 	}
 
 
+	&[data-ui-state~="scale__down-sm"] {
+		@include prefix( transform, scale(0.95) );
+		@include fader__in;	
+	};
+
+
 	&[data-ui-state~="move__left"] {
 		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(0) translateX(-120%));

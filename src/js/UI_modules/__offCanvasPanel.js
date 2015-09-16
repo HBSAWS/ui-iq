@@ -5,6 +5,8 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 	__self.panel  = DOMelement;
 	__self.active = settings.showOnInit || false;
 
+	__self.mainCanvas          = settings.mainCanvasElement;
+	__self.unfocusMainCanvas   = settings.unfocusMainCanvas || false;
 	__self.closeOnClickOutisde = settings.closeOnClickOutisde || true;
 	__self.closeBtn            = document.querySelector(settings.closeSelector) || undefined;
 
@@ -18,11 +20,18 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 	__self = this;
 
 	if ( __self.active ) {
-		initialState = "";
+		panel__initialState = "";
+		if ( __self.unfocusMainCanvas ) {
+			fastdom.write(function() {
+				__self.mainCanvas.setAttribute("data-ui-state", "animate__out scale__down-sm");
+			});
+		}
 	} else {
-		initialState = "animate__off move__right";
+		panel__initialState = "animate__off move__right";
 	}
-	__self.panel.setAttribute("data-ui-state", initialState);
+	fastdom.write(function() {
+		__self.panel.setAttribute("data-ui-state", initialState);
+	});
 };
 
 UI_offCanvasPanel.prototype.showPanel = function() {
@@ -34,6 +43,9 @@ UI_offCanvasPanel.prototype.showPanel = function() {
 	}
 
 	fastdom.write(function() {
+		if ( __self.unfocusMainCanvas ) {
+			__self.mainCanvas.setAttribute("data-ui-state", "animate__out scale__down-sm");
+		}
 		__self.panel.setAttribute("data-ui-state", "animate__out");
 	});
 	__self.active = true;
@@ -44,6 +56,9 @@ UI_offCanvasPanel.prototype.hidePanel = function() {
 	__self = this;
 
 	fastdom.write(function() {
+		if ( __self.unfocusMainCanvas ) {
+			__self.mainCanvas.setAttribute("data-ui-state", "animate__out");
+		}
 		__self.panel.setAttribute("data-ui-state", "animate__out move__right");
 	});
 

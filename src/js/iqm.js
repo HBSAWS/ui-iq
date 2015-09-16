@@ -77,7 +77,7 @@
 		iframe : {
 			el       : document.querySelector("[data-js-target~='modal__iframe']"),
 			settings : {
-				mainCanvasElement : document.querySelector("[data-js-target~='modal__mainCanvas']")
+				mainCanvasElement : document.querySelector("[data-js-target~='app__mainCanvas']")
 			},
 			UI : undefined,
 			init : function() {
@@ -106,7 +106,9 @@
 		fileSummary : {
 			el : document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']"),
 			settings : {
-				showOnInit : true
+				showOnInit        : true,
+				unfocusMainCanvas : true,
+				mainCanvasElement : document.querySelector("[data-js-target~='app__mainCanvas']")
 			},
 			UI : undefined,
 			init : function() {
