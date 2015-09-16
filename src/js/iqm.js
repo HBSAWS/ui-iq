@@ -165,6 +165,32 @@
 
 
 
+	var calendar = {
+		exclusions : {
+			init : function() {
+				var today = new Date();
+				var dd    = today.getDate();
+				var mm    = today.getMonth()+1;
+				var yyyy  = today.getFullYear();
+
+				if(dd<10){
+				    dd='0'+dd
+				} 
+				if(mm<10){
+				    mm='0'+mm
+				} 
+
+				var today = mm + '/' + dd + '/' + yyyy + ' ';
+				document.querySelector("[data-js-target~='activeExclusion__startDate']").innerHTML = today;
+
+				datepickr(document.querySelector("[data-js-target~='activeExclusion__endDate']"));
+			}
+		}
+	};
+
+
+
+
 	// UI module objects
 	var cuboids = {
 		appSuite : {
@@ -185,6 +211,34 @@
 			},
 			show__appCuboid : function() {
 				this.UI.show("front");
+			}
+		}
+	};
+
+
+
+
+	var modals = {
+		iframe : {
+			el       : document.querySelector("[data-js-target~='modal__iframe']"),
+			settings : {
+				mainCanvasElement : document.querySelector("[data-js-target~='modal__mainCanvas']")
+			},
+			UI : undefined,
+			init : function() {
+				var _self,modal,settings,__UI;
+				_self    = this;
+				modal    = _self.el;
+				settings = _self.settings;
+
+				__UI = _self.UI = UI.modal(modal,settings);
+
+				document.getElementById("detailsTable").addEventListener("click", function(e) {
+					if ( e.target.parentElement.dataset.jsHandler === "show__iframe" ) {
+						__UI.showModal();
+					}
+					e.stopPropagation();
+				});
 			}
 		}
 	};
@@ -277,52 +331,6 @@
 				this.UI.swap("panel__appSuite-apps","panel__appSuite-app",true,"top");
 			}
 		},
-		appIQM : {
-			UI 		 : null,
-			$el      : $("[data-js-target~='panels__appIQM']"),
-			settings : [
-				{
-					id       : "panel__appIQM-iframe",
-					mode     : "modal",
-					size     : 8,
-					position : 0,
-					active   : false
-				},
-				{
-					id       : "panel__appIQM-stage",
-					mode     : "flush",
-					size     : 12,
-					position : 0,
-					active   : true
-				}
-			],
-			init    : function() {
-				var _self = this;
-				UI.panels( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
-
-				tables.details.$el.on("click",function(e) {
-					if ($(e.target).parent().is("[data-js-handler~='show__iframe']")) {
-						var pdmId     = recordsData.active;
-						var pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
-						var newURL    = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
-						pdmIframe.setAttribute('src', newURL);
-						_self.show__iframe(_self);
-					}
-				});
-				$("[data-js-handler~='hide__iframe']").on("click",function() {
-					_self.UI.hideModal("panel__appIQM-iframe","top");
-				});
-				$(document).keyup(function(e) {
-				     if (e.keyCode == 27) { // escape key maps to keycode `27`
-				        _self.UI.hideModal("panel__appIQM-iframe","top");
-				    }
-				});
-			},
-			show__iframe : function(_self) {
-				_self.UI.showModal("panel__appIQM-iframe","top");
-			}
-		},
 		fileRecords : {
 			UI 		 : null,
 			$el      : $("[data-js-target~='panels__fileRecords']"),
@@ -355,6 +363,7 @@
 				$("[data-js-handler~='toggle__panelNotification']").on("change", function() {
 					var $this = $(this);
 					if ( $this.is(":checked") ) {
+						//calendar.exclusions.init();
 						_self.UI.showNotification("panel__fileRecords-record",true);
 					} else {
 						_self.UI.hideNotification("panel__fileRecords-record",true);
@@ -606,9 +615,9 @@
 			__templates.app.fileSummary.$body = $( __templates.app.fileSummary.bodyHTML() );
 
 			popovers.fileSummary.init();
+			modals.iframe.init();
 
 			panels.appSuite.init();
-			panels.appIQM.init();
 			panels.fileRecords.init();
 
 			tables.records.init();

@@ -50,28 +50,33 @@ UI_panels.prototype.panel = function(id,panelSettings) {
 }; 
 
 UI_panels.prototype.swap = function(panelOneID,panelTwoID,animate,side) {
-	var panels        = this.panels;
-	var active        = this.active;
-	var panelOneIndex = this.getPanelIndex(panelOneID);
-	var panelTwoIndex = this.getPanelIndex(panelTwoID);
-	var panelOne      = panels[panelOneIndex];
-	var panelTwo      = panels[panelTwoIndex];
-	var $panelOne     = $("#" + panelOneID);
-	var $panelTwo     = $("#" + panelTwoID);
+	var panels,active,panelOneIndex,panelTwoIndex,panelOneObj,paneTwoObj,panelOneEl,panelOneEl__Content,panelTwoEl,panelTwoEl__Content;
+	panels        = this.panels;
+	active        = this.active;
+	panelOneIndex = this.getPanelIndex(panelOneID);
+	panelTwoIndex = this.getPanelIndex(panelTwoID);
+	panelOneObj      = panels[panelOneIndex];
+	panelTwoObj      = panels[panelTwoIndex];
+	fastdom.read(function() {
+		panelOneEl          = document.getElementById(panelOneID);
+		panelOneEl__Content = panelOneEl.querySelector("[class^='panels-panel-content_']");
+		panelTwoEl          = document.getElementById(panelTwoID);
+		panelTwoEl__Content = panelTwoEl.querySelector("[class^='panels-panel-content_']");
+	});
 
 	// the active.length == 0 is simply here so this option is currently unavailable
-	if ( panelOne.active && panelTwo.active && active.length == 0) {
+	if ( panelOneObj.active && panelTwoObj.active && active.length == 0) {
 		// BOTH PANELS ARE ACTIVE
 		// both panels are currently active we ignore the side and simple switch properties
 		var panelOneState,panelTwoState;
-		if ( panelOne.position > panelTwo.position ) {
+		if ( panelOneObj.position > panelTwoObj.position ) {
 			// we are going to have to move panel one left and panel two right
 		} else {
 			// we are going to have to move panel one right and panel two left
 		}
 		// add data attributes here
 
-		$panelOne.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+		$("#" + panelOneID).one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
 			console.log(e);
 		});		
 		
@@ -84,8 +89,8 @@ UI_panels.prototype.swap = function(panelOneID,panelTwoID,animate,side) {
 	}
 
 	if ( !animate ) {
-		this.panel(panelOne.id,panelTwo);
-		this.panel(panelTwo.id,panelOne);
+		this.panel(panelOneObj["id"],panelTwoObj);
+		this.panel(panelTwoObj["id"],panelOneObj);
 	} else {
 		// array, [panelTwo content setup, panelOne content animate out]
 		var settings__contentAnimateOut = { timing : ["off","out"], delay  : false, modes : ["rotate","scale"], rotate : side, scale : "down" };
@@ -96,33 +101,29 @@ UI_panels.prototype.swap = function(panelOneID,panelTwoID,animate,side) {
 		var compiled__panelAnimateOut = this.__compileAnimation(settings__panelAnimateOut);
 
 		fastdom.write(function() {
-			$panelOne[0].setAttribute("data-ui-state", "was__active " + compiled__panelAnimateOut[1]);
-			$panelOne.find("> [class^='panels-panel-content']")[0].setAttribute("data-ui-state", "was__active " + compiled__contentAnimateOut[1]);
-		});
+			panelOneEl.setAttribute("data-ui-state", "was__active " + compiled__panelAnimateOut[1]);
+			panelOneEl__Content.setAttribute("data-ui-state", "was__active " + compiled__contentAnimateOut[1]);
 
-		requestAnimationFrame(function() {
+			panelTwoEl.setAttribute("data-ui-state", "is__active " + compiled__panelAnimateOut[0]);
+			panelTwoEl.offsetTop;
 
-			$panelTwo
-				.attr("data-ui-state", "is__active " + compiled__panelAnimateOut[0])
-				.css("height");
-			$panelTwo.find("> [class^='panels-panel-content']")
-				.attr("data-ui-state", "is__active " + compiled__contentAnimateOut[0])
-				.css("height");
+			panelTwoEl__Content.setAttribute("data-ui-state", "is__active " + compiled__contentAnimateOut[0]);
+			panelTwoEl__Content.offsetTop;
 
-			$panelTwo.attr("data-ui-state", "is__active animate__in-delay");
-			$panelTwo.find("> [class^='panels-panel-content']").attr("data-ui-state", "is__active animate__in");
+			panelTwoEl.setAttribute("data-ui-state", "is__active animate__in-delay");
+			panelTwoEl__Content.setAttribute("data-ui-state", "is__active animate__in");
 		});
 	}
 
 
 	// update the panel objects with their new values
-	var panelOneTemp = $.extend({},this.panels[panelOneIndex],panelTwo);
-	panelOneTemp.id = panelOneID;
+	var panelOneObjTemp = $.extend({},this.panels[panelOneIndex],panelTwoObj);
+	panelOneObjTemp["id"] = panelOneID;
 
-	$.extend(this.panels[panelTwoIndex],panelOne);
-	this.panels[panelTwoIndex].id = panelTwoID;
+	$.extend(this.panels[panelTwoIndex],panelOneObj);
+	this.panels[panelTwoIndex]["id"] = panelTwoID;
 
-	$.extend(this.panels[panelOneIndex],panelOneTemp);
+	$.extend(this.panels[panelOneIndex],panelOneObjTemp);
 };
 
 UI_panels.prototype.showNotification = function(panelID, toAnimate) {
@@ -153,32 +154,4 @@ UI_panels.prototype.hideNotification = function(panelID, toAnimate) {
 
 	animateState = ( toAnimate == true ) ? "animate__out" : "animate__off";
 	$panelNotification.find("[class^='panels-panel-notification-content_']").attr("data-ui-state", animateState + " rotate__bottom scale__down");
-};
-
-UI_panels.prototype.showModal = function(id,side) {
-	var active       = this.active;
-	var activeLength = active.length;
-
-	for (var i = 0;i < active.length;i++) {
-		$("#" + active[i]).attr("data-ui-state", "is__active animate__out scale__down");
-	}
-	$("#" + id)
-		.attr("data-ui-state", "is__active animate__off move__" + side)
-		.css("height");
-	$("#" + id + " > [class^='panels-panel-content_']:first")
-		.attr("data-ui-state","animate__off rotate__" + side + "  scale__down")
-		.css("height");
-	$("#" + id).attr("data-ui-state", "is__active animate__in-delay");
-	$("#" + id + " > [class^='panels-panel-content_']:first").attr("data-ui-state","animate__in");
-};
-
-UI_panels.prototype.hideModal = function(id,side) {
-	var active       = this.active;
-	var activeLength = active.length;
-
-	for (var i = 0;i < active.length;i++) {
-		$("#" + active[i]).attr("data-ui-state", "is__active animate__in scale__in");
-	}
-	$("#" + id).attr("data-ui-state", "was__active animate__out-delay move__top");
-	$("#" + id + " > [class^='panels-panel-content_']:first").attr("data-ui-state", "animate__out rotate__" + side + "  scale__down")
 };

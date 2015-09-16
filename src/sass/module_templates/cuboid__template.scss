@@ -41,13 +41,27 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 	}	
 }
 
+%fader__in {
+	> [class^="fader"] {
+		visibility : visible;  
+		opacity    : 0.5;
+		@include prefix(transition, "visibility 0s, opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)");		
+	}
+}
+%fader__out {
+	> [class^="fader"] {
+		visibility : hidden;  
+		opacity    : 0;
+		@include prefix(transition, "visibility 0.6s, opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)");		
+	}
+}
 
 [class^="cuboid_"] {
 	position    : relative; 
 	width       : 100%;
 	height      : $height__small + px;
 	@include prefix(perspective, 1000px);
-	@include prefix(transform,scale(0.975));
+	@include prefix(transform,scale(0.975) translateZ(0));
 }
 	[class^="cuboid-faces_"] {
 		position : absolute;
@@ -56,9 +70,16 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 		@include prefix(transform-origin, "center center");
 		@include prefix(transform-style, preserve-3d);
 
-		&[class$="_global"] {}
+		&[class$="_global"] {
+			> div { 
+				background : #fff;
+			}
+		}
 		&[class$="_app"] {
 			@include prefix(box-shadow, 0 0 20px 0 rgba(0,0,0,.3));
+			> div {
+				background : #4cc1bc;
+			}
 		}
 
 		> div {
@@ -66,8 +87,10 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			display  : table;
 			width    : 100%;
 			height   : $height__small + px;
-			@include prefix(transition, "background-color 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)");	
-			@include prefix(transition, "background-color 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), -webkit-transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)");			
+			@include prefix(font-smoothing, subpixel-antialiased);
+			@include prefix(transition, transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1));	
+			@include prefix(transition, -webkit-transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1));	
+
 		}
 		&[data-ui-state~="is__rewinding"] {
 			div {
@@ -78,19 +101,19 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 		&[data-ui-state~="show__front"] {
 			[class^="cuboid-faces-front_"] {
 				@include prefix(transform, rotateX( 0deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__out;
 			}
 			[class^="cuboid-faces-back_"] {
 				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-top_"] {
 				@include prefix(transform, rotateX( 90deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %secondarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-bottom_"] {
 				@include prefix(transform, rotateX( -90deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %tertiarySurface;
+				@extend %fader__in;
 			}
 		}	
 
@@ -98,19 +121,19 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 		&[data-ui-state~="show__bottom"] {
 			[class^="cuboid-faces-front_"] {
 				@include prefix(transform, rotateX( 90deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %secondarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-back_"] {
 				@include prefix(transform, rotateX( 270deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %tertiarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-top_"] {
 				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-bottom_"] {
 				@include prefix(transform, rotateX( 0deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__out;
 			}
 		}	
 
@@ -118,19 +141,19 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 		&[data-ui-state~="show__back"] {
 			[class^="cuboid-faces-front_"] {
 				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-back_"] {
 				@include prefix(transform, rotateX( 360deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__out;
 			}
 			[class^="cuboid-faces-top_"] {
 				@include prefix(transform, rotateX( 270deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %tertiarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-bottom_"] {
 				@include prefix(transform, rotateX( 90deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %secondarySurface;
+				@extend %fader__in;
 			}
 		}
 
@@ -138,19 +161,19 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 		&[data-ui-state~="show__top"] {
 			[class^="cuboid-faces-front_"] {
 				@include prefix(transform, rotateX( 270deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %tertiarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-back_"] {
 				@include prefix(transform, rotateX( 450deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %secondarySurface;
+				@extend %fader__in;
 			}
 			[class^="cuboid-faces-top_"] {
 				@include prefix(transform, rotateX( 360deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__out;
 			}
 			[class^="cuboid-faces-bottom_"] {
 				@include prefix(transform, rotateX( 180deg ) translateZ( $halfed__smallHeight + px ));
-				@extend %primarySurface;
+				@extend %fader__in;
 			}
 		}
 	}

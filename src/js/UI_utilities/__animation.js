@@ -73,6 +73,22 @@ __Animation.prototype.__compileAnimation = function(settings) {
 
 	return compiledAnimationState;
 };
+__Animation.prototype.animationLibrary = function(animationName) {
+	switch (animationName) {
+		case "move-down-grow":
+			return ["animate__in-delay", "animate__in"];
+			break;
+		case "shrink-move-up":
+			return ["animate__out-delay move__top", "animate__out scale__down rotate__top"];
+			break;
+		case "shrink":
+			return "animate__out scale__down";
+			break;
+		case "grow":
+			return "animate__in";
+			break;
+	}
+};
 __Animation.prototype.animate = function(settings) {
 	var compiledAnimationState = this.__compile(settings);
 	this.$el.attr("data-ui-state", compiledAnimationState);

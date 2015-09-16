@@ -16,7 +16,8 @@
     "jquery"     : "1.11.1",
     "list"       : "https://github.com/javve/list.js.git",
     "tether"     : "https://github.com/HubSpot/tether.git",
-    "tooltip"    : "https://github.com/HubSpot/tooltip.git"
+    "tooltip"    : "https://github.com/HubSpot/tooltip.git",
+    "pikaday"    : "https://github.com/dbushell/Pikaday.git"
   },
   "ignore": [
     "**/.*",

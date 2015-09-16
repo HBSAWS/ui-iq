@@ -12,7 +12,7 @@
 		@include prefix(transition, transform 0.23s ease-out 0.46s);
 		-webkit-transition : -webkit-transform 0.23s ease-out 0.46s;
 		> [class^="fader"]:first {
-			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.38s");
+			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.18s");
 		}
 	}
 	&[data-ui-state~="animate__in-delay"] {
@@ -27,7 +27,7 @@
 		@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s); 
 		-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s; 
 		> [class^="fader"]:first {
-			@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0.09s");
+			@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0s");
 		}
 	}
 	&[data-ui-state~="animate__out-delay"] {
@@ -40,7 +40,9 @@
 	// TIMING DEFINITIONS  -- END
 
 
-
+	// [class*="fader"] {
+	// 	@include prefix(transform,translateZ(0));
+	// }
 	// FADER DEFINITIONS  -- START
 	@mixin fader__in {
 		> [class^="fader"] {
@@ -58,15 +60,18 @@
 
 
 	&[data-ui-state~="scale__down"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(-12px) scale(0.8));
 		@include fader__in;
 	}
 	&[data-ui-state~="scale__up"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(-12px) scale(1.2));
 	}
 
 
 	&[data-ui-state~="rotate__right"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		transform-origin : top center;
 		@include prefix(transform, translateZ(0) rotateY(15deg));
 		@include fader__in;
@@ -78,6 +83,7 @@
 	}
 
 	&[data-ui-state~="rotate__left"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		transform-origin : top center;
 		@include prefix(transform, rotateY(-15deg));
 		@include fader__in;
@@ -89,6 +95,7 @@
 	}
 
 	&[data-ui-state~="rotate__top"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		transform-origin : bottom;
 		@include prefix( transform, translateZ(0) rotateX(15deg) );
 		@include fader__in;
@@ -100,6 +107,7 @@
 	}
 
 	&[data-ui-state~="rotate__bottom"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		transform-origin : top;
 		@include prefix( transform, translateZ(0) rotateX(-15deg) );
 		@include fader__in;
@@ -112,15 +120,19 @@
 
 
 	&[data-ui-state~="move__left"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(0) translateX(-120%));
 	}
 	&[data-ui-state~="move__right"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(0) translateX(120%));
 	}
 	&[data-ui-state~="move__top"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(0) translateY(-120%));
 	}
 	&[data-ui-state~="move__bottom"] {
+		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(0) translateY(120%));
 	}
 }

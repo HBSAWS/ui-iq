@@ -191,6 +191,14 @@
         // UI-CORE  -- START
         // ***************************************************
 
+            &[data-ui-core~="height__parent"] {
+                height : 100%;
+            }
+            &[data-ui-core~="height__content"] {
+                display : inline-block;
+            }
+
+
             // POSITION SETTINGS  -- START
             &[data-ui-core~="position__relative"] {
                 position : relative;
@@ -297,5 +305,13 @@
         padding   : $layout-constrained-padding;
         margin    : auto;
         @extend .cf;
+    }
+
+
+
+
+
+    &[class$="_default"] {
+        background : #eee;
     }
 }
