@@ -5,10 +5,16 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 	__self.panel  = DOMelement;
 	__self.active = settings.showOnInit || false;
 
-	__self.mainCanvas          = settings.mainCanvasElement;
-	__self.unfocusMainCanvas   = settings.unfocusMainCanvas || false;
-	__self.closeOnClickOutisde = settings.closeOnClickOutisde || true;
-	__self.closeBtn            = document.querySelector(settings.closeSelector) || undefined;
+	__self.mainCanvas                = settings.mainCanvasElement;
+	__self.onActiveUnfocusMainCanvas = settings.onActiveUnfocusMainCanvas || false;
+	__self.closeOnClickMainCanvas    = settings.closeOnClickMainCanvas || false;
+
+
+	__self.mainCanvasFader = __self.mainCanvas.querySelector("[class^='fader']");
+	__self.closeBtn        = document.querySelector(settings.closeSelector) || undefined;
+
+
+	__self.__hidePanel = this.hidePanel.bind(this);
 
 	__Animation.call(this,DOMelement);
 };
@@ -21,13 +27,16 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 
 	if ( __self.active ) {
 		panel__initialState = "";
-		if ( __self.unfocusMainCanvas ) {
+		if ( __self.onActiveUnfocusMainCanvas ) {
 			fastdom.write(function() {
 				__self.mainCanvas.setAttribute("data-ui-state", "animate__out scale__down-sm");
 			});
 		}
+		if ( __self.closeOnClickMainCanvas ) {
+			__self.mainCanvasFader.addEventListener('click', __self.__hidePanel);
+		}
 	} else {
-		panel__initialState = "animate__off move__right";
+		panel__initialState = "animate__out move__right";
 	}
 	fastdom.write(function() {
 		__self.panel.setAttribute("data-ui-state", initialState);
@@ -38,12 +47,13 @@ UI_offCanvasPanel.prototype.showPanel = function() {
 	var __self;
 	__self = this;
 	
-	if ( __self.closeOnClickOutisde ) {
-		//__self.modal.addEventListener('click', __self.__clickOutSideClose);
+
+	if ( __self.closeOnClickMainCanvas ) {
+		__self.mainCanvasFader.addEventListener('click', __self.__hidePanel);
 	}
 
 	fastdom.write(function() {
-		if ( __self.unfocusMainCanvas ) {
+		if ( __self.onActiveUnfocusMainCanvas ) {
 			__self.mainCanvas.setAttribute("data-ui-state", "animate__out scale__down-sm");
 		}
 		__self.panel.setAttribute("data-ui-state", "animate__out");
@@ -56,12 +66,15 @@ UI_offCanvasPanel.prototype.hidePanel = function() {
 	__self = this;
 
 	fastdom.write(function() {
-		if ( __self.unfocusMainCanvas ) {
+		if ( __self.onActiveUnfocusMainCanvas ) {
 			__self.mainCanvas.setAttribute("data-ui-state", "animate__out");
 		}
 		__self.panel.setAttribute("data-ui-state", "animate__out move__right");
 	});
 
+	if ( __self.closeOnClickMainCanvas ) {
+		__self.mainCanvasFader.removeEventListener('click', __self.__hidePanel);
+	}
 	__self.active = false;	
 };
 

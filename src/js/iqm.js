@@ -106,9 +106,10 @@
 		fileSummary : {
 			el : document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']"),
 			settings : {
-				showOnInit        : true,
-				unfocusMainCanvas : true,
-				mainCanvasElement : document.querySelector("[data-js-target~='app__mainCanvas']")
+				showOnInit                : true,
+				onActiveUnfocusMainCanvas : true,
+				closeOnClickMainCanvas    : true,
+				mainCanvasElement         : document.querySelector("[data-js-target~='app__mainCanvas']")
 			},
 			UI : undefined,
 			init : function() {

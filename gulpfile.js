@@ -136,6 +136,7 @@ config = {
         	.pipe(template(settings))
 			.pipe(sourcemaps.init())
 				//.pipe(uglify())
+			.pipe(jshint())
 			.pipe(sourcemaps.write())
 			.pipe(gulp.dest('./dist/js'))			
 			.on("end", function(){
