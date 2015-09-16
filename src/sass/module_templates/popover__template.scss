@@ -26,9 +26,8 @@
   background-clip    : padding-box;
   border             : 0px solid #cccccc;
   border             : 0px solid rgba(0, 0, 0, 0.2);
-  border-radius      : 4px;
-  -webkit-box-shadow : 0 0 22px 0 rgba(0,0,0,.18);
-  box-shadow         : 0 0 22px 0 rgba(0,0,0,.18);
+  @include prefix( border-radius, 4px );
+  @include prefix( box-shadow, 0 0 22px 0 rgba(0,0,0,.18) );
 }
 .webui-popover.top,
 .webui-popover.top-left,

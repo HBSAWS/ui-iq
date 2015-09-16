@@ -1,7 +1,8 @@
 var UI_modal = function UI_modal(DOMelement,settings) {
-	var __self = this;
+	var __self;
 
-	__self.modal       = DOMelement;
+	__self       = this;
+	__self.modal = DOMelement;
 	fastdom.read(function() {
 		__self.modalWindow = DOMelement.querySelector("[class^='modal-window_']");
 	});

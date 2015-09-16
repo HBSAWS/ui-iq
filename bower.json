@@ -15,9 +15,10 @@
     "fastDOM"    : "https://github.com/wilsonpage/fastdom.git",
     "jquery"     : "1.11.1",
     "list"       : "https://github.com/javve/list.js.git",
+    "moment"     : "https://github.com/moment/moment.git",
+    "pikaday"    : "https://github.com/dbushell/Pikaday.git",
     "tether"     : "https://github.com/HubSpot/tether.git",
-    "tooltip"    : "https://github.com/HubSpot/tooltip.git",
-    "pikaday"    : "https://github.com/dbushell/Pikaday.git"
+    "tooltip"    : "https://github.com/HubSpot/tooltip.git"
   },
   "ignore": [
     "**/.*",

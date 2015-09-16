@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>IQM</title>
-        <link rel="stylesheet" href="css/datepickr.css">
+<!--         <link rel="stylesheet" href="css/pikaday.css"> -->
         <link rel="stylesheet" href="css/UI.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic">
     </head>
@@ -151,13 +151,13 @@
                                             <div data-ui-core="float__right">
                                                 <button class="button__inverted" data-ui-core="size__small padding__none" data-ui-addon="icon__left icon__right">
                                                     <div class="button-content__inverted" data-ui-core="size__small" data-ui-addon="icon__left icon__right">
-                                                        <div data-ui-icon="cancel size__medium" data-js-handler="toggle__exclusion"></div>
+                                                        <div data-ui-icon="cancel size__small" data-js-handler="toggle__exclusion"></div>
                                                     </div>
                                                 </button>
                                             </div>
-                                            <div style="font-size: 0.8rem;font-weight: 300;margin-top: 5px;">
+                                            <div style="font-size: 0.75rem;font-weight: 300;margin-top: 5px;">
                                                 start date : <span data-js-target="activeExclusion__startDate"></span>- 
-                                                <input class="datepickr" placeholder="set end date" data-js-target="activeExclusion__endDate" style="    width: 90px;
+                                                <input class="datepickr" placeholder="set end date" data-js-handler="exclusionEnd__datePicker" style="    width: 90px;
 outline: none;
 border: 1px solid white;
 padding: 6px 10px;
@@ -248,7 +248,8 @@ color: white;">
 
         <script src="<%= _default%>nanobar.js"></script>
         <script src="<%= _default%>jquery.basictable.js"></script>
-        <script src="<%= _default%>datepickr.js"></script>
+        <script src="<%= _default%>moment.min.js"></script>
+        <script src="<%= _default%>pikaday.js"></script>
         <script src="<%= _default%>list.min.js"></script>
         <script src="<%= _default%>jquery.webui-popover.js"></script>
         <script src="<%= _default%>fastclick.min.js"></script>

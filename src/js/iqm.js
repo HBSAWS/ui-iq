@@ -183,7 +183,14 @@
 				var today = mm + '/' + dd + '/' + yyyy + ' ';
 				document.querySelector("[data-js-target~='activeExclusion__startDate']").innerHTML = today;
 
-				datepickr(document.querySelector("[data-js-target~='activeExclusion__endDate']"));
+				var calendar = new Pikaday({ 
+					field: document.querySelector("[data-js-handler~='exclusionEnd__datePicker']"),
+					format: 'D MMM YYYY',
+					onSelect: function() {
+					    var formattedDate = this.getMoment().format('MM/DD/YYYY');
+					    this._o.field.value = formattedDate;
+					}
+				 });
 			}
 		}
 	};
@@ -495,7 +502,6 @@
 				this.$el.find("[data-js-handler~='detailsTable__filter-record']").on("click", function() {
 					_self.$el.find("[data-js-handler~='detailsTable__filter-record']").attr("data-ui-state","");
 					$(this).attr("data-ui-state","is__selected");
-
 				});
 				_self.$el.find("tbody tr").first().trigger("click");
 			}
@@ -611,6 +617,7 @@
 			if( !is__mobile ) {
 				tooltips.errors.init();
 			}
+			calendar.exclusions.init();
 			cuboids.appSuite.init();
 			__templates.app.fileSummary.$body = $( __templates.app.fileSummary.bodyHTML() );
 
@@ -623,6 +630,22 @@
 			tables.records.init();
 			tables.details.init();
 			
+			document.getElementById("recordsTable").querySelector("tbody").addEventListener('click', function(e) {
+				if ( e.target.parentElement.dataset.jsHandler === "load__record" ) {
+					var pdmId,pdmIframe,newURL;
+
+					fastdom.read(function() {
+						pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
+					});
+
+					pdmId     = recordsData.active;
+					newURL    = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
+
+					fastdom.write(function() {
+						pdmIframe.setAttribute('src', newURL);
+					});
+				}
+			});
 			$(window).on("resize", function() {
 				var windowWidth = $(this).width();
 				panels.fileRecords.responsive(windowWidth);
@@ -767,8 +790,8 @@
 
 
 
-		
-		$("#recordsTable tbody tr:first").trigger("click");
+		document.getElementById("recordsTable").querySelector("[data-js-handler~='load__record']").click();
+		//$("#recordsTable tbody tr:first").trigger("click");
 	});
 	
 }(jQuery));
