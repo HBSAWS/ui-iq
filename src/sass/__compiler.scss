@@ -1,9 +1,17 @@
+// gridle provides all of our grid mixins
 @import "__gridle_settings";
-@import "__icons";
-@import "__utilities";
+
+// import utilities  -- START
+@import "utilities/__variables";
+@import "utilities/__icons";
+@import "utilities/__utilities";
+// import utilities  -- END
+
+// global CSS
 @import "__base";
 
-// modules
+
+// modular CSS
 @import "module_templates/animation__template";
 
 @import "module_templates/bar__template";
@@ -17,9 +25,7 @@
 @import "module_templates/nav__template";
 @import "module_templates/panel__template";
 @import "module_templates/popover__template";
+@import "module_templates/offCanvasPanel__template";
 @import "module_templates/table__template";
 @import "module_templates/toggler__template";
 @import "module_templates/tooltip__template";
-
-
-// core

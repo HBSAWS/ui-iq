@@ -5,6 +5,9 @@ UI = {
 	cuboid   : function(DOMelement, settings) {
 		return new UI_cuboid(DOMelement,settings);
 	},
+	offCanvasPanel : function(DOMelement,settings) {
+		return new UI_offCanvasPanel(DOMelement,settings);
+	},
 	modal    : function(DOMelement,settings) {
 		return new UI_modal(DOMelement,settings);
 	},

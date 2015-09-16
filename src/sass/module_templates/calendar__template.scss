@@ -212,9 +212,9 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 }
 
 .is-selected .pika-button {
-    color       : #151515;
+    color       : rgba(255, 255, 255, 0.6);
     font-weight : bold;
-    background  : #999;
+    background  : rgba(255, 255, 255, 0.23);
 }
 
 .is-inrange .pika-button {

@@ -12,158 +12,6 @@
 	};
 
 
-	var __templates = {
-		UI : {
-			toggler : function(mode,size,width,jsHook,type,name,value,state,content) {
-				var HTML = '' +
-					'<div id="file_options" data-ui-core="mode__' + mode + ' size__' + size + '" data-ui-grid="mobile__' + width + '" class="toggler__inverted">' +
-						'<input data-js-target="' + jsHook + '" data-ui-core="mode__' + mode + ' size__' + size + '" type="' + type + '" name="' + name + '" value="' + value + '" class="toggler-input__inverted" ' + state + '>' +
-						'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle__inverted">' +
-							'<div data-ui-core="mode__' + mode + ' size__' + size + '" class="toggler-toggle-indicator__inverted">' + content + '</div>' +
-						'</div>' +
-					'</div>';
-
-				return HTML;
-			}
-		},
-		app : {
-			fileSummary : {
-				title    : function () {
-					var togglerTemplate,segmentcontrol__settings,segmentcontrol__stats,HTML;
-
-					togglerTemplate = __templates.UI.toggler;
-
-					segmentcontrol__settings = togglerTemplate("segmentcontrol","small","6","show__fileSummary-settings-panel","radio","file-summary__settings-toggle","settings","checked","Settings");
-					segmentcontrol__stats    = togglerTemplate("segmentcontrol","small","6","show__fileSummary-stats-panel","radio","file-summary__settings-toggle","stats","","Stats");
-
-					HTML = '' +
-					'File Summary' +
-					'<div class="popover-title-nav">' +
-						segmentcontrol__settings +
-						segmentcontrol__stats +
-					'</div>';
-
-					return HTML;
-				},
-				bodyHTML : function () {
-					var togglerTemplate,segmentcontrol__doctoral,segmentcontrol__MBA,segmentcontrol__admit,segmentcontrol__bio,segmentcontrol__fall,segmentcontrol__spring,segmentcontrol__prev,segmentcontrol__2015,segmentcontrol__2016,segmentcontrol__2017,segmentcontrol__2018,segmentcontrol__2019,HTML;
-
-					togglerTemplate = __templates.UI.toggler;
-
-					segmentcontrol__doctoral = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__programs-toggle","doctoral","checked","Doctoral");
-					segmentcontrol__MBA      = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__programs-toggle","MBA","","MBA");
-
-					segmentcontrol__admit    = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__department-toggle","admit","","Admit");
-					segmentcontrol__bio      = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__department-toggle","bio","checked","Bio");
-
-					segmentcontrol__fall     = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__semester-toggle","fall","","Fall");
-					segmentcontrol__spring   = togglerTemplate("segmentcontrol","large","6","file-summary__segmentcontrol","radio","file-summary__semester-toggle","spring","checked","Spring");
-
-					segmentcontrol__prev     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","fall","","prev");
-					segmentcontrol__2015     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2015","checked","'15");
-					segmentcontrol__2016     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2016","","'16");
-					segmentcontrol__2017     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2017","","'17");
-					segmentcontrol__2018     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2018","","'18");
-					segmentcontrol__2019     = togglerTemplate("segmentcontrol","large","2","file-summary__segmentcontrol","radio","file-summary__year-toggle","2019","","'19");
-
-
-					HTML = '' +
-					'<div class="panels_" data-js-target="panels__fileSummary">' +
-						'<div id="panel__fileSummary-settings" class="panels-panel_">' +
-							'<div class="panels-panel-content__default">' +
-								'<div class="panels-panel-content-fader"></div>' +
-								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
-									segmentcontrol__doctoral +
-									segmentcontrol__MBA +
-								'</div>' +
-								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
-									segmentcontrol__admit +
-									segmentcontrol__bio +
-								'</div>' +
-								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
-									segmentcontrol__fall +
-									segmentcontrol__spring +
-								'</div>' +
-								'<div data-ui-core="padding__mobile-horizontal-sm padding__mobile-top-sm" class="layout">' +
-									segmentcontrol__prev +
-									segmentcontrol__2015 +
-									segmentcontrol__2016 +
-									segmentcontrol__2017 +
-									segmentcontrol__2018 +
-									segmentcontrol__2019 +
-								'</div>' +
-								'<div data-ui-core="padding__mobile-left-sm padding__mobile-right-xxs padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
-									'<button class="button__outline" data-ui-core="size__small" data-ui-grid="mobile__12">' +
-										'<div class="button-content__outline" data-ui-core="size__small">download CSV</div>' +
-									'</button>' +
-								'</div>' +
-								'<div data-ui-core="padding__mobile-left-xxs padding__mobile-right-sm padding__mobile-top-xl padding__mobile-bottom-md" data-ui-grid="mobile__6" class="layout">' +
-									'<button class="button__outline" data-ui-core="size__small" data-ui-grid="mobile__12">' +
-										'<div class="button-content__outline" data-ui-core="size__small">send file</div>' +
-									'</button>' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-						'<div id="panel__fileSummary-stats" class="panels-panel_">' +
-							'<div class="panels-panel-content__default">' +
-								'<div class="panels-panel-content-fader"></div>' +
-								'<div class="layout">' +
-									'<table class="table__inverted" data-ui-core="size__small">' +
-										'<thead class="table-head__inverted" data-ui-core="size__small">' +
-											'<tr class="table-head-row__inverted" data-ui-core="size__small">' +
-												'<th class="table-head-row-header__inverted" data-ui-core="size__small"></th>' +
-												'<th class="table-head-row-header__inverted" data-ui-core="size__small">Last</th>' +
-												'<th class="table-head-row-header__inverted" data-ui-core="size__small">Current</th>' +
-											'</tr>' +
-										'</thead>' +
-										'<tbody class="table-body__inverted" data-ui-core="size__small">' +
-											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
-												'<td class="table-body-row-header__inverted" data-ui-core="size__small">Records</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">500</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">' + stats.records + '</td>' +
-											'</tr>' +
-											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
-												'<td class="table-body-row-header__inverted" data-ui-core="size__small">Exclusions</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">5</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">7</td>' +
-											'</tr>' +
-
-											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
-												'<td class="table-body-row-header__inverted" data-ui-core="size__small"></td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small"></td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small"></td>' +
-											'</tr>' +
-
-											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
-												'<td class="table-body-row-header__inverted" data-ui-core="size__small">Stat</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">300</td>' +
-											'</tr>' +
-											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
-												'<td class="table-body-row-header__inverted" data-ui-core="size__small">EC</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">' + stats.EC + '</td>' +
-											'</tr>' +
-											'<tr class="table-body-row__inverted" data-ui-core="size__small">' +
-												'<td class="table-body-row-header__inverted" data-ui-core="size__small">RC</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">200</td>' +
-												'<td class="table-body-row-cell__inverted" data-ui-core="size__small">' + stats.RC + '</td>' +
-											'</tr>' +
-										'</tbody>' +
-									'</table>' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-					'</div>';
-
-					return HTML;
-				},
-				$body : null
-			}
-		}
-	};
-
-
 
 	var calendar = {
 		exclusions : {
@@ -242,6 +90,7 @@
 
 				document.getElementById("detailsTable").addEventListener("click", function(e) {
 					if ( e.target.parentElement.dataset.jsHandler === "show__iframe" ) {
+						offCanvasPanels.fileSummary.UI.hidePanel();
 						__UI.showModal();
 					}
 					e.stopPropagation();
@@ -249,6 +98,40 @@
 			}
 		}
 	};
+
+
+
+
+	var offCanvasPanels = {
+		fileSummary : {
+			el : document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']"),
+			settings : {
+				showOnInit : true
+			},
+			UI : undefined,
+			init : function() {
+				var __self, panel,settings,__UI,toggleBtn;
+				__self   = this;
+				panel    = __self.el;
+				settings = __self.settings;
+				toggleBtn = document.querySelector("[data-js-target~='file-options__toggle']");
+
+				__UI = __self.UI = UI.offCanvasPanel(panel,settings);
+
+				toggleBtn.addEventListener('click', function() {
+					var panel__isOpen;
+					panel__isOpen = __UI.isPanelShowing();
+
+					if ( panel__isOpen ) {
+						__UI.hidePanel();
+					} else {
+						__UI.showPanel();
+					}
+				});
+			}
+		}
+	};
+
 
 
 
@@ -442,31 +325,31 @@
 
 
 
-	var popovers = {
-		fileSummary : {
-			$el      : $('[data-js-target~="file-options__toggle"]'),
-			settings : {
-				title   : __templates.app.fileSummary.title(),
-				content : null,
-				width   : 380,
-				height  : 290				
-			},
-			init     : function() {
-				var settings;
-				this.settings.content = __templates.app.fileSummary.$body[0];
-				settings              = this.settings;
+	// var popovers = {
+	// 	fileSummary : {
+	// 		$el      : $('[data-js-target~="file-options__toggle"]'),
+	// 		settings : {
+	// 			title   : __templates.app.fileSummary.title(),
+	// 			content : null,
+	// 			width   : 380,
+	// 			height  : 290				
+	// 		},
+	// 		init     : function() {
+	// 			var settings;
+	// 			this.settings.content = __templates.app.fileSummary.$body[0];
+	// 			settings              = this.settings;
 
-				this.$el.webuiPopover(settings);
-				this.$el.webuiPopover('show');
-				$(".webui-popover").css({ opacity : 0 });
+	// 			this.$el.webuiPopover(settings);
+	// 			this.$el.webuiPopover('show');
+	// 			$(".webui-popover").css({ opacity : 0 });
 
-				panels.fileSummary.init();
+	// 			panels.fileSummary.init();
 
-				this.$el.webuiPopover('hide');
-				$(".webui-popover").css({ opacity : 1 });
-			}
-		}
-	};
+	// 			this.$el.webuiPopover('hide');
+	// 			$(".webui-popover").css({ opacity : 1 });
+	// 		}
+	// 	}
+	// };
 
 
 
@@ -619,13 +502,14 @@
 			}
 			calendar.exclusions.init();
 			cuboids.appSuite.init();
-			__templates.app.fileSummary.$body = $( __templates.app.fileSummary.bodyHTML() );
 
-			popovers.fileSummary.init();
 			modals.iframe.init();
 
 			panels.appSuite.init();
 			panels.fileRecords.init();
+			panels.fileSummary.init();
+
+			offCanvasPanels.fileSummary.init();
 
 			tables.records.init();
 			tables.details.init();

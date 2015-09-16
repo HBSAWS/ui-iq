@@ -49,7 +49,7 @@ UI_modal.prototype.showModal = function() {
 };
 
 UI_modal.prototype.hideModal = function() {
-	var modalState,modalWindowState,mainCanvasState;
+	var __self,modalState,modalWindowState,mainCanvasState;
 	__self 	         = this;
 	modalState       = __self.animationLibrary("shrink-move-up")[0];
 	modalWindowState = __self.animationLibrary("shrink-move-up")[1];
