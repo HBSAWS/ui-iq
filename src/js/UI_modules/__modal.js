@@ -1,15 +1,21 @@
 var UI_modal = function UI_modal(DOMelement,settings) {
-	this.modal       = DOMelement;
-	this.modalWindow = DOMelement.querySelector("[class^='modal-window_']");
-	this.mainCanvas  = settings.mainCanvasElement;
+	var __self = this;
 
-	this.closeOnEscape       = settings.closeOnEscape || true;
-	this.closeOnClickOutisde = settings.closeOnClickOutisde || true;
-	this.closeBtn            = this.modal.querySelector(settings.closeSelector || "[data-js-handler~='closeModal']");
+	__self.modal       = DOMelement;
+	fastdom.read(function() {
+		__self.modalWindow = DOMelement.querySelector("[class^='modal-window_']");
+	});
+	__self.mainCanvas  = settings.mainCanvasElement;
 
-	this.__hideModal         = this.hideModal.bind(this);
-	this.__escapeClose       = this.escapeClose.bind(this);
-	this.__clickOutSideClose = this.clickOutSideClose.bind(this);
+	__self.closeOnEscape       = settings.closeOnEscape || true;
+	__self.closeOnClickOutisde = settings.closeOnClickOutisde || true;
+	__self.closeBtn            = this.modal.querySelector(settings.closeSelector || "[data-js-handler~='closeModal']");
+
+	// these are references to new versions of the classes function where the this reference is 
+	// the UI_modal.  This means these can be passed to DOM objects without loosing that reference
+	__self.__hideModal         = this.hideModal.bind(this);
+	__self.__escapeClose       = this.escapeClose.bind(this);
+	__self.__clickOutSideClose = this.clickOutSideClose.bind(this);
 
 	__Animation.call(this,DOMelement);
 };
@@ -17,70 +23,62 @@ var UI_modal = function UI_modal(DOMelement,settings) {
 UI_modal.prototype = Object.create(__Animation.prototype);
 
 UI_modal.prototype.initialize_module = function(settings) {
-	var _self;
-	_self = this;
-
-	if ( _self.closeOnClickOutisde ) {
-
-	}
-
-
 };
 
 UI_modal.prototype.showModal = function() {
-	var _self,modalState,modalWindowState,mainCanvasState,hideModal;
-	_self 	         = this;
-	modalState       = _self.animationLibrary("move-down-grow")[0];
-	modalWindowState = _self.animationLibrary("move-down-grow")[1];
-	mainCanvasState  = _self.animationLibrary("shrink");
+	var __self,modalState,modalWindowState,mainCanvasState,hideModal;
+	__self 	         = this;
+	modalState       = __self.animationLibrary("move-down-grow")[0];
+	modalWindowState = __self.animationLibrary("move-down-grow")[1];
+	mainCanvasState  = __self.animationLibrary("shrink");
 
-	if ( _self.closeOnEscape ) {
-		document.addEventListener('keydown', _self.__escapeClose);
+	if ( __self.closeOnEscape ) {
+		document.addEventListener('keydown', __self.__escapeClose);
 	}
-	if ( _self.closeOnClickOutisde ) {
-		this.modal.addEventListener('click', _self.__clickOutSideClose);
+	if ( __self.closeOnClickOutisde ) {
+		__self.modal.addEventListener('click', __self.__clickOutSideClose);
 	}
-	this.closeBtn.addEventListener('click', _self.__hideModal);
+	__self.closeBtn.addEventListener('click', __self.__hideModal);
 
 	fastdom.write(function() {
-		_self.modal.setAttribute("data-ui-state", modalState);
-		_self.modalWindow.setAttribute("data-ui-state", modalWindowState);
-		_self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
+		__self.modal.setAttribute("data-ui-state", modalState);
+		__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
+		__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
 	});
 };
 
 UI_modal.prototype.hideModal = function() {
 	var modalState,modalWindowState,mainCanvasState;
-	_self 	         = this;
-	modalState       = _self.animationLibrary("shrink-move-up")[0];
-	modalWindowState = _self.animationLibrary("shrink-move-up")[1];
-	mainCanvasState  = _self.animationLibrary("grow");
+	__self 	         = this;
+	modalState       = __self.animationLibrary("shrink-move-up")[0];
+	modalWindowState = __self.animationLibrary("shrink-move-up")[1];
+	mainCanvasState  = __self.animationLibrary("grow");
 
 	fastdom.write(function() {
-		_self.modal.setAttribute("data-ui-state", modalState);
-		_self.modalWindow.setAttribute("data-ui-state", modalWindowState);
-		_self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
+		__self.modal.setAttribute("data-ui-state", modalState);
+		__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
+		__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
 	});
 
-	if ( _self.closeOnEscape ) {
-		document.removeEventListener('keydown', _self.__escapeClose);
+	if ( __self.closeOnEscape ) {
+		document.removeEventListener('keydown', __self.__escapeClose);
 	}
-	if ( _self.closeOnClickOutisde ) {
-		this.modal.removeEventListener('click', _self.__clickOutSideClose);
+	if ( __self.closeOnClickOutisde ) {
+		__self.modal.removeEventListener('click', __self.__clickOutSideClose);
 	}
-	this.closeBtn.removeEventListener('click', _self.__hideModal);
+	__self.closeBtn.removeEventListener('click', __self.__hideModal);
 };
 
 UI_modal.prototype.escapeClose = function(e) {
-	var _self = this;
+	var __self = this;
 	if (e.keyCode == 27) { // escape key maps to keycode `27`
-		_self.hideModal();
+		__self.hideModal();
 	}
 };
 
 UI_modal.prototype.clickOutSideClose = function(e) {
-	var _self = this;
-	if ( e.target == _self.modal ) {
-		_self.hideModal();
+	var __self = this;
+	if ( e.target == __self.modal ) {
+		__self.hideModal();
 	}
 };
