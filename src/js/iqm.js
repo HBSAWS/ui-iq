@@ -131,6 +131,17 @@
 						__UI.showPanel();
 					}
 				});
+
+				var appCanvas  = document.querySelector("[data-js-target~='app__mainCanvas']");
+				var hammertime = new Hammer(appCanvas);
+
+				hammertime.on("swipeleft", function() {
+					offCanvasPanels.fileSummary.UI.showPanel();
+				});
+				hammertime.on("swiperight", function() {
+					offCanvasPanels.fileSummary.UI.hidePanel();
+				});
+
 			}
 		}
 	};
@@ -503,6 +514,7 @@
 			if( !is__mobile ) {
 				tooltips.errors.init();
 			}
+
 			calendar.exclusions.init();
 			cuboids.appSuite.init();
 
@@ -558,10 +570,10 @@
 
 	$.when(
 		// the config
-		$.ajax({
-			dataType : "json",
-			url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
-		}),	
+		// $.ajax({
+		// 	dataType : "json",
+		// 	url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
+		// }),	
 		// the records
 		$.ajax({
 			xhr: function() {
@@ -580,13 +592,16 @@
 			dataType : "json",
 			url      : "js/bio.json"
 		})
-	).done(function ( dataConfig,dataRecords ) {
+	).done(function ( dataRecords ) {
 
 		console.log("done");
 		var records, numberOfRecords, listOptions,EC,RC;
-		var user    = dataConfig[0].userInfo;
-		var records = dataRecords[0].records;
-		userData["PDM"] = dataConfig[0].config.PDM_URL;
+		//var user    = dataConfig[0].userInfo;
+		//var records = dataRecords[0].records;
+		//userData["PDM"] = dataConfig[0].config.PDM_URL;
+
+
+		var records = dataRecords.records;
 
 
 		var totalRecords = records.length;
