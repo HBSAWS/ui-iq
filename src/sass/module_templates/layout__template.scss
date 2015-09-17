@@ -184,19 +184,51 @@
             $increment : $increment + 8;
         }
         // PADDING AND MARGIN SETTINGS  -- END
+
+
+
+
+        &[data-ui-state~="has_perspective"] {
+            @include prefix(perspective,1000);
+        }
     }
     [class^="layout"] {
-            font-size : 0px;
+        font-size : 0px;
+
+        // ***************************************************
+        // SUBCLASSES  -- START
+        // ***************************************************
+            &[class$="_default"] {
+                background : #eee;
+            }
+            &[class$="_primary"] {
+                background : $primary-color;
+            }
+            &[class$="_light"] {
+                background : #fff;
+            }
+            &[class$="_dark"] {
+                background : #36393e;
+            }  
+        // ***************************************************
+        // SUBCLASSES  -- END
+        // ***************************************************
+
+
+
         // ***************************************************
         // UI-CORE  -- START
         // ***************************************************
 
-            &[data-ui-core~="height__parent"] {
+            // MODES  -- START
+            &[data-ui-core~="mode__constrained"] {
+                max-width : 1100px; 
+            }
+            &[data-ui-core~="mode__full"] {
+                width  : 100%;
                 height : 100%;
             }
-            &[data-ui-core~="height__content"] {
-                display : inline-block;
-            }
+            // MODES  -- END
 
 
             // POSITION SETTINGS  -- START
@@ -209,24 +241,7 @@
             &[data-ui-core~="position__fixed"] {
                 position : fixed;
             }
-            // POSITION SETTINGS  -- END     
-
-
-            // WIDTH SETTINGS  -- START
-            &[data-ui-core~="width__flush"] {
-                width    : 100%;
-                padding  : $layout-flush-padding;
-                @extend .cf;
-            }
-            &[data-ui-core~="width__constrained"] {
-                max-width : $layout-constrained-max-width;
-                padding   : $layout-constrained-padding;
-                margin    : auto;
-            }
-            // WIDTH SETTINGS  -- END       
-
-
-
+            // POSITION SETTINGS  -- END      
 
 
             // ALIGN SETTINGS  -- START
@@ -245,82 +260,4 @@
         // UI-CORE  -- END
         // ***************************************************
 
-
-        // setting the font size to 0 eliminates the space between sibling DOM elements with a display property of 'inline' or 'inline-block'
-
-        // h1 {
-        //     font-family : lato;
-        //     font-weight : 300;
-        //     font-size   : 40px;
-        // }
-        // code {
-        //     display     : block;
-        //     width       : 100%;
-        //     font-family : lato;
-        //     font-weight : 300;
-        //     font-size   : 15px;
-        //     opacity     : 0.5;
-        //     @include prefix(transition, opacity 0.3s);
-
-        //     &:hover {
-        //         opacity : 1;
-        //         @include prefix(transition, opacity 0.3s);
-        //     }
-        // }
-        // span.code-attribute-title {
-        //     font-weight : 400;
-        //     font-size   : 16px;
-        // }
-        // span.code-attribute {
-        //     font-size   : 14px;
-        //     font-weight : 300;
-        // }
-        // span.code-indent {
-        //     padding-left : 120px;
-        // }
-
-
-
-
-
-
-
-    [class^="layout-default"] {
-        position : relative;
-        width    : 100%;
-        padding  : $layout-default-padding;
-        @extend .cf; 
     }
-
-    [class^="layout-flush"] { // for elements that are unconstrained, full percent width
-        position : relative;
-        width    : 100%;
-        padding  : $layout-flush-padding;
-        @extend .cf;
-    }
-
-    [class^="layout-constrained"] {
-        position  : relative;
-        max-width : $layout-constrained-max-width;
-        padding   : $layout-constrained-padding;
-        margin    : auto;
-        @extend .cf;
-    }
-
-
-
-
-
-    &[class$="_default"] {
-        background : #eee;
-    }
-    &[class$="_primary"] {
-        background : $primary-color;
-    }
-    &[class$="_light"] {
-        background : #fff;
-    }
-    &[class$="_dark"] {
-        background : #36393e;
-    }
-}

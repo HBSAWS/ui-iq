@@ -76,10 +76,26 @@ __Animation.prototype.__compileAnimation = function(settings) {
 __Animation.prototype.animationLibrary = function(animationName) {
 	switch (animationName) {
 		case "move-down-grow":
-			return ["animate__in-delay", "animate__in"];
+			var states = {
+				animate : {
+					outer : "animate__in-delay",
+					inner : "animate__in"
+				}
+			}
+			return states;
 			break;
 		case "shrink-move-up":
-			return ["animate__out-delay move__top", "animate__out scale__down rotate__top"];
+			var states = {
+				animate : {
+					outer : "animate__out-delay move__top", 
+					inner : "animate__out scale__down rotate__top"
+				},
+				setup   : {
+					outer : "animate__off move__top", 
+					inner : "animate__off scale__down rotate__top"
+				}
+			}
+			return states;
 			break;
 		case "shrink":
 			return "animate__out scale__down";

@@ -73,6 +73,17 @@
 
 
 
+	var keyboardShortcuts = function(e) {
+		// if the panel is not opened already, pressing alt + s will open the file summary panel
+		if ( !offCanvasPanels.fileSummary.UI.isPanelShowing() ) {
+			if ( e.altKey && e.keyCode == 83 ) {
+				offCanvasPanels.fileSummary.UI.showPanel();
+			}
+		}
+	};
+
+
+
 	var modals = {
 		iframe : {
 			el       : document.querySelector("[data-js-target~='modal__iframe']"),
@@ -139,7 +150,9 @@
 					offCanvasPanels.fileSummary.UI.showPanel();
 				});
 				hammertime.on("swiperight", function() {
-					offCanvasPanels.fileSummary.UI.hidePanel();
+					if ( __UI.isPanelShowing() ) {
+						offCanvasPanels.fileSummary.UI.hidePanel();
+					}
 				});
 
 			}
@@ -529,6 +542,7 @@
 			tables.records.init();
 			tables.details.init();
 			
+			document.addEventListener('keyup', keyboardShortcuts);
 			document.getElementById("recordsTable").querySelector("tbody").addEventListener('click', function(e) {
 				if ( e.target.parentElement.dataset.jsHandler === "load__record" ) {
 					var pdmId,pdmIframe,newURL;
@@ -570,10 +584,10 @@
 
 	$.when(
 		// the config
-		// $.ajax({
-		// 	dataType : "json",
-		// 	url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
-		// }),	
+		$.ajax({
+			dataType : "json",
+			url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
+		}),	
 		// the records
 		$.ajax({
 			xhr: function() {
@@ -592,16 +606,13 @@
 			dataType : "json",
 			url      : "js/bio.json"
 		})
-	).done(function ( dataRecords ) {
+	).done(function ( dataConfig,dataRecords ) {
 
 		console.log("done");
 		var records, numberOfRecords, listOptions,EC,RC;
-		//var user    = dataConfig[0].userInfo;
-		//var records = dataRecords[0].records;
-		//userData["PDM"] = dataConfig[0].config.PDM_URL;
-
-
-		var records = dataRecords.records;
+		var user    = dataConfig[0].userInfo;
+		var records = dataRecords[0].records;
+		userData["PDM"] = dataConfig[0].config.PDM_URL;
 
 
 		var totalRecords = records.length;

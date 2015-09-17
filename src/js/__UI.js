@@ -1,11 +1,5 @@
-function bind(scope, fn) {
-   return function() {
-      return fn.apply(scope, arguments);
-   }
-};
-
 var _UI = function(DOMelement,settings) {
-	this.$el    = $(DOMelement);
+	this.$el    = $(DOMelement) || undefined;
 	this.initialize(settings);
 };
 

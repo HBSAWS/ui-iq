@@ -2,7 +2,10 @@ UI = {
 	animation : function(DOMelement, settings) {
 		return new __Animation(DOMelement, settings);
 	},
-	cuboid   : function(DOMelement, settings) {
+	collection : function(items,activeItem) {
+		return new UI_collection(items,activeItem);
+	},
+	cuboid   : function(DOMelement,settings) {
 		return new UI_cuboid(DOMelement,settings);
 	},
 	offCanvasPanel : function(DOMelement,settings) {

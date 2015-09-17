@@ -8,13 +8,15 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 	__self.mainCanvas                = settings.mainCanvasElement;
 	__self.onActiveUnfocusMainCanvas = settings.onActiveUnfocusMainCanvas || false;
 	__self.closeOnClickMainCanvas    = settings.closeOnClickMainCanvas || false;
+	__self.closeOnEscape             = settings.closeOnEscape || true;
 
 
 	__self.mainCanvasFader = __self.mainCanvas.querySelector("[class^='fader']");
 	__self.closeBtn        = document.querySelector(settings.closeSelector) || undefined;
 
 
-	__self.__hidePanel = this.hidePanel.bind(this);
+	__self.__hidePanel   = this.hidePanel.bind(this);
+	__self.__escapeClose = this.escapeClose.bind(this);
 
 	__Animation.call(this,DOMelement);
 };
@@ -35,6 +37,9 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 		if ( __self.closeOnClickMainCanvas ) {
 			__self.mainCanvasFader.addEventListener('click', __self.__hidePanel);
 		}
+		if ( __self.closeOnEscape ) {
+			document.addEventListener('keydown', __self.__escapeClose);
+		}
 	} else {
 		panel__initialState = "animate__out move__right";
 	}
@@ -50,6 +55,9 @@ UI_offCanvasPanel.prototype.showPanel = function() {
 
 	if ( __self.closeOnClickMainCanvas ) {
 		__self.mainCanvasFader.addEventListener('click', __self.__hidePanel);
+	}
+	if ( __self.closeOnEscape ) {
+		document.addEventListener('keydown', __self.__escapeClose);
 	}
 
 	fastdom.write(function() {
@@ -75,6 +83,9 @@ UI_offCanvasPanel.prototype.hidePanel = function() {
 	if ( __self.closeOnClickMainCanvas ) {
 		__self.mainCanvasFader.removeEventListener('click', __self.__hidePanel);
 	}
+	if ( __self.closeOnEscape ) {
+		document.removeEventListener('keydown', __self.__escapeClose);
+	}
 	__self.active = false;	
 };
 
@@ -86,5 +97,12 @@ UI_offCanvasPanel.prototype.clickOutSideClose = function(e) {
 	var __self = this;
 	if ( e.target == __self.modal ) {
 		__self.hideModal();
+	}
+};
+
+UI_offCanvasPanel.prototype.escapeClose = function(e) {
+	var __self = this;
+	if (e.keyCode == 27) { // escape key maps to keycode `27`
+		__self.hidePanel();
 	}
 };

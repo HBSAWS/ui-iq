@@ -29,8 +29,8 @@ UI_modal.prototype.initialize_module = function(settings) {
 UI_modal.prototype.showModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState,hideModal;
 	__self 	         = this;
-	modalState       = __self.animationLibrary("move-down-grow")[0];
-	modalWindowState = __self.animationLibrary("move-down-grow")[1];
+	modalState       = __self.animationLibrary("move-down-grow").animate.outer;
+	modalWindowState = __self.animationLibrary("move-down-grow").animate.inner;
 	mainCanvasState  = __self.animationLibrary("shrink");
 
 	if ( __self.closeOnEscape ) {
@@ -51,8 +51,8 @@ UI_modal.prototype.showModal = function() {
 UI_modal.prototype.hideModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState;
 	__self 	         = this;
-	modalState       = __self.animationLibrary("shrink-move-up")[0];
-	modalWindowState = __self.animationLibrary("shrink-move-up")[1];
+	modalState       = __self.animationLibrary("shrink-move-up").animate.outer;
+	modalWindowState = __self.animationLibrary("shrink-move-up").animate.inner;
 	mainCanvasState  = __self.animationLibrary("grow");
 
 	fastdom.write(function() {
