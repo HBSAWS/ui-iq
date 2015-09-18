@@ -67,19 +67,21 @@
 		}
 	}
 	[class^="toggler-label_"] {
-		font-size   : 0.85rem;
-		font-weight : 300;
-		font-family : lato;		
+		vertical-align : middle; 
+		font-size      : 0.85rem;
+		font-weight    : 300;
+		font-family    : lato;		
 		@include prefix(transition, all .1s ease-out);
 	}
 	[class^="toggler-toggle_"] {
-			position : relative;
-			display  : inline-block;
-			cursor   : pointer;
-			border   : 0px solid white;
+			position       : relative;
+			display        : inline-block;
+			vertical-align : middle;
+			cursor         : pointer;
+			border         : 0px solid white;
 
-			background : #ebeaea;
-			color      : #ababab;
+			background     : #ebeaea;
+			color          : #ababab;
 
 			&[class$="_inverted"] {
 				background : rgba(255, 255, 255, 0.23);

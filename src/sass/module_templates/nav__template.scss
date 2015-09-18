@@ -28,6 +28,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 
 	[class^="nav-branding_"] {
 		position       : relative;
+		z-index        : 1; 
 		display        : table-cell;
 		padding-left   : 35px;
 		vertical-align : middle;

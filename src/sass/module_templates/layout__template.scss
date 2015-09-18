@@ -58,7 +58,14 @@
             &[data-ui-state~="hidden__#{$breakpoint}"] {
                 @include gridle_hide($breakpoint);
             }
-        }   
+            &[data-ui-state~="is__hidden-#{$breakpoint}"] {
+                @include gridle_hide($breakpoint);
+            }
+        } 
+
+        &[data-ui-state~="is__hidden"] {
+            display : none;
+        }  
 
         &[data-ui-core~="float__right"] {
             float : right;
@@ -184,13 +191,6 @@
             $increment : $increment + 8;
         }
         // PADDING AND MARGIN SETTINGS  -- END
-
-
-
-
-        &[data-ui-state~="has_perspective"] {
-            @include prefix(perspective,1000);
-        }
     }
     [class^="layout"] {
         font-size : 0px;
@@ -202,7 +202,7 @@
                 background : #eee;
             }
             &[class$="_primary"] {
-                background : $primary-color;
+                background : $color__primary;
             }
             &[class$="_light"] {
                 background : #fff;
@@ -255,6 +255,19 @@
                 text-align : right;
             }
             // ALIGN SETTINGS  -- END
+
+
+            // PERSPECTIVE SETTINGS  -- START
+            &[data-ui-core~="perspective__small"] {
+                @include prefix(perspective, 800);
+            }
+            &[data-ui-core~="perspective__medium"] {
+                @include prefix(perspective, 1000);
+            }
+            &[data-ui-core~="perspective__large"] {
+                @include prefix(perspective, 1200);
+            }
+            // PERSPECTIVE SETTINGS  -- END
 
         // ***************************************************
         // UI-CORE  -- END

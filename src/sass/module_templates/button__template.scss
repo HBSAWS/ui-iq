@@ -63,7 +63,11 @@
 
 
 	[class^="button_"] {
+
 		&[data-ui-core~="size__small"] {
+			padding : 2px 6px 3px 6px;
+		}
+		&[data-ui-core~="size__medium"] {
 			padding : 9px;
 		}
 		&[data-ui-core~="size__large"] {

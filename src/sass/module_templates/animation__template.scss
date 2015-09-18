@@ -9,8 +9,8 @@
 	}
 
 	&[data-ui-state~="animate__in"] {
-		@include prefix(transition, transform 0.23s ease-out 0.46s);
-		-webkit-transition : -webkit-transform 0.23s ease-out 0.46s;
+		@include prefix(transition, transform 0.23s ease-out 0.46s, opacity 0.23s ease-out 0.46s);
+		-webkit-transition : -webkit-transform 0.23s ease-out 0.46s, opacity 0.23s ease-out 0.46s;
 		> [class^="fader"]:first {
 			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.18s");
 		}
@@ -24,8 +24,8 @@
 	}
 
 	&[data-ui-state~="animate__out"] {
-		@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s); 
-		-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s; 
+		@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s, opacity 0.46s cubic-bezier(.43,0,0,1) 0s); 
+		-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s, opacity 0.46s cubic-bezier(.43,0,0,1) 0s; 
 		> [class^="fader"]:first {
 			@include prefix(transition, "visibility 0s, opacity 0.3s ease-out 0s");
 		}
@@ -123,6 +123,31 @@
 		@include prefix( transform, scale(0.95) );
 		@include fader__in;	
 	};
+
+	&[data-ui-state~="scale__down-md"] {
+		@include prefix( transform, scale(0.8) );
+		@include fader__in;	
+	};
+
+	&[data-ui-state~="scale__down-lg"] {
+		@include prefix( transform, scale(0.7) );
+		@include fader__in;	
+	};
+
+
+	&[data-ui-state~="fade__out"] {
+		opacity : 0;
+	}
+
+	&[data-ui-state~="fade__out-sm"] {
+		opacity : 0.3;
+	}
+	&[data-ui-state~="fade__out-md"] {
+		opacity : 0.5;
+	}
+	&[data-ui-state~="fade__out-lg"] {
+		opacity : 0.7;
+	}
 
 
 	&[data-ui-state~="move__left"] {

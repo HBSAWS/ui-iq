@@ -74,11 +74,17 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			> div { 
 				background : #fff;
 			}
+			[class^="cuboid-faces-back_"] {
+				background : $color__dark;
+			}
 		}
 		&[class$="_app"] {
 			@include prefix(box-shadow, 0 0 20px 0 rgba(0,0,0,.3));
 			> div {
 				background : #4cc1bc;
+			}
+			[class^="cuboid-faces-back_"] {
+				background : $color__dark;
 			}
 		}
 
@@ -87,6 +93,7 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			display  : table;
 			width    : 100%;
 			height   : $height__small + px;
+			overflow : hidden;
 			@include prefix(font-smoothing, subpixel-antialiased);
 			@include prefix(transition, transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1));	
 			@include prefix(transition, -webkit-transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1));	

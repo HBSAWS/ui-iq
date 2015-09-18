@@ -1,0 +1,112 @@
+[class^="deck_"] {
+	position : relative; 
+	overflow : hidden;
+	@include prefix(perspective, 1000);
+	&[data-ui-core~="dimensions__parent"] {
+		width  : 100%;
+		height : 100%;
+	}
+
+	// SUBCLASSES  -- START
+	&[class$="_offset"] {
+		background : #eee;
+	}
+	&[class$="_light"] {
+		background : #fff;
+	}
+	&[class$="_dark"] {
+		background : $color__dark;
+	}
+	&[class$="_primary"] {
+		background : $color__primary;
+	}
+	&[class$="_paper"] {
+		background : #fff;
+		@include prefix(box-shadow,0 0 11px 0 rgba(0, 0, 0, 0.05));	
+	}
+	// SUBCLASSES  -- END
+}
+	[class^="deck-slide_"] {
+		overflow-y : auto;
+		&[data-ui-core~="dimensions__parent"] {
+			height : 100%;
+		}			
+		&[data-ui-core~="dimensions__content"] {
+			vertical-align : top; 
+		}
+
+		&[data-ui-core~="position__absolute"] {
+			position : absolute; 
+		}
+		&[data-ui-core~="position__relative"] {
+			position : relative; 
+		}
+
+		&[data-ui-core~="mount__flush"] {
+			padding : 0px;
+		}
+		&[data-ui-core~="mount__thick"] {
+			padding : 30px 12px 15px 12px;
+			@include gridle_state(phablet) {
+				padding : 30px 12px 15px 12px;
+				&:nth-child(1) {
+					padding : 30px 12px 15px 30px;
+				}
+				&:nth-last-child(1) {
+					padding : 30px 30px 15px 12px !important;
+				}
+			}
+		}
+
+
+		&[data-ui-state~="is__hidden"] {
+			display : none;
+		}
+
+		// SUBCLASSES  -- START
+		&[class$="_offset"] {
+			background : #eee;
+		}
+		&[class$="_light"] {
+			background : #fff;
+		}
+		&[class$="_dark"] {
+			background : $color__dark;
+		}
+		&[class$="_primary"] {
+			background : $color__primary;
+		}
+		&[class$="_paper"] {
+			background : #fff;
+			@include prefix(box-shadow,0 0 11px 0 rgba(0, 0, 0, 0.05));	
+		}
+		// SUBCLASSES  -- END
+	}
+		[class^="deck-slide-content_"] {
+			position   : relative;
+			width      : 100%;
+			&[data-ui-core~="dimensions__parent"] {
+				width  : 100%;
+				height : 100%;
+			}
+
+
+			// SUBCLASSES  -- START
+			&[class$="_offset"] {
+				background : #eee;
+			}
+			&[class$="_light"] {
+				background : #fff;
+			}
+			&[class$="_dark"] {
+				background : $color__dark;
+			}
+			&[class$="_primary"] {
+				background : $color__primary;
+			}
+			&[class$="_paper"] {
+				background : #fff;
+				@include prefix(box-shadow,0 0 11px 0 rgba(0, 0, 0, 0.05));	
+			}
+			// SUBCLASSES  -- END
+		}

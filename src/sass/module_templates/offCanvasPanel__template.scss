@@ -4,11 +4,16 @@
     top        : 0px;
     width      : 350px;
     height     : 100%;
-    background : rgba(47, 50, 56, 0.96);
     @include prefix( box-shadow, 0 0 22px 0 rgba(0, 0, 0, 0.18) );
 
     &[data-ui-core~="side__right"] {
     	right : 0px;
+    }
+
+
+    &[class$="_dark"] {
+    	background : rgba(47, 50, 56, 0.96);
+    	color      : #ffffff;
     }
 
 }

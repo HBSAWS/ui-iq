@@ -35,7 +35,7 @@
 					field: document.querySelector("[data-js-handler~='exclusionEnd__datePicker']"),
 					format: 'D MMM YYYY',
 					onSelect: function() {
-					    var formattedDate = this.getMoment().format('MM/DD/YYYY');
+					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
 					    this._o.field.value = formattedDate;
 					}
 				 });
@@ -67,6 +67,26 @@
 			show__appCuboid : function() {
 				this.UI.show("front");
 			}
+		},
+		app : {
+			UI       : null,
+			$el      : $("[data-js~='init__appCuboid']"),
+			settings : [
+
+			],
+			init     : function() {
+				UI.cuboid( this.$el, this.settings );
+				this.UI = this.$el.data("UI");
+
+				$("[data-js-handler~='show__appSuite-apps-cuboid']").click(this.show__appsCuboid.bind(this));
+				$("[data-js-handler~='show__appSuite-app-cuboid']").click(this.show__appCuboid.bind(this));
+			},
+			show__appsCuboid : function() {
+				this.UI.show("top");
+			},
+			show__appCuboid : function() {
+				this.UI.show("front");
+			}
 		}
 	};
 
@@ -81,6 +101,53 @@
 			}
 		}
 	};
+
+
+
+
+	var loaders = {
+		app : {
+			el : document.querySelector("[data-js~='appLoader']"),
+			settings : {
+				loaderOnComplete : "fadeOut",
+				onComplete       : function() {
+					var splash,removeSplash;
+					splash = document.querySelector("[data-js~='splash__finishedLoad']");
+
+					removeSplash = function(e) {
+						if ( e.target == splash ) {
+							fastdom.write(function() {
+								splash.style.display = "none";
+								offCanvasPanels.fileSummary.UI.showPanel();
+							});
+							setTimeout(function(){
+								cuboids.appSuite.UI.show("front");
+							},100);
+							setTimeout(function(){
+								cuboids.app.UI.show("front");
+							},300);
+						}
+					};
+
+					splash.addEventListener("webkitTransitionEnd", removeSplash);
+					fastdom.write(function() {
+						splash.style.transform = "translateY(-100px)";
+						splash.style.opacity   = 0;
+					});
+				}
+			},
+			__UI : undefined,
+			init : function() {
+				var __self,loader, settings, __UI;
+				__self   = this;
+				loader   = __self.el;
+				settings = __self.settings;
+
+				__UI = __self.UI = UI.loader(loader,settings);
+			}
+		}
+	};
+
 
 
 
@@ -117,7 +184,7 @@
 		fileSummary : {
 			el : document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']"),
 			settings : {
-				showOnInit                : true,
+				showOnInit                : false,
 				onActiveUnfocusMainCanvas : true,
 				closeOnClickMainCanvas    : true,
 				mainCanvasElement         : document.querySelector("[data-js-target~='app__mainCanvas']")
@@ -125,9 +192,9 @@
 			UI : undefined,
 			init : function() {
 				var __self, panel,settings,__UI,toggleBtn;
-				__self   = this;
-				panel    = __self.el;
-				settings = __self.settings;
+				__self    = this;
+				panel     = __self.el;
+				settings  = __self.settings;
 				toggleBtn = document.querySelector("[data-js-target~='file-options__toggle']");
 
 				__UI = __self.UI = UI.offCanvasPanel(panel,settings);
@@ -154,7 +221,6 @@
 						offCanvasPanels.fileSummary.UI.hidePanel();
 					}
 				});
-
 			}
 		}
 	};
@@ -529,12 +595,14 @@
 			}
 
 			calendar.exclusions.init();
+
 			cuboids.appSuite.init();
+			cuboids.app.init();
 
 			modals.iframe.init();
 
-			panels.appSuite.init();
-			panels.fileRecords.init();
+			//panels.appSuite.init();
+			//panels.fileRecords.init();
 			panels.fileSummary.init();
 
 			offCanvasPanels.fileSummary.init();
@@ -559,27 +627,14 @@
 					});
 				}
 			});
-			$(window).on("resize", function() {
-				var windowWidth = $(this).width();
-				panels.fileRecords.responsive(windowWidth);
-			});
+			// $(window).on("resize", function() {
+			// 	var windowWidth = $(this).width();
+			// 	panels.fileRecords.responsive(windowWidth);
+			// });
 
 			FastClick.attach(document.body);
 		}
 	}
-
-
-	var nanoOptions = {
-		bg: 'rgba(0,0,0,0.2)',
-
-		// leave target blank for global nanobar
-		target: document.getElementById('globalLoader'),
-
-		// id for new nanobar
-		id: 'mynano'
-	};
-
-	var nanobar = new Nanobar( nanoOptions );
 
 
 	$.when(
@@ -595,10 +650,11 @@
 				//Download progress
 				xhr.addEventListener("progress", function(evt){
 					if (evt.lengthComputable) {
-				    	var percentComplete = evt.loaded / evt.total;
-				    	//Do something with download progress
-				    	console.log(percentComplete * 100);
-				    	nanobar.go( percentComplete * 100 );
+				    	var percentComplete;
+
+				    	percentComplete = ( evt.loaded / evt.total ) * 100;
+				    	loaders.app.init();
+				    	loaders.app.UI.progress(percentComplete);
 					}
 				}, false);
 				return xhr;

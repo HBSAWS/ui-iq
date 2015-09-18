@@ -1,4 +1,4 @@
-var UI_collection = function(items,activeItem) {
+var UI_collection = function( collectionName,items,activeItem ) {
 	var __self;
 	__self = this;
 

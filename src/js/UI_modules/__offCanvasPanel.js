@@ -24,7 +24,7 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 UI_offCanvasPanel.prototype = Object.create(__Animation.prototype);
 
 UI_offCanvasPanel.prototype.initialize_module = function(settings) {
-	var __self,initialState;
+	var __self,panel__initialState;
 	__self = this;
 
 	if ( __self.active ) {
@@ -44,7 +44,7 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 		panel__initialState = "animate__out move__right";
 	}
 	fastdom.write(function() {
-		__self.panel.setAttribute("data-ui-state", initialState);
+		__self.panel.setAttribute("data-ui-state", panel__initialState);
 	});
 };
 

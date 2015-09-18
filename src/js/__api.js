@@ -8,6 +8,9 @@ UI = {
 	cuboid   : function(DOMelement,settings) {
 		return new UI_cuboid(DOMelement,settings);
 	},
+	loader   : function(DOMelement,settings) {
+		return new UI_loader(DOMelement,settings);
+	},
 	offCanvasPanel : function(DOMelement,settings) {
 		return new UI_offCanvasPanel(DOMelement,settings);
 	},

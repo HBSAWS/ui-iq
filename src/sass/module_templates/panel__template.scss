@@ -232,7 +232,7 @@
 				visibility : hidden; 
 				background : rgba(0,0,0,0.5);
 				opacity    : 0;
-				@include prefix(transition, all .3s ease-out);
+				//@include prefix(transition, all .3s ease-out);
 			}
 			[class^="panels-panel-content-header_"] {
 				display   : block;
