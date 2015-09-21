@@ -1,4 +1,5 @@
 UI = {
+	animate   : UI_animate.animate,
 	animation : function(DOMelement, settings) {
 		return new __Animation(DOMelement, settings);
 	},

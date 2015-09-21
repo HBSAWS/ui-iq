@@ -62,9 +62,26 @@
 				$("[data-js-handler~='show__appSuite-app-cuboid']").click(this.show__appCuboid.bind(this));
 			},
 			show__appsCuboid : function() {
+				var apps,app;
+				apps = document.querySelector("[data-js~='appSuite__apps']");
+				app  = document.querySelector("[data-js~='appSuite__app']");
+
+				UI.animate({
+					animation : "swap",
+					el 		  : [app,apps]
+				});
 				this.UI.show("top");
 			},
 			show__appCuboid : function() {
+				var apps,app;
+				apps = document.querySelector("[data-js~='appSuite__apps']");
+				app  = document.querySelector("[data-js~='appSuite__app']");
+
+				UI.animate({
+					animation : "swap",
+					el 		  : [apps,app]
+				});
+
 				this.UI.show("front");
 			}
 		},
@@ -78,8 +95,8 @@
 				UI.cuboid( this.$el, this.settings );
 				this.UI = this.$el.data("UI");
 
-				$("[data-js-handler~='show__appSuite-apps-cuboid']").click(this.show__appsCuboid.bind(this));
-				$("[data-js-handler~='show__appSuite-app-cuboid']").click(this.show__appCuboid.bind(this));
+				// $("[data-js-handler~='show__appSuite-apps-cuboid']").click(this.show__appsCuboid.bind(this));
+				// $("[data-js-handler~='show__appSuite-app-cuboid']").click(this.show__appCuboid.bind(this));
 			},
 			show__appsCuboid : function() {
 				this.UI.show("top");
@@ -116,8 +133,10 @@
 
 					removeSplash = function(e) {
 						if ( e.target == splash ) {
+							splash.removeEventListener("webkitTransitionEnd", removeSplash);
 							fastdom.write(function() {
 								splash.style.display = "none";
+								splash.remove();
 								offCanvasPanels.fileSummary.UI.showPanel();
 							});
 							setTimeout(function(){
@@ -639,10 +658,10 @@
 
 	$.when(
 		// the config
-		$.ajax({
-			dataType : "json",
-			url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
-		}),	
+		// $.ajax({
+		// 	dataType : "json",
+		// 	url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
+		// }),	
 		// the records
 		$.ajax({
 			xhr: function() {
@@ -662,18 +681,33 @@
 			dataType : "json",
 			url      : "js/bio.json"
 		})
-	).done(function ( dataConfig,dataRecords ) {
+	).done(function ( dataRecords ) {
 
+		// console.log("done");
+		// var records, numberOfRecords, listOptions,EC,RC;
+		// var user        = dataConfig[0].userInfo;
+		// var records     = dataRecords[0].records;
+		// userData["PDM"] = dataConfig[0].config.PDM_URL;
+
+
+		// var totalRecords = records.length;
+		// stats.records    = totalRecords;
+		// var firstVisibleRecord;
+
+
+
+		// offsite
 		console.log("done");
 		var records, numberOfRecords, listOptions,EC,RC;
-		var user    = dataConfig[0].userInfo;
-		var records = dataRecords[0].records;
-		userData["PDM"] = dataConfig[0].config.PDM_URL;
+		//var user        = dataConfig[0].userInfo;
+		var records     = dataRecords.records;
+		//userData["PDM"] = dataConfig[0].config.PDM_URL;
 
 
 		var totalRecords = records.length;
 		stats.records    = totalRecords;
 		var firstVisibleRecord;
+
 
 
 		var recRow = 1;

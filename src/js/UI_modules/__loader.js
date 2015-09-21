@@ -44,7 +44,7 @@ UI_loader.prototype.finish = function( sucess, failure, warning ) {
 		}
 
 		fastdom.write(function() {
-			__self.loader.style.transition = transitionTiming;
+			__self.loader.style.transition           = transitionTiming;
 			__self.loader.style[transitionProperty]  = transitionAnimation;
 		});
 	}

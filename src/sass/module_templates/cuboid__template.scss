@@ -79,7 +79,9 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			}
 		}
 		&[class$="_app"] {
-			@include prefix(box-shadow, 0 0 20px 0 rgba(0,0,0,.3));
+			&[data-ui-state~="show__front"],&[data-ui-state~="show__bottom"],&[data-ui-state~="show__top"] {
+				@include prefix( box-shadow, "0 0 50px 0 rgba(0, 0, 0, 0.2), 0 0 30px 0 rgba(0, 0, 0, 0.08) , 0 0 10px 0 rgba(0, 0, 0, .15)" );
+			}
 			> div {
 				background : #4cc1bc;
 			}

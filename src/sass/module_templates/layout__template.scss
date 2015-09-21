@@ -81,9 +81,19 @@
                 //[class^="layout-"][data-ui-grid~="desktop_1"]
             // this can be used in conjunction with a class="layout-" data-ui-grid="mobile_12"
         @each $breakpoint in $breakpoint-list {
+            &[data-ui-grid~="#{$breakpoint}__offset-none"] {
+                @include gridle_state(#{$breakpoint}) {
+                    margin-left : 0px;
+                }
+            }         
             @for $i from 1 through 12 {
                 &[data-ui-grid~="#{$breakpoint}__#{$i}"] {
                     @include gridle($i, $breakpoint);
+                }
+                &[data-ui-grid~="#{$breakpoint}__offset-#{$i}"] {
+                    @include gridle_state(#{$breakpoint}) {
+                        margin-left : gridle_get_column_width( $i );
+                    }
                 }
             }
         }
