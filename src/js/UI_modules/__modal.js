@@ -29,9 +29,9 @@ UI_modal.prototype.initialize_module = function(settings) {
 UI_modal.prototype.showModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState,hideModal;
 	__self 	         = this;
-	modalState       = __self.animationLibrary("move-down-grow").animate.outer;
-	modalWindowState = __self.animationLibrary("move-down-grow").animate.inner;
-	mainCanvasState  = __self.animationLibrary("shrink");
+	modalState       = "animate__in-delay is__showing-modal";
+	modalWindowState = "animate__in";
+	mainCanvasState  = "animate__out scale__down";
 
 	if ( __self.closeOnEscape ) {
 		document.addEventListener('keydown', __self.__escapeClose);
@@ -51,9 +51,9 @@ UI_modal.prototype.showModal = function() {
 UI_modal.prototype.hideModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState;
 	__self 	         = this;
-	modalState       = __self.animationLibrary("shrink-move-up").animate.outer;
-	modalWindowState = __self.animationLibrary("shrink-move-up").animate.inner;
-	mainCanvasState  = __self.animationLibrary("grow");
+	modalState       = "animate__out-delay move__top";
+	modalWindowState = "animate__out scale__down rotate__top";
+	mainCanvasState  = "animate__in";
 
 	fastdom.write(function() {
 		__self.modal.setAttribute("data-ui-state", modalState);

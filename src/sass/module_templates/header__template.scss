@@ -20,6 +20,7 @@
 			}
 		}
 		&[data-js~="details__positionSticky"] {
+			z-index    : 1;
 			margin-top : -30px;
 		}
 	}

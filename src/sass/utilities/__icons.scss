@@ -35,21 +35,29 @@
 	/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0*[data-ui-icon~="3); */
 
 	&:before {
-		margin-bottom : -1px;
 		font-family   : "hbs-modern"; 
 	}
 }
 *[data-ui-icon~="size__large"] {
-	font-size   : 1.4rem;
-	line-height : 1.4rem;
+	&:before {
+		margin-top  : 1px;
+		font-size   : 1.4rem;
+		line-height : 1.4rem;
+	}
 }
 *[data-ui-icon~="size__medium"] {
-	font-size   : 1rem;
-	line-height : 1rem;
+	&:before {
+		margin-top  : 2px;
+		font-size   : 1rem;
+		line-height : 1rem;
+	}
 }
 *[data-ui-icon~="size__small"] {
-	font-size   : 0.6rem;
-	line-height : 0.6rem;
+	&:before {
+		margin-top  : 2px;
+		font-size   : 0.6rem;
+		line-height : 0.6rem;
+	}
 }
 
 

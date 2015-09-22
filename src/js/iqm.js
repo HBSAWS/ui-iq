@@ -137,6 +137,7 @@
 							fastdom.write(function() {
 								splash.style.display = "none";
 								splash.remove();
+
 								offCanvasPanels.fileSummary.UI.showPanel();
 							});
 							setTimeout(function(){
@@ -150,6 +151,14 @@
 
 					splash.addEventListener("webkitTransitionEnd", removeSplash);
 					fastdom.write(function() {
+						// we do this so the main canvas can animate in on load
+						// the file summary off canvas panel changes the state of the main canvas depending on whether it's open or close
+						// so we simply want to give a unique state of pushed way back, and to have an opacity of zero
+						// so that when we show the panel and it would normally animate the canvas back in space, this animates it forward
+						document.querySelector("[data-js-target~='app__mainCanvas']").setAttribute("data-ui-state", "animate__off scale__down-lg fade__out");
+						document.querySelector("[data-js-target~='app__mainCanvas']").offsetHeight;
+
+						// this moves the splash element up and fades it out
 						splash.style.transform = "translateY(-100px)";
 						splash.style.opacity   = 0;
 					});
@@ -205,8 +214,9 @@
 			settings : {
 				showOnInit                : false,
 				onActiveUnfocusMainCanvas : true,
-				closeOnClickMainCanvas    : true,
+				closeOnClickOutside       : true,
 				mainCanvasElement         : document.querySelector("[data-js-target~='app__mainCanvas']"),
+				toggleBtnSelector         : "[data-js-target~='file-options__toggle']",
 				side                      : "right"
 			},
 			UI : undefined,
@@ -215,20 +225,8 @@
 				__self    = this;
 				panel     = __self.el;
 				settings  = __self.settings;
-				toggleBtn = document.querySelector("[data-js-target~='file-options__toggle']");
 
 				__UI = __self.UI = UI.offCanvasPanel(panel,settings);
-
-				toggleBtn.addEventListener('click', function() {
-					var panel__isOpen;
-					panel__isOpen = __UI.isPanelShowing();
-
-					if ( panel__isOpen ) {
-						__UI.hidePanel();
-					} else {
-						__UI.showPanel();
-					}
-				});
 
 				var appCanvas  = document.querySelector("[data-js-target~='app__mainCanvas']");
 				var hammertime = new Hammer(appCanvas);
@@ -246,10 +244,42 @@
 		records : {
 			el       : document.querySelector("[data-js~='appHuver__records']"),
 			settings : {
-				showOnInit             : false, 
-				closeOnClickMainCanvas : true,
-				mainCanvasElement      : document.querySelector("[data-js-target~='app__mainCanvas']"),
-				side                   : "left"
+				showOnInit              : true, 
+				closeOnClickOutside     : true,
+				exemptFromClickOutside  : ["[data-js-target~='file-options__toggle']"],
+				clickOutsideExemption : function() {
+					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen;
+
+					dontClose                   = false;
+					fileSumaryOffCanvas         = document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']");
+
+					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
+
+					if ( fileSumaryOffCanvas__isOpen ) {
+						dontClose = true;
+					}
+					return dontClose;
+				},
+				closeOnEscape   : true,
+				closeOnEscapeExemption : function() {
+					var dontClose,iframeModal,fileSumaryOffCanvas,iframeModal__isOpen,fileSumaryOffCanvas__isOpen,resolution__isToHight;
+
+					dontClose           = false;
+					iframeModal         = document.querySelector("[data-js-target~='modal__iframe']");
+					fileSumaryOffCanvas = document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']");
+
+					iframeModal__isOpen         = ( iframeModal.dataset.uiState.indexOf('is__showing-modal') > -1 ) ? true : false;
+					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
+					resolution__isToHight       = ( window.innerWidth > 1299 ) ? true : false;
+
+					if ( iframeModal__isOpen || fileSumaryOffCanvas__isOpen || resolution__isToHight ) {
+						dontClose = true;
+					}
+					return dontClose;
+				},
+				showBtnSelector : "[data-js~='showFileContents']",
+				hideBtnSelector : "[data-js~='hideFileContents']",
+				side : "left"
 			},
 			UI       : undefined,
 			init     : function() {
@@ -259,11 +289,14 @@
 				panelInner = panel.querySelector("[data-js~='appHuver__recordsInner']");
 				settings   = __self.settings; 
 
-				__UI = __self.UI = UI.offCanvasPanel(panel, settings);
+				__UI = recordsTest = __self.UI = UI.offCanvasPanel(panel, settings);
 
+				// when the window is at desktop reslutions we want the record and detail panels to sit next to each other
+				// if it's below desktop resolution we want the records panel to be a open and closeable panel
+				// when it's closeable we want no padding, when it's a none closeable we want it to have padding
 				if ( window.innerWidth < 1300 ) {
 					panel__UICore      = "mount__none depth__medium offCanvas__left";
-					panelInner__UICore = "material__transparency depth__none";
+					panelInner__UICore = "material__film depth__none";
 				} else {
 					panel__UICore      = "mount__thick depth__none offCanvas__left";
 					panelInner__UICore = "material__paper depth__low";
@@ -271,29 +304,30 @@
 				panel.setAttribute("data-ui-core", panel__UICore);
 				panelInner.setAttribute("data-ui-core", panelInner__UICore);
 
-				__UI.showPanel();
-
-				var showRecordsBtn = document.querySelector("[data-js~='showFileContents']");
-				showRecordsBtn.addEventListener('click', function() {
-					__UI.showPanel();
-				});
-
-				var hideRecordsBtn = document.querySelector("[data-js~='hideFileContents']");
-				hideRecordsBtn.addEventListener('click', function() {
-					__UI.hidePanel();
-				});
+				__UI.showPanel(false);
 
 				window.addEventListener('resize', function() {
 					if ( window.innerWidth < 1300 ) {
 						panel__UICore      = "mount__none depth__medium offCanvas__left";
-						panelInner__UICore = "material__transparency depth__none";
+						panelInner__UICore = "material__film depth__none";
 					} else {
 						panel__UICore      = "mount__thick depth__none offCanvas__left";
 						panelInner__UICore = "material__paper depth__low";
+						// we make sure the records panel is open automatically when we are over the 1300px width resolution
+						__UI.showPanel(false);
 					}
 					panel.setAttribute("data-ui-core", panel__UICore);
 					panelInner.setAttribute("data-ui-core", panelInner__UICore);
 				});
+
+				var keyboardShortcut = function(e) {
+					if ( window.innerWidth < 1300 ) {
+						if ( e.altKey && e.keyCode == 82 ) {
+							__UI.showPanel();
+						}
+					}
+				};
+				document.addEventListener('keyup', keyboardShortcut);
 			}
 		}
 	};
@@ -685,8 +719,6 @@
 
 			modals.iframe.init();
 
-			//panels.appSuite.init();
-			//panels.fileRecords.init();
 			panels.fileSummary.init();
 
 			offCanvasPanels.fileSummary.init();
