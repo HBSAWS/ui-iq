@@ -308,10 +308,16 @@
                             <div class="fader_default"></div>
 
                             <div class="deck__default" data-ui-core="dimensions__parent" data-js="appHuver">
-                                <div class="deck-slide__default" data-ui-core="mount__thick" data-ui-grid="mobile__5 desktop__4" data-js="appHuver__records">
-                                    <div class="deck-slide-content__light" data-ui-core="material__paper depth__low">
+                                <div class="deck-slide__default" data-ui-core="mount__thick offCanvas__left" data-ui-grid="mobile__5 desktop__4" data-js="appHuver__records" style="z-index:2;">
+                                    <div class="deck-slide-content__light" data-ui-core="material__paper depth__low" data-js="appHuver__recordsInner">
                                         <div class="fader"></div>
-                                        <div class="header_" data-ui-core="inset__thick">
+                                        <div class="header__light" data-ui-core="inset__thick material__paper" data-js="records__positionSticky">
+                                            <div class="header-row_" data-ui-core="align__right padding__bottom-xs">
+                                                <button class="button__primary-inverted" data-ui-core="size__large padding__right-none" data-ui-addon="icon__right" data-js="hideFileContents">
+                                                    <div class="button-content__primary-inverted" data-ui-core="size__large">details</div>
+                                                    <div class="button-icon__primary-inverted" data-ui-core="size__large" data-ui-addon="icon__right" data-ui-icon="right-open"></div>
+                                                </button>
+                                            </div>
                                             <div class="header-row_" data-ui-core="content__multiple">
                                                 <div class="header-title_">Records</div>
                                                 <div data-ui-core="float__right">
@@ -345,8 +351,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="deck-slide__default" data-ui-core="mount__thick" data-ui-grid="mobile__7 mobile__offset-5 desktop__12 desktop__offset-none" data-js="appHuver__recDetails">
-                                    <div class="deck-slide-content__light" data-ui-core="material__paper depth__low" data-js="contentToggle">       
+                                <div class="deck-slide__default" data-ui-core="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
+                                    <div class="deck-slide-content__light" data-ui-core="material__paper depth__low" data-js="contentToggle appHuver__details-inner">       
                                         <div class="panels-panel-notification_" data-ui-state="animate__out move__bottom" style="display:none;">
                                             <div class="panels-panel-notification-content_" data-ui-state="animate__out rotate__bottom scale__down">
                                                 <div class="fader"></div>
@@ -374,13 +380,17 @@
                                         </div>
                                         
                                         <div class="fader"></div>
-                                        <div class="header_" data-ui-core="inset__thick">
+                                        <div class="header__light" data-ui-core="inset__thick material__paper" data-js="details__positionSticky">
 <!--                                                     <button data-ui-core="size__large padding__left-none" data-ui-addon="icon__left" data-js-handler="swap-panels__record&amp;records" data-ui-state="visible__mobile-inline-block hidden__laptop" class="button__light">
                                                 <div data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open" class="button-icon__light"></div>
                                                 <div data-ui-core="size__large" class="button-content__light">back</div>
                                             </button> -->
                                             <div class="header-row_" data-ui-core="content__multiple">
                                                 <div class="header-row_" data-ui-core="content__multiple">
+                                                    <button class="button__primary-inverted" data-ui-core="size__large" data-ui-addon="icon__left" data-js="showFileContents">
+                                                        <div class="button-icon__primary-inverted" data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
+                                                        <div class="button-content__primary-inverted" data-ui-core="size__large">records</div>
+                                                    </button>
                                                     <div class="header-title_" data-js-target="recordName">Record Details</div>
 
                                                     <div data-ui-core="mode__check size__small padding__left-xs" class="toggler__bold">

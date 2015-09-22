@@ -21,6 +21,9 @@ UI = {
 	panels  : function(DOMelement,settings) {
 		return new UI_panels(DOMelement,settings);
 	},
+	sticky : function(DOMelement,settings) {
+		return new UI_sticky(DOMelement,settings);
+	},
 	table  : function(DOMelement,settings) {
 		return new UI_table(DOMelement,settings);
 	}

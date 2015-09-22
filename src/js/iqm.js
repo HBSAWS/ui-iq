@@ -206,7 +206,8 @@
 				showOnInit                : false,
 				onActiveUnfocusMainCanvas : true,
 				closeOnClickMainCanvas    : true,
-				mainCanvasElement         : document.querySelector("[data-js-target~='app__mainCanvas']")
+				mainCanvasElement         : document.querySelector("[data-js-target~='app__mainCanvas']"),
+				side                      : "right"
 			},
 			UI : undefined,
 			init : function() {
@@ -239,6 +240,59 @@
 					if ( __UI.isPanelShowing() ) {
 						offCanvasPanels.fileSummary.UI.hidePanel();
 					}
+				});
+			}
+		},
+		records : {
+			el       : document.querySelector("[data-js~='appHuver__records']"),
+			settings : {
+				showOnInit             : false, 
+				closeOnClickMainCanvas : true,
+				mainCanvasElement      : document.querySelector("[data-js-target~='app__mainCanvas']"),
+				side                   : "left"
+			},
+			UI       : undefined,
+			init     : function() {
+				var __self,panel,settings,__UI,toggleBtn;
+				__self     = this;
+				panel      = __self.el;
+				panelInner = panel.querySelector("[data-js~='appHuver__recordsInner']");
+				settings   = __self.settings; 
+
+				__UI = __self.UI = UI.offCanvasPanel(panel, settings);
+
+				if ( window.innerWidth < 1300 ) {
+					panel__UICore      = "mount__none depth__medium offCanvas__left";
+					panelInner__UICore = "material__transparency depth__none";
+				} else {
+					panel__UICore      = "mount__thick depth__none offCanvas__left";
+					panelInner__UICore = "material__paper depth__low";
+				}
+				panel.setAttribute("data-ui-core", panel__UICore);
+				panelInner.setAttribute("data-ui-core", panelInner__UICore);
+
+				__UI.showPanel();
+
+				var showRecordsBtn = document.querySelector("[data-js~='showFileContents']");
+				showRecordsBtn.addEventListener('click', function() {
+					__UI.showPanel();
+				});
+
+				var hideRecordsBtn = document.querySelector("[data-js~='hideFileContents']");
+				hideRecordsBtn.addEventListener('click', function() {
+					__UI.hidePanel();
+				});
+
+				window.addEventListener('resize', function() {
+					if ( window.innerWidth < 1300 ) {
+						panel__UICore      = "mount__none depth__medium offCanvas__left";
+						panelInner__UICore = "material__transparency depth__none";
+					} else {
+						panel__UICore      = "mount__thick depth__none offCanvas__left";
+						panelInner__UICore = "material__paper depth__low";
+					}
+					panel.setAttribute("data-ui-core", panel__UICore);
+					panelInner.setAttribute("data-ui-core", panelInner__UICore);
 				});
 			}
 		}
@@ -437,31 +491,42 @@
 
 
 
-	// var popovers = {
-	// 	fileSummary : {
-	// 		$el      : $('[data-js-target~="file-options__toggle"]'),
-	// 		settings : {
-	// 			title   : __templates.app.fileSummary.title(),
-	// 			content : null,
-	// 			width   : 380,
-	// 			height  : 290				
-	// 		},
-	// 		init     : function() {
-	// 			var settings;
-	// 			this.settings.content = __templates.app.fileSummary.$body[0];
-	// 			settings              = this.settings;
+	var sticky = {
+		records : {
+			el : document.querySelector("[data-js~='records__positionSticky']"),
+			settings : {
+				scrollingElement : document.querySelector("[data-js~='appHuver__records']"),
+				widthReference   : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
+				distanceToStick  : 30
+			},
+			UI : undefined,
+			init : function() {
+				var __self,sticky,settings,__UI;
 
-	// 			this.$el.webuiPopover(settings);
-	// 			this.$el.webuiPopover('show');
-	// 			$(".webui-popover").css({ opacity : 0 });
+				__self   = this;
+				sticky   = __self.el;
+				settings = __self.settings;
+				__UI     = __self.UI = UI.sticky(sticky,settings);
+			}
+		},
+		details : {
+			el : document.querySelector("[data-js~='details__positionSticky']"),
+			settings : {
+				scrollingElement : document.querySelector("[data-js~='appHuver__recDetails']"),
+				widthReference   : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
+				distanceToStick  : 30
+			},
+			UI : undefined,
+			init : function() {
+				var __self,sticky,settings,__UI;
 
-	// 			panels.fileSummary.init();
-
-	// 			this.$el.webuiPopover('hide');
-	// 			$(".webui-popover").css({ opacity : 1 });
-	// 		}
-	// 	}
-	// };
+				__self   = this;
+				sticky   = __self.el;
+				settings = __self.settings;
+				__UI     = __self.UI = UI.sticky(sticky,settings);
+			}
+		}
+	}; 
 
 
 
@@ -625,6 +690,7 @@
 			panels.fileSummary.init();
 
 			offCanvasPanels.fileSummary.init();
+			offCanvasPanels.records.init();
 
 			tables.records.init();
 			tables.details.init();
@@ -646,10 +712,9 @@
 					});
 				}
 			});
-			// $(window).on("resize", function() {
-			// 	var windowWidth = $(this).width();
-			// 	panels.fileRecords.responsive(windowWidth);
-			// });
+
+			sticky.records.init();
+			sticky.details.init();
 
 			FastClick.attach(document.body);
 		}
@@ -696,7 +761,7 @@
 
 
 
-		// offsite
+		//offsite
 		console.log("done");
 		var records, numberOfRecords, listOptions,EC,RC;
 		//var user        = dataConfig[0].userInfo;

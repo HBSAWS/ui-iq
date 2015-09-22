@@ -54,5 +54,4 @@ UI_loader.prototype.finish = function( sucess, failure, warning ) {
 	}
 
 	__self.loaderProgress.removeEventListener( 'webkitTransitionEnd', __self.__finish);
-
 }

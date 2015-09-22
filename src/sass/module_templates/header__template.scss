@@ -1,4 +1,5 @@
 [class^="header_"] {
+	position  : relative;
 	font-size : 1rem;
 	&[data-ui-core~="inset__flush"] {
 		padding : 0px;
@@ -8,6 +9,19 @@
 	}
 	&[data-ui-core~="inset__thick"] {
 		padding : 30px 40px;
+	}
+
+	&[data-ui-state~="is__stuck"] {
+		&[data-js~="records__positionSticky"] {
+			z-index    : 2;
+			margin-top : 0px;
+			@include gridle_state(desktop) {
+				margin-top : -30px;
+			}
+		}
+		&[data-js~="details__positionSticky"] {
+			margin-top : -30px;
+		}
 	}
 
 	> * {
@@ -33,7 +47,7 @@
 		}
 
 		&[data-ui-core~="align__right"] {
-			
+			text-align : right;
 		}
 		&[data-ui-core~="align__left"] {
 			

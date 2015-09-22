@@ -27,6 +27,13 @@
 			}
 		}
 
+		&[data-ui-core~="offCanvas__right"] {
+			right : 0px;
+		}
+		&[data-ui-core~="offCanvas__left"] {
+			left  : 0px;
+		}
+
 
 		&[data-ui-state~="is__hidden"] {
 			display : none;

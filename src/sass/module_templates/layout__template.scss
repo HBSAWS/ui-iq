@@ -139,7 +139,7 @@
                     margin-#{$side} : #{$increment}px;
                 }
                 &[data-ui-core~="padding__#{$side}-#{$size}"] {
-                        padding-#{$side} : #{$increment}px;
+                    padding-#{$side} : #{$increment}px;
                 }
             }
             @each $breakpoint in $breakpoint-list {

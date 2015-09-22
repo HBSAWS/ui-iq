@@ -39,6 +39,12 @@
 			background : #4cc1bc;
 			color      : #fff;
 		}
+
+		&[class$="_primary-inverted"] {
+			background : #fff;
+			color      : #4cc1bc;
+		}
+
 	}
 		[class^="button-icon_"] {
 			position       : relative;
@@ -71,7 +77,7 @@
 			padding : 9px;
 		}
 		&[data-ui-core~="size__large"] {
-			padding : 10px 17px;
+			padding : 10px 17px 8px 17px;
 		}
 		&[data-ui-core~="mode__stripped"] {
 			padding : 0px;
@@ -84,32 +90,18 @@
 				&[data-ui-addon~="icon__left"] {
 					padding-right : 5px;
 				}
-				&[data-ui-addon~="icon__left"] {
-					padding-right :  5px;
-				}
-
-				&[data-ui-addon~="icon__right"] {
-					padding-left :  5px;
-				}
 				&[data-ui-addon~="icon__right"] {
 					padding-left :  5px;
 				}
 			}
 			&[data-ui-core~="size__large"] {
 				font-size   : 1rem;
-				line-height : 1.07rem;
+				line-height : 1rem;
 				&[data-ui-addon~="icon__left"] {
-					padding-right : 10px;
-				}
-				&[data-ui-addon~="icon__left"] {
-					padding-right :  10px;
-				}
-
-				&[data-ui-addon~="icon__right"] {
-					padding-left :  10px;
+					padding-right : 8px;
 				}
 				&[data-ui-addon~="icon__right"] {
-					padding-left :  10px;
+					padding-left :  8px;
 				}
 			}
 		}

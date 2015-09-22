@@ -9,6 +9,7 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 	__self.onActiveUnfocusMainCanvas = settings.onActiveUnfocusMainCanvas || false;
 	__self.closeOnClickMainCanvas    = settings.closeOnClickMainCanvas || false;
 	__self.closeOnEscape             = settings.closeOnEscape || true;
+	__self.side 					 = settings.side;
 
 
 	__self.mainCanvasFader = __self.mainCanvas.querySelector("[class^='fader']");
@@ -41,7 +42,7 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 			document.addEventListener('keydown', __self.__escapeClose);
 		}
 	} else {
-		panel__initialState = "animate__out move__right";
+		panel__initialState = "animate__off move__" + __self.side;
 	}
 	fastdom.write(function() {
 		__self.panel.setAttribute("data-ui-state", panel__initialState);
@@ -77,7 +78,7 @@ UI_offCanvasPanel.prototype.hidePanel = function() {
 		if ( __self.onActiveUnfocusMainCanvas ) {
 			__self.mainCanvas.setAttribute("data-ui-state", "animate__out");
 		}
-		__self.panel.setAttribute("data-ui-state", "animate__out move__right");
+		__self.panel.setAttribute("data-ui-state", "animate__out move__" + __self.side);
 	});
 
 	if ( __self.closeOnClickMainCanvas ) {
