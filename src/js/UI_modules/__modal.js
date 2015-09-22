@@ -18,12 +18,18 @@ var UI_modal = function UI_modal(DOMelement,settings) {
 	__self.__escapeClose       = this.escapeClose.bind(this);
 	__self.__clickOutSideClose = this.clickOutSideClose.bind(this);
 
+	__self.active              = false;
+
 	__Animation.call(this,DOMelement);
 };
 
 UI_modal.prototype = Object.create(__Animation.prototype);
 
 UI_modal.prototype.initialize_module = function(settings) {
+};
+
+UI_modal.prototype.isModalShowing = function() {
+	return this.active;
 };
 
 UI_modal.prototype.showModal = function() {
@@ -46,6 +52,8 @@ UI_modal.prototype.showModal = function() {
 		__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
 		__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
 	});
+
+	__self.active = true;
 };
 
 UI_modal.prototype.hideModal = function() {
@@ -68,6 +76,8 @@ UI_modal.prototype.hideModal = function() {
 		__self.modal.removeEventListener('click', __self.__clickOutSideClose);
 	}
 	__self.closeBtn.removeEventListener('click', __self.__hideModal);
+
+	__self.active = false;
 };
 
 UI_modal.prototype.escapeClose = function(e) {

@@ -34,7 +34,6 @@
 			left  : 0px;
 		}
 
-
 		&[data-ui-state~="is__hidden"] {
 			display : none;
 		}
@@ -45,5 +44,9 @@
 			&[data-ui-core~="dimensions__parent"] {
 				width  : 100%;
 				height : 100%;
+			}
+
+			&[data-ui-state~="is__highlighted"] {
+				@include prefix(box-shadow, "0 0 30px 0 rgba(0, 0, 0, 0.07), 0 0 4px 0 rgba(0, 0, 0, 0.04)" );		
 			}
 		}

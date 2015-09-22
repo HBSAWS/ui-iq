@@ -110,11 +110,47 @@
 
 
 
+
+	var panelSelection = {
+		active       : "unselected",
+		recordsPanel : document.querySelector("[data-js~='appHuver__records']"),
+		detailsPanel : document.querySelector("[data-js~='appHuver__recDetails']"),
+		selection : function() {
+			var __self,active,recordsPanel,detailsPanel;
+			__self       = this;
+			active       = __self.active;
+			recordsPanel = __self.recordsPanel;
+			detailsPanel = __self.detailsPanel;
+
+			if ( active === "unselected" ) {
+				__self.active = recordsPanel;
+				if ( window.offsetWidth < 1300 ) {
+					// records is in offcanvas mode
+					// so we highlight it by simply activating it
+					offCanvasPanels.records.UI.showPanel();
+				} else {
+					recordsPanel.querySelector("[data-js~='appHuver__recordsInner']").setAttribute("data-ui-state", "is__highlighted");
+				}
+				var tableRow = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr:not([data-ui-state~='is__selected']");
+				tableRow.setAttribute("data-ui-state", "is__highlighted");
+			}
+		}
+	}; 
+
+
+
+
 	var keyboardShortcuts = function(e) {
 		// if the panel is not opened already, pressing alt + s will open the file summary panel
 		if ( !offCanvasPanels.fileSummary.UI.isPanelShowing() ) {
 			if ( e.altKey && e.keyCode == 83 ) {
 				offCanvasPanels.fileSummary.UI.showPanel();
+			}
+
+			if ( !modals.iframe.UI.isModalShowing() ) {
+				if ( e.keyCode == 9 ) {
+					panelSelection.selection();
+				}
 			}
 		}
 	};
@@ -248,14 +284,15 @@
 				closeOnClickOutside     : true,
 				exemptFromClickOutside  : ["[data-js-target~='file-options__toggle']"],
 				clickOutsideExemption : function() {
-					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen;
+					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen,resolution__isToHight ;
 
 					dontClose                   = false;
 					fileSumaryOffCanvas         = document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']");
 
 					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
+					resolution__isToHight       = ( window.innerWidth > 1299 ) ? true : false;
 
-					if ( fileSumaryOffCanvas__isOpen ) {
+					if ( fileSumaryOffCanvas__isOpen || resolution__isToHight ) {
 						dontClose = true;
 					}
 					return dontClose;
@@ -320,6 +357,8 @@
 					panelInner.setAttribute("data-ui-core", panelInner__UICore);
 				});
 
+				// when the resolution is less than 1300 px
+				// pressing alt & the 'r' key at the same time will open the records panel
 				var keyboardShortcut = function(e) {
 					if ( window.innerWidth < 1300 ) {
 						if ( e.altKey && e.keyCode == 82 ) {

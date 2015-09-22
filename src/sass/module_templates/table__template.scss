@@ -262,6 +262,11 @@ table.bt tbody td .bt-content {
 				background : #F5F3F3 !important;
 				color      : #4cc1bc !important;
 			}
+			&[data-ui-state~="is__highlighted"] {
+				background  : #4CC1BC;
+				color       : #ffffff;
+			}
+
 		}		
 		[class^="table-body-row_"]:hover {
 			background  : #4CC1BC;
