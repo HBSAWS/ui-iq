@@ -144,12 +144,15 @@
 			activeRecordsTableRow = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr[data-ui-state~='is__highlighted']");
 			activeDetailsTableRow = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr[data-ui-state~='is__highlighted']");
 
-			if ( active === "unselected" ) {
+			if ( active === "unselected" || active === "detailsPanel" ) {
 				__self.activePanel = "recordsPanel";
 				if ( window.innerWidth < 1300 ) {
 					// records is in offcanvas mode
 					// so we highlight it by simply activating it
 					offCanvasPanels.records.UI.showPanel();
+				}
+				if ( activeDetailsTableRow !== null ) {
+					activeDetailsTableRow.removeAttribute("data-ui-state");
 				}
 				recordsTableRow.setAttribute("data-ui-state", "is__highlighted");
 				__self.activeRow = recordsTableRow;
@@ -165,13 +168,7 @@
 				}
 				detailsTableRow.setAttribute("data-ui-state", "is__highlighted");
 				__self.activeRow = detailsTableRow;
-			} else if ( active === "detailsPanel" ) {
-				__self.activePanel = "unselected";
-				if ( activeDetailsTableRow !== null ) {
-					activeDetailsTableRow.removeAttribute("data-ui-state");
-				}
-				__self.activeRow = "unselected";
-			}
+			} 
 		},
 		rowSelection : function(direction) {
 			var __self,activeRow;
@@ -181,13 +178,17 @@
 			if ( activeRow === "unselected" ) {
 				return;
 			} else if ( direction === "next" ) {
-				activeRow.removeAttribute("data-ui-state");
-				__self.activeRow = activeRow = activeRow.nextElementSibling;
-				activeRow.setAttribute("data-ui-state", "is__highlighted");
+				if ( activeRow.nextElementSibling !== null ) {
+					activeRow.removeAttribute("data-ui-state");
+					__self.activeRow = activeRow = activeRow.nextElementSibling;
+					activeRow.setAttribute("data-ui-state", "is__highlighted");
+				}
 			} else if ( direction === "previous" ) {
-				activeRow.removeAttribute("data-ui-state");
-				__self.activeRow = activeRow = activeRow.previousElementSibling;
-				activeRow.setAttribute("data-ui-state", "is__highlighted");
+				if ( activeRow.previousElementSibling !== null ) {
+					activeRow.removeAttribute("data-ui-state");
+					__self.activeRow = activeRow = activeRow.previousElementSibling;
+					activeRow.setAttribute("data-ui-state", "is__highlighted");
+				}
 			}
 		}
 	}; 
