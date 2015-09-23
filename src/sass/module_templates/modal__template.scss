@@ -47,6 +47,30 @@
 			[class^="fader"] {
 
 			}
-			[class^="modal-window-content-close_"] {
+			[class^="modal-window-content-submit_"] {
+				z-index     : 2;
+				position    : absolute;
+				height      : 50px;
+				width       : 100%;
+				bottom      : 0px;
+				left        : 0px;
+				padding     : 10px 8px;
+				font-family : $font__family;
+				font-size   : 1rem;
+				font-weight : 300;
+				text-align  : center;
+				outline     : none;
+				border      : 0px;
+				cursor      : pointer;
+				@include prefix( box-shadow, 0px 8px 16px 6px rgba(0,0,0,0.4) );
+				background  : #4cc1bc;
+				color       : white;
 
+				@include prefix(transition, "box-shadow 0.46s cubic-bezier(.43,0,0,1), background 0.46s cubic-bezier(.43,0,0,1)" );
+
+				&:hover {
+					@include prefix(box-shadow, "7px 8px 20px 7px rgba(0,0,0,0.4), 0px 8px 5px 7px rgba(0,0,0,0.13)" );
+					background : #4FCCC6;
+					@include prefix(transition, "box-shadow 0.46s cubic-bezier(.43,0,0,1), background 0.46s cubic-bezier(.43,0,0,1)" );
+				}
 			}

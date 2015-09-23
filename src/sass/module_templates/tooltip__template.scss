@@ -139,7 +139,7 @@
     pointer-events : none; 
 }
     .tooltip-element.tooltip-theme-arrows .tooltip-content {
-        font-family : lato;
+        font-family : $font__family;
         padding     : 12px 14px; 
         font-size   : 0.7rem;
         line-height : 0.7rem; 

@@ -70,7 +70,7 @@
 		vertical-align : middle; 
 		font-size      : 0.85rem;
 		font-weight    : 300;
-		font-family    : lato;		
+		font-family    : $font__family;		
 		@include prefix(transition, all .1s ease-out);
 	}
 	[class^="toggler-toggle_"] {
@@ -92,7 +92,7 @@
 		[class^="toggler-toggle-indicator_"] {
 			position      : absolute;
 			display       : block;
-			font-family   : lato;
+			font-family   : $font__family;
 			font-weight   : 300;
 			font-size     : 0.79rem;
 			background    : transparent;

@@ -10,7 +10,7 @@
 		@include prefix(border-radius, 4px);
 		touch-action : manipulation;
 
-		font-family  : lato; 
+		font-family  : $font__family; 
 		font-weight  : 300; 
 
 		&[class$="_default"] {

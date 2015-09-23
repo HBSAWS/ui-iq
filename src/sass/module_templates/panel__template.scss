@@ -200,7 +200,7 @@
 				overflow      : auto;
 				outline       : none;
 				cursor        : text;
-				font-family   : lato;
+				font-family   : $font__family;
 				font-size     : 0.8rem;
 				font-weight   : 300;
 				margin-top    : 15px;
@@ -209,7 +209,7 @@
 				&:empty:before {
 					content : attr(placeholder);
 					display : block; /* For Firefox */
-					font-family : lato;
+					font-family : $font__family;
 					font-weight : 300;
 					font-size   : 0.8rem;
 					line-height : 0.8rem; 

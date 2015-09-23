@@ -15,14 +15,23 @@
 			padding : 0px;
 		}
 		&[data-ui-core~="mount__thick"] {
-			padding : 30px 12px 15px 12px;
-			@include gridle_state(phablet) {
-				padding : 30px 12px 15px 12px;
+			//padding : 30px 12px 15px 12px;
+			@include gridle_state(mobile) {
+				padding : 30px 12px 30px 12px;
 				&:nth-child(1) {
-					padding : 30px 12px 15px 30px;
+					padding : 30px 12px 30px 30px;
 				}
 				&:nth-last-child(1) {
-					padding : 30px 30px 15px 12px !important;
+					padding : 30px 30px 30px 30px !important;
+				}
+			}
+			@include gridle_state(desktop) {
+				padding : 30px 12px 30px 12px;
+				&:nth-child(1) {
+					padding : 30px 12px 30px 30px;
+				}
+				&:nth-last-child(1) {
+					padding : 30px 30px 30px 12px !important;
 				}
 			}
 		}

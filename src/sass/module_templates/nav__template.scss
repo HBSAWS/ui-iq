@@ -33,7 +33,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 		padding-left   : 35px;
 		vertical-align : middle;
 		text-align     : left;
-		font-family    : lato; 
+		font-family    : $font__family; 
 		font-size      : 1.65rem;
 		line-height    : 1.65rem;
 		color          : #ffffff;
@@ -64,7 +64,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 
 			&[class$="_global"] {
 				color          : #999999;
-				font-family    : lato;
+				font-family    : $font__family;
 				color          : #999999;
 				text-transform : uppercase;
 				font-size      : .82rem;
@@ -72,7 +72,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 				font-weight    : 400;
 			}
 			&[class$="_app"] {
-				font-family    : lato;
+				font-family    : $font__family;
 				font-weight    : 300;
 				font-size      : 1.1rem;
 				line-height    : 1.1rem;
@@ -90,7 +90,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 
 			&[class$="_global"] {
 				color          : #999999;
-				font-family    : lato;
+				font-family    : $font__family;
 				color          : #999999;
 				text-transform : uppercase;
 				font-size      : .82rem;
@@ -98,7 +98,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 				font-weight    : 400;
 			}
 			&[class$="_app"] {
-				font-family    : lato;
+				font-family    : $font__family;
 				font-weight    : 300;
 				font-size      : 1.1rem;
 				line-height    : 1.1rem;

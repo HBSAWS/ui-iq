@@ -14,7 +14,7 @@
     padding     : 12px 23px;
     margin-left : -105px;
     margin-top  : 20px;
-    font-family : lato;
+    font-family : $font__family;
     @include prefix(border-radius, 4px);
 }
 
@@ -77,7 +77,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     overflow    : hidden;
     margin      : 0;
     padding     : 5px 3px;
-    font-family : lato;
+    font-family : $font__family;
     font-weight : 300;
     font-size   : 1rem;
     line-height : 20px;    
@@ -197,7 +197,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     text-align  : center;
     background  : transparent;
     color       : white;
-    font-family : lato;
+    font-family : $font__family;
     @include prefix(box-sizing, border-box);
 }
 

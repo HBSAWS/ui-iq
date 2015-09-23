@@ -7,6 +7,6 @@
     outline     : 0px;
     color       : #151515;
     font-size   : .7rem;
-    font-family : lato;
+    font-family : $font__family;
     @include prefix(border-radius, 4px);
 }

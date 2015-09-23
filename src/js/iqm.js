@@ -199,7 +199,7 @@
 	var keyboardShortcuts = function(e) {
 		// if the panel is not opened already, pressing alt + s will open the file summary panel
 		if ( !offCanvasPanels.fileSummary.UI.isPanelShowing() ) {
-			if ( e.altKey && e.keyCode == 83 ) {
+			if ( e.altKey && e.keyCode == 70 ) {
 				offCanvasPanels.fileSummary.UI.showPanel();
 			}
 

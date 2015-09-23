@@ -1,0 +1,14 @@
+[class^="notification_"] {
+    z-index      : 2;
+    position    : absolute;
+    top         : 20px;
+    left        : 50%;
+    width       : 90%;
+    height      : 60px;
+    margin-left : -45%;
+
+    @includ prefix(box-shadow, "0 0 20px 0 rgba(0, 0, 0, 0.23), 0 0 4px 0 rgba(0, 0, 0, 0.1)" );
+    background  : #DC5252;
+
+    display : none;
+}
