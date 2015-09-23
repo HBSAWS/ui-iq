@@ -47,6 +47,31 @@
 			}
 
 			&[data-ui-state~="is__highlighted"] {
-				@include prefix(box-shadow, "0 0 30px 0 rgba(0, 0, 0, 0.07), 0 0 4px 0 rgba(0, 0, 0, 0.04)" );		
+				width       : 102%;
+				margin-left : - 1%;
+				border      : 1px solid rgba(76,193,188,.6);
+				@include prefix( box-shadow, "0 0 30px 0 rgba(0, 0, 0, 0.07), 0 0 4px 0 rgba(0, 0, 0, 0.04)" );	
+				@include prefix( transition, "width .35s, margin-left .4s, box-shadow .4s");	
+			}	
+			&[data-js~="appHuver__recordsInner"] {
+				@include gridle_state(mobile) {
+					&[data-ui-state~="is__highlighted"] {
+						width       : 100%;
+						margin-left : 0;
+						border      : 0px solid rgba(76,193,188,.6);
+						@include prefix( box-shadow, "none" );	
+						@include prefix( transition, "width .35s, margin-left .4s, box-shadow .4s");
+					}
+				}
+				@include gridle_state(desktop) {
+					&[data-ui-state~="is__highlighted"] {
+						width       : 102%;
+						margin-left : - 1%;
+						border      : 1px solid rgba(76,193,188,.6);
+						@include prefix( box-shadow, "0 0 30px 0 rgba(0, 0, 0, 0.07), 0 0 4px 0 rgba(0, 0, 0, 0.04)" );	
+						@include prefix( transition, "width .35s, margin-left .4s, box-shadow .4s");	
+					}
+				}
 			}
+			@include prefix( transition, "width .35s, margin-left .4s, box-shadow .4s");	
 		}

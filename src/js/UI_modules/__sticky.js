@@ -32,6 +32,7 @@ UI_sticky.prototype.initialize_module = function() {
 			stickyEl.setAttribute('data-ui-state', "is__stuck");
 		} else {
 			stickyEl.style.position = __self.stickyPosition;
+			stickyEl.style.width    = "100%";
 			stickyEl.setAttribute("data-ui-state", "");
 		}
 	});

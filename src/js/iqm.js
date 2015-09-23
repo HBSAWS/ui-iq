@@ -13,6 +13,20 @@
 
 
 
+	// used like:
+	// element.dispatchEvent(clickEvent);
+	var __events = {
+		__click : new MouseEvent("click", {
+				"view": window,
+				"bubbles": true,
+				"cancelable": false
+		}),
+		__change : new Event('change')
+	};
+
+
+
+
 	var calendar = {
 		exclusions : {
 			init : function() {
@@ -112,27 +126,68 @@
 
 
 	var panelSelection = {
-		active       : "unselected",
-		recordsPanel : document.querySelector("[data-js~='appHuver__records']"),
-		detailsPanel : document.querySelector("[data-js~='appHuver__recDetails']"),
-		selection : function() {
-			var __self,active,recordsPanel,detailsPanel;
-			__self       = this;
-			active       = __self.active;
-			recordsPanel = __self.recordsPanel;
-			detailsPanel = __self.detailsPanel;
+		activePanel    : "unselected",
+		activeRow      : "unselected",
+		recordsPanel   : document.querySelector("[data-js~='appHuver__recordsInner']"),
+		detailsPanel   : document.querySelector("[data-js~='appHuver__details-inner']"),
+		panelSelection : function() {
+			var __self,active,recordsPanel,detailsPanel,recordsTableRow,detailsTableRow,activeRecordsTableRow,activeDetailsTableRow;
+			__self            = this;
+			active            = __self.activePanel;
+			recordsPanel      = __self.recordsPanel;
+			detailsPanel      = __self.detailsPanel;
+
+			//if ( __self.activeRow === "unselected" ) {
+				recordsTableRow   = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr:not([data-ui-state~='is__selected'])");
+				detailsTableRow   = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])");
+
+			activeRecordsTableRow = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr[data-ui-state~='is__highlighted']");
+			activeDetailsTableRow = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr[data-ui-state~='is__highlighted']");
 
 			if ( active === "unselected" ) {
-				__self.active = recordsPanel;
-				if ( window.offsetWidth < 1300 ) {
+				__self.activePanel = "recordsPanel";
+				if ( window.innerWidth < 1300 ) {
 					// records is in offcanvas mode
 					// so we highlight it by simply activating it
 					offCanvasPanels.records.UI.showPanel();
-				} else {
-					recordsPanel.querySelector("[data-js~='appHuver__recordsInner']").setAttribute("data-ui-state", "is__highlighted");
 				}
-				var tableRow = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr:not([data-ui-state~='is__selected']");
-				tableRow.setAttribute("data-ui-state", "is__highlighted");
+				recordsTableRow.setAttribute("data-ui-state", "is__highlighted");
+				__self.activeRow = recordsTableRow;
+			} else if ( active === "recordsPanel" ) {
+				__self.activePanel = "detailsPanel";
+				if ( window.innerWidth < 1300 ) {
+					// records is in offcanvas mode
+					// so we highlight it by simply activating it
+					offCanvasPanels.records.UI.hidePanel();
+				}
+				if ( activeRecordsTableRow !== null ) {
+					activeRecordsTableRow.removeAttribute("data-ui-state");
+				}
+				detailsTableRow.setAttribute("data-ui-state", "is__highlighted");
+				__self.activeRow = detailsTableRow;
+			} else if ( active === "detailsPanel" ) {
+				__self.activePanel = "unselected";
+				if ( activeDetailsTableRow !== null ) {
+					activeDetailsTableRow.removeAttribute("data-ui-state");
+				}
+				__self.activeRow = "unselected";
+			}
+		},
+		rowSelection : function(direction) {
+			var __self,activeRow;
+			__self    = this;
+			activeRow = __self.activeRow;
+
+			if ( activeRow === "unselected" ) {
+				return;
+			} else if ( direction === "next" ) {
+				activeRow.removeAttribute("data-ui-state");
+				__self.activeRow = activeRow = activeRow.nextElementSibling;
+				activeRow.setAttribute("data-ui-state", "is__highlighted");
+			} else if ( direction === "previous" ) {
+				activeRow.removeAttribute("data-ui-state");
+				__self.activeRow = activeRow = activeRow.previousElementSibling;
+				activeRow.setAttribute("data-ui-state", "is__highlighted");
 			}
 		}
 	}; 
@@ -149,7 +204,25 @@
 
 			if ( !modals.iframe.UI.isModalShowing() ) {
 				if ( e.keyCode == 9 ) {
-					panelSelection.selection();
+					e.preventDefault();
+					panelSelection.panelSelection();
+				} else if ( e.keyCode == 40 ) { 
+					// down arrow
+					e.preventDefault();
+					panelSelection.rowSelection("next");
+				} else if ( e.keyCode == 38 ) { 
+					// down arrow
+					e.preventDefault();
+					panelSelection.rowSelection("previous");
+				} else if ( e.keyCode == 13 && panelSelection.activeRow !== "unselected" ) {
+					e.preventDefault();
+					if ( panelSelection.activePanel === "recordsPanel" ) {
+						var record = panelSelection.activeRow;
+						tables.details.openRecord(record);
+						panelSelection.panelSelection();
+					} else {
+						modals.iframe.UI.showModal();
+					}
 				}
 			}
 		}
@@ -223,12 +296,12 @@
 			},
 			UI : undefined,
 			init : function() {
-				var _self,modal,settings,__UI;
-				_self    = this;
-				modal    = _self.el;
-				settings = _self.settings;
+				var __self,modal,settings,__UI;
+				__self   = this;
+				modal    = __self.el;
+				settings = __self.settings;
 
-				__UI = _self.UI = UI.modal(modal,settings);
+				__UI = __self.UI = UI.modal(modal,settings);
 
 				document.getElementById("detailsTable").addEventListener("click", function(e) {
 					if ( e.target.parentElement.dataset.jsHandler === "show__iframe" ) {
@@ -237,6 +310,19 @@
 					}
 					e.stopPropagation();
 				});
+			},
+			updateModaliFrameSource : function(recordID) {
+				var pdmId,pdmIframe,newURL;
+
+				fastdom.read(function() {
+					pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
+				});
+
+				newURL = userData.PDM + "mba/btStuDtl/edit?prsnId=" + recordID;
+
+				fastdom.write(function() {
+					pdmIframe.setAttribute('src', newURL);
+				});		
 			}
 		}
 	};
@@ -326,7 +412,7 @@
 				panelInner = panel.querySelector("[data-js~='appHuver__recordsInner']");
 				settings   = __self.settings; 
 
-				__UI = recordsTest = __self.UI = UI.offCanvasPanel(panel, settings);
+				__UI = __self.UI = UI.offCanvasPanel(panel, settings);
 
 				// when the window is at desktop reslutions we want the record and detail panels to sit next to each other
 				// if it's below desktop resolution we want the records panel to be a open and closeable panel
@@ -366,7 +452,7 @@
 						}
 					}
 				};
-				document.addEventListener('keyup', keyboardShortcut);
+				document.addEventListener('keydown', keyboardShortcut);
 			}
 		}
 	};
@@ -637,6 +723,22 @@
 					$(this).attr("data-ui-state","is__selected");
 				});
 				_self.$el.find("tbody tr").first().trigger("click");
+			},
+			openRecord : function(recordEl) {
+				if ( recordEl.dataset.jsHandler === "load__record" ) {
+					var pdmId,pdmIframe,newURL;
+
+					fastdom.read(function() {
+						pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
+					});
+
+					pdmId     = recordsData.active;
+					newURL    = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
+
+					fastdom.write(function() {
+						pdmIframe.setAttribute('src', newURL);
+					});
+				}
 			}
 		},
 		details : {
@@ -651,7 +753,7 @@
 			},
 			activeRecord : null,
 			init     : function() {
-				var _self = this;
+				var __self = this;
 				UI.table( this.$el, this.settings );
 				this.UI = this.$el.data("UI");
 
@@ -660,60 +762,80 @@
 					var toFilter = $this.val();
 
 					if ($this.is(":checked")) {
-						_self.UI.filter(toFilter);
+						__self.UI.filter(toFilter);
 					} else {
-						_self.UI.unfilter(toFilter);
+						__self.UI.unfilter(toFilter);
 					}
 				});
 
 
 				var init = true;
-				$("[data-js-handler~='load__record']").on("click", function() {
-					var $this,recordID,record,toAdd;
-					$this      = $(this); 
-					recordID   = $this.attr("data-record");
-					record     = recordsData[recordID];
-					toAdd      = [];
-
-					for ( var field in record ) {
-						var errorMessage = "no error";
-						var has__error   = "";
-						if ( record.errors != undefined && field !== "errors" ) {
-							if ( record["errors"].hasOwnProperty(field) == true ) {
-								errorMessage = record["errors"][field]["message"];
-								has__error   = errorMessage;
-							}
-						}
-						var row = {
-							'is__field'     : field,
-							'is__error'     : errorMessage,
-							'has__error'    : has__error,
-							'is__exclusion' : "",
-							'is__pending'   : "", 
-							'content'       : record[field],
-							'hbsId'         : recordID
-						};
-						if ( field !== "errors" ) {
-							toAdd.push(row);
-						}
-					};
-					$("[data-js-handler~='detailsTable__filter']").prop("checked", false).change();
-
-					_self.UI.add(toAdd);
-					_self.UI.remove("hbsId", recordsData.active);
-					_self.UI.remove("hbsId", "");
-					recordsData.active = recordID;
-
-					$("[data-js-handler~='detailsTable__filter']").prop("checked", true).change();
-
-					tables.records.$el.find("[data-ui-state~='is__selected']").removeAttr("data-ui-state");
-					$this.attr("data-ui-state","is__selected");
-					$("[data-js-target~='recordName']").html(record.firstName + " " + record.lastName);
-
-					init = false;
+				// the click event listener for the table rows in the records table
+				document.querySelector("[data-js-target~='recordsTable']").addEventListener('click', function(e) {
+					var targetEl = e.target.parentElement;
+					if ( targetEl.dataset.jsHandler === "load__record" ) {
+						tables.details.openRecord( targetEl );
+					}
 				});
-			}
+			},
+			openRecord : function(recordsTableRowEl) {
+				var __self,recordID,record,toAdd,detailsTableFilterEl,detailsTableTitle;
+				__self   = this;
+				recordID = recordsTableRowEl.dataset.record;
+				record   = recordsData[recordID];
+				toAdd    = [];
 
+				// update the modal iframesource
+				modals.iframe.updateModaliFrameSource(recordID);
+
+				for ( var field in record ) {
+					var errorMessage,has__error,row;
+					errorMessage = "no error";
+					has__error   = "";
+					if ( record.errors != undefined && field !== "errors" ) {
+						if ( record["errors"].hasOwnProperty(field) == true ) {
+							errorMessage = record["errors"][field]["message"];
+							has__error   = errorMessage;
+						}
+					}
+					row = {
+						'is__field'     : field,
+						'is__error'     : errorMessage,
+						'has__error'    : has__error,
+						'is__exclusion' : "",
+						'is__pending'   : "", 
+						'content'       : record[field],
+						'hbsId'         : recordID
+					};
+					if ( field !== "errors" ) {
+						toAdd.push(row);
+					}
+				};
+				
+				// unfilter the details table so we can have access to all the fields temporarily
+				detailsTableFilterEl         = document.querySelector("[data-js-handler~='detailsTable__filter']");
+				detailsTableFilterEl.checked = false;
+				detailsTableFilterEl.dispatchEvent(__events.__change);
+
+				__self.UI.add(toAdd);
+				__self.UI.remove("hbsId", recordsData.active);
+				__self.UI.remove("hbsId", "");
+				recordsData.active = recordID;
+
+				// reapply the details table filter
+				deatilsTableFilterEl         = document.querySelector("[data-js-handler~='detailsTable__filter']");
+				detailsTableFilterEl.checked = true;
+				detailsTableFilterEl.dispatchEvent(__events.__change);
+
+				tables.records.$el.find("[data-ui-state~='is__selected']").removeAttr("data-ui-state");
+				recordsTableRowEl.setAttribute("data-ui-state","is__selected");
+				detailsTableTitle           = document.querySelector("[data-js-target~='recordName']");
+				detailsTableTitle.innerHTML = record.firstName + " " + record.lastName;
+				//$("[data-js-target~='recordName']").html(record.firstName + " " + record.lastName);
+
+				recordsData.active = recordID;
+				init = false;
+			}
 		}
 	};
 
@@ -748,7 +870,39 @@
 		init : function() {
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 			if( !is__mobile ) {
+				var hoverTables;
 				tooltips.errors.init();
+
+				hoverTables = [document.querySelector("[data-js-target~='recordsTable']"),document.querySelector("[data-js-target~='detailsTable']")];
+				for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
+					var currentTable = hoverTables[table];
+					currentTable.addEventListener('mouseover', function(e) {
+						var hoverTarget; 
+						panelSelection.activeRow = hoverTarget = e.target.parentElement;
+						if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
+							if ( this.querySelector("[data-js~='appHuver__recordsInner']") !== undefined ) {
+								// records panel is being hovered
+								panelSelection.activePanel = "recordsPanel";
+							} else {
+								// details panel is being hovered
+								panelSelection.activePanel = "detailsPanel";
+							}
+							panelSelection.activeRow = hoverTarget;
+							if ( document.querySelector("tbody tr[data-ui-state~='is__highlighted']") !== null ) {
+								document.querySelector("tbody tr[data-ui-state~='is__highlighted']").removeAttribute("data-ui-state");
+							}
+							hoverTarget.setAttribute("data-ui-state", "is__highlighted");
+						}
+					});
+					currentTable.addEventListener('mouseout', function(e) {
+						var hoverTarget; 
+						panelSelection.activeRow = "unselected";
+						hoverTarget              = e.target.parentElement;
+						if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
+							hoverTarget.removeAttribute("data-ui-state");
+						}
+					});
+				}
 			}
 
 			calendar.exclusions.init();
@@ -766,22 +920,10 @@
 			tables.records.init();
 			tables.details.init();
 			
-			document.addEventListener('keyup', keyboardShortcuts);
+			document.addEventListener('keydown', keyboardShortcuts);
 			document.getElementById("recordsTable").querySelector("tbody").addEventListener('click', function(e) {
-				if ( e.target.parentElement.dataset.jsHandler === "load__record" ) {
-					var pdmId,pdmIframe,newURL;
-
-					fastdom.read(function() {
-						pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
-					});
-
-					pdmId     = recordsData.active;
-					newURL    = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
-
-					fastdom.write(function() {
-						pdmIframe.setAttribute('src', newURL);
-					});
-				}
+				var recordEl = e.target.parentElement;
+				tables.records.openRecord(recordEl);
 			});
 
 			sticky.records.init();
@@ -794,10 +936,10 @@
 
 	$.when(
 		// the config
-		// $.ajax({
-		// 	dataType : "json",
-		// 	url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
-		// }),	
+		$.ajax({
+			dataType : "json",
+			url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
+		}),	
 		// the records
 		$.ajax({
 			xhr: function() {
@@ -817,32 +959,32 @@
 			dataType : "json",
 			url      : "js/bio.json"
 		})
-	).done(function ( dataRecords ) {
+	).done(function ( dataConfig,dataRecords ) {
 
-		// console.log("done");
-		// var records, numberOfRecords, listOptions,EC,RC;
-		// var user        = dataConfig[0].userInfo;
-		// var records     = dataRecords[0].records;
-		// userData["PDM"] = dataConfig[0].config.PDM_URL;
-
-
-		// var totalRecords = records.length;
-		// stats.records    = totalRecords;
-		// var firstVisibleRecord;
-
-
-
-		//offsite
 		console.log("done");
 		var records, numberOfRecords, listOptions,EC,RC;
-		//var user        = dataConfig[0].userInfo;
-		var records     = dataRecords.records;
-		//userData["PDM"] = dataConfig[0].config.PDM_URL;
+		var user        = dataConfig[0].userInfo;
+		var records     = dataRecords[0].records;
+		userData["PDM"] = dataConfig[0].config.PDM_URL;
 
 
 		var totalRecords = records.length;
 		stats.records    = totalRecords;
 		var firstVisibleRecord;
+
+
+
+		//offsite
+		// console.log("done");
+		// var records, numberOfRecords, listOptions,EC,RC;
+		// //var user        = dataConfig[0].userInfo;
+		// var records     = dataRecords.records;
+		// //userData["PDM"] = dataConfig[0].config.PDM_URL;
+
+
+		// var totalRecords = records.length;
+		// stats.records    = totalRecords;
+		// var firstVisibleRecord;
 
 
 
@@ -929,7 +1071,8 @@
 
 
 
-		document.getElementById("recordsTable").querySelector("[data-js-handler~='load__record']").click();
+		var firstRecord = document.getElementById("recordsTable").querySelector("[data-js-handler~='load__record']");
+		tables.details.openRecord(firstRecord);
 		//$("#recordsTable tbody tr:first").trigger("click");
 	});
 	

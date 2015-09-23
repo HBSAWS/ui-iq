@@ -268,14 +268,14 @@ table.bt tbody td .bt-content {
 			}
 
 		}		
-		[class^="table-body-row_"]:hover {
-			background  : #4CC1BC;
-			color       : #ffffff;
-			&[class$="_inverted"] {
-				background : transparent;
-				color      : #151515;
-			}
-		}
+		// [class^="table-body-row_"]:hover {
+		// 	background  : #4CC1BC;
+		// 	color       : #ffffff;
+		// 	&[class$="_inverted"] {
+		// 		background : transparent;
+		// 		color      : #151515;
+		// 	}
+		// }
 			[class^="table-body-row-header_"] {
 				font-weight : 400;
 				text-align  : left;
