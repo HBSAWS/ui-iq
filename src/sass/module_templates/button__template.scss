@@ -39,6 +39,11 @@
 			background : #4cc1bc;
 			color      : #fff;
 		}
+		&[class$="_solid"] {
+			background  : white;
+			color       : #5A5A5A;
+			font-weight : 400;
+		}
 
 		&[class$="_primary-inverted"] {
 			background : #fff;
@@ -60,7 +65,7 @@
 			display        : inline-block;
 			vertical-align : middle; 
 			margin    	   : 0px;
-			font-size 	   : 0.8rem;
+			font-size 	   : 0.7rem;
 		}
 
 
@@ -71,7 +76,7 @@
 	[class^="button_"] {
 
 		&[data-ui-core~="size__small"] {
-			padding : 2px 6px 3px 6px;
+			padding : 7px 10px 7px 10px;
 		}
 		&[data-ui-core~="size__medium"] {
 			padding : 9px;

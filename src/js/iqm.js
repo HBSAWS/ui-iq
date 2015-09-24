@@ -30,29 +30,30 @@
 	var calendar = {
 		exclusions : {
 			init : function() {
-				var today = new Date();
-				var dd    = today.getDate();
-				var mm    = today.getMonth()+1;
-				var yyyy  = today.getFullYear();
-
-				if(dd<10){
-				    dd='0'+dd
-				} 
-				if(mm<10){
-				    mm='0'+mm
-				} 
-
-				var today = mm + '/' + dd + '/' + yyyy + ' ';
-				document.querySelector("[data-js-target~='activeExclusion__startDate']").innerHTML = today;
-
 				var calendar = new Pikaday({ 
-					field: document.querySelector("[data-js-handler~='exclusionEnd__datePicker']"),
+					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
 					format: 'D MMM YYYY',
 					onSelect: function() {
 					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
 					    this._o.field.value = formattedDate;
 					}
 				 });
+				var calendar = new Pikaday({ 
+					field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
+					format: 'D MMM YYYY',
+					onSelect: function() {
+					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
+					    this._o.field.value = formattedDate;
+					}
+				 });
+
+				var today = new Date();
+				var dd    = today.getDate();
+				var mm    = today.getMonth()+1;
+				var yyyy  = today.getFullYear();
+
+				var today = mm + '/' + dd + '/' + yyyy + ' ';
+				document.querySelector("[data-js~='activeExclusion__startDate']").value = today;
 			}
 		}
 	};
@@ -121,6 +122,41 @@
 		}
 	};
 
+
+
+
+	var exclusions = {
+		el : document.querySelector("[data-js~='toggleExclusion']"),
+		init : function() {
+			var __self,excludeToggle;
+			__self        = this;
+			excludeToggle = document.querySelectorAll("[data-js~='excludeToggle']");
+
+			for ( var toggle = 0, len = excludeToggle.length; toggle < len; toggle++ ) {
+				var currentToggle = excludeToggle[toggle];
+				currentToggle.addEventListener('change', function() {
+					if ( currentToggle.checked == true ) {
+						__self.openExclusions();
+					} else {
+						__self.closeExclusions();
+					}
+				});			
+			}
+
+			document.querySelector("[data-js~='submitExclusion']").addEventListener('click', function() {
+				UI.animate({el : document.querySelector("[data-js~='toggleExclusionNotes']"),animation : "collapse"});
+			});
+
+		},
+		openExclusions : function() {
+			UI.animate({el : document.querySelector(".exclude"),animation : "expand"});
+			document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out");
+		},
+		closeExclusions : function() {
+			UI.animate({el : document.querySelector(".exclude"),animation : "collapse"});
+			document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out scale__down fade__out");
+		}
+	};
 
 
 
@@ -911,6 +947,8 @@
 			cuboids.appSuite.init();
 			cuboids.app.init();
 
+			exclusions.init();
+
 			modals.iframe.init();
 
 			panels.fileSummary.init();
@@ -937,10 +975,10 @@
 
 	$.when(
 		// the config
-		$.ajax({
-			dataType : "json",
-			url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
-		}),	
+		// $.ajax({
+		// 	dataType : "json",
+		// 	url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
+		// }),	
 		// the records
 		$.ajax({
 			xhr: function() {
@@ -960,32 +998,32 @@
 			dataType : "json",
 			url      : "js/bio.json"
 		})
-	).done(function ( dataConfig,dataRecords ) {
+	).done(function ( dataRecords ) {
 
-		console.log("done");
-		var records, numberOfRecords, listOptions,EC,RC;
-		var user        = dataConfig[0].userInfo;
-		var records     = dataRecords[0].records;
-		userData["PDM"] = dataConfig[0].config.PDM_URL;
-
-
-		var totalRecords = records.length;
-		stats.records    = totalRecords;
-		var firstVisibleRecord;
-
-
-
-		//offsite
 		// console.log("done");
 		// var records, numberOfRecords, listOptions,EC,RC;
-		// //var user        = dataConfig[0].userInfo;
-		// var records     = dataRecords.records;
-		// //userData["PDM"] = dataConfig[0].config.PDM_URL;
+		// var user        = dataConfig[0].userInfo;
+		// var records     = dataRecords[0].records;
+		// userData["PDM"] = dataConfig[0].config.PDM_URL;
 
 
 		// var totalRecords = records.length;
 		// stats.records    = totalRecords;
 		// var firstVisibleRecord;
+
+
+
+		//offsite
+		console.log("done");
+		var records, numberOfRecords, listOptions,EC,RC;
+		//var user        = dataConfig[0].userInfo;
+		var records     = dataRecords.records;
+		//userData["PDM"] = dataConfig[0].config.PDM_URL;
+
+
+		var totalRecords = records.length;
+		stats.records    = totalRecords;
+		var firstVisibleRecord;
 
 
 

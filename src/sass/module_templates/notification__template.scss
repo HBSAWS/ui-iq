@@ -12,3 +12,123 @@
 
     display : none;
 }
+
+
+.exclude {
+	position : relative;
+	top      : -30px;
+	left     : -40px;
+	width    : calc(100% + 80px);
+	height   : 0px;
+	overflow : hidden;
+
+	background : #F2C248;
+}
+	.exclude-content {
+		padding    : 15px 40px;
+		overflow   : hidden;
+
+		background : #F2C248;
+		color      : white;
+		@include prefix( transition, "transform .46s cubic-bezier(.43,0,0,1), opacity .46s cubic-bezier(.43,0,0,1)" );
+	}
+	.exclude-icon {
+		display : inline-block;
+		width   : 30px;
+		height  : 30px;
+		padding : 5px 9px 7px 9px;
+		@include prefix(border-radius, 4px);
+		background : white;
+		color      : #F2C248;
+		> div {
+			position    : relative;
+			margin-left : -1px;
+			margin-top  : -1px;
+			font-size   : 0.9rem;
+		}
+	}
+	.exclude-title {
+		display        : inline-block;
+		margin-left    : 3px;
+		font-size      : 1.1rem;
+		font-weight    : 300;
+		vertical-align : middle;
+	}
+	.exclude-dates {
+		display     : inline-block;
+		margin-top  : 5px;
+		margin-left : 10px;
+		font-size   : 0.75rem;
+		font-weight : 300;
+	}
+		.exclude-dates-input {
+			width   : 85px;
+			padding : 6px 10px;
+			border  : 1px solid white;
+			outline : none;
+			@include prefix( border-radius, 4px );
+
+			background : transparent;
+			color      : white;
+				&::-webkit-input-placeholder {
+					font-weight : 300;
+					font-style  : italic;
+					color       : rgba(255,255,255,0.7);
+				}
+				&::-moz-placeholder { /* Firefox 18- */
+					font-weight : 300;
+					font-style  : italic;
+					color       : rgba(255,255,255,0.7);
+				}
+				&::-moz-placeholder {  /* Firefox 19+ */
+					font-weight : 300;
+					font-style  : italic;
+					color       : rgba(255,255,255,0.7);
+				}
+				&::-ms-input-placeholder {  
+					font-weight : 300;
+					font-style  : italic;
+					color       : rgba(255,255,255,0.7);
+				}
+		}
+	.exclude-close {
+		position : absolute;
+		top      : 15px;
+		right    : 40px;
+	}
+	.exclude-note {
+		position : relative;
+		overflow : hidden;
+		will-change : height;
+
+		&[data-ui-state~="is__collapsed"] {
+			height : 0px;
+		}
+	}
+		.exclude-note-input {
+			width          : 100%;
+			padding-bottom : 3px;
+			margin-top     : 20px;
+			border         : 0px;
+			border-bottom  : 1px solid white;
+			resize         : none;
+			overflow       : auto;
+			outline        : none;
+			cursor         : text;
+			font-family    : "Open Sans", sans-serif;
+			font-size      : 0.8rem;
+			font-weight    : 300;
+			@include prefix( user-select, text );
+			background: transparent;
+
+			&:empty:before {
+				content     : attr(placeholder);
+				display     : block; /* For Firefox */
+				font-family : $font__family;
+				font-weight : 300;
+				font-size   : 0.8rem;
+				line-height : 0.8rem; 
+				font-style  : italic;
+				color       : rgba(255,255,255,0.7);
+			}
+		}

@@ -8,7 +8,7 @@
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,200italic,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,700,100,800' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
     </head>
     <body data-ui-state="adjusted__forNav">
         <div class="splash" data-js="splash__finishedLoad">
@@ -358,48 +358,54 @@
                                 </div>
                                 <div class="deck-slide__default" data-ui-core="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
                                     <div class="deck-slide-content__light" data-ui-core="material__paper depth__low" data-js="contentToggle appHuver__details-inner">       
-                                        <div class="panels-panel-notification_" data-ui-state="animate__out move__bottom" style="display:none;">
-                                            <div class="panels-panel-notification-content_" data-ui-state="animate__out rotate__bottom scale__down">
-                                                <div class="fader"></div>
-                                                <span data-ui-icon="file_exclusion"></span>
-                                                <h3>Exclusion</h3>
-                                                <div data-ui-core="float__right">
+                                        <div class="fader"></div>
+                                        <div class="header__light" data-ui-core="inset__thick material__film" data-js="details__positionSticky">
+
+                                        <div class="exclude" data-js="toggleExclusion">
+                                            <div class="fader"></div>
+                                            <div class="exclude-content" data-ui-state="animate__off scale__down fade__out">
+                                                <div class="exclude-icon">
+                                                    <div data-ui-icon="file_exclusion"></div>
+                                                </div>
+                                                <div class="exclude-title">
+                                                    Exclusion
+                                                </div>
+                                                <div class="exclude-close">
                                                     <button class="button__inverted" data-ui-core="size__small padding__none" data-ui-addon="icon__left icon__right">
                                                         <div class="button-content__inverted" data-ui-core="size__small" data-ui-addon="icon__left icon__right">
-                                                            <div data-ui-icon="cancel size__small" data-js-handler="toggle__exclusion"></div>
+                                                            <div data-ui-icon="trash size__medium" data-js="excludeToggle"></div>
                                                         </div>
                                                     </button>
                                                 </div>
-                                                <div style="font-size: 0.75rem;font-weight: 300;margin-top: 5px;">
-                                                    start date : <span data-js-target="activeExclusion__startDate"></span>- 
-                                                    <input class="datepickr" placeholder="set end date" data-js-handler="exclusionEnd__datePicker" style="    width: 90px;
-                                                        outline: none;
-                                                        border: 1px solid white;
-                                                        padding: 6px 10px;
-                                                        border-radius: 4px;
-                                                        background: transparent;
-                                                        color: white;">
+                                                <div class="exclude-dates">
+                                                    <input class="exclude-dates-input" data-js="activeExclusion__startDate exclusionStartDate__datePicker"> - 
+                                                    <input class="exclude-dates-input datepickr" placeholder="set end date" data-js="exclusionEndDate__datePicker">
                                                 </div>
-                                                <div class="panels-panel-notification-content-textarea_ needsclick" contenteditable="true" placeholder="reason for excluding record..."></div>
+                                                <div class="exclude-note" data-js="toggleExclusionNotes">
+                                                    <div class="exclude-note-input needsclick" contenteditable="true" placeholder="reason for excluding record..."></div>
+                                                    <button class="button__solid" data-ui-core="size__small float__right margin__top-sm" data-js="submitExclusion">
+                                                        <div class="button-content_solid" data-ui-core="size__small">
+                                                            submit
+                                                        </div>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                        
-                                        <div class="fader"></div>
-                                        <div class="header__light" data-ui-core="inset__thick material__film" data-js="details__positionSticky">
+
                                             <div class="header-row_" data-ui-core="content__multiple">
                                                 <div class="header-row_" data-ui-core="content__multiple">
-                                                    <button class="button__primary-inverted" data-ui-core="size__large" data-ui-addon="icon__left" data-ui-state="is__hidden-desktop" data-js="showFileContents">
+                                                    <button class="button__primary-inverted" data-ui-core="size__large padding__left-none" data-ui-addon="icon__left" data-ui-state="is__hidden-desktop" data-js="showFileContents">
                                                         <div class="button-icon__primary-inverted" data-ui-core="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
                                                         <div class="button-content__primary-inverted" data-ui-core="size__large">records</div>
                                                     </button>
                                                     <div class="header-title_" data-js-target="recordName">Record Details</div>
 
                                                     <div data-ui-core="mode__check size__small padding__left-xs" class="toggler__bold">
-                                                        <input data-ui-core="mode__check size__small" data-js-handler="toggle__panelNotification" type="checkbox" value="is__exclusion" class="toggler-input__bold">
+                                                        <input data-ui-core="mode__check size__small" data-js="excludeToggle" type="checkbox" value="is__exclusion" class="toggler-input__bold">
                                                         <div data-ui-core="mode__check size__small" class="toggler-toggle__bold">
                                                             <div data-ui-core="mode__check size__small" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
-                                                        <label class="toggler-label__bold">exclusion</label>
+                                                        <label class="toggler-label__bold">exclude</label>
                                                     </div>
                                                 </div>
                                                 <div class="toggler_bold" data-ui-core="mode__button size__large" data-ui-state="is__hidden-desktop" data-js-target="tooltip__error">

@@ -16,17 +16,28 @@ var UI_animate = {
 		}
 	},
 	collapse : function() {
-		var __self;
-		__self    = this;
-		__self.__el.style.transition = "height 0.46s cubic-bezier(.43,0,0,1)";
-		__self.__el.style.height     = "0px"; 
-	},
-	expand : function() {
 		var __self,newHeight;
 		__self    = this;
 		newHeight = __self.__el.scrollHeight;
 		__self.__el.style.transition = "height 0.46s cubic-bezier(.43,0,0,1)";
-		__self.__el.style.height     = newHeight + "px"; 
+		newHeight                    = __self.__el.scrollHeight;
+		__self.__el.style.height     = newHeight + "px";
+		setTimeout(function(){
+			__self.__el.style.transition = "height 0.46s cubic-bezier(.43,0,0,1)";
+			__self.__el.style.height     = "0px";
+		},0.1);
+	},
+	expand : function() {
+		var __self,newHeight;
+		__self    = this;
+		__self.__el.style.transition = "height 0.46s cubic-bezier(.43,0,0,1)";
+		newHeight = __self.__el.scrollHeight;
+		setTimeout(function(){
+			__self.__el.style.height     = newHeight + "px"; 
+		},0.1);
+		setTimeout(function(){
+			__self.__el.style.height     = "auto"; 
+		},0.1);
 	},
 	swap : function() {
 		var __self,oldItem,newItem,oldItemInner,newItemInner,oldItem__outerAnimation,oldItem__innerAnimation,newItem__outerPreAnimation,newItem__innerPreAnimation,newItem__outerAnimation,newItem__innerAnimation;
