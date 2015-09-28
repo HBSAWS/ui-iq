@@ -119,6 +119,13 @@
 	}
 
 
+
+	&[data-ui-state~="rotate__90-neg"] {
+		@include prefix( transform, rotate(-90deg) );
+	}
+
+
+
 	&[data-ui-state~="scale__down-sm"] {
 		@include prefix( transform, scale(0.95) );
 		@include fader__in;	

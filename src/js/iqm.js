@@ -144,7 +144,22 @@
 			}
 
 			document.querySelector("[data-js~='submitExclusion']").addEventListener('click', function() {
-				UI.animate({el : document.querySelector("[data-js~='toggleExclusionNotes']"),animation : "collapse"});
+				UI.animate({ el : document.querySelector("[data-js~='toggleExclusionNotes']"),animation : "collapse"});
+			});
+
+			document.querySelector("[data-js~='toggleExclusionNote']").addEventListener('click', function() {	
+				var __el,exclusionNotes; 
+				__el           = this;
+				exclusionNotes = document.querySelector("[data-js~='toggleExclusionNotes']");
+
+				if ( exclusionNotes.offsetHeight > 0 ) {
+					// if the current rendered height is greater than zero we'll collapse it, other wise we'll expand it
+					__el.setAttribute("data-ui-state", "animate__out rotate__90-neg");
+					UI.animate({ el : exclusionNotes ,animation : "collapse"});
+				} else {
+					__el.setAttribute("data-ui-state", "animate__out");
+					UI.animate({ el : exclusionNotes ,animation : "expand"});
+				}
 			});
 
 		},
@@ -155,6 +170,12 @@
 		closeExclusions : function() {
 			UI.animate({el : document.querySelector(".exclude"),animation : "collapse"});
 			document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out scale__down fade__out");
+		},
+		openExclusionNotes : function() {
+
+		},
+		closeExclusionNotes : function() {
+
 		}
 	};
 
@@ -214,16 +235,34 @@
 			if ( activeRow === "unselected" ) {
 				return;
 			} else if ( direction === "next" ) {
+				// making sure there is a next sibling to go to
 				if ( activeRow.nextElementSibling !== null ) {
-					activeRow.removeAttribute("data-ui-state");
-					__self.activeRow = activeRow = activeRow.nextElementSibling;
-					activeRow.setAttribute("data-ui-state", "is__highlighted");
+					// checking to see if the next sibling is selected, if it is AND there is a next next sibling then we skip it, 
+						// otherwise we do nothing
+					if ( activeRow.nextElementSibling.dataset.uiState !== undefined && activeRow.nextElementSibling.dataset.uiState === "is__selected" && activeRow.nextElementSibling.nextElementSibling !== null ) {
+						activeRow.removeAttribute("data-ui-state");
+						__self.activeRow = activeRow = activeRow.nextElementSibling.nextElementSibling;
+						activeRow.setAttribute("data-ui-state", "is__highlighted");	
+					} else {
+						activeRow.removeAttribute("data-ui-state");
+						__self.activeRow = activeRow = activeRow.nextElementSibling;
+						activeRow.setAttribute("data-ui-state", "is__highlighted");	
+					}
 				}
 			} else if ( direction === "previous" ) {
+				// making sure there is a previous sibling to go to
 				if ( activeRow.previousElementSibling !== null ) {
-					activeRow.removeAttribute("data-ui-state");
-					__self.activeRow = activeRow = activeRow.previousElementSibling;
-					activeRow.setAttribute("data-ui-state", "is__highlighted");
+					// checking to see if the previous sibling is selected, if it is AND there is a previous previous sibling then we skip it, 
+						// otherwise we do nothing
+					if ( activeRow.previousElementSibling.dataset.uiState !== undefined && activeRow.previousElementSibling.dataset.uiState === "is__selected" && activeRow.previousElementSibling.previousElementSibling !== null ) {
+						activeRow.removeAttribute("data-ui-state");
+						__self.activeRow = activeRow = activeRow.previousElementSibling.previousElementSibling;
+						activeRow.setAttribute("data-ui-state", "is__highlighted");
+					} else {
+						activeRow.removeAttribute("data-ui-state");
+						__self.activeRow = activeRow = activeRow.previousElementSibling;
+						activeRow.setAttribute("data-ui-state", "is__highlighted");
+					}
 				}
 			}
 		}
