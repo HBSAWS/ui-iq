@@ -1,6 +1,9 @@
 (function($) {
 	var App;
-	var userData    = {};
+	var userData    = {
+		role : undefined, // either MBA,DOCTORAL or ADMIN
+		PDM  : undefined
+	};
 	var recordsData = {
 		active : undefined
 	};
@@ -170,12 +173,6 @@
 		closeExclusions : function() {
 			UI.animate({el : document.querySelector(".exclude"),animation : "collapse"});
 			document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out scale__down fade__out");
-		},
-		openExclusionNotes : function() {
-
-		},
-		closeExclusionNotes : function() {
-
 		}
 	};
 
@@ -183,10 +180,20 @@
 
 
 	var panelSelection = {
-		activePanel    : "unselected",
+		activePanel    : "recordsPanel",
 		activeRow      : "unselected",
 		recordsPanel   : document.querySelector("[data-js~='appHuver__recordsInner']"),
 		detailsPanel   : document.querySelector("[data-js~='appHuver__details-inner']"),
+		setScrollPosition : function() {
+			var __self,elementToScroll,panelHeaderHeight,tableHeaderHeight,tableRowHeight;
+			__self            = this;
+			elementToScroll   = __self[__self.activePanel].parentElement;
+			panelHeaderHeight = __self[__self.activePanel].querySelector("[data-js*='_positionSticky']").getBoundingClientRect().height;
+			tableHeaderHeight = __self[__self.activePanel].querySelector("thead").getBoundingClientRect().height;
+			tableRowHeight    = __self.activeRow.getBoundingClientRect().height * __self.activeRow.rowIndex;
+
+			elementToScroll.scrollTop = tableHeaderHeight + tableRowHeight - 10;
+		},
 		panelSelection : function() {
 			var __self,active,recordsPanel,detailsPanel,recordsTableRow,detailsTableRow,activeRecordsTableRow,activeDetailsTableRow;
 			__self            = this;
@@ -194,9 +201,9 @@
 			recordsPanel      = __self.recordsPanel;
 			detailsPanel      = __self.detailsPanel;
 
-			//if ( __self.activeRow === "unselected" ) {
-				recordsTableRow   = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr:not([data-ui-state~='is__selected'])");
-				detailsTableRow   = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])");
+			
+			recordsTableRow   = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr:not([data-ui-state~='is__selected'])");
+			detailsTableRow   = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])");
 
 			activeRecordsTableRow = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr[data-ui-state~='is__highlighted']");
 			activeDetailsTableRow = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr[data-ui-state~='is__highlighted']");
@@ -226,6 +233,7 @@
 				detailsTableRow.setAttribute("data-ui-state", "is__highlighted");
 				__self.activeRow = detailsTableRow;
 			} 
+			__self.setScrollPosition();
 		},
 		rowSelection : function(direction) {
 			var __self,activeRow;
@@ -248,6 +256,9 @@
 						__self.activeRow = activeRow = activeRow.nextElementSibling;
 						activeRow.setAttribute("data-ui-state", "is__highlighted");	
 					}
+
+					__self.setScrollPosition();
+
 				}
 			} else if ( direction === "previous" ) {
 				// making sure there is a previous sibling to go to
@@ -263,6 +274,8 @@
 						__self.activeRow = activeRow = activeRow.previousElementSibling;
 						activeRow.setAttribute("data-ui-state", "is__highlighted");
 					}
+
+					__self.setScrollPosition();
 				}
 			}
 		}
@@ -306,9 +319,91 @@
 
 
 
+	/**
+	    Smoothly scroll element to the given target (element.scrollTop)
+	    for the given duration
+
+	    Returns a promise that's fulfilled when done, or rejected if
+	    interrupted
+	 */
+	smooth_scroll_to = function(element, target, duration) {
+	    target = Math.round(target);
+	    duration = Math.round(duration);
+	    if (duration < 0) {
+	        return Promise.reject("bad duration");
+	    }
+	    if (duration === 0) {
+	        element.scrollTop = target;
+	        return Promise.resolve();
+	    }
+
+	    var start_time = Date.now();
+	    var end_time = start_time + duration;
+
+	    var start_top = element.scrollTop;
+	    var distance = target - start_top;
+
+	    // based on http://en.wikipedia.org/wiki/Smoothstep
+	    var smooth_step = function(start, end, point) {
+	        if(point <= start) { return 0; }
+	        if(point >= end) { return 1; }
+	        var x = (point - start) / (end - start); // interpolation
+	        return x*x*(3 - 2*x);
+	    }
+
+	    return new Promise(function(resolve, reject) {
+	        // This is to keep track of where the element's scrollTop is
+	        // supposed to be, based on what we're doing
+	        var previous_top = element.scrollTop;
+
+	        // This is like a think function from a game loop
+	        var scroll_frame = function() {
+	            if(element.scrollTop != previous_top) {
+	                reject("interrupted");
+	                return;
+	            }
+
+	            // set the scrollTop for this frame
+	            var now = Date.now();
+	            var point = smooth_step(start_time, end_time, now);
+	            var frameTop = Math.round(start_top + (distance * point));
+	            element.scrollTop = frameTop;
+
+	            // check if we're done!
+	            if(now >= end_time) {
+	                resolve();
+	                return;
+	            }
+
+	            // If we were supposed to scroll but didn't, then we
+	            // probably hit the limit, so consider it done; not
+	            // interrupted.
+	            if(element.scrollTop === previous_top
+	                && element.scrollTop !== frameTop) {
+	                resolve();
+	                return;
+	            }
+	            previous_top = element.scrollTop;
+
+	            // schedule next frame for execution
+	            setTimeout(scroll_frame, 0);
+	        }
+
+	        // boostrap the animation process
+	        setTimeout(scroll_frame, 0);
+	    });
+	}
+
+
+
+
+
 
 	var loaders = {
 		app : {
+			configProgress     : 0,
+			exclusionsProgress : 0,
+			recordsProgress    : 0,
 			el : document.querySelector("[data-js~='appLoader']"),
 			settings : {
 				loaderOnComplete : "fadeOut",
@@ -319,12 +414,12 @@
 					removeSplash = function(e) {
 						if ( e.target == splash ) {
 							splash.removeEventListener("webkitTransitionEnd", removeSplash);
-							fastdom.write(function() {
+							// fastdom.write(function() {
 								splash.style.display = "none";
 								splash.remove();
 
 								offCanvasPanels.fileSummary.UI.showPanel();
-							});
+							// });
 							setTimeout(function(){
 								cuboids.appSuite.UI.show("front");
 							},100);
@@ -357,6 +452,14 @@
 				settings = __self.settings;
 
 				__UI = __self.UI = UI.loader(loader,settings);
+			},
+			updateProgress : function() {
+				var __self, appLoader, appProgress;
+				__self      = this;
+				appLoader   = __self.__UI;
+				appProgress = ( __self.configProgress + __self.exclusionsProgress + __self.recordsProgress ) * 0.03;
+
+				appLoader.progress( appProgress );
 			}
 		}
 	};
@@ -388,11 +491,19 @@
 				});
 			},
 			updateModaliFrameSource : function(recordID) {
-				var pdmId,pdmIframe,newURL;
+				var pdmId,pdmIframe,dept,newURL;
 
 				fastdom.read(function() {
 					pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
 				});
+
+				if ( userData.role === "MBA") {
+					dept = 'mba';
+				} else if ( userData.role === "DOCTORAL" ) {
+					dept = 'doctoral';
+				} else if ( userData.role === "ADMIN" ) {
+					dept = document.querySelector("[name='file-summary__programs-toggle']:checked").value;
+				}
 
 				newURL = userData.PDM + "mba/btStuDtl/edit?prsnId=" + recordID;
 
@@ -414,7 +525,7 @@
 				onActiveUnfocusMainCanvas : true,
 				closeOnClickOutside       : true,
 				mainCanvasElement         : document.querySelector("[data-js-target~='app__mainCanvas']"),
-				toggleBtnSelector         : "[data-js-target~='file-options__toggle']",
+				toggleBtnSelector         : "[data-js~='file-options__toggle']",
 				side                      : "right"
 			},
 			UI : undefined,
@@ -444,7 +555,7 @@
 			settings : {
 				showOnInit              : true, 
 				closeOnClickOutside     : true,
-				exemptFromClickOutside  : ["[data-js-target~='file-options__toggle']"],
+				exemptFromClickOutside  : ["[data-js~='file-options__toggle']"],
 				clickOutsideExemption : function() {
 					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen,resolution__isToHight ;
 
@@ -730,35 +841,69 @@
 		records : {
 			el : document.querySelector("[data-js~='records__positionSticky']"),
 			settings : {
-				scrollingElement : document.querySelector("[data-js~='appHuver__records']"),
-				widthReference   : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
-				distanceToStick  : 30
+				scrollingElement   : document.querySelector("[data-js~='appHuver__records']"),
+				widthReference     : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
+				distanceToStick    : 30,
+				onActivateSticky   : undefined,
+				onDeactivateSticky : undefined
 			},
 			UI : undefined,
 			init : function() {
-				var __self,sticky,settings,__UI;
+				var __self,__sticky,settings,__UI;
 
 				__self   = this;
-				sticky   = __self.el;
+				__sticky = __self.el;
+				__self.settings.onActivateSticky   = sticky.records.addOffsetScroll;
+				__self.settings.onDeactivateSticky = sticky.records.removeOffsetScroll;
 				settings = __self.settings;
-				__UI     = __self.UI = UI.sticky(sticky,settings);
+				__UI     = __self.UI = UI.sticky(__sticky,settings);
+			},
+			addOffsetScroll : function() {
+				var toOffset,offsetValue; 
+				toOffset    = document.querySelector("[data-js~='records__offsetSticky']");
+				offsetValue = document.querySelector("[data-js~='records__positionSticky']").getBoundingClientRect().height;
+
+				toOffset.style.paddingTop = offsetValue + "px";
+			},
+			removeOffsetScroll : function() {
+				var toOffset,offsetValue; 
+				toOffset    = document.querySelector("[data-js~='records__offsetSticky']");
+
+				toOffset.style.paddingTop = "0px";
 			}
 		},
 		details : {
 			el : document.querySelector("[data-js~='details__positionSticky']"),
 			settings : {
-				scrollingElement : document.querySelector("[data-js~='appHuver__recDetails']"),
-				widthReference   : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
-				distanceToStick  : 30
+				scrollingElement   : document.querySelector("[data-js~='appHuver__recDetails']"),
+				widthReference     : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
+				distanceToStick    : 30,
+				onActivateSticky   : undefined,
+				onDeactivateSticky : undefined
 			},
 			UI : undefined,
 			init : function() {
-				var __self,sticky,settings,__UI;
+				var __self,__sticky,settings,__UI;
 
 				__self   = this;
-				sticky   = __self.el;
+				__sticky = __self.el;
+				__self.settings.onActivateSticky   = sticky.details.addOffsetScroll;
+				__self.settings.onDeactivateSticky = sticky.details.removeOffsetScroll;
 				settings = __self.settings;
-				__UI     = __self.UI = UI.sticky(sticky,settings);
+				__UI     = __self.UI = UI.sticky(__sticky,settings);
+			},
+			addOffsetScroll : function() {
+				var toOffset,offsetValue; 
+				toOffset    = document.querySelector("[data-js~='details__offsetSticky']");
+				offsetValue = document.querySelector("[data-js~='details__positionSticky']").getBoundingClientRect().height;
+
+				toOffset.style.paddingTop = offsetValue + "px";
+			},
+			removeOffsetScroll : function() {
+				var toOffset,offsetValue; 
+				toOffset    = document.querySelector("[data-js~='details__offsetSticky']");
+
+				toOffset.style.paddingTop = "0px";
 			}
 		}
 	}; 
@@ -936,6 +1081,20 @@
 					new Tooltip(_self.settings);
 				}
 			}
+		},
+		fileSummary : {
+			settings : {
+				target   : document.querySelector("[data-js~='file-options__toggle']"),
+				position : 'bottom right',
+				content  : 'File Summary (alt + f)',
+				classes  : 'tooltip-theme-arrows'
+			},
+			init : function() {
+				var __self;
+				__self = this;
+
+				new Tooltip(__self.settings);
+			}
 		}
 	};
 
@@ -947,7 +1106,6 @@
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 			if( !is__mobile ) {
 				var hoverTables;
-				tooltips.errors.init();
 
 				hoverTables = [document.querySelector("[data-js-target~='recordsTable']"),document.querySelector("[data-js-target~='detailsTable']")];
 				for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
@@ -997,6 +1155,9 @@
 
 			tables.records.init();
 			tables.details.init();
+
+			tooltips.errors.init();
+			tooltips.fileSummary.init();
 			
 			document.addEventListener('keydown', keyboardShortcuts);
 			document.getElementById("recordsTable").querySelector("tbody").addEventListener('click', function(e) {
@@ -1012,12 +1173,38 @@
 	}
 
 
+
+
+	// initialize our app loader
+	loaders.app.init();
+	// var xhrConfig = new XMLHttpRequest();
+	// xhrConfig.onprogress = function(e){
+	//     if (e.lengthComputable)
+	//         var percent = (e.loaded / e.total) * 100;
+	//     	console.log("test XHR percentage: " + percent);
+	// };
+	// xhrConfig.open('GET', encodeURI('https://secure-stage.hbs.edu/iqService/rest/config.json'));
+	// xhrConfig.onload = function() {
+	//     if (xhr.status === 200) {
+	//         console.log("test XHR complete");
+	//     }
+	//     else {
+	//         alert('Request failed.  Returned status of ' + xhr.status);
+	//     }
+	// };
+
+
 	$.when(
 		// the config
 		// $.ajax({
 		// 	dataType : "json",
-		// 	url      : "http://rhdevapp1.hbs.edu:9080/iqService-dev/rest/config.json"
+		// 	url      : "//rana1-stage.hbs.edu:8136/iqService/rest/config.json"
 		// }),	
+		// // // the exclusions
+		// $.ajax({
+		// 	dataType : "json",
+		// 	url      : "//rana1-stage.hbs.edu:8136/iqService/rest/mba/bio/excl.json"
+		// }),
 		// the records
 		$.ajax({
 			xhr: function() {
@@ -1038,12 +1225,26 @@
 			url      : "js/bio.json"
 		})
 	).done(function ( dataRecords ) {
+		//).done(function ( dataRecords ) {
 
 		// console.log("done");
 		// var records, numberOfRecords, listOptions,EC,RC;
-		// var user        = dataConfig[0].userInfo;
+		// var user        = dataUser[0].userInfo;
 		// var records     = dataRecords[0].records;
-		// userData["PDM"] = dataConfig[0].config.PDM_URL;
+		// userData["PDM"] = dataUser[0].config.PDM_URL;
+		
+		// for ( var __role = 0, len = user["roles"].length; __role < len; __role++ ) {
+		// 	var currentRole,userRole;
+		// 	currentRole = user["roles"][__role];
+		// 	if ( currentRole === "IQ__ADMIN" ) {
+		// 		userRole = "ADMIN";
+		// 	} else if ( currentRole === "MBA" ) {
+		// 		userRole = "MBA";
+		// 	} else if ( currentRole === "DOCTORAL" ) {
+		// 		userRole = "DOCTORAL";
+		// 	}
+		// }
+		// userData["role"] = userRole;
 
 
 		// var totalRecords = records.length;

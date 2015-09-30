@@ -12,44 +12,42 @@
 
 		font-family  : $font__family; 
 		font-weight  : 300; 
+	}
+	.button__default {
+		background : transparent;
+		color      : #151515;
+	}		
+	.button__inverted {
+		background : transparent;
+		color      : #ffffff;
+	}
+	.button__light {
+		background : transparent;
+		color      : #c0c0c0;
+	}
+	.button__outline {
+		background : transparent;
+		color      : rgba(255, 255, 255, 0.6);
+		border     : 1px solid rgba(255, 255, 255, 0.6);
+	}
 
-		&[class$="_default"] {
-			background : transparent;
-			color      : #151515;
-		}		
-		&[class$="_inverted"] {
-			background : transparent;
-			color      : #ffffff;
-		}
-		&[class$="_light"] {
-			background : transparent;
-			color      : #c0c0c0;
-		}
-		&[class$="_outline"] {
-			background : transparent;
-			color      : rgba(255, 255, 255, 0.6);
-			border     : 1px solid rgba(255, 255, 255, 0.6);
-		}
+	.button__offset {
+		background : #ebeaea;
+		color      : #ababab;
+	}
+	.button__bold {
+		background : #4cc1bc;
+		color      : #fff;
+	}
+	.button__solid {
+		background  : white;
+		color       : #5A5A5A;
+		font-weight : 400;
+	}
 
-		&[class$="_offset"] {
-			background : #ebeaea;
-			color      : #ababab;
-		}
-		&[class$="_bold"] {
-			background : #4cc1bc;
-			color      : #fff;
-		}
-		&[class$="_solid"] {
-			background  : white;
-			color       : #5A5A5A;
-			font-weight : 400;
-		}
-
-		&[class$="_primary-inverted"] {
-			background : #fff;
-			color      : #4cc1bc;
-		}
-
+	.button__primary-inverted {
+		background : #fff;
+		color      : #4cc1bc;
 	}
 		[class^="button-icon_"] {
 			position       : relative;

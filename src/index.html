@@ -5,16 +5,13 @@
         <title>IQM</title>
 <!--         <link rel="stylesheet" href="css/pikaday.css"> -->
         <link rel="stylesheet" href="css/UI.css">
-        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,200italic,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,700,100,800' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'> -->
     </head>
     <body data-ui-state="adjusted__forNav">
         <div class="splash" data-js="splash__finishedLoad">
             <div class="splash-content">
                 <div class="splash-content-logo">
-                    
+                    &#xe84c
                 </div>
                 <div class="splash-content-title">
                     HUVER
@@ -62,8 +59,8 @@
             </div>
         </nav>
         <div class="deck__dark" data-ui-core="dimensions__parent" data-js="appSuite">
-            <div class="deck-slide" data-ui-core="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__apps" data-ui-state="animate__off move__top" style="position:absolute;left:0px;top:0px;height:100%;">
-                <div class="deck-slide-content__light" data-ui-core="dimensions__parent" data-js="animateInner">
+            <div class="deck-slide_" data-ui-core="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__apps" data-ui-state="animate__off move__top" style="position:absolute;left:0px;top:0px;height:100%;">
+                <div class="deck-slide-content__light" data-ui-core="dimensions__parent material__paper" data-js="animateInner">
                     <div class="fader_light"></div>
                 </div>
             </div>
@@ -82,7 +79,7 @@
                                         <div class="nav-branding-title__app">HUVER</div>
                                     </div>
                                     <div style="text-align:right;" class="nav-control_">
-                                        <button class="button__inverted" data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js-target="file-options__toggle">
+                                        <button class="button__inverted" data-ui-core="size__large" data-ui-addon="icon__left icon__right" data-js="file-options__toggle">
                                             <div class="button-content__inverted" data-ui-core="size__large" data-ui-addon="icon__left icon__right">
                                                 <div data-ui-icon="file_settings_icon size__large"></div>
                                             </div>
@@ -344,7 +341,7 @@
                                                 <input placeholder="search" class="field_" data-js-handler="recordsTable__search">
                                             </div>
                                         </div>
-                                        <div class="layout_">
+                                        <div class="layout_" data-js="records__offsetSticky">
                                             <table id="recordsTable" data-ui-core="size__large" data-js-target="recordsTable" class="table_">
                                                 <thead data-ui-core="size__large" class="table-head_">
                                                     <tr data-ui-core="size__large" class="table-head-row_">
@@ -444,7 +441,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="layout">
+                                        <div class="layout" data-js="details__offsetSticky">
                                             <table id="detailsTable" data-ui-core="size__large" data-js-target="detailsTable" class="table_">
                                                 <thead data-ui-core="size__large" class="table-head_">
                                                     <tr data-ui-core="size__large" data-field="academicPlan" class="table-head-row">

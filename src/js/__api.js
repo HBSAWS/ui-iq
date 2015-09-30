@@ -26,5 +26,17 @@ UI = {
 	},
 	table  : function(DOMelement,settings) {
 		return new UI_table(DOMelement,settings);
+	},
+	DOM : UI_DOM,
+	utilities : {
+		events : {
+			// usage : element.dispatchEvent(clickEvent);
+			click : new MouseEvent('click', {
+				"view"       : window,
+				"bubbles"    : true,
+				"cancelable" : false
+			}),
+			change : new Event('change')
+		}
 	}
 };
