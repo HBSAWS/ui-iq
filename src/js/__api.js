@@ -27,6 +27,9 @@ UI = {
 	table  : function(DOMelement,settings) {
 		return new UI_table(DOMelement,settings);
 	},
+	// usage of UI.DOM for data-attribute manipulation should be as follows
+		// var DOMelement = document.getElementById("sampleElement");
+		// UI.DOM.hasAttributeValue(DOMelement,"data-js","appSuite");
 	DOM : UI_DOM,
 	utilities : {
 		events : {

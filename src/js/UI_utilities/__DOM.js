@@ -1,14 +1,23 @@
 // enter attribute name as you normally would
 	// ex : "data-test-name"
 var UI_DOM = {
-	__formatJSName : function( attributeName ) {
-		var camelCaseName;
+	__formatToCamelCase : function( attributeName ) {
+		var nameSegments,camelCaseName;
 		// format the attribute name for javascript
-		camelCaseName = attributeName.split("-").splice( 1,1);
-		if ( camelCaseName.length > 1 ) {
-			camelCaseName = camelCaseName[0] + camelCaseName[1].charAt(0).toUpperCase() + camelCaseName[1].substring(1);
+		nameSegments = attributeName.split("-");
+		nameSegments.shift();
+		camelCaseName = "";
+		if ( nameSegments.length > 1 ) {
+			for ( var segment = 0, len = nameSegments.length; segment < len; segment++ ) {
+				var currentSegment = nameSegments[segment];
+				if ( segment == 0 ) {
+					camelCaseName += currentSegment;
+				} else {
+					camelCaseName += currentSegment.charAt(0).toUpperCase() + currentSegment.substring(1);
+				}
+			} 
 		} else {
-			camelCaseName = camelCaseName[0];
+			camelCaseName = nameSegments[0];
 		}
 		return camelCaseName;
 	},
@@ -16,7 +25,7 @@ var UI_DOM = {
 		var __self,camelCaseName,attributeNameArray,index,newAttributeValue;
 		__self = this;
 		// format the attribute name for javascript
-		camelCaseName = __self.__formatJSName(attributeName);
+		camelCaseName = __self.__formatToCamelCase(attributeName);
 		// checking to see if element actually has the attribute before attempting to manipulate it
 		if ( el.dataset[camelCaseName] !== null ) {
 			attributeNameArray = el.dataset[camelCaseName].split(" ");
@@ -42,7 +51,7 @@ var UI_DOM = {
 		var __self,camelCaseName,attributeNameArray,index,newAttributeValue;
 		__self = this;
 		// format the attribute name for javascript
-		camelCaseName = __self.__formatJSName(attributeName);
+		camelCaseName = __self.__formatToCamelCase(attributeName);
 		if ( el.dataset[camelCaseName] !== null && el.dataset[camelCaseName].length > 0 ) {
 			attributeNameArray = el.dataset[camelCaseName].split(" ");
 
@@ -65,7 +74,7 @@ var UI_DOM = {
 		__self   = this;
 		hasValue = false;
 		// format the attribute name for javascript
-		camelCaseName = __self.__formatJSName(attributeName);
+		camelCaseName = __self.__formatToCamelCase(attributeName);
 		attributeNameArray = el.dataset[camelCaseName].split(" ");
 
 		if ( attributeNameArray.indexOf( attributeValue ) > -1 ) {

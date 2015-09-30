@@ -180,10 +180,122 @@
 
 
 	var panelSelection = {
-		activePanel    : "recordsPanel",
-		activeRow      : "unselected",
-		recordsPanel   : document.querySelector("[data-js~='appHuver__recordsInner']"),
-		detailsPanel   : document.querySelector("[data-js~='appHuver__details-inner']"),
+		recordsPanel   : {
+			active         : true,
+			el             : document.querySelector("[data-js~='appHuver__recordsInner']"),
+			header         : document.querySelector("[data-js~='appHuver__recordsInner']").querySelector("[data-js*='_positionSticky']"),
+			tableHeader    : document.querySelector("[data-js~='appHuver__recordsInner']").querySelector("thead"),
+			highlightedRow : document.querySelector("[data-js~='appHuver__recordsInner'] [data-js-target~='recordsTable'] tbody tr[data-ui-state~='is__selected'] + tr")
+		},
+		detailsPanel   : {
+			active         : false,
+			el             : document.querySelector("[data-js~='appHuver__details-inner']"),
+			header         : document.querySelector("[data-js~='appHuver__details-inner']").querySelector("[data-js*='_positionSticky']"),
+			tableHeader    : document.querySelector("[data-js~='appHuver__details-inner']").querySelector("thead"),
+			highlightedRow : document.querySelector("[data-js~='appHuver__details-inner'] [data-js-target~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])")
+		},
+		init : function() {
+				var __self, hoverTables;
+				__self = this;
+
+				__self.recordsPanel.el.addEventListener( 'mouseover', function(e) {
+					__self.setActivePanel("recordsPanel");
+					if ( e.target.parentElement.tagName === "TR" ) {
+						__self.setHighlightedRow( e.target.parentElement );
+					}
+				});
+				__self.recordsPanel.el.addEventListener( 'mouseout', function(e) {
+					__self.setActivePanel("recordsPanel");
+					if ( e.target.parentElement.tagName === "TR" ) {
+						__self.setHighlightedRow( );
+					}
+				});
+
+				// hoverTables = [document.querySelector("[data-js-target~='recordsTable']"),document.querySelector("[data-js-target~='detailsTable']")];
+				// for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
+				// 	var currentTable = hoverTables[table];
+				// 	currentTable.addEventListener('mouseover', function(e) {
+				// 		if ( e.target === this ) {
+				// 			console.log(" table hovered ");
+				// 		} else {
+				// 			console.log(" table child or ancestor ");
+				// 		}
+				// 		var hoverTarget; 
+				// 		panelSelection.activeRow = hoverTarget = e.target.parentElement;
+				// 		if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
+				// 			if ( this.querySelector("[data-js~='appHuver__recordsInner']") !== undefined ) {
+				// 				// records panel is being hovered
+				// 				panelSelection.activePanel = "recordsPanel";
+				// 			} else {
+				// 				// details panel is being hovered
+				// 				panelSelection.activePanel = "detailsPanel";
+				// 			}
+				// 			panelSelection.activeRow = hoverTarget;
+				// 			if ( document.querySelector("tbody tr[data-ui-state~='is__highlighted']") !== null ) {
+				// 				document.querySelector("tbody tr[data-ui-state~='is__highlighted']").removeAttribute("data-ui-state");
+				// 			}
+				// 			hoverTarget.setAttribute("data-ui-state", "is__highlighted");
+				// 		}
+				// 	});
+				// 	currentTable.addEventListener('mouseout', function(e) {
+				// 		var hoverTarget; 
+				// 		panelSelection.activeRow = "unselected";
+				// 		hoverTarget              = e.target.parentElement;
+				// 		if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
+				// 			hoverTarget.removeAttribute("data-ui-state");
+				// 		}
+				// 	});
+				// }
+		},
+		setHighlightedRow : function( newActiveRow ) {
+			var __self;
+			__self = this;
+
+			var currentRow = __self[ __self.getActivePanel()[1] ][ "highlightedRow" ];
+			UI.DOM.removeAttributeValue( currentRow, "data-ui-state", "is__highlighted" );
+
+			if ( newActiveRow !== undefined ) {
+				UI.DOM.addAttributeValue( newActiveRow, "data-ui-state", "is__highlighted" );
+				__self[ __self.getActivePanel()[1] ][ "highlightedRow" ] = newActiveRow;
+			} else {
+				if ( __self.getActivePanel()[1] === "recordsPanel" ) {
+					__self[ __self.getActivePanel()[1] ][ "highlightedRow" ] = document.querySelector("[data-js~='appHuver__recordsInner'] [data-js-target~='recordsTable'] tbody tr[data-ui-state~='is__selected'] + tr");
+				} else {
+					__self[ __self.getActivePanel()[1] ][ "highlightedRow" ] = document.querySelector("[data-js~='appHuver__details-inner'] [data-js-target~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])");
+				}
+			}
+		},	
+		getActivePanel : function() {
+			var __self,activePanel;
+			__self = this;
+
+			if ( __self.recordsPanel.active ) {
+				activePanel = [__self.recordsPanel.el, "recordsPanel"];
+			} else {
+				activePanel = [__self.detailsPanel.el, "detailsPanel"];
+			}
+			return activePanel;
+		},
+		setActivePanel : function( panel ) {
+			var __self = this;
+
+			if ( panel === "recordsPanel" ) {
+				__self.recordsPanel.active = true;
+				__self.detailsPanel.active = false;
+			} else if ( panel === "detailsPanel" ) {
+				__self.recordsPanel.active = false;
+				__self.detailsPanel.active = true;
+			}
+		},
+		toggleActivePanel : function() {
+			var __self = this;
+
+			if ( __self.getActivePanel()[1] === "recordsPanel" ) {
+				__self.setActivePanel( "detailsPanel" );
+			} else {
+				__self.setActivePanel( "recordsPanel" );
+			}
+		},
 		setScrollPosition : function() {
 			var __self,elementToScroll,panelHeaderHeight,tableHeaderHeight,tableRowHeight;
 			__self            = this;
@@ -197,9 +309,8 @@
 		panelSelection : function() {
 			var __self,active,recordsPanel,detailsPanel,recordsTableRow,detailsTableRow,activeRecordsTableRow,activeDetailsTableRow;
 			__self            = this;
-			active            = __self.activePanel;
-			recordsPanel      = __self.recordsPanel;
-			detailsPanel      = __self.detailsPanel;
+			recordsPanel      = __self.recordsPanel.el;
+			detailsPanel      = __self.detailsPanel.el;
 
 			
 			recordsTableRow   = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr:not([data-ui-state~='is__selected'])");
@@ -208,11 +319,13 @@
 			activeRecordsTableRow = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr[data-ui-state~='is__highlighted']");
 			activeDetailsTableRow = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr[data-ui-state~='is__highlighted']");
 
-			if ( active === "unselected" || active === "detailsPanel" ) {
-				__self.activePanel = "recordsPanel";
+			if ( __self.detailsPanel.active ) {
+				// 
+				__self.recordsPanel.active = true;
+				__self.detailsPanel.active = false;
+
 				if ( window.innerWidth < 1300 ) {
-					// records is in offcanvas mode
-					// so we highlight it by simply activating it
+					// if resolution is less than 1300 records is in offcanvaspanel mode and we need to make sure it's open
 					offCanvasPanels.records.UI.showPanel();
 				}
 				if ( activeDetailsTableRow !== null ) {
@@ -220,8 +333,9 @@
 				}
 				recordsTableRow.setAttribute("data-ui-state", "is__highlighted");
 				__self.activeRow = recordsTableRow;
-			} else if ( active === "recordsPanel" ) {
-				__self.activePanel = "detailsPanel";
+			} else if ( __self.recordsPanel.active ) {
+				__self.recordsPanel.active = false;
+				__self.detailsPanel.active = true;
 				if ( window.innerWidth < 1300 ) {
 					// records is in offcanvas mode
 					// so we highlight it by simply activating it
@@ -1105,38 +1219,7 @@
 		init : function() {
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 			if( !is__mobile ) {
-				var hoverTables;
 
-				hoverTables = [document.querySelector("[data-js-target~='recordsTable']"),document.querySelector("[data-js-target~='detailsTable']")];
-				for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
-					var currentTable = hoverTables[table];
-					currentTable.addEventListener('mouseover', function(e) {
-						var hoverTarget; 
-						panelSelection.activeRow = hoverTarget = e.target.parentElement;
-						if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
-							if ( this.querySelector("[data-js~='appHuver__recordsInner']") !== undefined ) {
-								// records panel is being hovered
-								panelSelection.activePanel = "recordsPanel";
-							} else {
-								// details panel is being hovered
-								panelSelection.activePanel = "detailsPanel";
-							}
-							panelSelection.activeRow = hoverTarget;
-							if ( document.querySelector("tbody tr[data-ui-state~='is__highlighted']") !== null ) {
-								document.querySelector("tbody tr[data-ui-state~='is__highlighted']").removeAttribute("data-ui-state");
-							}
-							hoverTarget.setAttribute("data-ui-state", "is__highlighted");
-						}
-					});
-					currentTable.addEventListener('mouseout', function(e) {
-						var hoverTarget; 
-						panelSelection.activeRow = "unselected";
-						hoverTarget              = e.target.parentElement;
-						if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
-							hoverTarget.removeAttribute("data-ui-state");
-						}
-					});
-				}
 			}
 
 			calendar.exclusions.init();
@@ -1167,6 +1250,8 @@
 
 			sticky.records.init();
 			sticky.details.init();
+
+			panelSelection.init();
 
 			FastClick.attach(document.body);
 		}
