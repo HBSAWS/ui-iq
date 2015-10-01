@@ -55,6 +55,9 @@ config = {
 	gulp.task('bower-extract-files', ['bower-download-files'], function() {
 		return gulp.src(mainBowerFiles({
 			overrides : {
+				"anima"      : {
+					"main" : "anima.js"
+				},
 				"basictable" : {
 					"main" : "jquery.basictable.js"
 				},

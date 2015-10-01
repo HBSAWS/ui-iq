@@ -1,14 +1,18 @@
 // can either animate a host of CSS properties, OR a prebuilt animation from the library
 // some prebuilt animations need two elements, simply submit them as an array
+// we initialize the anima library
+var world      = anima.world();
 var UI_animate = {
-	__el         : undefined,
-	__animation  : undefined,
-	__onComplete : undefined,
+	el         : undefined,
+	toAnimate  : undefined,
+	animation  : undefined,
+	onComplete : undefined,
 	animate : function(settings) {
 		var __self;
-		__self              = UI_animate;
-		__self.__el         = settings.el;
-		__self.__onComplete = settings.onComplete || undefined;
+		__self            = UI_animate;
+		__self.el         = settings.el;
+		__self.toAnimate  = world.add( settings.el );
+		//__self.__onComplete = settings.onComplete || undefined;
 
 		if ( settings.animation !== undefined ) {
 			var animation = settings.animation;
@@ -17,27 +21,28 @@ var UI_animate = {
 	},
 	collapse : function() {
 		var __self,newHeight;
-		__self    = this;
-		newHeight = __self.__el.scrollHeight;
-		__self.__el.style.transition = "height 0.46s cubic-bezier(.43,0,0,1)";
-		newHeight                    = __self.__el.scrollHeight;
-		__self.__el.style.height     = newHeight + "px";
-		setTimeout(function(){
-			__self.__el.style.transition = "height 0.46s cubic-bezier(.43,0,0,1)";
-			__self.__el.style.height     = "0px";
-		},0.1);
+		__self = this;
+
+		__self.toAnimate.animate({ 
+			height   : "0px",
+			duration : 150,
+			ease     : 'cubic-bezier(.43,0,0,1)',
+			delay    : 150
+		});
 	},
 	expand : function() {
 		var __self,newHeight;
 		__self    = this;
-		__self.__el.style.transition = "height 0.46s cubic-bezier(.43,0,0,1)";
-		newHeight = __self.__el.scrollHeight;
-		setTimeout(function(){
-			__self.__el.style.height     = newHeight + "px"; 
-		},0.1);
-		setTimeout(function(){
-			__self.__el.style.height     = "auto"; 
-		},0.1);
+		newHeight = __self.el.scrollHeight;
+
+		__self.toAnimate.animate({ 
+			height   : newHeight + "px",
+			duration : 150,
+			ease     : "cubic-bezier(.43,0,0,1)"
+		})
+		.on('end', function() {
+			__self.el.style.height = "auto";
+		});
 	},
 	swap : function() {
 		var __self,oldItem,newItem,oldItemInner,newItemInner,oldItem__outerAnimation,oldItem__innerAnimation,newItem__outerPreAnimation,newItem__innerPreAnimation,newItem__outerAnimation,newItem__innerAnimation;
