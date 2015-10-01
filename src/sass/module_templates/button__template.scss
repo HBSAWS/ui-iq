@@ -73,21 +73,21 @@
 
 	[class^="button_"] {
 
-		&[data-ui-core~="size__small"] {
+		&[data-ui-settings~="size__small"] {
 			padding : 7px 10px 7px 10px;
 		}
-		&[data-ui-core~="size__medium"] {
+		&[data-ui-settings~="size__medium"] {
 			padding : 9px;
 		}
-		&[data-ui-core~="size__large"] {
+		&[data-ui-settings~="size__large"] {
 			padding : 10px 17px 8px 17px;
 		}
-		&[data-ui-core~="mode__stripped"] {
+		&[data-ui-settings~="mode__stripped"] {
 			padding : 0px;
 		}
 	}
 		[class^="button-icon_"] {
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				font-size   : 0.85rem;
 				line-height : 0.85rem;
 				&[data-ui-addon~="icon__left"] {
@@ -97,7 +97,7 @@
 					padding-left :  5px;
 				}
 			}
-			&[data-ui-core~="size__large"] {
+			&[data-ui-settings~="size__large"] {
 				font-size   : 1rem;
 				line-height : 1rem;
 				&[data-ui-addon~="icon__left"] {

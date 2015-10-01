@@ -36,7 +36,7 @@
 
 
 		// MODES
-		&[data-ui-core~="mode__flush"] {
+		&[data-ui-settings~="mode__flush"] {
 			position : absolute;
 			padding  : 0px;
 
@@ -44,7 +44,7 @@
 				height : 100%;
 			}
 		}
-		&[data-ui-core~="mode__card"] {
+		&[data-ui-settings~="mode__card"] {
 			position : absolute;
 			@include gridle_state(mobile) {
 				padding : 0px;
@@ -85,7 +85,7 @@
 				}
 			}
 		}
-		&[data-ui-core~="mode__modal"] {
+		&[data-ui-settings~="mode__modal"] {
 			z-index        : 2;
 			position       : relative;
 			left           : 0px;
@@ -112,10 +112,10 @@
 		@for $i from 0 through 12 {
 			@if $i > 1 {
 				@if $i == 4 {
-					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__small"] {
+					&[data-ui-settings~="size__#{$i}"],&[data-ui-settings~="size__small"] {
 						width : gridle_get_column_width( $i );
 					}		
-					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__middle"],&[data-ui-state~="slide-to__grid-#{$i}"] {
+					&[data-ui-settings~="position__#{$i}"],&[data-ui-settings~="position__middle"],&[data-ui-state~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
 					}			
 					&[data-ui-animate~="slide-to__grid-#{$i}"] {
@@ -126,10 +126,10 @@
 						}
 					}	
 				} @else if $i == 8 {
-					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__medium"] {
+					&[data-ui-settings~="size__#{$i}"],&[data-ui-settings~="size__medium"] {
 						width : gridle_get_column_width( $i );
 					}	
-					&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__right"],&[data-ui-state~="slide-to__grid-#{$i}"] {
+					&[data-ui-settings~="position__#{$i}"],&[data-ui-settings~="position__right"],&[data-ui-state~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
 					}
 					&[data-ui-animate~="slide-to__grid-#{$i}"] {
@@ -140,14 +140,14 @@
 						}
 					}
 				} @else if $i == 12 {
-					&[data-ui-core~="size__#{$i}"],&[data-ui-core~="size__large"] {
+					&[data-ui-settings~="size__#{$i}"],&[data-ui-settings~="size__large"] {
 						width : gridle_get_column_width( $i );
 					}	
 				} @else {					
-					&[data-ui-core~="size__#{$i}"] {
+					&[data-ui-settings~="size__#{$i}"] {
 						width : gridle_get_column_width( $i );
 					}
-					&[data-ui-core~="position__#{$i}"],&[data-ui-state~="slide-to__grid-#{$i}"] {
+					&[data-ui-settings~="position__#{$i}"],&[data-ui-state~="slide-to__grid-#{$i}"] {
 						left : gridle_get_column_width( $i );
 					}
 					&[data-ui-animate~="slide-to__grid-#{$i}"] {
@@ -159,7 +159,7 @@
 					}
 				}
 			} @else {
-				&[data-ui-core~="position__#{$i}"],&[data-ui-core~="position__left"],&[data-ui-state~="slide-to__grid-#{$i}"],&[data-ui-animate~="slide-to__grid-#{$i}"] {
+				&[data-ui-settings~="position__#{$i}"],&[data-ui-settings~="position__left"],&[data-ui-state~="slide-to__grid-#{$i}"],&[data-ui-animate~="slide-to__grid-#{$i}"] {
 					left : #{$i}px;
 				}				
 				&[data-ui-animate~="slide-to__grid-#{$i}"] {

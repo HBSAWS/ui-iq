@@ -237,12 +237,12 @@ table.bt tbody td .bt-content {
 						font-size   : 0.65rem;
 					}
 				}
-				&[data-ui-core~="size__small"] {
+				&[data-ui-settings~="size__small"] {
 					padding   : 6px 20px 15px 20px;
 					font-size : 14px;
 					font-size : 1rem;
 				}
-				&[data-ui-core~="size__large"] {
+				&[data-ui-settings~="size__large"] {
 					padding   : 9px 50px 20px 50px;
 					font-size : 14px;
 					font-size : 1.1rem;
@@ -279,12 +279,12 @@ table.bt tbody td .bt-content {
 			[class^="table-body-row-header_"] {
 				font-weight : 400;
 				text-align  : left;
-				&[data-ui-core~="size__small"] {
+				&[data-ui-settings~="size__small"] {
 					padding   : 6px 20px;;
 					font-size : 12px;
 					font-size : 1rem;
 				}
-				&[data-ui-core~="size__large"] {
+				&[data-ui-settings~="size__large"] {
 					padding   : 11px 50px;;
 					font-size : 12px;
 					font-size : 0.9rem;
@@ -296,12 +296,12 @@ table.bt tbody td .bt-content {
 			[class^="table-body-row-cell_"] {
 				font-weight : 300;
                 @include prefix(text-stroke-width, 0.15px);
-				&[data-ui-core~="size__small"] {
+				&[data-ui-settings~="size__small"] {
 					padding   : 11px 20px;;
 					font-size : 12px;
 					font-size : 0.8rem;
 				}
-				&[data-ui-core~="size__large"] {
+				&[data-ui-settings~="size__large"] {
 					padding   : 11px 50px;;
 					font-size : 12px;
 					font-size : 0.9rem;

@@ -611,8 +611,8 @@
 					panel__UICore      = "mount__thick depth__none offCanvas__left";
 					panelInner__UICore = "material__paper depth__low";
 				}
-				panel.setAttribute("data-ui-core", panel__UICore);
-				panelInner.setAttribute("data-ui-core", panelInner__UICore);
+				panel.setAttribute("data-ui-settings", panel__UICore);
+				panelInner.setAttribute("data-ui-settings", panelInner__UICore);
 
 				__UI.showPanel(false);
 
@@ -626,8 +626,8 @@
 						// we make sure the records panel is open automatically when we are over the 1300px width resolution
 						__UI.showPanel(false);
 					}
-					panel.setAttribute("data-ui-core", panel__UICore);
-					panelInner.setAttribute("data-ui-core", panelInner__UICore);
+					panel.setAttribute("data-ui-settings", panel__UICore);
+					panelInner.setAttribute("data-ui-settings", panelInner__UICore);
 				});
 
 				// when the resolution is less than 1300 px
@@ -1271,11 +1271,11 @@
 
 		var recRow = 1;
 		var recordTableBodyHTML = [];
-		recordTableBodyHTML[0] = '<tbody data-ui-core="size__large" class="table-body_">';
+		recordTableBodyHTML[0] = '<tbody data-ui-settings="size__large" class="table-body_">';
 
 		var detRow = 1;
 		var detailTableBodyHTML = [];
-		detailTableBodyHTML[0] = '<tbody data-ui-core="size__large" class="table-body_">';
+		detailTableBodyHTML[0] = '<tbody data-ui-settings="size__large" class="table-body_">';
 
 
 		for(var __record=0;__record < totalRecords;__record++) {
@@ -1320,9 +1320,9 @@
 
 			var has__error = errors.length > 0 ? " has__error" : "";
 
-			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + hbsId + '" data-ui-core="size__large" data-js-handler="load__record">';
-			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-core="size__large">' + firstName + '</td>';
-			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-core="size__large">' + lastName + '</td>';
+			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + hbsId + '" data-ui-settings="size__large" data-js-handler="load__record">';
+			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-settings="size__large">' + firstName + '</td>';
+			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-settings="size__large">' + lastName + '</td>';
 			recordTableBodyHTML[recRow++] = '</tr>';
 
 			for (var fieldGroups in details) {

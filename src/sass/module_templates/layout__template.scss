@@ -15,7 +15,7 @@
         // this can be a number 1 through 12
 
 // VALUES AND PROPERTIES
-// [ui-core]
+// [ui-settings]
     // position__relative/absolute/fixed
     // width__flush/constrained
     // align__center/left/right
@@ -67,10 +67,10 @@
             display : none;
         }  
 
-        &[data-ui-core~="float__right"] {
+        &[data-ui-settings~="float__right"] {
             float : right;
         }
-        &[data-ui-core~="float__left"] {
+        &[data-ui-settings~="float__left"] {
             float : left;
         }
         // VISIBLE AND HIDDEN STATES  -- END     
@@ -101,83 +101,83 @@
 
 
         // PADDING AND MARGIN SETTINGS  -- START
-        &[data-ui-core~="margin__none"] {
+        &[data-ui-settings~="margin__none"] {
             margin : 0px !important;
         }
-        &[data-ui-core~="margin__top-none"] {
+        &[data-ui-settings~="margin__top-none"] {
             margin-top : 0px !important;
         }
-        &[data-ui-core~="margin__right-none"] {
+        &[data-ui-settings~="margin__right-none"] {
             margin-right : 0px !important;
         }
-        &[data-ui-core~="margin__left-none"] {
+        &[data-ui-settings~="margin__left-none"] {
             margin-left : 0px !important;
         }
-        &[data-ui-core~="margin__bottom-none"] {
+        &[data-ui-settings~="margin__bottom-none"] {
             margin-bottom : 0px !important;
         }
 
-        &[data-ui-core~="padding__none"] {
+        &[data-ui-settings~="padding__none"] {
             padding : 0px !important;
         }
-        &[data-ui-core~="padding__top-none"] {
+        &[data-ui-settings~="padding__top-none"] {
             padding-top : 0px !important;
         }
-        &[data-ui-core~="padding__right-none"] {
+        &[data-ui-settings~="padding__right-none"] {
             padding-right : 0px !important;
         }
-        &[data-ui-core~="padding__left-none"] {
+        &[data-ui-settings~="padding__left-none"] {
             padding-left : 0px !important;
         }
-        &[data-ui-core~="padding__bottom-none"] {
+        &[data-ui-settings~="padding__bottom-none"] {
             padding-bottom : 0px !important;
         }
         $increment : 4;
         @each $size in $size-list {
             @each $side in $side-list {
-                &[data-ui-core~="margin__#{$side}-#{$size}"] {
+                &[data-ui-settings~="margin__#{$side}-#{$size}"] {
                     margin-#{$side} : #{$increment}px;
                 }
-                &[data-ui-core~="padding__#{$side}-#{$size}"] {
+                &[data-ui-settings~="padding__#{$side}-#{$size}"] {
                     padding-#{$side} : #{$increment}px;
                 }
             }
             @each $breakpoint in $breakpoint-list {
-                &[data-ui-core~="margin__#{$breakpoint}-#{$size}"] {
+                &[data-ui-settings~="margin__#{$breakpoint}-#{$size}"] {
                     @include gridle_state(#{$breakpoint}) {
                         margin : #{$increment}px;
                     }
                 } 
-                &[data-ui-core~="margin__#{$breakpoint}-horizontal-#{$size}"] {
+                &[data-ui-settings~="margin__#{$breakpoint}-horizontal-#{$size}"] {
                     @include gridle_state(#{$breakpoint}) {
                         margin-left  : #{$increment}px;
                         margin-right : #{$increment}px;
                     }
                 } 
-                &[data-ui-core~="margin__#{$breakpoint}-vertical-#{$size}"] {
+                &[data-ui-settings~="margin__#{$breakpoint}-vertical-#{$size}"] {
                     @include gridle_state(#{$breakpoint}) {
                         margin-top    : #{$increment}px;
                         margin-bottom : #{$increment}px;
                     }
                 } 
 
-                &[data-ui-core~="padding__-#{$size}"] {
+                &[data-ui-settings~="padding__-#{$size}"] {
                     @include gridle_state(#{$breakpoint}) {
                         padding : #{$increment}px;
                     }
                 }                     
-                &[data-ui-core~="padding__#{$breakpoint}-#{$size}"] {
+                &[data-ui-settings~="padding__#{$breakpoint}-#{$size}"] {
                     @include gridle_state(#{$breakpoint}) {
                         padding : #{$increment}px;
                     }
                 } 
-                &[data-ui-core~="padding__#{$breakpoint}-horizontal-#{$size}"] {
+                &[data-ui-settings~="padding__#{$breakpoint}-horizontal-#{$size}"] {
                     @include gridle_state(#{$breakpoint}) {
                         padding-left  : #{$increment}px;
                         padding-right : #{$increment}px;
                     }
                 } 
-                &[data-ui-core~="padding__#{$breakpoint}-vertical-#{$size}"] {
+                &[data-ui-settings~="padding__#{$breakpoint}-vertical-#{$size}"] {
                     @include gridle_state(#{$breakpoint}) {
                         padding-top    : #{$increment}px;
                         padding-bottom : #{$increment}px;
@@ -185,13 +185,13 @@
                 } 
 
                 @each $side in $side-list {
-                    &[data-ui-core~="margin__#{$breakpoint}-#{$side}-#{$size}"] {
+                    &[data-ui-settings~="margin__#{$breakpoint}-#{$side}-#{$size}"] {
                         @include gridle_state(#{$breakpoint}) {
                             margin-#{$side} : #{$increment}px;
                         }
                     }
 
-                    &[data-ui-core~="padding__#{$breakpoint}-#{$side}-#{$size}"] {
+                    &[data-ui-settings~="padding__#{$breakpoint}-#{$side}-#{$size}"] {
                         @include gridle_state(#{$breakpoint}) {
                             padding-#{$side} : #{$increment}px;
                         }
@@ -227,14 +227,14 @@
 
 
         // ***************************************************
-        // UI-CORE  -- START
+        // UI-settings  -- START
         // ***************************************************
 
             // MODES  -- START
-            &[data-ui-core~="mode__constrained"] {
+            &[data-ui-settings~="mode__constrained"] {
                 max-width : 1100px; 
             }
-            &[data-ui-core~="mode__full"] {
+            &[data-ui-settings~="mode__full"] {
                 width  : 100%;
                 height : 100%;
             }
@@ -242,45 +242,45 @@
 
 
             // POSITION SETTINGS  -- START
-            &[data-ui-core~="position__relative"] {
+            &[data-ui-settings~="position__relative"] {
                 position : relative;
             }
-            &[data-ui-core~="position__absolute"] {
+            &[data-ui-settings~="position__absolute"] {
                 position : absolute;
             }
-            &[data-ui-core~="position__fixed"] {
+            &[data-ui-settings~="position__fixed"] {
                 position : fixed;
             }
             // POSITION SETTINGS  -- END      
 
 
             // ALIGN SETTINGS  -- START
-            &[data-ui-core~="align__center"] {
+            &[data-ui-settings~="align__center"] {
                 text-align : center;
             }
-            &[data-ui-core~="align__left"] {
+            &[data-ui-settings~="align__left"] {
                 text-align : left;
             }
-            &[data-ui-core~="align__right"] {
+            &[data-ui-settings~="align__right"] {
                 text-align : right;
             }
             // ALIGN SETTINGS  -- END
 
 
             // PERSPECTIVE SETTINGS  -- START
-            &[data-ui-core~="perspective__small"] {
+            &[data-ui-settings~="perspective__small"] {
                 @include prefix(perspective, 800);
             }
-            &[data-ui-core~="perspective__medium"] {
+            &[data-ui-settings~="perspective__medium"] {
                 @include prefix(perspective, 1000);
             }
-            &[data-ui-core~="perspective__large"] {
+            &[data-ui-settings~="perspective__large"] {
                 @include prefix(perspective, 1200);
             }
             // PERSPECTIVE SETTINGS  -- END
 
         // ***************************************************
-        // UI-CORE  -- END
+        // UI-settings  -- END
         // ***************************************************
 
     }

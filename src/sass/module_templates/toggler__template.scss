@@ -29,7 +29,7 @@
 				color      : rgba(255,255,255,1.0);
 				@include prefix(transition, all .1s ease-out);
 
-				&[data-ui-core~="mode__check"],&[data-ui-core~="mode__button"],&[data-ui-core~="mode__radio"],&[data-ui-core~="mode__segmentcontrol"] {
+				&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"],&[data-ui-settings~="mode__radio"],&[data-ui-settings~="mode__segmentcontrol"] {
 					top  : 0px;
 					left : 0px;
 				}
@@ -40,7 +40,7 @@
 						@include prefix(transition, all .1s ease-out);
 					}
 
-					&[data-ui-core~="mode__check"],&[data-ui-core~="mode__button"],&[data-ui-core~="mode__radio"],&[data-ui-core~="mode__segmentcontrol"] {
+					&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"],&[data-ui-settings~="mode__radio"],&[data-ui-settings~="mode__segmentcontrol"] {
 						border : 0px solid rgba(0,0,0,0); 
 					}
 				}
@@ -109,24 +109,24 @@
 // ** mode__switch ** CSS -- START
 [class^="toggler_"] {}
 	[class^="toggler-input_"] {
-		&[data-ui-core~="mode__switch"] {
-			&[data-ui-core~="size__large"] {
+		&[data-ui-settings~="mode__switch"] {
+			&[data-ui-settings~="size__large"] {
 				height : 30px;
 			}
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				height : 25px;
 			}
 		}
 	}
 	[class^="toggler-toggle_"] {
-		&[data-ui-core~="mode__switch"] {
-			&[data-ui-core~="size__large"] {
+		&[data-ui-settings~="mode__switch"] {
+			&[data-ui-settings~="size__large"] {
 				height : 30px;
 				width  : 45px;
 				@include prefix(border-radius, 40px);
 				@include prefix(transition, all .1s ease-out);
 			}
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				height : 25px;
 				width  : 37px;
 				@include prefix(border-radius, 40px);
@@ -146,7 +146,7 @@
 	}
 
 		[class^="toggler-toggle-indicator_"] {
-			&[data-ui-core~="mode__switch"] {
+			&[data-ui-settings~="mode__switch"] {
 				display    : inline-block;
 				// IE 8 rgba styling  -- START
 				background:transparent;
@@ -178,7 +178,7 @@
 				}
 
 
-				&[data-ui-core~="size__large"] {
+				&[data-ui-settings~="size__large"] {
 					top    : 2px;
 					left   : 3px;
 					width  : 26px;
@@ -195,7 +195,7 @@
 						left : 3px;
 					}
 				}
-				&[data-ui-core~="size__small"] {
+				&[data-ui-settings~="size__small"] {
 					top    : 2px;
 					left   : 3px;
 					width  : 21px;
@@ -221,23 +221,23 @@
 // ** mode__check ** CSS -- START
 [class^="toggler_"] {}
 	[class^="toggler-input_"] {
-		&[data-ui-core~="mode__check"],&[data-ui-core~="mode__button"] {
-			&[data-ui-core~="size__large"] {
+		&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"] {
+			&[data-ui-settings~="size__large"] {
 				height : 30px;
 			}
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				height : 25px;
 			}
 		}
 	}
 	[class^="toggler-toggle_"] {
-		&[data-ui-core~="mode__check"],&[data-ui-core~="mode__button"] {
-			&[data-ui-core~="size__large"] {
+		&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"] {
+			&[data-ui-settings~="size__large"] {
 				height : 30px;
 				width  : 30px;
 				@include prefix(border-radius, 3px);
 			}
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				height : 25px;
 				width  : 25px;
 				@include prefix(border-radius, 3px);
@@ -246,7 +246,7 @@
 	}
 
 		[class^="toggler-toggle-indicator_"] {
-			&[data-ui-core~="mode__check"],&[data-ui-core~="mode__button"] {
+			&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"] {
 				display    : table;
 				&:before {
 					position       : relative;
@@ -257,7 +257,7 @@
 					font-family    : "hbs-modern";
 				}
 
-				&[data-ui-core~="size__large"] {
+				&[data-ui-settings~="size__large"] {
 					top    : 0px;
 					left   : 0px;
 					width  : 100%;
@@ -267,7 +267,7 @@
 						font-size : 11px;
 					}
 				}
-				&[data-ui-core~="size__small"] {
+				&[data-ui-settings~="size__small"] {
 					top    : 0px;
 					left   : 0px;
 					width  : 100%;
@@ -278,7 +278,7 @@
 					}
 				}
 			}
-			&[data-ui-core~="mode__button"] {
+			&[data-ui-settings~="mode__button"] {
 				&:before {
 					content        : " ";
 					font-family    : "hbs-modern";
@@ -293,23 +293,23 @@
 // ** mode__radio ** CSS -- START
 [class^="toggler_"] {}
 	[class^="toggler-input"] {
-		&[data-ui-core~="mode__radio"] {
-			&[data-ui-core~="size__large"] {
+		&[data-ui-settings~="mode__radio"] {
+			&[data-ui-settings~="size__large"] {
 				height : 30px;
 			}
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				height : 25px;
 			}
 		}
 	}
 	[class^="toggler-toggle_"] {
-		&[data-ui-core~="mode__radio"] {
-			&[data-ui-core~="size__large"] {
+		&[data-ui-settings~="mode__radio"] {
+			&[data-ui-settings~="size__large"] {
 				height : 30px;
 				width  : 30px;
 				@include prefix(border-radius, 30px);
 			}
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				height : 25px;
 				width  : 25px;
 				@include prefix(border-radius, 30px);
@@ -317,7 +317,7 @@
 		}
 	}
 		[class^="toggler-toggle-indicator_"] {
-			&[data-ui-core~="mode__radio"] {
+			&[data-ui-settings~="mode__radio"] {
 				display    : table;
 				&:before {
 					position       : relative;
@@ -328,7 +328,7 @@
 					font-family    : "hbs-modern";
 				}
 
-				&[data-ui-core~="size__large"] {
+				&[data-ui-settings~="size__large"] {
 					top    : -1px;
 					left   : 0px;
 					width  : 100%;
@@ -338,7 +338,7 @@
 						font-size : 15px;
 					}
 				}
-				&[data-ui-core~="size__small"] {
+				&[data-ui-settings~="size__small"] {
 					top    : 0px;
 					left   : 0px;
 					width  : 100%;
@@ -356,15 +356,15 @@
 
 
 // ** mode__segmentcontrol ** CSS -- START
-[class^="toggler_"][data-ui-core~="mode__segmentcontrol"] {
-	&[data-ui-core~="size__small"] {
+[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"] {
+	&[data-ui-settings~="size__small"] {
 		padding : 0px 0.03rem;
 	}
-	&[data-ui-core~="size__large"] {
+	&[data-ui-settings~="size__large"] {
 		padding : 0px 0.05rem;
 	}
 }
-div[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-child(1) {
+div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 	[class^="toggler-toggle_"] {
 		margin-left : 2px;
 		
@@ -377,7 +377,7 @@ div[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-child(1) {
 		border-bottom-left-radius         : 3px;
 	}
 }
-[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-last-child(1) {
+[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-last-child(1) {
 	[class^="toggler-toggle_"] {
 		-webkit-border-top-right-radius    : 3px;
 		-moz-border-radius-topright        : 3px;
@@ -390,9 +390,9 @@ div[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-child(1) {
 }
 
 	[class^="toggler-toggle_"] {
-		&[data-ui-core~="mode__segmentcontrol"] {
+		&[data-ui-settings~="mode__segmentcontrol"] {
 			margin-left : 2px;
-			&[data-ui-core~="size__large"] {
+			&[data-ui-settings~="size__large"] {
 				height      : auto;
 				width       : 99%;
 				padding     : 7px 14px 6px 14px;
@@ -403,7 +403,7 @@ div[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-child(1) {
 				text-align  : center;
 				@include prefix(border-radius, 0px);
 			}
-			&[data-ui-core~="size__small"] {
+			&[data-ui-settings~="size__small"] {
 				height      : auto;
 				width       : 99%;
 				padding     : 4px 12px 4px 12px;
@@ -433,7 +433,7 @@ div[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-child(1) {
 		}
 	}
 		[class^="toggler-toggle-indicator_"] {
-			&[data-ui-core~="mode__segmentcontrol"] {
+			&[data-ui-settings~="mode__segmentcontrol"] {
 				position   : relative;
 				display    : inline-block;
                 @include prefix(text-stroke-width, 0.15px);
@@ -441,14 +441,14 @@ div[class^="toggler_"][data-ui-core~="mode__segmentcontrol"]:nth-child(1) {
 				&[data-ui-state~="is__checked"] {}
 				&[data-ui-state~="is__disabled"] {}
 
-				&[data-ui-core~="size__large"] {
+				&[data-ui-settings~="size__large"] {
 					top    : 0px;
 					left   : 0px;
 					width  : 100%;
 					height : 100%;
 					@include prefix(border-radius, 30px);
 				}
-				&[data-ui-core~="size__small"] {
+				&[data-ui-settings~="size__small"] {
 					top       : 0px;
 					left      : 0px;
 					width     : 100%;

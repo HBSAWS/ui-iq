@@ -21,7 +21,7 @@ var UI_DOM = {
 		}
 		return camelCaseName;
 	},
-	removeAttributeValue : function( el,attributeName,attributeValue ) {
+	removeDataValue : function( el,attributeName,attributeValues ) {
 		var __self,camelCaseName,attributeNameArray,index,newAttributeValue;
 		__self = this;
 		// format the attribute name for javascript
@@ -29,47 +29,35 @@ var UI_DOM = {
 		// checking to see if element actually has the attribute before attempting to manipulate it
 		if ( el.dataset[camelCaseName] !== null ) {
 			attributeNameArray = el.dataset[camelCaseName].split(" ");
+			compiledValues     = __self.__compileValues( "remove", attributeNameArray, attributeValues );
 
-			if ( attributeNameArray.indexOf( attributeValue ) > -1 ) {
-				// the value is present we can remove it
-				index = attributeNameArray.indexOf( attributeValue );
-				attributeNameArray.splice( index, 1 );
-
-				// the attribute has been remove, we join the array and add it back to our DOM element
-				newAttributeValue = attributeNameArray.join(" ");
-				el.setAttribute( attributeName, newAttributeValue );
-			} else {
-				// the value doesn't exist on the item, we do nothing
-				return;
-			}
+			// the attribute has been added, we join the array and add it back to our DOM element
+			newAttributeValue = compiledValues.join(" ");
+			el.setAttribute( attributeName, newAttributeValue );
 		} else {
 			// if the element doesn't have the attribute we do nothing as there is nothing to remove
 			return;
 		}
 	},
-	addAttributeValue : function( el,attributeName,attributeValue ) {
-		var __self,camelCaseName,attributeNameArray,index,newAttributeValue;
+	addDataValue : function( el,attributeName,attributeValues ) {
+		var __self,camelCaseName,attributeNameArray,compiledValues,newAttributeValue;
 		__self = this;
 		// format the attribute name for javascript
 		camelCaseName = __self.__formatToCamelCase(attributeName);
 		if ( el.dataset[camelCaseName] !== null && el.dataset[camelCaseName].length > 0 ) {
+			// if there is an existing data attribute, and that value's length is greater than zero
+			// by splitting it, even if there is no space, the attributeNameArray will always be an array
 			attributeNameArray = el.dataset[camelCaseName].split(" ");
+			compiledValues     = __self.__compileValues( "add", attributeNameArray, attributeValues );
 
-			if ( attributeNameArray.indexOf( attributeValue ) > -1 ) {
-				// value already exists in data attribute, so we do nothing
-				return;
-			} else {
-				attributeNameArray.push( attributeValue );
-
-				// the attribute has been added, we join the array and add it back to our DOM element
-				newAttributeValue = attributeNameArray.join(" ");
-				el.setAttribute( attributeName, newAttributeValue );
-			}
+			// the attribute has been added, we join the array and add it back to our DOM element
+			newAttributeValue = compiledValues.join(" ");
 		} else {
-			el.setAttribute( attributeName, attributeValue );
+			newAttributeValue = attributeValue;
 		}
+		el.setAttribute( attributeName, newAttributeValue );
 	},
-	hasAttributeValue : function( el,attributeName,attributeValue ) {
+	hasDataValue : function( el,attributeName,attributeValue ) {
 		var __self,hasValue,camelCaseName,attributeNameArray;
 		__self   = this;
 		hasValue = false;
@@ -82,17 +70,45 @@ var UI_DOM = {
 		}
 		return hasValue;
 	},
-	toggleAttributeValue : function( el,attributeName,attributeValue ) {
-		var __self,camelCaseName,attributeNameArray,index,newAttributeValue;
-		__self = this;
-		// format the attribute name for javascript
-		camelCaseName = __self.__formatJSName(attributeName);
+	toggleDataValue : function( el,attributeName,attributeValue ) {
+		var __self = this;
 
-		if ( __self.hasAttributeValue( el,attributeName,attributeValue ) ) {
-			__self.removeAttributeValue( el,attributeName,attributeValue );
+		if ( __self.hasDataValue( el,attributeName,attributeValue ) ) {
+			__self.removeDataValue( el,attributeName,attributeValue );
 		} else {
-			__self.addAttributeValue( el,attributeName,attributeValue );
+			__self.addDataValue( el,attributeName,attributeValue );
+		}
+	},
+	__compileValues : function( compileType, activeValues, newValues ) {
+		var __self,compiledValues,evaluateValues; 
+		__self         = this;
+		compiledValues = activeValues;
+
+		evaluateValues = function( toEvaluate ) {
+			var hasValue = ( activeValues.indexOf( toEvaluate ) > -1 ) ? true : false;
+
+			if ( !hasValue && compileType === "add") {
+				// the active array doesn't have the value, and we're in add mode
+				// so we add it to our compiledValues array
+				compiledValues.push( toEvaluate);
+			} else if ( hasValue && compileType === "remove" ) {
+				// the array of activeValues does contain the value, and we're in remove mode
+				// so we remove it from our compiledValues array
+				var index = compiledValues.indexOf( toEvaluate );
+				compiledValues.splice( index, 1 );
+			}			
 		}
 
+		if ( newValues instanceof Array ) {
+			for ( var newValue = 0, len = newValues.length; newValue < len; newValue++ ) {
+				var currentValue,hasValue; 
+				currentValue = newValues[newValue];
+				evaluateValues( currentValue );
+			}
+		} else {
+			// newValues is not an array, just a single item
+			evaluateValues( newValues );
+		}	
+		return compiledValues;
 	}
 };
