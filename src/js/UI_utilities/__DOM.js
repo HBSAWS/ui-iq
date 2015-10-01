@@ -53,7 +53,7 @@ var UI_DOM = {
 			// the attribute has been added, we join the array and add it back to our DOM element
 			newAttributeValue = compiledValues.join(" ");
 		} else {
-			newAttributeValue = attributeValue;
+			newAttributeValue = ( attributeValues instanceof Array ) ? attributeValues.join(" ") : attributeValues;
 		}
 		el.setAttribute( attributeName, newAttributeValue );
 	},
@@ -77,6 +77,60 @@ var UI_DOM = {
 			__self.removeDataValue( el,attributeName,attributeValue );
 		} else {
 			__self.addDataValue( el,attributeName,attributeValue );
+		}
+	},
+	removeClass : function( el,classNames ) {
+		var __self;
+		__self           = this;
+		activeClassNames = el.className;
+
+		if ( activeClassNames.length > 0 ) {
+			// if the length of the element's className is greater than zero there are classes present
+			classNameArray = activeClassNames.split(" ");
+			compiledValues = __self.__compileValues( "remove", classNameArray, classNames );
+
+			newClassValue  = compiledValues.join(" ");
+			el.className   = newClassValue; 
+		} else {
+			// if the length of the element's className isn't greater than zero it means it has no classes and there is nothing to remove
+			return;
+		}
+	},
+	addClass : function( el,classNames ) {
+		var __self,activeClassNames,classNameArray,compiledValues,newClassValue;
+		__self           = this;
+		activeClassNames = el.className;
+
+		if ( activeClassNames.length > 0 ) {
+			// if the length is greater than zero, it means there are already classes added
+			classNameArray = activeClassNames.split(" ");
+			compiledValues = __self.__compileValues( "add", classNameArray, classNames );
+
+			newClassValue  = compiledValues.join(" ");
+		} else {
+			// if the className value isn't greater than zero, it means there are no values assigned to it yet and we can simply add our value(s)
+			newClassValue = ( classNames instanceof Array ) ? classNames.join(" ") : classNames;
+		}
+		el.className = newClassValue;
+	},
+	hasClass : function( el,className ) {
+		var __self,hasClass,classNameArray;
+		__self         = this;
+		hasClass       = false;
+		classNameArray = el.className.split(" ");
+
+		if ( classNameArray.indexOf( className ) > -1 ) {
+			hasClass = true;
+		}
+		return hasClass;
+	},
+	toggleClass : function( el,className ) {
+		var __self = this;
+
+		if ( __self.hasClass( el,className ) ) {
+			__self.removeClass( el,className );
+		} else {
+			__self.addClass( el,className );
 		}
 	},
 	__compileValues : function( compileType, activeValues, newValues ) {
