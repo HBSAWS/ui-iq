@@ -44,18 +44,27 @@
 		&[data-ui-settings~="offCanvas__left"] {
 			left  : 0px;
 		}
-		&[data-ui-settings*="offCanvas_"] {
+		&[data-ui-settings~="offCanvas__fixed"] {
+			z-index : 2;
+
+			@include gridle(12, mobile);
+			@include gridle_state( phablet ) {
+				width : 350px;
+			}
+		}
+		&[data-ui-settings~="offCanvas__responsive"] {
 			z-index : 2;
 			@include gridle(12, mobile);
-			@include gridle(8, phablet);
-			@include gridle(5, tablet);
+			@include gridle(9, phablet);
+			@include gridle(6, tablet);
+			@include gridle(5, laptop);
 			@include gridle(4, desktop);
 
 			@include gridle_state( laptop ) {
-				max-width : 400px; 
+				max-width : 450px; 
 			}
 			@include gridle_state( desktop ) {
-				max-width : auto; 
+				max-width : none; 
 			}
 		}
 
