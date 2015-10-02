@@ -15,15 +15,14 @@ function UI_sticky( DOMelement, settings ) {
 	__self.onActivateSticky   = ( settings.onActivateSticky === undefined ) ? undefined : settings.onActivateSticky;
 	__self.onDeactivateSticky = ( settings.onDeactivateSticky === undefined ) ? undefined : settings.onDeactivateSticky;
 
-	testing = this;
-
 	__self.initialize_module();
 };
 
 UI_sticky.prototype.initialize_module = function() {
-	var __self = this;
-	var stickyEl                  = __self.stickyEl;
-	var stickyEl__sibling         = __self.siblingEl;
+	var __self,stickyEl,stickyEl__sibling;
+	__self            = this;
+	stickyEl          = __self.stickyEl;
+	stickyEl__sibling = __self.siblingEl;
 	
 	__self.scrollingEl.addEventListener('scroll', function() {
 		var distanceScrolled = __self.scrollingEl.scrollTop;
@@ -31,7 +30,7 @@ UI_sticky.prototype.initialize_module = function() {
 		if ( distanceScrolled > __self.distanceToStick ) {
 			stickyEl.style.position = "fixed";
 			stickyEl.style.width    = __self.widthEl.getBoundingClientRect().width + "px";
-			stickyEl.setAttribute('data-ui-state', "is__stuck");
+			UI.DOM.addDataValue( stickyEl, "data-ui-state", "is__stuck");
 
 			if ( __self.onActivateSticky !== undefined ) {
 				__self.onActivateSticky();
@@ -39,7 +38,7 @@ UI_sticky.prototype.initialize_module = function() {
 		} else {
 			stickyEl.style.position = __self.stickyPosition;
 			stickyEl.style.width    = "100%";
-			stickyEl.setAttribute("data-ui-state", "");
+			UI.DOM.removeDataValue( stickyEl, 'data-ui-state', "is__stuck" );
 
 			if ( __self.onDeactivateSticky !== undefined ) {
 				__self.onDeactivateSticky();
@@ -47,6 +46,6 @@ UI_sticky.prototype.initialize_module = function() {
 		}
 	});
 	window.addEventListener('resize', function() {
-		stickyEl.style.width    = __self.widthEl.getBoundingClientRect().width + "px";
+		stickyEl.style.width = __self.widthEl.getBoundingClientRect().width + "px";
 	});
 };

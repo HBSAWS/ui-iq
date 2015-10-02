@@ -24,8 +24,8 @@
             </div>
         </div>
         <nav class="nav__global">
-            <div class="cuboid__global" data-js-target="init__appSuite-cuboid">
-                <div data-ui-state="show__back" class="cuboid-faces__global">
+            <div class="cuboid__global" data-js="cuboid__initAppSuite">
+                <div class="cuboid-faces__global" data-ui-state="show__back" data-js="cuboid__updateSide">
                     <div class="cuboid-faces-front__global">
                         <div class="fader_"></div>
                         <div class="nav-branding__global">
@@ -34,7 +34,7 @@
                             <div class="nav-branding-title__global">Harvard | Business | School</div>
                         </div>
                         <div style="text-align:right;" class="nav-control__global">
-                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js-handler="show__appSuite-apps-panel show__appSuite-apps-cuboid">
+                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js="cuboid__showAppSuiteApps">
                                 <div class="button-icon__transparent" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="th" style="font-size:1rem;"></div>
                                 <p data-ui-settings="size__large" data-ui-addon="icon__left icon__right" class="button-content__transparent"></p>
                             </button>
@@ -49,7 +49,7 @@
                     <div class="cuboid-faces-top__global">
                         <div class="fader_"></div>
                         <div style="text-align:left;" class="nav-control__global">
-                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js-handler="show__appSuite-app-panel show__appSuite-app-cuboid">
+                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js="cuboid__showAppSuiteApp">
                                 <div class="button-icon__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
                                 <div class="button-content__light" data-ui-settings="size__large">back</div>
                             </button>
@@ -70,8 +70,8 @@
 
                     <div class="fader_dark"></div>
                     <nav class="nav__app">
-                        <div class="cuboid__app" data-js="init__appCuboid">
-                            <div data-ui-state="show__back" class="cuboid-faces__app">
+                        <div class="cuboid__app" data-js="cuboid__initApp">
+                            <div class="cuboid-faces__app" data-ui-state="show__back" data-js="cuboid__updateSide">
                                 <div class="cuboid-faces-front__app">
                                     <div class="nav-branding__app">
                                         <div class="nav-branding-icon__app">&#xe84c</div>
@@ -101,7 +101,7 @@
                     </nav>
                     <div class="layout__dark" data-ui-settings="mode__full" data-ui-grid="mobile_12" style="-webkit-perspective:1000;">
                         <div class="notification_"></div>
-                        <div class="modal_" data-ui-state="animate__in move__top" data-js-target="modal__iframe">
+                        <div class="modal_" data-ui-state="animate__in move__top" data-js="modal__iframe">
                             <div class="modal-window_" data-ui-state="animate__in scale__down rotate__bottom">
                                 <div class="modal-window-content_">
                                     <div class="fader_light"></div>
@@ -111,7 +111,7 @@
                                         </button>
                                     </div>
                                     <button class="modal-window-content-submit_">Update HUVER</button>
-                                    <iframe data-js-target="iframePDM" src="https://secure-stage.hbs.edu/pdm/sis/mba/btStuDtl/edit?prsnId=690993" style="width: 840px;
+                                    <iframe data-js="iframePDM" src="https://secure-stage.hbs.edu/pdm/sis/mba/btStuDtl/edit?prsnId=690993" style="width: 840px;
                                     height: 617px;
                                     margin-left: -13px;
                                     position: relative;
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="offCanvasPanel__dark" data-ui-settings="side__left" data-ui-state="animate__off move__left" data-js="fileOverview"></div>
-                        <div class="offCanvasPanel__dark" data-ui-settings="side__right" data-ui-state="animate__off move__right" data-js-target="offCanvasPanel__fileSettings"> <!-- offCanvasPanel  START -->
+                        <div class="offCanvasPanel__dark" data-ui-settings="side__right" data-ui-state="animate__off move__right" data-js="offCanvasPanel__fileSettings"> <!-- offCanvasPanel  START -->
                             
                             <div class="header__outline" data-ui-settings="inset__thick">
                                 <div class="header-row_" data-ui-settings="content__multiple">
@@ -135,38 +135,38 @@
                                 </div>
                                 <div class="layout_" data-ui-settings="padding__top-xs">
                                     <div id="file_options" data-ui-settings="mode__segmentcontrol size__small" data-ui-grid="mobile__4" class="toggler__inverted">
-                                        <input data-js-target="show__fileSummary-settings-panel" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="file-summary__settings-toggle" value="settings" class="toggler-input__inverted" checked="">
+                                        <input data-js="show__fileSummary-settings-panel" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="file-summary__settings-toggle" value="settings" class="toggler-input__inverted" checked="">
                                         <div data-ui-settings="mode__segmentcontrol size__small" class="toggler-toggle__inverted">
                                             <div data-ui-settings="mode__segmentcontrol size__small" class="toggler-toggle-indicator__inverted">File Records</div>
                                         </div>
                                     </div>
                                     <div id="file_options" data-ui-settings="mode__segmentcontrol size__small" data-ui-grid="mobile__4" class="toggler__inverted">
-                                        <input data-js-target="show__fileSummary-stats-panel" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="file-summary__settings-toggle" value="stats" class="toggler-input__inverted">
+                                        <input data-js="show__fileSummary-stats-panel" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="file-summary__settings-toggle" value="stats" class="toggler-input__inverted">
                                         <div data-ui-settings="mode__segmentcontrol size__small" class="toggler-toggle__inverted">
                                             <div data-ui-settings="mode__segmentcontrol size__small" class="toggler-toggle-indicator__inverted">File Stats</div>
                                         </div>
                                     </div>
                                     <div id="file_options" data-ui-settings="mode__segmentcontrol size__small" data-ui-grid="mobile__4" class="toggler__inverted">
-                                        <input data-js-target="show__fileSummary-stats-panel" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="file-summary__settings-toggle" value="stats" class="toggler-input__inverted">
+                                        <input data-js="show__fileSummary-stats-panel" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="file-summary__settings-toggle" value="stats" class="toggler-input__inverted">
                                         <div data-ui-settings="mode__segmentcontrol size__small" class="toggler-toggle__inverted">
                                             <div data-ui-settings="mode__segmentcontrol size__small" class="toggler-toggle-indicator__inverted">Send File</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panels_" data-js-target="panels__fileSummary">
+                            <div class="panels_" data-js="panels__fileSummary">
                                 <div id="panel__fileSummary-settings" class="panels-panel_" data-ui-settings="mode__flush size__12 position__0" data-ui-state="is__active" style="padding: 12px 10px 0px 10px;font-size:0px;">
                                     <div class="panels-panel-content__default">
                                         <div class="panels-panel-content-fader"></div>
                                         <div data-ui-settings="padding__mobile-horizontal-sm padding__mobile-top-md" class="layout">
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__programs-toggle" value="doctoral" class="toggler-input__inverted" checked="">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__programs-toggle" value="doctoral" class="toggler-input__inverted" checked="">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">Doctoral</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__programs-toggle" value="MBA" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__programs-toggle" value="MBA" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">MBA</div>
                                                 </div>
@@ -174,13 +174,13 @@
                                         </div>
                                         <div data-ui-settings="padding__mobile-horizontal-sm padding__mobile-top-md" class="layout">
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__department-toggle" value="admit" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__department-toggle" value="admit" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">Admit</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__department-toggle" value="bio" class="toggler-input__inverted" checked="">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__department-toggle" value="bio" class="toggler-input__inverted" checked="">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">Bio</div>
                                                 </div>
@@ -188,13 +188,13 @@
                                         </div>
                                         <div data-ui-settings="padding__mobile-horizontal-sm padding__mobile-top-md" class="layout">
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__semester-toggle" value="fall" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__semester-toggle" value="fall" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">Fall</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__semester-toggle" value="spring" class="toggler-input__inverted" checked="">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__semester-toggle" value="spring" class="toggler-input__inverted" checked="">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">Spring</div>
                                                 </div>
@@ -202,37 +202,37 @@
                                         </div>
                                         <div data-ui-settings="padding__mobile-horizontal-sm padding__mobile-top-md" class="layout">
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="fall" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="fall" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">prev</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2015" class="toggler-input__inverted" checked="">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2015" class="toggler-input__inverted" checked="">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">'15</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2016" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2016" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">'16</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2017" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2017" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">'17</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2018" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2018" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">'18</div>
                                                 </div>
                                             </div>
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2" class="toggler__inverted">
-                                                <input data-js-target="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2019" class="toggler-input__inverted">
+                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__year-toggle" value="2019" class="toggler-input__inverted">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">'19</div>
                                                 </div>
@@ -306,7 +306,7 @@
 
 
 
-                        <div class="layout__default" data-ui-settings="mode__full" data-ui-state="animate__off scale__down-lg fade__out" data-ui-grid="mobile__12" data-js-target="app__mainCanvas">
+                        <div class="layout__default" data-ui-settings="mode__full" data-ui-state="animate__off scale__down-lg fade__out" data-ui-grid="mobile__12" data-js="app__mainCanvas">
                             <div class="fader_default"></div>
 
                             <div class="deck__default" data-ui-settings="dimensions__parent" data-js="appHuver">
@@ -317,13 +317,13 @@
                                             <div class="header-row_" data-ui-settings="content__multiple">
                                                 <div class="header-title_">Records</div>
                                                 <div data-ui-settings="float__right">
-                                                    <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__checked" data-js-target="tooltip__error">
+                                                    <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__checked" data-js="tooltip__error">
                                                         <input data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked class="toggler-input__bold" data-js-handler="recordsTable__filter">
                                                         <div data-ui-settings="mode__button size__large" data-ui-state="is__checked" class="toggler-toggle__bold">
                                                             <div data-ui-settings="mode__button size__large" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
                                                     </div>
-                                                    <div data-ui-settings="mode__button size__large" data-js-target="init_toggler" class="toggler__bold">
+                                                    <div data-ui-settings="mode__button size__large" data-js="init_toggler" class="toggler__bold">
                                                         <input data-ui-settings="mode__button size__large" type="checkbox" class="toggler-input__bold">
                                                         <div data-ui-settings="mode__button size__large" class="toggler-toggle__bold">
                                                             <div data-ui-settings="mode__button size__large" data-ui-icon="file_exclusion" class="toggler-toggle-indicator__bold"></div>
@@ -342,7 +342,7 @@
                                             </div>
                                         </div>
                                         <div class="layout_" data-js="records__offsetSticky">
-                                            <table id="recordsTable" data-ui-settings="size__large" data-js-target="recordsTable" class="table_">
+                                            <table id="recordsTable" data-ui-settings="size__large" data-js="recordsTable" class="table_">
                                                 <thead data-ui-settings="size__large" class="table-head_">
                                                     <tr data-ui-settings="size__large" class="table-head-row_">
                                                         <th data-ui-settings="size__large" data-js-handler="recordsTable__sort" data-sort="is__firstName" class="table-head-row-header_">First Name</th>
@@ -400,7 +400,7 @@
                                                         <div class="button-icon__primary-inverted" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
                                                         <div class="button-content__primary-inverted" data-ui-settings="size__large">records</div>
                                                     </button>
-                                                    <div class="header-title_" data-js-target="recordName">Record Details</div>
+                                                    <div class="header-title_" data-js="recordName">Record Details</div>
 
                                                     <div data-ui-settings="mode__check size__small padding__left-xs" class="toggler__bold">
                                                         <input data-ui-settings="mode__check size__small" data-js="excludeToggle" type="checkbox" value="is__exclusion" class="toggler-input__bold">
@@ -410,7 +410,7 @@
                                                         <label class="toggler-label__bold">exclude</label>
                                                     </div>
                                                 </div>
-                                                <div class="toggler_bold" data-ui-settings="mode__button size__large" data-ui-state="is__hidden-desktop" data-js-target="tooltip__error">
+                                                <div class="toggler_bold" data-ui-settings="mode__button size__large" data-ui-state="is__hidden-desktop" data-js="tooltip__error">
                                                     <input data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input__bold" data-js-handler="detailsTable__filter">
                                                     <div data-ui-settings="mode__button size__large" data-ui-state="is__checked" class="toggler-toggle__bold">
                                                         <div data-ui-settings="mode__button size__large" data-ui-state="is__checked" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
@@ -442,7 +442,7 @@
                                             </div>
                                         </div>
                                         <div class="layout" data-js="details__offsetSticky">
-                                            <table id="detailsTable" data-ui-settings="size__large" data-js-target="detailsTable" class="table_">
+                                            <table id="detailsTable" data-ui-settings="size__large" data-js="detailsTable" class="table_">
                                                 <thead data-ui-settings="size__large" class="table-head_">
                                                     <tr data-ui-settings="size__large" data-field="academicPlan" class="table-head-row">
                                                         <th data-ui-settings="size__large" data-ui-state="is__sortable" data-sort="is__field" data-js-handler="detailsTable__sort" class="table-head-row-header_">Field</th>
@@ -450,7 +450,7 @@
                                                         <th data-ui-settings="size__large" class="table-head-row-header_">Content</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody data-ui-settings="size__large" data-js-target="updateRecord" class="table-body_">
+                                                <tbody data-ui-settings="size__large" data-js="updateRecord" class="table-body_">
                                                     <tr data-ui-settings="size__large" data-js-handler="show__iframe" class="table-body-row_">
                                                         <td data-ui-settings="size__large" class="table-body-row-cell_ is__field"><span class="huid" style="display:none;"></span>Address 1</td>
                                                         <td data-ui-settings="size__large" class="table-body-row-cell_ is__error"></td>

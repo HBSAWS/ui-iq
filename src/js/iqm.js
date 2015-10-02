@@ -67,19 +67,20 @@
 	// UI module objects
 	var cuboids = {
 		appSuite : {
-			UI       : null,
-			$el      : $("[data-js-target~='init__appSuite-cuboid']"),
-			settings : [
-
-			],
-			init     : function() {
-				UI.cuboid( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
-
-				$("[data-js-handler~='show__appSuite-apps-cuboid']").click(this.show__appsCuboid.bind(this));
-				$("[data-js-handler~='show__appSuite-app-cuboid']").click(this.show__appCuboid.bind(this));
+			el       : document.querySelector("[data-js~='cuboid__initAppSuite']"),
+			settings : {
+				sideToShowOnInit : "back"
 			},
-			show__appsCuboid : function() {
+			UI       : null,
+			init : function() {
+				var __self,__cuboid; 
+				__self    = this;
+				__self.UI = __cuboid = UI.cuboid( __self.el,__self.settings );
+
+				document.querySelector("[data-js~='cuboid__showAppSuiteApps']").addEventListener( 'click', __self.show__appSuiteApps.bind(this) );
+				document.querySelector("[data-js~='cuboid__showAppSuiteApp']").addEventListener( 'click', __self.show__appSuiteApp.bind(this) );
+			},
+			show__appSuiteApps : function() {
 				var apps,app;
 				apps = document.querySelector("[data-js~='appSuite__apps']");
 				app  = document.querySelector("[data-js~='appSuite__app']");
@@ -90,7 +91,7 @@
 				});
 				this.UI.show("top");
 			},
-			show__appCuboid : function() {
+			show__appSuiteApp : function() {
 				var apps,app;
 				apps = document.querySelector("[data-js~='appSuite__apps']");
 				app  = document.querySelector("[data-js~='appSuite__app']");
@@ -104,17 +105,15 @@
 			}
 		},
 		app : {
-			UI       : null,
-			$el      : $("[data-js~='init__appCuboid']"),
-			settings : [
-
-			],
-			init     : function() {
-				UI.cuboid( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
-
-				// $("[data-js-handler~='show__appSuite-apps-cuboid']").click(this.show__appsCuboid.bind(this));
-				// $("[data-js-handler~='show__appSuite-app-cuboid']").click(this.show__appCuboid.bind(this));
+			el       : document.querySelector("[data-js~='cuboid__initApp']"),
+			settings : {
+				sideToShowOnInit : "back"
+			},
+			UI   : null,
+			init : function() {
+				var __self,__cuboid;
+				__self    = this;
+				__self.UI = __cuboid = UI.cuboid( __self.el,__self.settings );
 			},
 			show__appsCuboid : function() {
 				this.UI.show("top");
@@ -202,11 +201,11 @@
 			detailsPanel      = __self.detailsPanel;
 
 			
-			recordsTableRow   = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr:not([data-ui-state~='is__selected'])");
-			detailsTableRow   = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])");
+			recordsTableRow   = recordsPanel.querySelector("[data-js~='recordsTable'] tbody tr:not([data-ui-state~='is__selected'])");
+			detailsTableRow   = detailsPanel.querySelector("[data-js~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])");
 
-			activeRecordsTableRow = recordsPanel.querySelector("[data-js-target~='recordsTable'] tbody tr[data-ui-state~='is__highlighted']");
-			activeDetailsTableRow = detailsPanel.querySelector("[data-js-target~='detailsTable'] tbody tr[data-ui-state~='is__highlighted']");
+			activeRecordsTableRow = recordsPanel.querySelector("[data-js~='recordsTable'] tbody tr[data-ui-state~='is__highlighted']");
+			activeDetailsTableRow = detailsPanel.querySelector("[data-js~='detailsTable'] tbody tr[data-ui-state~='is__highlighted']");
 
 			if ( active === "unselected" || active === "detailsPanel" ) {
 				__self.activePanel = "recordsPanel";
@@ -435,8 +434,8 @@
 						// the file summary off canvas panel changes the state of the main canvas depending on whether it's open or close
 						// so we simply want to give a unique state of pushed way back, and to have an opacity of zero
 						// so that when we show the panel and it would normally animate the canvas back in space, this animates it forward
-						document.querySelector("[data-js-target~='app__mainCanvas']").setAttribute("data-ui-state", "animate__off scale__down-lg fade__out");
-						document.querySelector("[data-js-target~='app__mainCanvas']").offsetHeight;
+						document.querySelector("[data-js~='app__mainCanvas']").setAttribute("data-ui-state", "animate__off scale__down-lg fade__out");
+						document.querySelector("[data-js~='app__mainCanvas']").offsetHeight;
 
 						// this moves the splash element up and fades it out
 						splash.style.transform = "translateY(-100px)";
@@ -469,9 +468,9 @@
 
 	var modals = {
 		iframe : {
-			el       : document.querySelector("[data-js-target~='modal__iframe']"),
+			el       : document.querySelector("[data-js~='modal__iframe']"),
 			settings : {
-				mainCanvasElement : document.querySelector("[data-js-target~='app__mainCanvas']")
+				mainCanvasElement : document.querySelector("[data-js~='app__mainCanvas']")
 			},
 			UI : undefined,
 			init : function() {
@@ -494,7 +493,7 @@
 				var pdmId,pdmIframe,dept,newURL;
 
 				fastdom.read(function() {
-					pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
+					pdmIframe = document.querySelector("[data-js~='iframePDM']");
 				});
 
 				if ( userData.role === "MBA") {
@@ -519,12 +518,12 @@
 
 	var offCanvasPanels = {
 		fileSummary : {
-			el : document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']"),
+			el : document.querySelector("[data-js~='offCanvasPanel__fileSettings']"),
 			settings : {
 				showOnInit                : false,
 				onActiveUnfocusMainCanvas : true,
 				closeOnClickOutside       : true,
-				mainCanvasElement         : document.querySelector("[data-js-target~='app__mainCanvas']"),
+				mainCanvasElement         : document.querySelector("[data-js~='app__mainCanvas']"),
 				toggleBtnSelector         : "[data-js~='file-options__toggle']",
 				side                      : "right"
 			},
@@ -537,7 +536,7 @@
 
 				__UI = __self.UI = UI.offCanvasPanel(panel,settings);
 
-				var appCanvas  = document.querySelector("[data-js-target~='app__mainCanvas']");
+				var appCanvas  = document.querySelector("[data-js~='app__mainCanvas']");
 				var hammertime = new Hammer(appCanvas);
 
 				hammertime.on("swipeleft", function() {
@@ -560,7 +559,7 @@
 					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen,resolution__isToHight ;
 
 					dontClose                   = false;
-					fileSumaryOffCanvas         = document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']");
+					fileSumaryOffCanvas         = document.querySelector("[data-js~='offCanvasPanel__fileSettings']");
 
 					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
 					resolution__isToHight       = ( window.innerWidth > 1299 ) ? true : false;
@@ -575,8 +574,8 @@
 					var dontClose,iframeModal,fileSumaryOffCanvas,iframeModal__isOpen,fileSumaryOffCanvas__isOpen,resolution__isToHight;
 
 					dontClose           = false;
-					iframeModal         = document.querySelector("[data-js-target~='modal__iframe']");
-					fileSumaryOffCanvas = document.querySelector("[data-js-target~='offCanvasPanel__fileSettings']");
+					iframeModal         = document.querySelector("[data-js~='modal__iframe']");
+					fileSumaryOffCanvas = document.querySelector("[data-js~='offCanvasPanel__fileSettings']");
 
 					iframeModal__isOpen         = ( iframeModal.dataset.uiState.indexOf('is__showing-modal') > -1 ) ? true : false;
 					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
@@ -651,7 +650,7 @@
 	var panels = {
 		fileSummary : {
 			UI : null,
-			$el : $("[data-js-target~='panels__fileSummary']"),
+			$el : $("[data-js~='panels__fileSummary']"),
 			settings : [
 				{
 					id       : "panel__fileSummary-settings",
@@ -669,12 +668,12 @@
 				}
 			],
 			init     : function() {
-				this.$el = $("[data-js-target~='panels__fileSummary']");
+				this.$el = $("[data-js~='panels__fileSummary']");
 				UI.panels( this.$el, this.settings );
 				this.UI = this.$el.data("UI");
 
-				$("[data-js-target~='show__fileSummary-settings-panel']").click(this.show__settingsPanel.bind(this));
-				$("[data-js-target~='show__fileSummary-stats-panel']").click(this.show__statsPanel.bind(this));
+				$("[data-js~='show__fileSummary-settings-panel']").click(this.show__settingsPanel.bind(this));
+				$("[data-js~='show__fileSummary-stats-panel']").click(this.show__statsPanel.bind(this));
 			},
 			show__settingsPanel : function () {
 				var settingsSettings,statsSettings;
@@ -700,42 +699,9 @@
 			}
 
 		},
-		appSuite : {
-			UI 		 : null,
-			$el      : $("[data-js-target~='panels__appSuite']"),
-			settings : [
-				{
-					id       : "panel__appSuite-apps",
-					mode     : "flush",
-					size     : 12,
-					position : 0,
-					active   : false
-				},
-				{
-					id       : "panel__appSuite-app",
-					mode     : "flush",
-					size     : 12,
-					position : 0,
-					active   : true
-				}
-			],
-			init     : function() {
-				UI.panels( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
-
-				$("[data-js-handler~='show__appSuite-apps-panel']").click(this.show__appsPanel.bind(this));
-				$("[data-js-handler~='show__appSuite-app-panel']").click(this.show__appPanel.bind(this));
-			},
-			show__appsPanel : function() {
-				this.UI.swap("panel__appSuite-app","panel__appSuite-apps",true,"top");
-			},
-			show__appPanel : function() {
-				this.UI.swap("panel__appSuite-apps","panel__appSuite-app",true,"top");
-			}
-		},
 		fileRecords : {
 			UI 		 : null,
-			$el      : $("[data-js-target~='panels__fileRecords']"),
+			$el      : $("[data-js~='panels__fileRecords']"),
 			settings : [
 				{
 					id       : "panel__fileRecords-records",
@@ -950,7 +916,7 @@
 					var pdmId,pdmIframe,newURL;
 
 					fastdom.read(function() {
-						pdmIframe = document.querySelector("[data-js-target~='iframePDM']");
+						pdmIframe = document.querySelector("[data-js~='iframePDM']");
 					});
 
 					pdmId     = recordsData.active;
@@ -992,7 +958,7 @@
 
 				var init = true;
 				// the click event listener for the table rows in the records table
-				document.querySelector("[data-js-target~='recordsTable']").addEventListener('click', function(e) {
+				document.querySelector("[data-js~='recordsTable']").addEventListener('click', function(e) {
 					var targetEl = e.target.parentElement;
 					if ( targetEl.dataset.jsHandler === "load__record" ) {
 						tables.details.openRecord( targetEl );
@@ -1050,9 +1016,9 @@
 
 				tables.records.$el.find("[data-ui-state~='is__selected']").removeAttr("data-ui-state");
 				recordsTableRowEl.setAttribute("data-ui-state","is__selected");
-				detailsTableTitle           = document.querySelector("[data-js-target~='recordName']");
+				detailsTableTitle           = document.querySelector("[data-js~='recordName']");
 				detailsTableTitle.innerHTML = record.firstName + " " + record.lastName;
-				//$("[data-js-target~='recordName']").html(record.firstName + " " + record.lastName);
+				//$("[data-js~='recordName']").html(record.firstName + " " + record.lastName);
 
 				recordsData.active = recordID;
 				init = false;
@@ -1074,7 +1040,7 @@
 			init : function() {
 				var _self,errorFilters__checkbox; 
 				_self = this;
-				errorFilters__checkbox = document.querySelectorAll("[data-js-target~='tooltip__error']");
+				errorFilters__checkbox = document.querySelectorAll("[data-js~='tooltip__error']");
 
 				for (var currentFilter = 0, len = errorFilters__checkbox.length; currentFilter < len; currentFilter++) {
 					_self.settings.target = errorFilters__checkbox[currentFilter];
@@ -1107,7 +1073,7 @@
 			if( !is__mobile ) {
 				var hoverTables;
 
-				hoverTables = [document.querySelector("[data-js-target~='recordsTable']"),document.querySelector("[data-js-target~='detailsTable']")];
+				hoverTables = [document.querySelector("[data-js~='recordsTable']"),document.querySelector("[data-js~='detailsTable']")];
 				for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
 					var currentTable = hoverTables[table];
 					currentTable.addEventListener('mouseover', function(e) {
@@ -1335,13 +1301,11 @@
 			}
 		}
 		recordTableBodyHTML[recRow++] = '</tbody>';
-		//detailTableBodyHTML[detRow++] = '</tbody>';
 		
-		$("[data-js-target~='recordsTable']").append( recordTableBodyHTML.join('') );
-    	//$("[data-js-target~='detailsTable']").append( detailTableBodyHTML.join('') );
+		document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", recordTableBodyHTML.join('') );
 
 		// initializes the responsiveness aspect of the tables
-		$("[data-js-target~='detailsTable']").basictable({
+		$("[data-js~='detailsTable']").basictable({
 			breakpoint : 480
 		});
 

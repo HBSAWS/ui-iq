@@ -1,50 +1,20 @@
-function UI_cuboid(DOMelement,settings) {
-	this.states = {
-		show__front  : true,
-		show__bottom : false,
-		show__back   : false,
-		show__top    : false
-	};
-	_UI.call(this,DOMelement,settings);
+function UI_cuboid( DOMelement,settings ) {
+	var __self = this;
+	__self.rotator    = DOMelement.querySelector("[data-js~='cuboid__updateSide']");
+	__self.activeSide = ( settings.sideToShowOnInit !== undefined ) ? settings.sideToShowOnInit : "front";
 };
 
-UI_cuboid.prototype = Object.create(_UI.prototype);
 UI_cuboid.prototype.initialize_module = function(settings) {
-	var _self = this;
+	var __self = this;
 };
+// side values : front|back|top|bottom
 UI_cuboid.prototype.show = function(side) {
-	switch(side) {
-		case "front":
-			this.updateStates({
-				show__front  : true,
-				show__bottom : false,
-				show__back   : false,
-				show__top    : false				
-			});
-			break;
-		case "bottom":
-			this.updateStates({
-				show__front  : false,
-				show__bottom : true,
-				show__back   : false,
-				show__top    : false				
-			});
-			break;
-		case "back":
-			this.updateStates({
-				show__front  : false,
-				show__bottom : false,
-				show__back   : true,
-				show__top    : false				
-			});
-			break;
-		case "top":
-			this.updateStates({
-				show__front  : false,
-				show__bottom : false,
-				show__back   : false,
-				show__top    : true				
-			});
-			break;
-	}
+	var __self = this;
+	UI.DOM.removeDataValue( __self.rotator, "data-ui-state", "show__" + __self.activeSide );
+	UI.DOM.addDataValue( __self.rotator, "data-ui-state", "show__" + side );
+	__self.activeSide = side;
+};
+UI_cuboid.prototype.activeSide = function() {
+	var __self = this;
+	return __self.activeSide;
 };

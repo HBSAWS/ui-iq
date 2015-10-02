@@ -34,9 +34,7 @@ var UI_DOM = {
 
 			// the attribute has been added, we join the array and add it back to our DOM element
 			newAttributeValue = compiledValues.join(" ");
-			fastdom.write(function() {
-				el.setAttribute( attributeName, newAttributeValue );
-			});
+			el.setAttribute( attributeName, newAttributeValue );
 		} else {
 			// if the element doesn't have the attribute we do nothing as there is nothing to remove
 			return;
@@ -60,9 +58,7 @@ var UI_DOM = {
 		} else {
 			newAttributeValue = ( attributeValues instanceof Array ) ? attributeValues.filter( UI_helpers.arrays.filterUnique ).join(" ") : attributeValues;
 		}
-		fastdom.write(function() {
-			el.setAttribute( attributeName, newAttributeValue );
-		});
+		el.setAttribute( attributeName, newAttributeValue );
 	},
 	hasDataValue : function( el,attributeName,attributeValue ) {
 		var __self,hasValue,camelCaseName,attributeNameArray;
@@ -97,9 +93,7 @@ var UI_DOM = {
 			compiledValues = __self.__compileValues( "remove", classNameArray, classNames );
 
 			newClassValue  = compiledValues.join(" ");
-			fastdom.write(function() {
-				el.className   = newClassValue; 
-			});
+			el.className = newClassValue; 
 		} else {
 			// if the length of the element's className isn't greater than zero it means it has no classes and there is nothing to remove
 			return;
@@ -120,9 +114,7 @@ var UI_DOM = {
 			// if the className value isn't greater than zero, it means there are no values assigned to it yet and we can simply add our value(s)
 			newClassValue = ( classNames instanceof Array ) ? classNames.filter( UI_helpers.arrays.filterUnique ).join(" ") : classNames;
 		}
-		fastdom.write(function() {
-			el.className = newClassValue;
-		});
+		el.className = newClassValue;
 	},
 	hasClass : function( el,className ) {
 		var __self,hasClass,classNameArray;
