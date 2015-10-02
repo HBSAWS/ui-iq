@@ -49,7 +49,7 @@
 
 			@include gridle(12, mobile);
 			@include gridle_state( phablet ) {
-				width : 350px;
+				width : 370px;
 			}
 		}
 		&[data-ui-settings~="offCanvas__responsive"] {
