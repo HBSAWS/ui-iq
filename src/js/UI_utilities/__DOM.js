@@ -27,13 +27,15 @@ var UI_DOM = {
 		// format the attribute name for javascript
 		camelCaseName = __self.__formatToCamelCase(attributeName);
 		// checking to see if element actually has the attribute before attempting to manipulate it
-		if ( el.dataset[camelCaseName] !== null ) {
+		if ( el.dataset[camelCaseName] !== undefined && el.dataset[camelCaseName] !== null ) {
 			attributeNameArray = el.dataset[camelCaseName].split(" ");
 			compiledValues     = __self.__compileValues( "remove", attributeNameArray, attributeValues );
 
 			// the attribute has been added, we join the array and add it back to our DOM element
 			newAttributeValue = compiledValues.join(" ");
-			el.setAttribute( attributeName, newAttributeValue );
+			fastdom.write(function() {
+				el.setAttribute( attributeName, newAttributeValue );
+			});
 		} else {
 			// if the element doesn't have the attribute we do nothing as there is nothing to remove
 			return;
@@ -44,7 +46,7 @@ var UI_DOM = {
 		__self = this;
 		// format the attribute name for javascript
 		camelCaseName = __self.__formatToCamelCase(attributeName);
-		if ( el.dataset[camelCaseName] !== null && el.dataset[camelCaseName].length > 0 ) {
+		if ( el.dataset[camelCaseName] !== undefined && el.dataset[camelCaseName] !== null && el.dataset[camelCaseName].length > 0 ) {
 			// if there is an existing data attribute, and that value's length is greater than zero
 			// by splitting it, even if there is no space, the attributeNameArray will always be an array
 			attributeNameArray = el.dataset[camelCaseName].split(" ");
@@ -53,9 +55,11 @@ var UI_DOM = {
 			// the attribute has been added, we join the array and add it back to our DOM element
 			newAttributeValue = compiledValues.join(" ");
 		} else {
-			newAttributeValue = ( attributeValues instanceof Array ) ? attributeValues.join(" ") : attributeValues;
+			newAttributeValue = ( attributeValues instanceof Array ) ? attributeValues.filter( UI_helpers.arrays.filterUnique ).join(" ") : attributeValues;
 		}
-		el.setAttribute( attributeName, newAttributeValue );
+		fastdom.write(function() {
+			el.setAttribute( attributeName, newAttributeValue );
+		});
 	},
 	hasDataValue : function( el,attributeName,attributeValue ) {
 		var __self,hasValue,camelCaseName,attributeNameArray;
@@ -90,7 +94,9 @@ var UI_DOM = {
 			compiledValues = __self.__compileValues( "remove", classNameArray, classNames );
 
 			newClassValue  = compiledValues.join(" ");
-			el.className   = newClassValue; 
+			fastdom.write(function() {
+				el.className   = newClassValue; 
+			});
 		} else {
 			// if the length of the element's className isn't greater than zero it means it has no classes and there is nothing to remove
 			return;
@@ -109,9 +115,11 @@ var UI_DOM = {
 			newClassValue  = compiledValues.join(" ");
 		} else {
 			// if the className value isn't greater than zero, it means there are no values assigned to it yet and we can simply add our value(s)
-			newClassValue = ( classNames instanceof Array ) ? classNames.join(" ") : classNames;
+			newClassValue = ( classNames instanceof Array ) ? classNames.filter( UI_helpers.arrays.filterUnique ).join(" ") : classNames;
 		}
-		el.className = newClassValue;
+		fastdom.write(function() {
+			el.className = newClassValue;
+		});
 	},
 	hasClass : function( el,className ) {
 		var __self,hasClass,classNameArray;
@@ -155,8 +163,7 @@ var UI_DOM = {
 
 		if ( newValues instanceof Array ) {
 			for ( var newValue = 0, len = newValues.length; newValue < len; newValue++ ) {
-				var currentValue,hasValue; 
-				currentValue = newValues[newValue];
+				var currentValue = newValues[newValue];
 				evaluateValues( currentValue );
 			}
 		} else {
