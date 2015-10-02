@@ -24,6 +24,7 @@ UI = {
 	sticky : function(DOMelement,settings) {
 		return new UI_sticky(DOMelement,settings);
 	},
+	tabs   : UI_tabs.init,
 	table  : function(DOMelement,settings) {
 		return new UI_table(DOMelement,settings);
 	},

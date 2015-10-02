@@ -647,162 +647,6 @@
 
 
 
-	var panels = {
-		fileSummary : {
-			UI : null,
-			$el : $("[data-js~='panels__fileSummary']"),
-			settings : [
-				{
-					id       : "panel__fileSummary-settings",
-					mode     : "flush",
-					size     : 12,
-					position : 0,
-					active   : true
-				},
-				{
-					id       : "panel__fileSummary-stats",
-					mode     : "flush",
-					size     : 12,
-					position : 0,
-					active   : false
-				}
-			],
-			init     : function() {
-				this.$el = $("[data-js~='panels__fileSummary']");
-				UI.panels( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
-
-				$("[data-js~='show__fileSummary-settings-panel']").click(this.show__settingsPanel.bind(this));
-				$("[data-js~='show__fileSummary-stats-panel']").click(this.show__statsPanel.bind(this));
-			},
-			show__settingsPanel : function () {
-				var settingsSettings,statsSettings;
-				settingsSettings = this.settings[0];
-				statsSettings    = this.settings[1];
-
-				settingsSettings.active = true;
-				statsSettings.active    = false;
-
-				this.UI.panel("panel__fileSummary-settings", settingsSettings);
-				this.UI.panel("panel__fileSummary-stats", statsSettings);
-			},
-			show__statsPanel : function () {
-				var settingsSettings,statsSettings;
-				settingsSettings = this.settings[0];
-				statsSettings    = this.settings[1];
-
-				settingsSettings.active = false;
-				statsSettings.active    = true;
-
-				this.UI.panel("panel__fileSummary-settings", settingsSettings);
-				this.UI.panel("panel__fileSummary-stats", statsSettings);
-			}
-
-		},
-		fileRecords : {
-			UI 		 : null,
-			$el      : $("[data-js~='panels__fileRecords']"),
-			settings : [
-				{
-					id       : "panel__fileRecords-records",
-					mode     : "card",
-					size     : 4,
-					position : 0,
-					active   : true
-				},
-				{
-					id       : "panel__fileRecords-record",
-					mode     : "card",
-					size     : 8,
-					position : 4,
-					active   : true
-				}
-			],
-			init      : function() {
-				var _self = this;
-				UI.panels( this.$el, this.settings );
-				_self.UI = this.$el.data("UI");
-				panels.fileRecords.responsive($(window).width());
-				_self.UI.hideNotification("panel__fileRecords-record",false);
-
-				$("[data-js-handler~='load__record']").click(this.swap__RecordsRecord.bind(this));
-				$("[data-js-handler~='swap-panels__record&records']").click(this.swap__RecordRecords.bind(this));
-
-				$("[data-js-handler~='toggle__panelNotification']").on("change", function() {
-					var $this = $(this);
-					if ( $this.is(":checked") ) {
-						//calendar.exclusions.init();
-						_self.UI.showNotification("panel__fileRecords-record",true);
-					} else {
-						_self.UI.hideNotification("panel__fileRecords-record",true);
-					}
-				});
-				$("[data-js-handler~='toggle__exclusion']").on("click", function() {
-					$("[data-js-handler~='toggle__panelNotification']").prop("checked", false).change();
-				});
-			},
-			swap__RecordsRecord : function() {
-				if ( $(window).width() <= 950 ) {
-					this.UI.swap("panel__fileRecords-records","panel__fileRecords-record",true,"right");
-				}
-			},
-			swap__RecordRecords : function() {
-				if ( $(window).width() <= 950 ) {
-					this.UI.swap("panel__fileRecords-record","panel__fileRecords-records",true,"right");
-				}
-			},
-			responsive : function(windowWidth) {
-				var panels, panelRecords__id, panelRecord__id,recordsSettings,recordSettings;
-				panels              = this.UI;
-				panelRecords__id    = "panel__fileRecords-records";
-				recordsSettings     = this.settings[0];
-
-				panelDetails__id    = "panel__fileRecords-record";
-				detailsSettings     = this.settings[1];
-
-
-				if (windowWidth <= 950) {
-
-					recordsSettings.active   = true;
-					recordsSettings.size     = 12;
-					recordsSettings.porition = 0;
-					
-					detailsSettings.active   = false;
-					detailsSettings.size     = 12;
-					detailsSettings.position = 0;
-
-					panels.panel(panelRecords__id, recordsSettings);
-					panels.panel(panelDetails__id, detailsSettings);
-				} else if ( windowWidth > 950 && windowWidth <= 1200 ) {
-					recordsSettings.active   = true;
-					recordsSettings.size     = 5;
-					recordsSettings.porition = 0;
-					
-					detailsSettings.active   = true;
-					detailsSettings.size     = 7;
-					detailsSettings.position = 5;
-
-					panels.panel(panelRecords__id, recordsSettings);
-					panels.panel(panelDetails__id, detailsSettings);
-				} else if ( windowWidth > 1200 ) {
-					recordsSettings.active   = true;
-					recordsSettings.size     = 4;
-					recordsSettings.porition = 0;
-					
-					detailsSettings.active   = true;
-					detailsSettings.size     = 8;
-					detailsSettings.position = 4;
-
-					panels.panel(panelRecords__id, recordsSettings);
-					panels.panel(panelDetails__id, detailsSettings);
-				}
-			}
-		}
-	};
-
-
-
-
 	var sticky = {
 		records : {
 			el : document.querySelector("[data-js~='records__positionSticky']"),
@@ -1105,6 +949,7 @@
 				}
 			}
 
+			UI.tabs();
 			calendar.exclusions.init();
 
 			cuboids.appSuite.init();
@@ -1114,7 +959,7 @@
 
 			modals.iframe.init();
 
-			panels.fileSummary.init();
+			//panels.fileSummary.init();
 
 			offCanvasPanels.fileSummary.init();
 			offCanvasPanels.records.init();
@@ -1134,8 +979,9 @@
 			sticky.records.init();
 			sticky.details.init();
 
-
-			FastClick.attach(document.body);
+			if( is__mobile ) {
+				FastClick.attach(document.body);
+			}
 		}
 	}
 

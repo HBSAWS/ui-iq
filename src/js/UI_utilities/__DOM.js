@@ -61,16 +61,20 @@ var UI_DOM = {
 		el.setAttribute( attributeName, newAttributeValue );
 	},
 	hasDataValue : function( el,attributeName,attributeValue ) {
-		var __self,hasValue,camelCaseName,attributeNameArray;
+		var __self,hasValue,camelCaseName,attributeNameArray,attributeValues;
 		__self   = this;
 		hasValue = false;
 		// format the attribute name for javascript
-		camelCaseName      = __self.__formatToCamelCase(attributeName);
-		attributeNameArray = el.dataset[camelCaseName].split(" ");
+		camelCaseName   = __self.__formatToCamelCase(attributeName);
+		attributeValues = el.dataset[camelCaseName];
 
-		if ( attributeNameArray.indexOf( attributeValue ) > -1 ) {
-			hasValue = true;
+		if ( attributeValues !== undefined && attributeValues !== null ) {
+			attributeNameArray = attributeValues.split(" ");
+			if ( attributeNameArray.indexOf( attributeValue ) > -1 ) {
+				hasValue = true;
+			}
 		}
+
 		return hasValue;
 	},
 	toggleDataValue : function( el,attributeName,attributeValue ) {
@@ -117,13 +121,16 @@ var UI_DOM = {
 		el.className = newClassValue;
 	},
 	hasClass : function( el,className ) {
-		var __self,hasClass,classNameArray;
-		__self         = this;
-		hasClass       = false;
-		classNameArray = el.className.split(" ");
+		var __self,hasClass,classNameArray,classNames;
+		__self     = this;
+		hasClass   = false;
+		classNames = el.className;
+		if ( classNames.length > 0 ) {
+			classNameArray = classNames.split(" ");
 
-		if ( classNameArray.indexOf( className ) > -1 ) {
-			hasClass = true;
+			if ( classNameArray.indexOf( className ) > -1 ) {
+				hasClass = true;
+			}
 		}
 		return hasClass;
 	},
