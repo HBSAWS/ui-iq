@@ -77,13 +77,31 @@ var UI_DOM = {
 
 		return hasValue;
 	},
-	toggleDataValue : function( el,attributeName,attributeValue ) {
-		var __self = this;
+	toggleDataValue : function( el,attributeName,attributeValues ) {
+		var __self,activeAttributeValue,toSort,camelCaseName,activeAttributeValues,toAdd,toRemove; 
+		__self = this;
 
-		if ( __self.hasDataValue( el,attributeName,attributeValue ) ) {
-			__self.removeDataValue( el,attributeName,attributeValue );
+		if ( attributeValues instanceof Array || attributeValues.indexOf(' ') > -1 ) {
+			toSort                = ( attributeValues.indexOf(' ') > -1 ) ? attributeValues.split(" ") : attributeValues;
+			camelCaseName         = __self.__formatToCamelCase(attributeName);
+			activeAttributeValues = el.dataset[camelCaseName];
+
+			if ( activeAttributeValues !== null && activeAttributeValues !== undefined ) {
+				toSort   = __self.__sortValues( activeAttributeValues.split(" "), toSort );
+				toRemove = toSort.toRemove;
+				toAdd    = toSort.toAdd;
+			} else {
+				toRemove = "";
+				toAdd    = attributeValues;
+			}
+			__self.removeDataValue( el,attributeName,toRemove );
+			__self.addDataValue( el,attributeName,toAdd );
 		} else {
-			__self.addDataValue( el,attributeName,attributeValue );
+			if ( __self.hasDataValue( el,attributeName,attributeValues ) ) {
+				__self.removeDataValue( el,attributeName,attributeValues );
+			} else {
+				__self.addDataValue( el,attributeName,attributeValues );
+			}
 		}
 	},
 	removeClass : function( el,classNames ) {
@@ -135,13 +153,50 @@ var UI_DOM = {
 		return hasClass;
 	},
 	toggleClass : function( el,className ) {
-		var __self = this;
+		var __self,toSort,activeClassNames,toRemove,toAdd;
+		__self = this;
 
-		if ( __self.hasClass( el,className ) ) {
-			__self.removeClass( el,className );
+		if ( className instanceof Array || className.indexOf(' ') > -1 ) {
+			toSort           = ( className.indexOf(' ') > -1 ) ? className.split(" ") : className;
+			activeClassNames = el.className;
+
+			if ( activeClassNames !== null && activeClassNames !== undefined ) {
+				toSort   = __self.__sortValues( activeClassNames.split(" "), toSort );
+				toRemove = toSort.toRemove;
+				toAdd    = toSort.toAdd;
+			} else {
+				toRemove = "";
+				toAdd    = className;
+			}
+			__self.removeClass( el,toRemove );
+			__self.addClass( el,toAdd );
 		} else {
-			__self.addClass( el,className );
+			if ( __self.hasClass( el,className ) ) {
+				__self.removeClass( el,className );
+			} else {
+				__self.addClass( el,className );
+			}
 		}
+	},
+	__sortValues : function( activeValues,toSort ) {
+		var __self,toAdd,toRemove;
+		__self   = this;
+		toAdd    = [];
+		toRemove = [];
+		for ( var sortValue = 0,len = toSort.length; sortValue < len; sortValue++ ) {
+			var currentValue,hasValue;
+			currentValue = toSort[ sortValue ];
+			hasValue     = ( activeValues.indexOf( currentValue ) > -1 ) ? true : false;
+
+			if ( hasValue ) {
+				// if it already has the value we add it to the toRemove array
+				toRemove.push( currentValue );
+			} else {
+				// if el doesn't have it we add it to the toAdd array
+				toAdd.push( currentValue );
+			}
+		}
+		return { toAdd : toAdd, toRemove: toRemove };
 	},
 	__compileValues : function( compileType, activeValues, newValues ) {
 		var __self,compiledValues,evaluateValues; 
@@ -163,7 +218,10 @@ var UI_DOM = {
 			}			
 		}
 
-		if ( newValues instanceof Array ) {
+		if ( newValues instanceof Array || newValues.indexOf(' ') > -1 ) {
+			if ( newValues.indexOf(' ') > -1 ) {
+				newValues = newValues.split(' ');
+			}
 			for ( var newValue = 0, len = newValues.length; newValue < len; newValue++ ) {
 				var currentValue = newValues[newValue];
 				evaluateValues( currentValue );

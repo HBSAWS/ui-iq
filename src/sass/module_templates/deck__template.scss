@@ -50,6 +50,13 @@
 			@include gridle(8, phablet);
 			@include gridle(5, tablet);
 			@include gridle(4, desktop);
+
+			@include gridle_state( laptop ) {
+				max-width : 400px; 
+			}
+			@include gridle_state( desktop ) {
+				max-width : auto; 
+			}
 		}
 
 		&[data-ui-state~="is__hidden"] {
