@@ -1304,11 +1304,6 @@
 		
 		document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", recordTableBodyHTML.join('') );
 
-		// initializes the responsiveness aspect of the tables
-		$("[data-js~='detailsTable']").basictable({
-			breakpoint : 480
-		});
-
 
 
         // initializes the popover, panel and cuboid modules

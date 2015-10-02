@@ -1,15 +1,23 @@
 [class^="header_"] {
-	position  : relative;
-	font-size : 1rem;
+	position    : relative;
+	font-size   : 1rem;
 	&[data-ui-settings~="inset__flush"] {
 		padding : 0px;
 	}
 	&[data-ui-settings~="inset__thin"] {
-		
+		padding : 15px 20px;
 	}
 	&[data-ui-settings~="inset__thick"] {
 		padding : 30px 40px;
 	}
+
+	&[data-ui-settings~="rule__bottom"] {
+		border-bottom : 1px solid rgba(255, 255, 255, 0.3);
+	}
+	&[data-ui-settings~="rule__top"] {
+		border-top : 1px solid rgba(255, 255, 255, 0.3);
+	}
+
 
 	&[data-ui-state~="is__stuck"] {
 		&[data-js~="records__positionSticky"] {
@@ -27,11 +35,6 @@
 
 	> * {
 		vertical-align : middle; 
-	}
-
-
-	&[class$="_outline"] {
-		border-bottom : 1px solid rgba(255, 255, 255, 0.3);
 	}
 }
 	[class^="header-row"] {
@@ -59,4 +62,13 @@
 		display     : inline-block;
 		font-size   : 1.6rem;
 		font-weight : 300;
+		> * {
+			vertical-align : middle; 
+		}
+		&[class*="_light"] {
+			color : $color__light;
+		}
+		&[class*="_dark"] {
+			color : #151515;
+		}
 	}

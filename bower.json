@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "anima"      : "https://github.com/lvivski/anima.git",
-    "basictable" : "https://github.com/jerrylow/basictable.git",
     "drop"       : "https://github.com/HubSpot/drop.git",
     "fastclick"  : "https://github.com/ftlabs/fastclick.git",
     "fastDOM"    : "https://github.com/wilsonpage/fastdom.git",

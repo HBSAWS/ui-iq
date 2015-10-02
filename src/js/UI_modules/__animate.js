@@ -25,9 +25,9 @@ var UI_animate = {
 
 		__self.toAnimate.animate({ 
 			height   : "0px",
-			duration : 150,
+			duration : 120,
 			ease     : 'cubic-bezier(.43,0,0,1)',
-			delay    : 150
+			delay    : 140
 		});
 	},
 	expand : function() {
@@ -37,7 +37,7 @@ var UI_animate = {
 
 		__self.toAnimate.animate({ 
 			height   : newHeight + "px",
-			duration : 150,
+			duration : 130,
 			ease     : "cubic-bezier(.43,0,0,1)"
 		})
 		.on('end', function() {

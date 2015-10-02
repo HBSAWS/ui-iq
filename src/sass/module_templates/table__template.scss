@@ -1,138 +1,123 @@
-#page {
-  padding: 50px 100px;
+[class^="table_"][data-ui-settings~="mode__responsive"] {
+	width         : 100%;
+	margin-bottom : 1.5em;
+	* {
+		@include prefix( box-sizing,border-box );
+	 
+		&:before,&:after {
+			@include prefix( box-sizing,border-box );
+		}
+	}
+  
+	thead {
+		// Accessibly hide <thead> on narrow viewports
+		position : absolute;
+		clip     : rect(1px 1px 1px 1px); /* IE6, IE7 */
+		clip     : rect(1px, 1px, 1px, 1px);
+		height   : 1px; 
+		width    : 1px; 
+		padding  : 0;
+		border   : 0;
+		overflow : hidden;
+    
+		@include gridle_state(tablet) {
+			// Unhide <thead> on wide viewports
+			position : relative;
+			clip     : auto;
+			height   : auto;
+			width    : auto;
+			overflow : auto;
+		}
+	}
+  
+	// Set these items to display: block for narrow viewports
+	tbody,tr, th, td {
+		display     : block;
+		white-space : normal;
+	}
+  
+	tr {   
+		@include gridle_state(tablet) {
+			// Undo display: block 
+			display : table-row; 
+		}
+	}
+  
+	th, td {
+		@include gridle_state(tablet) {
+			// Undo display: block 
+			display : table-cell;
+		}
+	}
+  
+	tbody {
+		@include gridle_state(tablet) {
+			// Undo display: block 
+			display : table-row-group; 
+		}
+
+		tr {
+			@include gridle_state(mobile) {
+				padding    : 20px 0px;
+				border-top : 1px solid rgba(0,0,0,0.08);
+			}
+			@include gridle_state(tablet) {
+				// Undo display: block 
+				display      : table-row;
+			}
+
+			&:last-of-type {
+				margin-bottom : 0; 
+			}
+		}
+    
+		th[data-ui-settings~="scope__row"] {
+			background-color : rgba(29,150,178,1);
+			color            : white;
+
+			@include gridle_state(tablet) {
+				text-align       : left;
+			}
+		}
+
+		td {
+			text-align : right;
+
+			@include gridle_state(tablet) {
+				text-align : left; 
+			}
+		}
+
+		td[data-type=currency] {
+			text-align : right; 
+		}
+
+		td[data-table-title]:before {
+			content   : attr(data-table-title);
+			float     : left;
+			font-size : 0.8rem;
+			color 	  : rgba(94,93,82,.75);
+
+			@include gridle_state(tablet) {
+				// Don’t show data-title labels 
+				content : none; 
+			}
+		} 
+	}
 }
 
-@media only screen and (max-width: 568px) {
-  #page {
-    padding: 50px 30px;
-  }
-}
-
-
-@media only screen and (max-width: 568px) {
-  .phone-block {
-    display: block;
-  }
-
-  .phone-hide {
-    display: none;
-  }
-}
-
-
-/* 
- * Example 4:
- * Media query over js resize
- */
-@media only screen and (max-width: 568px) {
-  #table-no-resize thead {
-    display: none;
-  }
-
-  #table-no-resize tbody td {
-    border: none !important;
-    display: block;
-    font-size: .8125rem;
-    padding: 0;
-    vertical-align: top;
-  }
-
-  #table-no-resize tbody td:before {
-    background: #56a2cf;
-    content: attr(data-th) ": ";
-    color: white;
-    display: inline-block;
-    font-weight: bold;
-    margin-right: 10px;
-    padding: 2px 10px;
-    width: 6.5em;
-  }
-
-  #table-no-resize tbody td .bt-content {
-    display: inline-block;
-    padding: 2px 5px;
-  }
-
-  #table-no-resize tbody td:first-of-type:before,
-  #table-no-resize tbody td:first-of-type .bt-content {
-    padding-top: 10px;
-  }
-
-  #table-no-resize tbody td:last-of-type:before,
-  #table-no-resize tbody td:last-of-type .bt-content {
-    padding-bottom: 10px;
-  }
-}
-
-/* 
- * Example 5:
- * Two axis styling
- */
-table.two-axis tr td:first-of-type {
-  background: #cadde1;
-}
-
-@media only screen and (max-width: 568px) {
-  table.two-axis tr td:first-of-type,
-  table.two-axis tr:nth-of-type(2n+2) td:first-of-type,
-  table.two-axis tr td:first-of-type:before {
-    background: #3584b3;
-    color: #ffffff;
-  }
-
-  table.two-axis tr td:first-of-type {
-    border-bottom: 1px solid #e4ebeb;
-  }
-
-  table.two-axis tr td:first-of-type:before {
-    padding-bottom: 10px;
-  }
-}
-
-/* 
- * Example 6:
- * Max height
- */
-.bt-wrapper.active {
-  margin-top: 1.5em;
-}
-.bt-wrapper.active table {
-  margin: 0;
-}
 
 
 
 
-table.bt thead {
-  display: none;
-}
 
-table.bt tbody td {
-  border: none;
-  display: block;
-  vertical-align: top;
-}
 
-table.bt tbody td:before {
-  content: attr(data-th) ": ";
-  font-weight: bold;
-  width: 6.5em;
-  display: inline-block;
-}
 
-table.bt tbody td.bt-hide {
-  display: none;
-}
 
-table.bt tbody td .bt-content {
-  vertical-align: top;
-}
 
-.bt-wrapper.active {
-  max-height: 310px;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
+
+
+
 
 
 
@@ -268,14 +253,6 @@ table.bt tbody td .bt-content {
 			}
 
 		}		
-		// [class^="table-body-row_"]:hover {
-		// 	background  : #4CC1BC;
-		// 	color       : #ffffff;
-		// 	&[class$="_inverted"] {
-		// 		background : transparent;
-		// 		color      : #151515;
-		// 	}
-		// }
 			[class^="table-body-row-header_"] {
 				font-weight : 400;
 				text-align  : left;

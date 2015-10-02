@@ -58,9 +58,6 @@ config = {
 				"anima"      : {
 					"main" : "anima.js"
 				},
-				"basictable" : {
-					"main" : "jquery.basictable.js"
-				},
 				"drop" : {
 					"main" : "dist/js/drop.js"
 				},

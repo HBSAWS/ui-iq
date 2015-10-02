@@ -51,6 +51,9 @@
             &[data-ui-state~="visible__#{$breakpoint}-inlineblock"] {
                 @include gridle_show_inline($breakpoint);
             }
+           &[data-ui-state~="is__visibleInline-#{$breakpoint}"] {
+                @include gridle_show_inline($breakpoint);
+            }
             &[data-ui-state~="visible__#{$breakpoint}-table"] {
                 @include gridle_show_inline($breakpoint);
             }

@@ -15,8 +15,10 @@
 			padding : 0px;
 		}
 		&[data-ui-settings~="mount__thick"] {
-			//padding : 30px 12px 15px 12px;
 			@include gridle_state(mobile) {
+				padding : 0px;
+			}
+			@include gridle_state(phablet) {
 				padding : 30px 12px 30px 12px;
 				&:nth-child(1) {
 					padding : 30px 12px 30px 30px;
@@ -41,6 +43,13 @@
 		}
 		&[data-ui-settings~="offCanvas__left"] {
 			left  : 0px;
+		}
+		&[data-ui-settings*="offCanvas_"] {
+			z-index : 2;
+			@include gridle(12, mobile);
+			@include gridle(8, phablet);
+			@include gridle(5, tablet);
+			@include gridle(4, desktop);
 		}
 
 		&[data-ui-state~="is__hidden"] {
