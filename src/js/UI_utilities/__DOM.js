@@ -22,13 +22,14 @@ var UI_DOM = {
 		return camelCaseName;
 	},
 	removeDataValue : function( el,attributeName,attributeValues ) {
-		var __self,camelCaseName,attributeNameArray,index,newAttributeValue;
+		var __self,camelCaseName,activeAttributeValue,attributeNameArray,index,newAttributeValue;
 		__self = this;
 		// format the attribute name for javascript
-		camelCaseName = __self.__formatToCamelCase(attributeName);
+		camelCaseName        = __self.__formatToCamelCase(attributeName);
+		activeAttributeValue = el.dataset[camelCaseName];
 		// checking to see if element actually has the attribute before attempting to manipulate it
-		if ( el.dataset[camelCaseName] !== undefined && el.dataset[camelCaseName] !== null ) {
-			attributeNameArray = el.dataset[camelCaseName].split(" ");
+		if ( activeAttributeValue !== undefined && activeAttributeValue !== null ) {
+			attributeNameArray = activeAttributeValue.split(" ");
 			compiledValues     = __self.__compileValues( "remove", attributeNameArray, attributeValues );
 
 			// the attribute has been added, we join the array and add it back to our DOM element
@@ -42,14 +43,16 @@ var UI_DOM = {
 		}
 	},
 	addDataValue : function( el,attributeName,attributeValues ) {
-		var __self,camelCaseName,attributeNameArray,compiledValues,newAttributeValue;
+		var __self,camelCaseName,activeAttributeValue,attributeNameArray,compiledValues,newAttributeValue;
 		__self = this;
 		// format the attribute name for javascript
-		camelCaseName = __self.__formatToCamelCase(attributeName);
-		if ( el.dataset[camelCaseName] !== undefined && el.dataset[camelCaseName] !== null && el.dataset[camelCaseName].length > 0 ) {
+		camelCaseName        = __self.__formatToCamelCase(attributeName);
+		activeAttributeValue = el.dataset[camelCaseName];
+
+		if ( activeAttributeValue !== undefined && activeAttributeValue !== null && activeAttributeValue.length > 0 ) {
 			// if there is an existing data attribute, and that value's length is greater than zero
 			// by splitting it, even if there is no space, the attributeNameArray will always be an array
-			attributeNameArray = el.dataset[camelCaseName].split(" ");
+			attributeNameArray = activeAttributeValue.split(" ");
 			compiledValues     = __self.__compileValues( "add", attributeNameArray, attributeValues );
 
 			// the attribute has been added, we join the array and add it back to our DOM element
@@ -66,7 +69,7 @@ var UI_DOM = {
 		__self   = this;
 		hasValue = false;
 		// format the attribute name for javascript
-		camelCaseName = __self.__formatToCamelCase(attributeName);
+		camelCaseName      = __self.__formatToCamelCase(attributeName);
 		attributeNameArray = el.dataset[camelCaseName].split(" ");
 
 		if ( attributeNameArray.indexOf( attributeValue ) > -1 ) {
