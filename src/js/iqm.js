@@ -919,6 +919,12 @@
 
 	App = {
 		init : function() {
+			UI.keyboard({
+				combination : ["alt","p"],
+				onPress     : function(e) {
+					console.log("pressed");
+				}
+			});
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 			if( !is__mobile ) {
 				var hoverTables;

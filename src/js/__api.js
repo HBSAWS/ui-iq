@@ -9,6 +9,9 @@ UI = {
 	cuboid   : function(DOMelement,settings) {
 		return new UI_cuboid(DOMelement,settings);
 	},
+	keyboard : function( settings ) {
+		return new UI_keyboard( settings );
+	},
 	loader   : function(DOMelement,settings) {
 		return new UI_loader(DOMelement,settings);
 	},
