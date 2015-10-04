@@ -920,7 +920,7 @@
 	App = {
 		init : function() {
 			UI.keyboard({
-				combination : ["alt","p"],
+				combination : ["equal sign","p"],
 				onPress     : function(e) {
 					console.log("pressed");
 				}

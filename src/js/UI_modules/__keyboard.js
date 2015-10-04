@@ -104,7 +104,7 @@ var UI_keyboard = function( settings ) {
 
 	// SETTINGS
 	// combination can either be a space separated string or array
-	__self.encryptedCombination    = ( settings.combination.indexOf(' ') > -1 ) ? settings.combination.join(' ') : settings.combination;
+	__self.encryptedCombination    = ( settings.combination.indexOf(',') > -1 ) ? settings.combination.join(',') : settings.combination;
 	__self.onPress 	               = settings.onPress;
 	__self.exception               = settings.exception || function() { return false };
 	__self.numbersIncludeNumberPad = settings.numbersIncludeNumberPad || true;
@@ -119,14 +119,25 @@ var UI_keyboard = function( settings ) {
 	__self.initialize();
 };
 
-UI_keyboard.prototype.decryptKeycodes = function() {
+UI_keyboard.prototype.unBind = function() {
+	var __self = this;
+	document.removeEventListener( 'keydown', __self.__keyDown);
+	document.removeEventListener( 'keyup', __self.__keyUp);
+};
+UI_keyboard.prototype.bind = function() {
+	var __self = this;
+	document.addEventListener( 'keydown', __self.__keyDown);
+	document.addEventListener( 'keyup', __self.__keyUp);
+};
+
+UI_keyboard.prototype.__decryptKeycodes = function() {
 	var __self;
 	__self = this;
 	//the user provided keycodes have at this point been converted to an array
 	// we need to convert those array values from the plugin's library vocabulary to computer friendly keycodes
 	for ( var code = 0, len = __self.encryptedCombination.length; code < len; code++ ) {
 		var encyptedCode,decryptedCode;
-		encyptedCode  = __self.encryptedCombination[code];
+		encyptedCode  = ( __self.encryptedCombination[code].indexOf(' ') > -1 ) ?  __self.encryptedCombination[code].replace(' ', '_') : __self.encryptedCombination[code];
 		decryptedCode = __self.library[encyptedCode];
 
 		__self.decryptedCombination.push( decryptedCode );
@@ -173,7 +184,6 @@ UI_keyboard.prototype.keyUp = function(e) {
 UI_keyboard.prototype.initialize = function() {
 	var __self = this;
 
-	__self.decryptKeycodes();
-	document.addEventListener( 'keydown', __self.__keyDown);
-	document.addEventListener( 'keyup', __self.__keyUp);
+	__self.__decryptKeycodes();
+	__self.bind();
 };
