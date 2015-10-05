@@ -57,7 +57,13 @@ function UI_table(DOMelement, settings) {
 											__self.highlightRow( previousRow );
 										}
 									},
-									exception : __self.upArrowException
+									exception : function() {
+										var exception = false;
+										if ( __self.upArrowException() || __self.allKeysException() ) {
+											exception = true;
+										}
+										return exception;
+									}
 								});	
 		__self.__downArrow = new UI_keyboard({
 									combination : ["down arrow"],
@@ -78,7 +84,13 @@ function UI_table(DOMelement, settings) {
 											__self.highlightRow( nextRow );
 										}
 									},
-									exception : __self.downArrowException
+									exception : function() {
+										var exception = false;
+										if ( __self.downArrowException() || __self.allKeysException() ) {
+											exception = true;
+										}
+										return exception;
+									}
 								});	
 	}
 
@@ -91,7 +103,13 @@ function UI_table(DOMelement, settings) {
 											__self.onRowSelection();
 										}
 									},
-									exception : __self.returnArrowException
+									exception : function() {
+										var exception = false;
+										if ( __self.returnKeyException() || __self.allKeysException() ) {
+											exception = true;
+										}
+										return exception;
+									}
 								});	
 	}
 
