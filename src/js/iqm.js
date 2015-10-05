@@ -961,36 +961,36 @@
 			if( !is__mobile ) {
 				var hoverTables;
 
-				hoverTables = [document.querySelector("[data-js~='recordsTable']"),document.querySelector("[data-js~='detailsTable']")];
-				for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
-					var currentTable = hoverTables[table];
-					currentTable.addEventListener('mouseover', function(e) {
-						var hoverTarget; 
-						panelSelection.activeRow = hoverTarget = e.target.parentElement;
-						if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
-							if ( this.querySelector("[data-js~='appHuver__recordsInner']") !== undefined ) {
-								// records panel is being hovered
-								panelSelection.activePanel = "recordsPanel";
-							} else {
-								// details panel is being hovered
-								panelSelection.activePanel = "detailsPanel";
-							}
-							panelSelection.activeRow = hoverTarget;
-							if ( document.querySelector("tbody tr[data-ui-state~='is__highlighted']") !== null ) {
-								document.querySelector("tbody tr[data-ui-state~='is__highlighted']").removeAttribute("data-ui-state");
-							}
-							hoverTarget.setAttribute("data-ui-state", "is__highlighted");
-						}
-					});
-					currentTable.addEventListener('mouseout', function(e) {
-						var hoverTarget; 
-						panelSelection.activeRow = "unselected";
-						hoverTarget              = e.target.parentElement;
-						if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
-							hoverTarget.removeAttribute("data-ui-state");
-						}
-					});
-				}
+				// hoverTables = [document.querySelector("[data-js~='recordsTable']"),document.querySelector("[data-js~='detailsTable']")];
+				// for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
+				// 	var currentTable = hoverTables[table];
+				// 	currentTable.addEventListener('mouseover', function(e) {
+				// 		var hoverTarget; 
+				// 		panelSelection.activeRow = hoverTarget = e.target.parentElement;
+				// 		if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
+				// 			if ( this.querySelector("[data-js~='appHuver__recordsInner']") !== undefined ) {
+				// 				// records panel is being hovered
+				// 				panelSelection.activePanel = "recordsPanel";
+				// 			} else {
+				// 				// details panel is being hovered
+				// 				panelSelection.activePanel = "detailsPanel";
+				// 			}
+				// 			panelSelection.activeRow = hoverTarget;
+				// 			if ( document.querySelector("tbody tr[data-ui-state~='is__highlighted']") !== null ) {
+				// 				document.querySelector("tbody tr[data-ui-state~='is__highlighted']").removeAttribute("data-ui-state");
+				// 			}
+				// 			hoverTarget.setAttribute("data-ui-state", "is__highlighted");
+				// 		}
+				// 	});
+				// 	currentTable.addEventListener('mouseout', function(e) {
+				// 		var hoverTarget; 
+				// 		panelSelection.activeRow = "unselected";
+				// 		hoverTarget              = e.target.parentElement;
+				// 		if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
+				// 			hoverTarget.removeAttribute("data-ui-state");
+				// 		}
+				// 	});
+				// }
 			}
 
 			UI.tabs();

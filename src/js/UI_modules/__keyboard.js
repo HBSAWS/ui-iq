@@ -108,6 +108,7 @@ var UI_keyboard = function( settings ) {
 	__self.onPress 	               = settings.onPress;
 	__self.exception               = settings.exception || function() { return false };
 	__self.numbersIncludeNumberPad = settings.numbersIncludeNumberPad || true;
+	__self.returnKeyIncludesEnter  = settings.returnKeyIncludesEnter || true;
 
 
 	__self.keysDown             = [];
@@ -168,6 +169,7 @@ UI_keyboard.prototype.keyDown = function(e) {
 			__self.onPress();
 		}
 	}
+	e.stopPropagation();
 };
 
 UI_keyboard.prototype.keyUp = function(e) {
@@ -177,6 +179,7 @@ UI_keyboard.prototype.keyUp = function(e) {
 	key    = window.event ? e.keyCode : e.which;
 	index  = __self.keysDown.indexOf( key );
 	__self.keysDown.splice(index, 1);
+	e.stopPropagation();
 };
 
 
