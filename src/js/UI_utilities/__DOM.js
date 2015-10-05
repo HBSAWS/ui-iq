@@ -47,6 +47,33 @@ var UI_DOM = {
 		camelCaseName        = __self.__formatToCamelCase(attributeName);
 		activeAttributeValue = el.dataset[camelCaseName];
 
+		// var addDataValue = function( __el ) {
+		// 	var activeAttributeValue,attributeNameArray,compiledValues,newAttributeValue;
+		// 	activeAttributeValue = __el.dataset[camelCaseName];
+
+		// 	if ( activeAttributeValue !== undefined && activeAttributeValue !== null && activeAttributeValue.length > 0 ) {
+		// 		// if there is an existing data attribute, and that value's length is greater than zero
+		// 		// by splitting it, even if there is no space, the attributeNameArray will always be an array
+		// 		attributeNameArray = activeAttributeValue.split(" ");
+		// 		compiledValues     = __self.__compileValues( "add", attributeNameArray, attributeValues );
+
+		// 		// the attribute has been added, we join the array and add it back to our DOM element
+		// 		newAttributeValue = compiledValues.join(" ");
+		// 	} else {
+		// 		newAttributeValue = ( attributeValues instanceof Array ) ? attributeValues.filter( UI_helpers.arrays.filterUnique ).join(" ") : attributeValues;
+		// 	}
+		// 	__el.setAttribute( attributeName, newAttributeValue );
+		// };
+
+		// if ( el instanceof Array ) {
+		// 	for ( var __el = 0, len = el.length; __el < len; __el++ ) {
+		// 		var currentEl = el[__el];
+		// 		addDataValue( currentEl );
+		// 	}
+		// } else {
+		// 	addDataValue( el );
+		// }
+
 		if ( activeAttributeValue !== undefined && activeAttributeValue !== null && activeAttributeValue.length > 0 ) {
 			// if there is an existing data attribute, and that value's length is greater than zero
 			// by splitting it, even if there is no space, the attributeNameArray will always be an array

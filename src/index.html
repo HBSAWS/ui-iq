@@ -106,7 +106,7 @@
                                 <div class="modal-window-content_">
                                     <div class="fader_light"></div>
                                     <div data-ui-settings="mode__float" class="bar_">
-                                        <button data-ui-settings="size__large" data-ui-addon="icon__left" data-js-handler="closeModal" style="float:right;" class="button__light">
+                                        <button data-ui-settings="size__large" data-ui-addon="icon__left" data-js="closeModal" style="float:right;" class="button__light">
                                             <div data-ui-icon="cancel size__small"></div>
                                         </button>
                                     </div>
@@ -321,7 +321,7 @@
                                                 </div>
                                                 <div data-ui-settings="float__right">
                                                     <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__tab-contents" data-js="tooltip__error">
-                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked data-js-handler="recordsTable__filter">
+                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked data-js="recordsTable__filter">
                                                         <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
                                                             <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention"></div>
                                                         </div>
@@ -335,17 +335,17 @@
                                                 </div>
                                             </div> <!-- header-row  ** end ** -->
                                             <div data-ui-settings="padding__top-xs" data-ui-grid="mobile__12">
-                                                <input class="field_" placeholder="search" data-js-handler="recordsTable__search">
+                                                <input class="field_" placeholder="search" data-js="recordsTable__search">
                                             </div>
                                         </div>
                                         <div class="layout_" data-js="records__offsetSticky">
-                                            <table id="recordsTable" data-ui-settings="size__large" data-js="recordsTable" class="table_">
+                                            <table class="table_" data-ui-settings="size__large" data-js="recordsTable">
                                                 <thead data-ui-settings="size__large" class="table-head_">
                                                     <tr data-ui-settings="size__large" class="table-head-row_">
-                                                        <th data-ui-settings="size__large" data-js-handler="recordsTable__sort" data-sort="is__firstName" class="table-head-row-header_">
+                                                        <th data-ui-settings="size__large" data-js="recordsTable__sort" data-sort="is__firstName" class="table-head-row-header_">
                                                             First Name
                                                         </th>
-                                                        <th data-ui-settings="size__large" data-js-handler="recordsTable__sort" data-sort="is__lastName" class="table-head-row-header_">
+                                                        <th data-ui-settings="size__large" data-js="recordsTable__sort" data-sort="is__lastName" class="table-head-row-header_">
                                                             Last Name
                                                         </th>
                                                     </tr>
@@ -412,7 +412,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="toggler_bold" data-ui-settings="mode__button size__large" data-ui-state="is__hidden-desktop" data-js="tooltip__error">
-                                                    <input data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input__bold" data-js-handler="detailsTable__filter">
+                                                    <input data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input__bold" data-js="detailsTable__filter">
                                                     <div data-ui-settings="mode__button size__large" data-ui-state="" class="toggler-toggle__bold">
                                                         <div data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
                                                     </div>
@@ -425,7 +425,7 @@
                                                 </div> -->
                                             </div>
                                             <div data-ui-settings="padding__top-xs" data-ui-grid="mobile__12">
-                                                <input placeholder="search" class="field_" data-js-handler="detailsTable__search">
+                                                <input placeholder="search" class="field_" data-js="detailsTable__search">
                                             </div>
                                             <div data-ui-settings="padding__mobile-top-xxs" data-ui-state="visible__mobile-block hidden__phablet" data-ui-grid="mobile__12" class="layout">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
@@ -443,16 +443,16 @@
                                             </div>
                                         </div>
                                         <div class="layout" data-js="details__offsetSticky">
-                                            <table id="detailsTable" data-ui-settings="mode__responsive size__large" data-js="detailsTable" class="table_">
+                                            <table class="table_" data-ui-settings="mode__responsive size__large" data-js="detailsTable">
                                                 <thead data-ui-settings="size__large" class="table-head_">
                                                     <tr data-ui-settings="size__large" data-field="academicPlan" class="table-head-row">
-                                                        <th data-ui-settings="size__large" data-ui-state="is__sortable" data-sort="is__field" data-js-handler="detailsTable__sort" class="table-head-row-header_">Field</th>
-                                                        <th data-ui-settings="size__large" data-ui-state="is__sortable" data-sort="is__error" data-js-handler="detailsTable__sort" class="table-head-row-header_">Error</th>
+                                                        <th data-ui-settings="size__large" data-ui-state="is__sortable" data-sort="is__field" data-js="detailsTable__sort" class="table-head-row-header_">Field</th>
+                                                        <th data-ui-settings="size__large" data-ui-state="is__sortable" data-sort="is__error" data-js="detailsTable__sort" class="table-head-row-header_">Error</th>
                                                         <th data-ui-settings="size__large" class="table-head-row-header_">Content</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-body_" data-ui-settings="size__large" data-js="updateRecord">
-                                                    <tr class="table-body-row_" data-ui-settings="size__large" data-js-handler="show__iframe">
+                                                    <tr class="table-body-row_" data-ui-settings="size__large" data-js="show__iframe">
                                                         <td class="table-body-row-cell_ is__field" data-ui-settings="size__large" data-table-title="Field"><span class="huid" style="display:none;"></span>Address 1</td>
                                                         <td class="table-body-row-cell_ is__error" data-ui-settings="size__large" data-table-title="Error"></td>
                                                         <td class="table-body-row-cell_ content" data-ui-settings="size__large" data-table-title="Content"></td>

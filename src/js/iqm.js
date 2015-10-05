@@ -481,8 +481,8 @@
 
 				__UI = __self.UI = UI.modal(modal,settings);
 
-				document.getElementById("detailsTable").addEventListener("click", function(e) {
-					if ( e.target.parentElement.dataset.jsHandler === "show__iframe" ) {
+				tables.details.el.addEventListener("click", function(e) {
+					if ( e.target.parentElement.dataset.js === "show__iframe" ) {
 						offCanvasPanels.fileSummary.UI.hidePanel();
 						__UI.showModal();
 					}
@@ -728,49 +728,65 @@
 
 	var tables = {
 		records : {
-			$el      : $("#recordsTable"),
+			el       : document.querySelector("[data-js~='recordsTable']"),
 			UI       : null,
 			settings : {
-				tableID         : "recordsTable",
-				valueNames      : ['is__firstName','is__lastName','has__error','is__exclusion','is__pending'], 
-				searchHandlerID : "recordsTable__search",
-				sortHandlerID   : "recordsTable__sort", 
-				filterHandlerID : "recordsTable__filter"
+				valueNames     : ['is__firstName','is__lastName','has__error','is__exclusion','is__pending'], 
+				searchElements : document.querySelectorAll("[data-js~='recordsTable__search']"),
+				sortElements   : document.querySelectorAll("[data-js~='recordsTable__sort']"), 
+				filterElements : document.querySelectorAll("[data-js~='recordsTable__filter']")
 			},
 			init     : function() {
-				var _self = this;
-				UI.table( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
+				var __self,__table;
+				__self    = this;
+				__self.UI = __table = UI.table( __self.el, __self.settings );
 
-				this.UI.filter("has__error");
+				recordsTable = __table;
 
-				$("[data-js-handler~='recordsTable__filter']").on("change", function() {
-					var $this = $(this);
-					var toFilter = $this.val();
+				__table.filter("has__error");
 
-					if ($this.is(":checked")) {
-						_self.UI.filter(toFilter);
+				document.querySelector("[data-js~='recordsTable__filter']").addEventListener( 'change', function(e) {
+					var filter,toFilter;
+					filter   = e.currentTarget;
+					toFilter = filter.value;
+
+					if ( filter.checked === true ) {
+						__table.filter( toFilter );
 					} else {
-						_self.UI.unfilter(toFilter);
+						__table.unfilter( toFilter );
 					}
 				});
+				// document.querySelector("[data-js~='detailsTable__filter-record']").addEventListener( 'click', function(e) {
+				// 	__self.el.querySelector("[data-js~='detailsTable__filter-record']").setAttribute("data-ui-state", "");
+				// 	e.currentTarget.setAttribute("data-ui-state", "is__selected");
+				// });
+				// $("[data-js~='recordsTable__filter']").on("change", function() {
+				// 	var $this = $(this);
+				// 	var toFilter = $this.val();
 
-				this.$el.find("[data-js-handler~='detailsTable__filter-record']").on("click", function() {
-					_self.$el.find("[data-js-handler~='detailsTable__filter-record']").attr("data-ui-state","");
-					$(this).attr("data-ui-state","is__selected");
-				});
-				_self.$el.find("tbody tr").first().trigger("click");
+				// 	if ($this.is(":checked")) {
+				// 		_self.UI.filter(toFilter);
+				// 	} else {
+				// 		_self.UI.unfilter(toFilter);
+				// 	}
+				// });
+
+				// this.$el.find("[data-js~='detailsTable__filter-record']").on("click", function() {
+				// 	_self.$el.find("[data-js~='detailsTable__filter-record']").attr("data-ui-state","");
+				// 	$(this).attr("data-ui-state","is__selected");
+				// });
+				// _self.$el.find("tbody tr").first().trigger("click");
 			},
 			openRecord : function(recordEl) {
-				if ( recordEl.dataset.jsHandler === "load__record" ) {
+				if ( recordEl.dataset.js === "load__record" ) {
 					var pdmId,pdmIframe,newURL;
 
 					fastdom.read(function() {
 						pdmIframe = document.querySelector("[data-js~='iframePDM']");
 					});
 
-					pdmId     = recordsData.active;
-					newURL    = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
+					pdmId  = recordsData.active;
+					newURL = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
 
 					fastdom.write(function() {
 						pdmIframe.setAttribute('src', newURL);
@@ -779,38 +795,50 @@
 			}
 		},
 		details : {
-			$el      : $("#detailsTable"),
+			el       : document.querySelector("[data-js~='detailsTable']"),
 			UI       : null,
 			settings : {
-				tableID         : "detailsTable",
-				valueNames      : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
-				searchHandlerID : "detailsTable__search",
-				sortHandlerID   : "detailsTable__sort", 
-				filterHandlerID : "detailsTable__filter"
+				valueNames     : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
+				searchElements : document.querySelectorAll("[data-js~='detailsTable__search']"),
+				sortElements   : document.querySelectorAll("[data-js~='detailsTable__sort']"), 
+				filterElements : document.querySelectorAll("[data-js~='detailsTable__filter']")
 			},
 			activeRecord : null,
-			init     : function() {
-				var __self = this;
-				UI.table( this.$el, this.settings );
-				this.UI = this.$el.data("UI");
+			init : function() {
+				var __self,__table;
+				__self    = this;
+				__self.UI = __table = UI.table( __self.el, __self.settings );
+				detailsTable =  __table; 
 
-				$("[data-js-handler~='detailsTable__filter']").on("change", function() {
-					var $this = $(this);
-					var toFilter = $this.val();
+				document.querySelector("[data-js~='detailsTable__filter']").addEventListener( 'change', function(e) {
+					var filter,toFilter;
+					filter   = e.currentTarget;
+					toFilter = filter.value;
 
-					if ($this.is(":checked")) {
-						__self.UI.filter(toFilter);
+					if ( filter.checked === true ) {
+						__table.filter( toFilter );
 					} else {
-						__self.UI.unfilter(toFilter);
+						__table.unfilter( toFilter );
 					}
 				});
+
+				// $("[data-js~='detailsTable__filter']").on("change", function() {
+				// 	var $this = $(this);
+				// 	var toFilter = $this.val();
+
+				// 	if ($this.is(":checked")) {
+				// 		__self.UI.filter(toFilter);
+				// 	} else {
+				// 		__self.UI.unfilter(toFilter);
+				// 	}
+				// });
 
 
 				var init = true;
 				// the click event listener for the table rows in the records table
 				document.querySelector("[data-js~='recordsTable']").addEventListener('click', function(e) {
 					var targetEl = e.target.parentElement;
-					if ( targetEl.dataset.jsHandler === "load__record" ) {
+					if ( targetEl.dataset.js === "load__record" ) {
 						tables.details.openRecord( targetEl );
 					}
 				});
@@ -850,7 +878,7 @@
 				};
 				
 				// unfilter the details table so we can have access to all the fields temporarily
-				detailsTableFilterEl         = document.querySelector("[data-js-handler~='detailsTable__filter']");
+				detailsTableFilterEl         = document.querySelector("[data-js~='detailsTable__filter']");
 				detailsTableFilterEl.checked = false;
 				detailsTableFilterEl.dispatchEvent(__events.__change);
 
@@ -860,12 +888,16 @@
 				recordsData.active = recordID;
 
 				// reapply the details table filter
-				deatilsTableFilterEl         = document.querySelector("[data-js-handler~='detailsTable__filter']");
+				deatilsTableFilterEl         = document.querySelector("[data-js~='detailsTable__filter']");
 				detailsTableFilterEl.checked = true;
 				detailsTableFilterEl.dispatchEvent(__events.__change);
 
-				tables.records.$el.find("[data-ui-state~='is__selected']").removeAttr("data-ui-state");
-				recordsTableRowEl.setAttribute("data-ui-state","is__selected");
+
+				var recordsTableSelectedRow = tables.records.el.querySelector("[data-ui-state~='is__selected']");
+				//UI.DOM.removeDataValue( recordsTableSelectedRow, "data-ui-state", "is__selected");
+				UI.DOM.addDataValue( recordsTableRowEl, "data-ui-state", "is__selected" );
+				//tables.records.$el.find("[data-ui-state~='is__selected']").removeAttr("data-ui-state");
+				//recordsTableRowEl.setAttribute("data-ui-state","is__selected");
 				detailsTableTitle           = document.querySelector("[data-js~='recordName']");
 				detailsTableTitle.innerHTML = record.firstName + " " + record.lastName;
 				//$("[data-js~='recordName']").html(record.firstName + " " + record.lastName);
@@ -983,7 +1015,7 @@
 			tooltips.fileSummary.init();
 			
 			document.addEventListener('keydown', keyboardShortcuts);
-			document.getElementById("recordsTable").querySelector("tbody").addEventListener('click', function(e) {
+			tables.records.el.querySelector("tbody").addEventListener('click', function(e) {
 				var recordEl = e.target.parentElement;
 				tables.records.openRecord(recordEl);
 			});
@@ -1144,7 +1176,7 @@
 
 			var has__error = errors.length > 0 ? " has__error" : "";
 
-			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + hbsId + '" data-ui-settings="size__large" data-js-handler="load__record">';
+			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + hbsId + '" data-ui-settings="size__large" data-js="load__record">';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-settings="size__large">' + firstName + '</td>';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-settings="size__large">' + lastName + '</td>';
 			recordTableBodyHTML[recRow++] = '</tr>';
@@ -1169,9 +1201,8 @@
 
 
 
-		var firstRecord = document.getElementById("recordsTable").querySelector("[data-js-handler~='load__record']");
+		var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
 		tables.details.openRecord(firstRecord);
-		//$("#recordsTable tbody tr:first").trigger("click");
 	});
 	
 }(jQuery));
