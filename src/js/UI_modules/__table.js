@@ -17,6 +17,7 @@ function UI_table(DOMelement, settings) {
 	__self.returnKeySelectsRow    = settings.returnKeySelectsRow    || true;
 	__self.clickSelectsRow        = settings.clickSelectsRow        || true;
 	__self.onRowSelection         = settings.onRowSelection         || function() { console.log( "return key pressed on " + __self.highlightedRow ); };
+	__self.addStateToRowOnSelect  = settings.addStateToRowOnSelect  || true;
 	__self.selectFirstRowOnInit   = settings.selectFirstRowOnInit   || false;
 	if ( settings.exceptions == undefined || settings.exceptions == null ) { 
 		settings.exceptions = {};
@@ -131,6 +132,22 @@ UI_table.prototype.__getPreviousRow = function( currentRow ) {
 
 	return previousRow;
 };
+UI_table.prototype.focusTable = function() {
+	var __self;
+	__self = this;
+
+	//if ( __self.highlightedRow !== undefined ) {
+		UI_DOM.addDataValue( __self.el.querySelector("tbody"),"data-ui-state","is__focused");
+	//}
+};
+UI_table.prototype.unfocusTable = function() {
+	var __self;
+	__self = this;
+
+	//if ( __self.highlightedRow !== undefined ) {
+		UI_DOM.removeDataValue( __self.el.querySelector("tbody"),"data-ui-state","is__focused");
+	//}
+};
 UI_table.prototype.highlightRow = function( highlightRow ) {
 	var __self;
 	__self = this;
@@ -155,12 +172,13 @@ UI_table.prototype.unhighlightRow = function() {
 UI_table.prototype.selectRow = function( selectRow ) {
 	var __self;
 	__self = this;
-
-	if ( __self.selectedRow !== undefined ) {
-		// there is currently a selected row that needs to be unselected
-		UI_DOM.removeDataValue( __self.selectedRow,"data-ui-state","is__selected" );
+	if ( __self.addStateToRowOnSelect ) {
+		if ( __self.selectedRow !== undefined ) {
+			// there is currently a selected row that needs to be unselected
+			UI_DOM.removeDataValue( __self.selectedRow,"data-ui-state","is__selected" );
+		}
+		UI_DOM.addDataValue( selectRow,"data-ui-state","is__selected" );
 	}
-	UI_DOM.addDataValue( selectRow,"data-ui-state","is__selected" );
 	__self.selectedRow = selectRow;
 	if ( __self.onRowSelection !== undefined ) {
 		__self.onRowSelection( selectRow );

@@ -1,3 +1,5 @@
+// Responsive table CSS  ** START **
+
 [class^="table_"][data-ui-settings~="mode__responsive"] {
 	width         : 100%;
 	margin-bottom : 1.5em;
@@ -106,7 +108,7 @@
 	}
 }
 
-
+// Responsive table CSS  ** FINISH **
 
 
 
@@ -233,7 +235,17 @@
 					font-size : 1.1rem;
 				}
 			}
-	[class^="table-body_"] {}
+	[class^="table-body_"] {
+		&[data-ui-state~="is__focused"] {
+			[class^="table-body-row_"] {
+				&[data-ui-state~="is__highlighted"] {
+					background  : #4CC1BC;
+					color       : #ffffff;
+					@include prefix( text-shadow, none );
+				}
+			}
+		}
+	}
 		[class^="table-body-row_"] {
 			background : transparent;
 			color      : #151515;
@@ -248,8 +260,9 @@
 				color      : #4cc1bc !important;
 			}
 			&[data-ui-state~="is__highlighted"] {
-				background  : #4CC1BC;
-				color       : #ffffff;
+				background  : rgba(135, 186, 197, 0.33);
+				color       : rgb(255, 255, 255);
+				@include prefix( text-shadow, 0 0 17px rgba(0,0,0,0.1) );
 			}
 
 		}		

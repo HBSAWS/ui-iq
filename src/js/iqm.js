@@ -174,147 +174,12 @@
 			document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out scale__down fade__out");
 		}
 	};
+ 
 
 
 
 
-	var panelSelection = {
-		activePanel    : "recordsPanel",
-		activeRow      : "unselected",
-		recordsPanel   : document.querySelector("[data-js~='appHuver__recordsInner']"),
-		detailsPanel   : document.querySelector("[data-js~='appHuver__details-inner']"),
-		setScrollPosition : function() {
-			var __self,elementToScroll,panelHeaderHeight,tableHeaderHeight,tableRowHeight;
-			__self            = this;
-			elementToScroll   = __self[__self.activePanel].parentElement;
-			panelHeaderHeight = __self[__self.activePanel].querySelector("[data-js*='_positionSticky']").getBoundingClientRect().height;
-			tableHeaderHeight = __self[__self.activePanel].querySelector("thead").getBoundingClientRect().height;
-			tableRowHeight    = __self.activeRow.getBoundingClientRect().height * __self.activeRow.rowIndex;
 
-			elementToScroll.scrollTop = tableHeaderHeight + tableRowHeight - 10;
-		},
-		panelSelection : function() {
-			var __self,active,recordsPanel,detailsPanel,recordsTableRow,detailsTableRow,activeRecordsTableRow,activeDetailsTableRow;
-			__self            = this;
-			active            = __self.activePanel;
-			recordsPanel      = __self.recordsPanel;
-			detailsPanel      = __self.detailsPanel;
-
-			
-			recordsTableRow   = recordsPanel.querySelector("[data-js~='recordsTable'] tbody tr:not([data-ui-state~='is__selected'])");
-			detailsTableRow   = detailsPanel.querySelector("[data-js~='detailsTable'] tbody tr:not([data-ui-state~='is__selected'])");
-
-			activeRecordsTableRow = recordsPanel.querySelector("[data-js~='recordsTable'] tbody tr[data-ui-state~='is__highlighted']");
-			activeDetailsTableRow = detailsPanel.querySelector("[data-js~='detailsTable'] tbody tr[data-ui-state~='is__highlighted']");
-
-			if ( active === "unselected" || active === "detailsPanel" ) {
-				__self.activePanel = "recordsPanel";
-				if ( window.innerWidth < 1300 ) {
-					// records is in offcanvas mode
-					// so we highlight it by simply activating it
-					offCanvasPanels.records.UI.showPanel();
-				}
-				if ( activeDetailsTableRow !== null ) {
-					activeDetailsTableRow.removeAttribute("data-ui-state");
-				}
-				recordsTableRow.setAttribute("data-ui-state", "is__highlighted");
-				__self.activeRow = recordsTableRow;
-			} else if ( active === "recordsPanel" ) {
-				__self.activePanel = "detailsPanel";
-				if ( window.innerWidth < 1300 ) {
-					// records is in offcanvas mode
-					// so we highlight it by simply activating it
-					offCanvasPanels.records.UI.hidePanel();
-				}
-				if ( activeRecordsTableRow !== null ) {
-					activeRecordsTableRow.removeAttribute("data-ui-state");
-				}
-				detailsTableRow.setAttribute("data-ui-state", "is__highlighted");
-				__self.activeRow = detailsTableRow;
-			} 
-			__self.setScrollPosition();
-		},
-		rowSelection : function(direction) {
-			var __self,activeRow;
-			__self    = this;
-			activeRow = __self.activeRow;
-
-			if ( activeRow === "unselected" ) {
-				return;
-			} else if ( direction === "next" ) {
-				// making sure there is a next sibling to go to
-				if ( activeRow.nextElementSibling !== null ) {
-					// checking to see if the next sibling is selected, if it is AND there is a next next sibling then we skip it, 
-						// otherwise we do nothing
-					if ( activeRow.nextElementSibling.dataset.uiState !== undefined && activeRow.nextElementSibling.dataset.uiState === "is__selected" && activeRow.nextElementSibling.nextElementSibling !== null ) {
-						activeRow.removeAttribute("data-ui-state");
-						__self.activeRow = activeRow = activeRow.nextElementSibling.nextElementSibling;
-						activeRow.setAttribute("data-ui-state", "is__highlighted");	
-					} else {
-						activeRow.removeAttribute("data-ui-state");
-						__self.activeRow = activeRow = activeRow.nextElementSibling;
-						activeRow.setAttribute("data-ui-state", "is__highlighted");	
-					}
-
-					__self.setScrollPosition();
-
-				}
-			} else if ( direction === "previous" ) {
-				// making sure there is a previous sibling to go to
-				if ( activeRow.previousElementSibling !== null ) {
-					// checking to see if the previous sibling is selected, if it is AND there is a previous previous sibling then we skip it, 
-						// otherwise we do nothing
-					if ( activeRow.previousElementSibling.dataset.uiState !== undefined && activeRow.previousElementSibling.dataset.uiState === "is__selected" && activeRow.previousElementSibling.previousElementSibling !== null ) {
-						activeRow.removeAttribute("data-ui-state");
-						__self.activeRow = activeRow = activeRow.previousElementSibling.previousElementSibling;
-						activeRow.setAttribute("data-ui-state", "is__highlighted");
-					} else {
-						activeRow.removeAttribute("data-ui-state");
-						__self.activeRow = activeRow = activeRow.previousElementSibling;
-						activeRow.setAttribute("data-ui-state", "is__highlighted");
-					}
-
-					__self.setScrollPosition();
-				}
-			}
-		}
-	}; 
-
-
-
-
-	var keyboardShortcuts = function(e) {
-		// if the panel is not opened already, pressing alt + s will open the file summary panel
-		if ( !offCanvasPanels.fileSummary.UI.isPanelShowing() ) {
-			if ( e.altKey && e.keyCode == 70 ) {
-				offCanvasPanels.fileSummary.UI.showPanel();
-			}
-
-			if ( !modals.iframe.UI.isModalShowing() ) {
-				if ( e.keyCode == 9 ) {
-					e.preventDefault();
-					panelSelection.panelSelection();
-				} else if ( e.keyCode == 40 ) { 
-					// down arrow
-					e.preventDefault();
-					panelSelection.rowSelection("next");
-				} else if ( e.keyCode == 38 ) { 
-					// down arrow
-					e.preventDefault();
-					panelSelection.rowSelection("previous");
-				} else if ( e.keyCode == 13 && panelSelection.activeRow !== "unselected" ) {
-					e.preventDefault();
-					if ( panelSelection.activePanel === "recordsPanel" ) {
-						var record = panelSelection.activeRow;
-						tables.details.openRecord(record);
-						panelSelection.panelSelection();
-					} else {
-						modals.iframe.UI.showModal();
-					}
-				}
-			}
-		}
-	};
 
 
 
@@ -727,6 +592,74 @@
 
 
 	var tables = {
+		active : document.querySelector("[data-js~='recordsTable']"),
+		exceptions : function() {
+			var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
+			exception = false;
+
+			tableIsNotActive  = ( tables.active !== currentTable ) ? true : false; // if the active table is not the currentTable, exception is true
+			fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+			modalIsShowing    = ( modals.iframe.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+			if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+				exception = true;
+			}
+
+			return exception;
+		},
+		init : function() {
+			var __self = this;
+
+			// when the user hovers the records panel, the records table becomes the active table
+			document.querySelector("[data-js~='appHuver__recordsInner']").addEventListener( 'mouseover', function() {
+				tables.active = tables.records.el;
+
+				tables.details.UI.unfocusTable();
+				tables.records.UI.focusTable();
+			});
+			// when the user hovers the details panel, the details table becomes the active table
+			document.querySelector("[data-js~='appHuver__details-inner']").addEventListener( 'mouseover', function() {
+				tables.active = tables.details.el;
+
+				tables.records.UI.unfocusTable();
+				tables.details.UI.focusTable();
+			});
+			// when the tab button is pressed, we want to toggle between the active tables
+			UI.keyboard({
+				preventDefaultAction : true,
+				combination : ["tab"],
+				onPress     : function(e) {
+					if ( tables.active == tables.records.el ) {
+						tables.active = tables.details.el;
+						if ( window.innerWidth < 1300 && !offCanvasPanels.records.isPanelShowing() ) {
+							offCanvasPanels.records.showPanel();
+						}
+						tables.records.UI.unfocusTable();
+						tables.details.UI.focusTable();
+					} else {
+						tables.active = tables.records.el;
+
+						tables.details.UI.unfocusTable();
+						tables.records.UI.focusTable();
+					}
+				},
+				exceptions : {
+					allKeys : function() {
+						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
+						exception = false;
+
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+							exception = true;
+						}
+
+						return exception;
+					}
+				}
+			});
+		},
 		records : {
 			el       : document.querySelector("[data-js~='recordsTable']"),
 			UI       : null,
@@ -734,16 +667,31 @@
 				valueNames     : ['is__firstName','is__lastName','has__error','is__exclusion','is__pending'], 
 				searchElements : document.querySelectorAll("[data-js~='recordsTable__search']"),
 				sortElements   : document.querySelectorAll("[data-js~='recordsTable__sort']"), 
-				filterElements : document.querySelectorAll("[data-js~='recordsTable__filter']")
+				filterElements : document.querySelectorAll("[data-js~='recordsTable__filter']"),
+				exceptions : {
+					allKeys : function() {
+						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
+						exception = false;
+
+						tableIsNotActive  = ( tables.active !== document.querySelector("[data-js~='recordsTable']") ) ? true : false; // if the active table is not the currentTable, exception is true
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+							exception = true;
+						}
+
+						return exception;
+					}
+				}
 			},
 			init     : function() {
 				var __self,__table;
 				__self    = this;
 				__self.UI = __table = UI.table( __self.el, __self.settings );
 
-				recordsTable = __table;
-
 				__table.filter("has__error");
+				__table.focusTable();
 
 				document.querySelector("[data-js~='recordsTable__filter']").addEventListener( 'change', function(e) {
 					var filter,toFilter;
@@ -756,26 +704,6 @@
 						__table.unfilter( toFilter );
 					}
 				});
-				// document.querySelector("[data-js~='detailsTable__filter-record']").addEventListener( 'click', function(e) {
-				// 	__self.el.querySelector("[data-js~='detailsTable__filter-record']").setAttribute("data-ui-state", "");
-				// 	e.currentTarget.setAttribute("data-ui-state", "is__selected");
-				// });
-				// $("[data-js~='recordsTable__filter']").on("change", function() {
-				// 	var $this = $(this);
-				// 	var toFilter = $this.val();
-
-				// 	if ($this.is(":checked")) {
-				// 		_self.UI.filter(toFilter);
-				// 	} else {
-				// 		_self.UI.unfilter(toFilter);
-				// 	}
-				// });
-
-				// this.$el.find("[data-js~='detailsTable__filter-record']").on("click", function() {
-				// 	_self.$el.find("[data-js~='detailsTable__filter-record']").attr("data-ui-state","");
-				// 	$(this).attr("data-ui-state","is__selected");
-				// });
-				// _self.$el.find("tbody tr").first().trigger("click");
 			},
 			openRecord : function(recordEl) {
 				if ( recordEl.dataset.js === "load__record" ) {
@@ -801,7 +729,23 @@
 				valueNames     : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
 				searchElements : document.querySelectorAll("[data-js~='detailsTable__search']"),
 				sortElements   : document.querySelectorAll("[data-js~='detailsTable__sort']"), 
-				filterElements : document.querySelectorAll("[data-js~='detailsTable__filter']")
+				filterElements : document.querySelectorAll("[data-js~='detailsTable__filter']"),
+				exceptions : {
+					allKeys : function() {
+						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
+						exception = false;
+
+						tableIsNotActive  = ( tables.active !== document.querySelector("[data-js~='detailsTable']") ) ? true : false; // if the active table is not the currentTable, exception is true
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+							exception = true;
+						}
+
+						return exception;
+					}
+				}
 			},
 			activeRecord : null,
 			init : function() {
@@ -821,17 +765,6 @@
 						__table.unfilter( toFilter );
 					}
 				});
-
-				// $("[data-js~='detailsTable__filter']").on("change", function() {
-				// 	var $this = $(this);
-				// 	var toFilter = $this.val();
-
-				// 	if ($this.is(":checked")) {
-				// 		__self.UI.filter(toFilter);
-				// 	} else {
-				// 		__self.UI.unfilter(toFilter);
-				// 	}
-				// });
 
 
 				var init = true;
@@ -894,13 +827,9 @@
 
 
 				var recordsTableSelectedRow = tables.records.el.querySelector("[data-ui-state~='is__selected']");
-				//UI.DOM.removeDataValue( recordsTableSelectedRow, "data-ui-state", "is__selected");
 				UI.DOM.addDataValue( recordsTableRowEl, "data-ui-state", "is__selected" );
-				//tables.records.$el.find("[data-ui-state~='is__selected']").removeAttr("data-ui-state");
-				//recordsTableRowEl.setAttribute("data-ui-state","is__selected");
 				detailsTableTitle           = document.querySelector("[data-js~='recordName']");
 				detailsTableTitle.innerHTML = record.firstName + " " + record.lastName;
-				//$("[data-js~='recordName']").html(record.firstName + " " + record.lastName);
 
 				recordsData.active = recordID;
 				init = false;
@@ -958,40 +887,7 @@
 				}
 			});
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-			if( !is__mobile ) {
-				var hoverTables;
 
-				// hoverTables = [document.querySelector("[data-js~='recordsTable']"),document.querySelector("[data-js~='detailsTable']")];
-				// for ( var table = 0, len = hoverTables.length; table < len; table++ ) {
-				// 	var currentTable = hoverTables[table];
-				// 	currentTable.addEventListener('mouseover', function(e) {
-				// 		var hoverTarget; 
-				// 		panelSelection.activeRow = hoverTarget = e.target.parentElement;
-				// 		if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
-				// 			if ( this.querySelector("[data-js~='appHuver__recordsInner']") !== undefined ) {
-				// 				// records panel is being hovered
-				// 				panelSelection.activePanel = "recordsPanel";
-				// 			} else {
-				// 				// details panel is being hovered
-				// 				panelSelection.activePanel = "detailsPanel";
-				// 			}
-				// 			panelSelection.activeRow = hoverTarget;
-				// 			if ( document.querySelector("tbody tr[data-ui-state~='is__highlighted']") !== null ) {
-				// 				document.querySelector("tbody tr[data-ui-state~='is__highlighted']").removeAttribute("data-ui-state");
-				// 			}
-				// 			hoverTarget.setAttribute("data-ui-state", "is__highlighted");
-				// 		}
-				// 	});
-				// 	currentTable.addEventListener('mouseout', function(e) {
-				// 		var hoverTarget; 
-				// 		panelSelection.activeRow = "unselected";
-				// 		hoverTarget              = e.target.parentElement;
-				// 		if ( hoverTarget.tagName === "TR" && hoverTarget.dataset.uiState !== "is__selected" ) {
-				// 			hoverTarget.removeAttribute("data-ui-state");
-				// 		}
-				// 	});
-				// }
-			}
 
 			UI.tabs();
 			calendar.exclusions.init();
@@ -1003,18 +899,16 @@
 
 			modals.iframe.init();
 
-			//panels.fileSummary.init();
-
 			offCanvasPanels.fileSummary.init();
 			offCanvasPanels.records.init();
 
 			tables.records.init();
 			tables.details.init();
+			tables.init();
 
 			tooltips.errors.init();
 			tooltips.fileSummary.init();
 			
-			document.addEventListener('keydown', keyboardShortcuts);
 			tables.records.el.querySelector("tbody").addEventListener('click', function(e) {
 				var recordEl = e.target.parentElement;
 				tables.records.openRecord(recordEl);
