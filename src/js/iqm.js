@@ -1,4 +1,4 @@
-(function($) {
+
 	var App;
 	var userData    = {
 		role : undefined, // either MBA,DOCTORAL or ADMIN
@@ -270,43 +270,7 @@
 			recordsProgress    : 0,
 			el : document.querySelector("[data-js~='appLoader']"),
 			settings : {
-				loaderOnComplete : "fadeOut",
-				onComplete       : function() {
-					var splash,removeSplash;
-					splash = document.querySelector("[data-js~='splash__finishedLoad']");
-
-					removeSplash = function(e) {
-						if ( e.target == splash ) {
-							splash.removeEventListener("webkitTransitionEnd", removeSplash);
-							// fastdom.write(function() {
-								splash.style.display = "none";
-								splash.remove();
-
-								offCanvasPanels.fileSummary.UI.showPanel();
-							// });
-							setTimeout(function(){
-								cuboids.appSuite.UI.show("front");
-							},100);
-							setTimeout(function(){
-								cuboids.app.UI.show("front");
-							},300);
-						}
-					};
-
-					splash.addEventListener("webkitTransitionEnd", removeSplash);
-					fastdom.write(function() {
-						// we do this so the main canvas can animate in on load
-						// the file summary off canvas panel changes the state of the main canvas depending on whether it's open or close
-						// so we simply want to give a unique state of pushed way back, and to have an opacity of zero
-						// so that when we show the panel and it would normally animate the canvas back in space, this animates it forward
-						document.querySelector("[data-js~='app__mainCanvas']").setAttribute("data-ui-state", "animate__off scale__down-lg fade__out");
-						document.querySelector("[data-js~='app__mainCanvas']").offsetHeight;
-
-						// this moves the splash element up and fades it out
-						splash.style.transform = "translateY(-100px)";
-						splash.style.opacity   = 0;
-					});
-				}
+				loaderOnComplete : "fadeOut"
 			},
 			__UI : undefined,
 			init : function() {
@@ -599,14 +563,16 @@
 			detailsTable = __self.details.UI;
 
 			// when the user hovers the records panel, the records table becomes the active table
-			document.querySelector("[data-js~='appHuver__recordsInner']").addEventListener( 'mouseover', function(e) {
+			document.querySelector("[data-js~='appHuver__recordsInner']").addEventListener( 'mouseover', function() {
 				__self.records.UI.focusTable();
 				__self.details.UI.unfocusTable();
+				console.log("records rollover");
 			});
 			// when the user hovers the details panel, the details table becomes the active table
-			document.querySelector("[data-js~='appHuver__details-inner']").addEventListener( 'mouseover', function(e) {
+			document.querySelector("[data-js~='appHuver__details-inner']").addEventListener( 'mouseover', function() {
 				__self.records.UI.unfocusTable();
 				__self.details.UI.focusTable();
+				console.log("details rollover");
 			});
 			// when the tab button is pressed, we want to toggle between the active tables
 			UI.keyboard({
@@ -615,6 +581,10 @@
 				onPress     : function(e) {
 					if ( __self.records.UI.isTableFocused() ) {
 						// if yes then we switch to the details table
+						if ( window.innerWidth < 1300 && offCanvasPanels.records.UI.isPanelShowing() ) {
+							// if the browser window is less than 1300 pixels, and the records slide is open, then we need to close it so the details panel isn't obstructed
+							offCanvasPanels.records.UI.hidePanel();
+						}
 						__self.records.UI.unfocusTable();
 						__self.details.UI.focusTable();
 					} else {
@@ -635,7 +605,7 @@
 						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
 						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
 
-						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+						if ( fileSummaryIsOpen || modalIsShowing ) {
 							exception = true;
 						}
 
@@ -863,10 +833,96 @@
 
 
 	App = {
-		init : function() {
+		buildHTML : function( dataRecords ) {
+			var records, numberOfRecords, listOptions,EC,RC;
+			//var user        = dataConfig[0].userInfo;
+			var records     = dataRecords.records;
+			//userData["PDM"] = dataConfig[0].config.PDM_URL;
+
+
+			var totalRecords = records.length;
+			stats.records    = totalRecords;
+			var firstVisibleRecord;
+
+
+			var recRow = 1;
+			var recordTableBodyHTML = [];
+			recordTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
+
+			var detRow = 1;
+			var detailTableBodyHTML = [];
+			detailTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
+
+
+			for(var __record=0;__record < totalRecords;__record++) {
+				var currentRecord,details,errors,hbsId,firstName,lastName,templates, recordsRow;
+				currentRecord = records[__record];
+				details       = currentRecord.record;
+				errors        = currentRecord.errors;
+				if ( currentRecord["hbsId"] !== undefined ) {
+					hbsId = currentRecord["hbsId"].toString();
+				} else {
+					hbsId = details.huid;
+				}
+				firstName     = details.name.firstName;
+				lastName      = details.name.lastName;
+
+				totalErrors   = errors.length;
+				stats.errors  += totalErrors;
+				if (details.career.yearInProgram === "EC") {
+					stats.EC ++;
+				} else if (details.career.yearInProgram === "RC") {
+					stats.RC ++;
+				}
+				tables.details.settings.valueNames.push("detailOf__" + hbsId);
+
+				recordsData[hbsId] = {};
+				if ( currentRecord.errors !== undefined ) {
+					recordsData[hbsId]["errors"] = {};
+
+					for ( var error = 0; error < totalErrors; error++ ) {
+						var currentError      = errors[error];
+						var currentErrorField = currentError.field.split(".").pop();
+
+						recordsData[hbsId]["errors"][currentErrorField] = {
+							type    : currentError["type"],
+							message : currentError["message"],
+							field   : currentErrorField
+						};
+					}
+				}
+
+
+
+				var has__error = errors.length > 0 ? " has__error" : "";
+
+				recordTableBodyHTML[recRow++] = '<tr class="table-body-row__light" data-record="' + hbsId + '" data-ui-settings="size__large material__paper" data-js="load__record">';
+				recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-settings="size__large">' + firstName + '</td>';
+				recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-settings="size__large">' + lastName + '</td>';
+				recordTableBodyHTML[recRow++] = '</tr>';
+
+				for (var fieldGroups in details) {
+					if (fieldGroups !== "updateDate" && fieldGroups !== "hbsId") {
+						var fieldGroup = details[fieldGroups];
+						for ( var field in fieldGroup) {
+							recordsData[hbsId][field] = fieldGroup[field];
+						}
+					}
+				}
+			}
+			recordTableBodyHTML[recRow++] = '</tbody>';
+			
+			document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", recordTableBodyHTML.join('') );
+
+
+			this.adjustHTML();
+		},
+		adjustHTML : function() {
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 
+
+			// APPLY ALL OF THE UI PLUGINS
 			UI.tabs();
 			calendar.exclusions.init();
 
@@ -898,183 +954,82 @@
 			if( is__mobile ) {
 				FastClick.attach(document.body);
 			}
+
+
+
+			// OPEN THE TABLES TO THE FIRST RECORD
+			var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
+			tables.details.openRecord(firstRecord);
+
+
+			this.animateInHTML();
+		},
+		animateInHTML : function() {
+			var splash,removeSplash;
+			splash = document.querySelector("[data-js~='splash__finishedLoad']");
+
+			removeSplash = function(e) {
+				if ( e.target == splash ) {
+					splash.removeEventListener("webkitTransitionEnd", removeSplash);
+					// fastdom.write(function() {
+						splash.style.display = "none";
+						splash.remove();
+
+						offCanvasPanels.fileSummary.UI.showPanel();
+					// });
+					setTimeout(function(){
+						cuboids.appSuite.UI.show("front");
+					},100);
+					setTimeout(function(){
+						cuboids.app.UI.show("front");
+					},300);
+				}
+			};
+
+			splash.addEventListener("webkitTransitionEnd", removeSplash);
+			fastdom.write(function() {
+				// we do this so the main canvas can animate in on load
+				// the file summary off canvas panel changes the state of the main canvas depending on whether it's open or close
+				// so we simply want to give a unique state of pushed way back, and to have an opacity of zero
+				// so that when we show the panel and it would normally animate the canvas back in space, this animates it forward
+				document.querySelector("[data-js~='app__mainCanvas']").setAttribute("data-ui-state", "animate__off scale__down-lg fade__out");
+				document.querySelector("[data-js~='app__mainCanvas']").offsetHeight;
+
+				// this moves the splash element up and fades it out
+				splash.style.transform = "translateY(-100px)";
+				splash.style.opacity   = 0;
+			});
 		}
 	}
 
 
 
-
-	// initialize our app loader
-	loaders.app.init();
-	// var xhrConfig = new XMLHttpRequest();
-	// xhrConfig.onprogress = function(e){
-	//     if (e.lengthComputable)
-	//         var percent = (e.loaded / e.total) * 100;
-	//     	console.log("test XHR percentage: " + percent);
-	// };
-	// xhrConfig.open('GET', encodeURI('https://secure-stage.hbs.edu/iqService/rest/config.json'));
-	// xhrConfig.onload = function() {
-	//     if (xhr.status === 200) {
-	//         console.log("test XHR complete");
-	//     }
-	//     else {
-	//         alert('Request failed.  Returned status of ' + xhr.status);
-	//     }
-	// };
+loaders.app.init();
 
 
-	$.when(
-		// the config
-		// $.ajax({
-		// 	dataType : "json",
-		// 	url      : " https://secure-stage.hbsstg.org/iqService/rest/config.json"
-		// }),	
-		// // // the exclusions
-		// $.ajax({
-		// 	dataType : "json",
-		// 	url      : "//rana1-stage.hbs.edu:8136/iqService/rest/mba/bio/excl.json"
-		// }),
-		// the records
-		$.ajax({
-			xhr: function() {
-				var xhr = new window.XMLHttpRequest();
-				//Download progress
-				xhr.addEventListener("progress", function(evt){
-					if (evt.lengthComputable) {
-				    	var percentComplete;
+var a = new XMLHttpRequest();
+a.open("GET","js/bio.json",true);
+a.onreadystatechange = function() {
+  if( this.readyState == 4) {
+    if( this.status == 200) {
+    	App.buildHTML( JSON.parse( a.response ) );
+    }
+    else {
+    	console.log("HTTP error "+this.status+" "+this.statusText);
+    }
+  }
+}
+a.addEventListener("progress", function(e) {
+	if ( e.lengthComputable ) {
+		var percentComplete;
 
-				    	percentComplete = ( evt.loaded / evt.total ) * 100;
-				    	loaders.app.init();
-				    	loaders.app.UI.progress(percentComplete);
-					}
-				}, false);
-				return xhr;
-			},
-			dataType : "json",
-			url      : "js/bio.json"
-		})
-	//).done(function ( dataUser,datadataRecords ) {
-		).done(function ( dataRecords ) {
-
-		// console.log("done");
-		// var records, numberOfRecords, listOptions,EC,RC;
-		// var user        = dataUser[0].userInfo;
-		// var records     = dataRecords[0].records;
-		// userData["PDM"] = dataUser[0].config.PDM_URL;
-		
-		// for ( var __role = 0, len = user["roles"].length; __role < len; __role++ ) {
-		// 	var currentRole,userRole;
-		// 	currentRole = user["roles"][__role];
-		// 	if ( currentRole === "IQ__ADMIN" ) {
-		// 		userRole = "ADMIN";
-		// 	} else if ( currentRole === "MBA" ) {
-		// 		userRole = "MBA";
-		// 	} else if ( currentRole === "DOCTORAL" ) {
-		// 		userRole = "DOCTORAL";
-		// 	}
-		// }
-		// userData["role"] = userRole;
-
-
-		// var totalRecords = records.length;
-		// stats.records    = totalRecords;
-		// var firstVisibleRecord;
+		percentComplete = ( e.loaded / e.total ) * 100;
+		loaders.app.init();
+		loaders.app.UI.progress(percentComplete);
+	}
+});
+a.send();
 
 
 
-		//offsite  -- START
-		console.log("done");
-		var records, numberOfRecords, listOptions,EC,RC;
-		//var user        = dataConfig[0].userInfo;
-		var records     = dataRecords.records;
-		//userData["PDM"] = dataConfig[0].config.PDM_URL;
 
-
-		var totalRecords = records.length;
-		stats.records    = totalRecords;
-		var firstVisibleRecord;
-		//OFFSITE  -- END
-
-
-
-		var recRow = 1;
-		var recordTableBodyHTML = [];
-		recordTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
-
-		var detRow = 1;
-		var detailTableBodyHTML = [];
-		detailTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
-
-
-		for(var __record=0;__record < totalRecords;__record++) {
-			var currentRecord,details,errors,hbsId,firstName,lastName,templates, recordsRow;
-			currentRecord = records[__record];
-			details       = currentRecord.record;
-			errors        = currentRecord.errors;
-			if ( currentRecord["hbsId"] !== undefined ) {
-				hbsId = currentRecord["hbsId"].toString();
-			} else {
-				hbsId = details.huid;
-			}
-			firstName     = details.name.firstName;
-			lastName      = details.name.lastName;
-
-			totalErrors   = errors.length;
-			stats.errors  += totalErrors;
-			if (details.career.yearInProgram === "EC") {
-				stats.EC ++;
-			} else if (details.career.yearInProgram === "RC") {
-				stats.RC ++;
-			}
-			tables.details.settings.valueNames.push("detailOf__" + hbsId);
-
-			recordsData[hbsId] = {};
-			if ( currentRecord.errors !== undefined ) {
-				recordsData[hbsId]["errors"] = {};
-
-				for ( var error = 0; error < totalErrors; error++ ) {
-					var currentError      = errors[error];
-					var currentErrorField = currentError.field.split(".").pop();
-
-					recordsData[hbsId]["errors"][currentErrorField] = {
-						type    : currentError["type"],
-						message : currentError["message"],
-						field   : currentErrorField
-					};
-				}
-			}
-
-
-
-			var has__error = errors.length > 0 ? " has__error" : "";
-
-			recordTableBodyHTML[recRow++] = '<tr class="table-body-row__light" data-record="' + hbsId + '" data-ui-settings="size__large material__paper" data-js="load__record">';
-			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-settings="size__large">' + firstName + '</td>';
-			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-settings="size__large">' + lastName + '</td>';
-			recordTableBodyHTML[recRow++] = '</tr>';
-
-			for (var fieldGroups in details) {
-				if (fieldGroups !== "updateDate" && fieldGroups !== "hbsId") {
-					var fieldGroup = details[fieldGroups];
-					for ( var field in fieldGroup) {
-						recordsData[hbsId][field] = fieldGroup[field];
-					}
-				}
-			}
-		}
-		recordTableBodyHTML[recRow++] = '</tbody>';
-		
-		document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", recordTableBodyHTML.join('') );
-
-
-
-        // initializes the popover, panel and cuboid modules
-        App.init();
-
-
-
-		var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
-		tables.details.openRecord(firstRecord);
-	});
-	
-}(jQuery));

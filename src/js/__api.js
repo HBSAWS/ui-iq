@@ -1,8 +1,5 @@
 UI = {
 	animate   : UI_animate.animate,
-	animation : function(DOMelement, settings) {
-		return new __Animation(DOMelement, settings);
-	},
 	collection : function(items,activeItem) {
 		return new UI_collection(items,activeItem);
 	},

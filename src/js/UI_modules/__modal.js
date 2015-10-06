@@ -19,11 +19,8 @@ var UI_modal = function UI_modal(DOMelement,settings) {
 	__self.__clickOutSideClose = this.clickOutSideClose.bind(this);
 
 	__self.active              = false;
-
-	__Animation.call(this,DOMelement);
 };
 
-UI_modal.prototype = Object.create(__Animation.prototype);
 
 UI_modal.prototype.initialize_module = function(settings) {
 };
