@@ -1,8 +1,14 @@
+// UI TABLE PLUGIN
+// DEPENDANCIES
+	// list.js        - for the sorting/searching/filtering
+	// UI keyboard.js - for enabling the keyboard navigation options
+	// UI DOM.js      - for updating classes and data attributes
 function UI_table(DOMelement, settings) {
 	var __self = this;
 
-	__self.el   = DOMelement;
-	__self.core = {
+	__self.el    = DOMelement;
+	__self.tbody = __self.el.querySelector("tbody");
+	__self.core  = {
 		size : "large"
 	};
 	__self.list       = null;
@@ -14,6 +20,7 @@ function UI_table(DOMelement, settings) {
 
 	__self.arrowKeysHighlightRows = settings.arrowKeysHighlightRows || true;
 	__self.hoverHighlightsRows    = settings.hoverHighlightsRows    || true;
+	__self.hoverFocusesTable      = settings.hoverFocusesTable      || true;
 	__self.returnKeySelectsRow    = settings.returnKeySelectsRow    || true;
 	__self.clickSelectsRow        = settings.clickSelectsRow        || true;
 	__self.onRowSelection         = settings.onRowSelection         || function() { console.log( "return key pressed on " + __self.highlightedRow ); };
@@ -33,6 +40,7 @@ function UI_table(DOMelement, settings) {
 		active    : null,
 		direction : null
 	};
+	__self.focused         = false;
 	__self.highlightedRow  = undefined;
 	__self.selectedRow     = undefined;
 	__self.activeFilters   = [];
@@ -136,27 +144,47 @@ UI_table.prototype.focusTable = function() {
 	var __self;
 	__self = this;
 
-	//if ( __self.highlightedRow !== undefined ) {
-		UI_DOM.addDataValue( __self.el.querySelector("tbody"),"data-ui-state","is__focused");
-	//}
+	UI_DOM.addDataValue( __self.tbody,"data-ui-state","is__focused" );
+	__self.focused = true;
 };
 UI_table.prototype.unfocusTable = function() {
 	var __self;
 	__self = this;
 
-	//if ( __self.highlightedRow !== undefined ) {
-		UI_DOM.removeDataValue( __self.el.querySelector("tbody"),"data-ui-state","is__focused");
-	//}
+	UI_DOM.removeDataValue( __self.tbody,"data-ui-state","is__focused" );
+	__self.focused = false;
 };
-UI_table.prototype.highlightRow = function( highlightRow ) {
+UI_table.prototype.isTableFocused = function() {
 	var __self;
 	__self = this;
 
+	return __self.focused;
+};
+UI_table.prototype.highlightRow = function( highlightRow ) {
+	var __self,oldHighlightedRowPrevious,oldHightlightRowNext,newHighlightRowPrevious,newHighlightRowNext;
+	__self                    = this;
+	newHighlightRowPrevious   = highlightRow.previousElementSibling;
+	newHighlightRowNext       = highlightRow.nextElementSibling;
+
 	if ( __self.highlightedRow !== undefined ) {
+		oldHighlightedRowPrevious = __self.highlightedRow.previousElementSibling;
+		oldHightlightRowNext      = __self.highlightedRow.nextElementSibling;
 		// there is currently a highlighted row, we neeed to unhighlight it
+		if ( oldHighlightedRowPrevious !== null && oldHighlightedRowPrevious !== undefined ) {
+			UI_DOM.removeDataValue( __self.highlightedRow.previousElementSibling,"data-ui-state","is__highlighted-step" );
+		}
 		UI_DOM.removeDataValue( __self.highlightedRow,"data-ui-state","is__highlighted" );
+		if ( oldHightlightRowNext !== null && oldHightlightRowNext !== undefined ) {
+			UI_DOM.removeDataValue( __self.highlightedRow.nextElementSibling,"data-ui-state","is__highlighted-step" );
+		}
+	}
+	if ( newHighlightRowPrevious !== null && newHighlightRowPrevious !== undefined ) {
+		UI_DOM.addDataValue( highlightRow.previousElementSibling,"data-ui-state","is__highlighted-step");
 	}
 	UI_DOM.addDataValue( highlightRow,"data-ui-state","is__highlighted" );
+	if ( newHighlightRowNext !== null && newHighlightRowNext !== undefined ) {
+		UI_DOM.addDataValue( highlightRow.nextElementSibling,"data-ui-state","is__highlighted-step");
+	}
 	__self.highlightedRow = highlightRow;
 };
 UI_table.prototype.unhighlightRow = function() {
@@ -306,8 +334,8 @@ UI_table.prototype.removeRow = function(rowIndex) {
 UI_table.prototype.initialize_module = function() {
 	var __self,tableBody;
 	__self = this;
-
 	tableBody = __self.el.querySelector("tbody");
+
 	UI_DOM.addClass( tableBody, "list" );
 
 	__self.list = new List( __self.el , { valueNames : __self.valueNames });
@@ -344,31 +372,17 @@ UI_table.prototype.initialize_module = function() {
 			var clicked = e.target.parentElement;
 			if ( clicked.tagName == "TR" ) {
 				__self.selectRow( clicked );
-				e.stopPropagation();
 			}
 		});
 	}
-	// the hover variable is so the refiring of the hover event doesn't constantly rehighlight where the mouse is if the user has arrowed away
-	var initialHover = true;
+
 	if ( __self.hoverHighlightsRows ) {
 		// highlights table rows on mouseover
 		tableBody.addEventListener( "mouseover", function(e) {
-			if ( initialHover ) {
-				initialHover = false;
-				var hovered = e.target.parentElement;
-				if ( hovered.tagName == "TR" ) {
-					__self.highlightRow( hovered );
-					e.stopPropagation();
-				}
-			}
-		});
-		// removes the hover on mouseoout
-		tableBody.addEventListener( "mouseout", function(e) {
 			var hovered = e.target.parentElement;
-			if ( hovered.tagName == "TR" ) {
-				__self.unhighlightRow( hovered );
-				initialHover = true;
-				e.stopPropagation();
+
+			if ( hovered.tagName == "TR" && hovered !== __self.highlightedRow ) {
+				__self.highlightRow( hovered );
 			}
 		});
 	}

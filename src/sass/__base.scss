@@ -86,7 +86,7 @@ $error__color : rgba(245, 101, 91, 0.96);
 
 
 	// SUBCLASSES  -- START
-	&[class$="_offset"] {
+	&[class*="_offset"] {
 		&[data-ui-settings~="material__paper"] {
 			background : $color__offset;
 		}
@@ -97,7 +97,7 @@ $error__color : rgba(245, 101, 91, 0.96);
 			background : rgba($color__offset, 0);
 		}
 	}
-	&[class$="_light"] {
+	&[class*="_light"] {
 		&[data-ui-settings~="material__paper"] {
 			background : $color__light;
 		}
@@ -108,7 +108,7 @@ $error__color : rgba(245, 101, 91, 0.96);
 			background : rgba($color__light, 0);
 		}
 	}
-	&[class$="_dark"] {
+	&[class*="_dark"] {
 		&[data-ui-settings~="material__paper"] {
 			background : $color__dark;
 		}
@@ -119,7 +119,7 @@ $error__color : rgba(245, 101, 91, 0.96);
 			background : rgba($color__dark, 0);
 		}
 	}
-	&[class$="_primary"] {
+	&[class*="_primary"] {
 		&[data-ui-settings~="material__paper"] {
 			background : $color__primary;
 		}
@@ -133,7 +133,7 @@ $error__color : rgba(245, 101, 91, 0.96);
 
 
 
-	&[class$="_error"] {
+	&[class*="_error"] {
 		&[data-ui-settings~="material__paper"] {
 			background : $color__error;
 		}
@@ -144,7 +144,7 @@ $error__color : rgba(245, 101, 91, 0.96);
 			background : rgba($color__error, 0);
 		}
 	}
-	&[class$="_warning"] {
+	&[class*="_warning"] {
 		&[data-ui-settings~="material__paper"] {
 			background : $color__warning;
 		}

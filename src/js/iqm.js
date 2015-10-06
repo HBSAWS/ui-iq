@@ -592,56 +592,40 @@
 
 
 	var tables = {
-		active : document.querySelector("[data-js~='recordsTable']"),
-		exceptions : function() {
-			var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
-			exception = false;
-
-			tableIsNotActive  = ( tables.active !== currentTable ) ? true : false; // if the active table is not the currentTable, exception is true
-			fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-			modalIsShowing    = ( modals.iframe.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
-
-			if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
-				exception = true;
-			}
-
-			return exception;
-		},
 		init : function() {
-			var __self = this;
+			var __self,recordsTable,detailsTable; 
+			__self       = this;
+			recordsTable = __self.records.UI;
+			detailsTable = __self.details.UI;
 
 			// when the user hovers the records panel, the records table becomes the active table
-			document.querySelector("[data-js~='appHuver__recordsInner']").addEventListener( 'mouseover', function() {
-				tables.active = tables.records.el;
-
-				tables.details.UI.unfocusTable();
-				tables.records.UI.focusTable();
+			document.querySelector("[data-js~='appHuver__recordsInner']").addEventListener( 'mouseover', function(e) {
+				__self.records.UI.focusTable();
+				__self.details.UI.unfocusTable();
 			});
 			// when the user hovers the details panel, the details table becomes the active table
-			document.querySelector("[data-js~='appHuver__details-inner']").addEventListener( 'mouseover', function() {
-				tables.active = tables.details.el;
-
-				tables.records.UI.unfocusTable();
-				tables.details.UI.focusTable();
+			document.querySelector("[data-js~='appHuver__details-inner']").addEventListener( 'mouseover', function(e) {
+				__self.records.UI.unfocusTable();
+				__self.details.UI.focusTable();
 			});
 			// when the tab button is pressed, we want to toggle between the active tables
 			UI.keyboard({
 				preventDefaultAction : true,
 				combination : ["tab"],
 				onPress     : function(e) {
-					if ( tables.active == tables.records.el ) {
-						tables.active = tables.details.el;
-						if ( window.innerWidth < 1300 && !offCanvasPanels.records.isPanelShowing() ) {
-							offCanvasPanels.records.showPanel();
-						}
-						tables.records.UI.unfocusTable();
-						tables.details.UI.focusTable();
+					if ( __self.records.UI.isTableFocused() ) {
+						// if yes then we switch to the details table
+						__self.records.UI.unfocusTable();
+						__self.details.UI.focusTable();
 					} else {
-						tables.active = tables.records.el;
-
-						tables.details.UI.unfocusTable();
-						tables.records.UI.focusTable();
-					}
+						// if records is not focused, then we focus it
+						if ( window.innerWidth < 1300 && !offCanvasPanels.records.UI.isPanelShowing() ) {
+							// if the browser window is less than 1300 pixels, and the records slide is off canvas we open it
+							offCanvasPanels.records.UI.showPanel();
+						}
+						__self.records.UI.focusTable();
+						__self.details.UI.unfocusTable();
+					} 
 				},
 				exceptions : {
 					allKeys : function() {
@@ -673,7 +657,7 @@
 						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
 						exception = false;
 
-						tableIsNotActive  = ( tables.active !== document.querySelector("[data-js~='recordsTable']") ) ? true : false; // if the active table is not the currentTable, exception is true
+						tableIsNotActive  = ( tables.details.UI.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
 						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
 						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
 
@@ -735,7 +719,7 @@
 						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
 						exception = false;
 
-						tableIsNotActive  = ( tables.active !== document.querySelector("[data-js~='detailsTable']") ) ? true : false; // if the active table is not the currentTable, exception is true
+						tableIsNotActive  = ( tables.records.UI.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
 						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
 						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
 
@@ -880,12 +864,6 @@
 
 	App = {
 		init : function() {
-			UI.keyboard({
-				combination : ["equal sign","p"],
-				onPress     : function(e) {
-					console.log("pressed");
-				}
-			});
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 
@@ -1021,11 +999,11 @@
 
 		var recRow = 1;
 		var recordTableBodyHTML = [];
-		recordTableBodyHTML[0] = '<tbody data-ui-settings="size__large" class="table-body_">';
+		recordTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
 
 		var detRow = 1;
 		var detailTableBodyHTML = [];
-		detailTableBodyHTML[0] = '<tbody data-ui-settings="size__large" class="table-body_">';
+		detailTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
 
 
 		for(var __record=0;__record < totalRecords;__record++) {
@@ -1070,7 +1048,7 @@
 
 			var has__error = errors.length > 0 ? " has__error" : "";
 
-			recordTableBodyHTML[recRow++] = '<tr class="table-body-row_" data-record="' + hbsId + '" data-ui-settings="size__large" data-js="load__record">';
+			recordTableBodyHTML[recRow++] = '<tr class="table-body-row__light" data-record="' + hbsId + '" data-ui-settings="size__large material__paper" data-js="load__record">';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-settings="size__large">' + firstName + '</td>';
 			recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-settings="size__large">' + lastName + '</td>';
 			recordTableBodyHTML[recRow++] = '</tr>';

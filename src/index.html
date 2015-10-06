@@ -305,7 +305,7 @@
 
                             <div class="deck__default" data-ui-settings="dimensions__parent" data-js="appHuver">
                                 <div class="deck-slide__default" data-ui-settings="mount__thick offCanvas__left offCanvas__responsive" data-ui-grid="desktop__4" data-js="appHuver__records">
-                                    <div class="deck-slide-content__light" data-ui-settings="material__paper depth__low" data-js="appHuver__recordsInner">
+                                    <div class="deck-slide-content_" data-ui-settings="depth__low" data-js="appHuver__recordsInner">
                                         <div class="fader"></div>
                                         <div class="header__light" data-ui-settings="inset__thick material__film" data-js="records__positionSticky">
                                             <div class="header-row_" data-ui-settings="content__multiple">
@@ -340,12 +340,12 @@
                                         </div>
                                         <div class="layout_" data-js="records__offsetSticky">
                                             <table class="table_" data-ui-settings="size__large" data-js="recordsTable">
-                                                <thead data-ui-settings="size__large" class="table-head_">
-                                                    <tr data-ui-settings="size__large" class="table-head-row_">
-                                                        <th data-ui-settings="size__large" data-js="recordsTable__sort" data-sort="is__firstName" class="table-head-row-header_">
+                                                <thead class="table-head__light" data-ui-settings="size__large material__paper">
+                                                    <tr class="table-head-row_" data-ui-settings="size__large">
+                                                        <th class="table-head-row-header_" data-ui-settings="size__large" data-js="recordsTable__sort" data-sort="is__firstName">
                                                             First Name
                                                         </th>
-                                                        <th data-ui-settings="size__large" data-js="recordsTable__sort" data-sort="is__lastName" class="table-head-row-header_">
+                                                        <th class="table-head-row-header_" data-ui-settings="size__large" data-js="recordsTable__sort" data-sort="is__lastName">
                                                             Last Name
                                                         </th>
                                                     </tr>
@@ -355,7 +355,7 @@
                                     </div>
                                 </div>
                                 <div class="deck-slide__default" data-ui-settings="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
-                                    <div class="deck-slide-content__light" data-ui-settings="material__paper depth__low" data-js="contentToggle appHuver__details-inner">       
+                                    <div class="deck-slide-content__light" data-ui-settings="depth__low" data-js="contentToggle appHuver__details-inner">       
                                         <div class="fader"></div>
                                         <div class="header__light" data-ui-settings="inset__thick material__film" data-js="details__positionSticky">
 
@@ -417,12 +417,6 @@
                                                         <div data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
                                                     </div>
                                                 </div>
-<!--                                                     <div data-ui-settings="mode__button size__large" class="toggler__bold">
-                                                    <input data-ui-settings="mode__button size__large" type="checkbox" value="is__pending" class="toggler-input__bold">
-                                                    <div data-ui-settings="mode__button size__large" class="toggler-toggle__bold">
-                                                        <div data-ui-settings="mode__button size__large" data-ui-icon="clock" class="toggler-toggle-indicator__bold"></div>
-                                                    </div>
-                                                </div> -->
                                             </div>
                                             <div data-ui-settings="padding__top-xs" data-ui-grid="mobile__12">
                                                 <input placeholder="search" class="field_" data-js="detailsTable__search">
@@ -444,7 +438,7 @@
                                         </div>
                                         <div class="layout" data-js="details__offsetSticky">
                                             <table class="table_" data-ui-settings="mode__responsive size__large" data-js="detailsTable">
-                                                <thead data-ui-settings="size__large" class="table-head_">
+                                                <thead class="table-head__light" data-ui-settings="size__large material__paper">
                                                     <tr data-ui-settings="size__large" data-field="academicPlan" class="table-head-row">
                                                         <th data-ui-settings="size__large" data-ui-state="is__sortable" data-sort="is__field" data-js="detailsTable__sort" class="table-head-row-header_">Field</th>
                                                         <th data-ui-settings="size__large" data-ui-state="is__sortable" data-sort="is__error" data-js="detailsTable__sort" class="table-head-row-header_">Error</th>
@@ -452,7 +446,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-body_" data-ui-settings="size__large" data-js="updateRecord">
-                                                    <tr class="table-body-row_" data-ui-settings="size__large" data-js="show__iframe">
+                                                    <tr class="table-body-row__light" data-ui-settings="size__large material__paper" data-js="show__iframe">
                                                         <td class="table-body-row-cell_ is__field" data-ui-settings="size__large" data-table-title="Field"><span class="huid" style="display:none;"></span>Address 1</td>
                                                         <td class="table-body-row-cell_ is__error" data-ui-settings="size__large" data-table-title="Error"></td>
                                                         <td class="table-body-row-cell_ content" data-ui-settings="size__large" data-table-title="Content"></td>

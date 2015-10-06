@@ -134,6 +134,7 @@
 	width          : 100%;
 	border         : 0px;
 	border-spacing : 0px;
+	overflow       : hidden;
 	&.bt {
 		[class^="table-body-row-cell_"] {
             @include gridle_state(mobile) {
@@ -236,12 +237,21 @@
 				}
 			}
 	[class^="table-body_"] {
+		@include prefix( perspective, 10000 );
 		&[data-ui-state~="is__focused"] {
 			[class^="table-body-row_"] {
 				&[data-ui-state~="is__highlighted"] {
-					background  : #4CC1BC;
-					color       : #ffffff;
-					@include prefix( text-shadow, none );
+					/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9f8f8+0,fbf7f7+75,efefef+100 */
+					background: rgb(249,248,248); /* Old browsers */
+					background: -moz-linear-gradient(top,  rgba(249,248,248,1) 0%, rgba(251,247,247,1) 75%, rgba(239,239,239,1) 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,248,248,1)), color-stop(75%,rgba(251,247,247,1)), color-stop(100%,rgba(239,239,239,1))); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(top,  rgba(249,248,248,1) 0%,rgba(251,247,247,1) 75%,rgba(239,239,239,1) 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(top,  rgba(249,248,248,1) 0%,rgba(251,247,247,1) 75%,rgba(239,239,239,1) 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(top,  rgba(249,248,248,1) 0%,rgba(251,247,247,1) 75%,rgba(239,239,239,1) 100%); /* IE10+ */
+					background: linear-gradient(to bottom,  rgba(249,248,248,1) 0%,rgba(251,247,247,1) 75%,rgba(239,239,239,1) 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f8f8', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+
+					@include prefix( transform, scale(0.986) translateY(3px) translateZ(-1px) );
 				}
 			}
 		}
@@ -250,19 +260,34 @@
 			background : transparent;
 			color      : #151515;
 			cursor     : pointer;
+			@include prefix( transform, translate(0px) );
+			@include prefix( transform-origin, center );
+			@include prefix( transition, "all 0.4s cubic-bezier(.43,0,0,1)" );
 
 			[class$="_inverted"] {
 				color : #ffffff;
 				cursor : auto;
 			}
 			&[data-ui-state~="is__selected"] {
-				background : #F5F3F3 !important;
-				color      : #4cc1bc !important;
+				background  : #4CC1BC !important;
+				color       : #ffffff !important;
+				@include prefix( transform, scale(1) !important );
+			}
+			&[data-ui-state~="is__highlighted-step"] {
+    			@include prefix( filter, drop-shadow(0px 11px 6px rgba(0,0,0,0.1)) );
 			}
 			&[data-ui-state~="is__highlighted"] {
-				background  : rgba(135, 186, 197, 0.33);
-				color       : rgb(255, 255, 255);
-				@include prefix( text-shadow, 0 0 17px rgba(0,0,0,0.1) );
+				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fdfcfc+0,fdfcfc+85,f7f7f7+100 */
+				background: rgb(253,252,252); /* Old browsers */
+				background: -moz-linear-gradient(top,  rgba(253,252,252,1) 0%, rgba(253,252,252,1) 85%, rgba(247,247,247,1) 100%); /* FF3.6+ */
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(253,252,252,1)), color-stop(85%,rgba(253,252,252,1)), color-stop(100%,rgba(247,247,247,1))); /* Chrome,Safari4+ */
+				background: -webkit-linear-gradient(top,  rgba(253,252,252,1) 0%,rgba(253,252,252,1) 85%,rgba(247,247,247,1) 100%); /* Chrome10+,Safari5.1+ */
+				background: -o-linear-gradient(top,  rgba(253,252,252,1) 0%,rgba(253,252,252,1) 85%,rgba(247,247,247,1) 100%); /* Opera 11.10+ */
+				background: -ms-linear-gradient(top,  rgba(253,252,252,1) 0%,rgba(253,252,252,1) 85%,rgba(247,247,247,1) 100%); /* IE10+ */
+				background: linear-gradient(to bottom,  rgba(253,252,252,1) 0%,rgba(253,252,252,1) 85%,rgba(247,247,247,1) 100%); /* W3C */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfcfc', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-9 */
+
+				@include prefix( transform, scale(0.996) translateY(2px) translateZ(-1px) );
 			}
 
 		}		
@@ -285,7 +310,7 @@
 			}
 			[class^="table-body-row-cell_"] {
 				font-weight : 300;
-                @include prefix(text-stroke-width, 0.15px);
+                //@include prefix(text-stroke-width, 0.15px);
 				&[data-ui-settings~="size__small"] {
 					padding   : 11px 20px;;
 					font-size : 12px;
