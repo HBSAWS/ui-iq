@@ -60,7 +60,7 @@ UI_loader.prototype.RequestTracker = (function() {
 		if (window.ProgressEvent != null) {
 			request.addEventListener('progress', function(evt) {
 				if (evt.lengthComputable) {
-					console.log("inside event: " + 100 * evt.loaded / evt.total);
+					// console.log("inside event: " + 100 * evt.loaded / evt.total);
 					return _this.progress = 100 * evt.loaded / evt.total;
 				}
 			}, false);
@@ -88,11 +88,11 @@ UI_loader.prototype.updateProgressBar = function() {
 			currentProgress = 0;
 			for ( var listener = 0; listener < totalRequests; listener++ ) {
 				currentProgress += __self.progressListeners[listener].progress;
-				console.log( "listener #" + listener + " progress: " + __self.progressListeners[listener].progress );
+				// console.log( "listener #" + listener + " progress: " + __self.progressListeners[listener].progress );
 			}
 			currentProgress = __self.percentageLoaded = currentProgress / totalRequests;
 
-			console.log( "total progress: " + currentProgress);
+			// console.log( "total progress: " + currentProgress);
 			__self.loaderProgressbar.style.transform = "translateX(" + currentProgress + "%)";
 			if ( currentProgress < 100 ) {
 				checkProgress();

@@ -31,30 +31,30 @@
 	var calendar = {
 		exclusions : {
 			init : function() {
-				// var calendar = new Pikaday({ 
-				// 	field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
-				// 	format: 'D MMM YYYY',
-				// 	onSelect: function() {
-				// 	    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
-				// 	    this._o.field.value = formattedDate;
-				// 	}
-				//  });
-				// var calendar = new Pikaday({ 
-				// 	field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
-				// 	format: 'D MMM YYYY',
-				// 	onSelect: function() {
-				// 	    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
-				// 	    this._o.field.value = formattedDate;
-				// 	}
-				//  });
+				var calendar = new Pikaday({ 
+					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
+					format: 'D MMM YYYY',
+					onSelect: function() {
+					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
+					    this._o.field.value = formattedDate;
+					}
+				 });
+				var calendar = new Pikaday({ 
+					field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
+					format: 'D MMM YYYY',
+					onSelect: function() {
+					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
+					    this._o.field.value = formattedDate;
+					}
+				 });
 
-				// var today = new Date();
-				// var dd    = today.getDate();
-				// var mm    = today.getMonth()+1;
-				// var yyyy  = today.getFullYear();
+				var today = new Date();
+				var dd    = today.getDate();
+				var mm    = today.getMonth()+1;
+				var yyyy  = today.getFullYear();
 
-				// var today = mm + '/' + dd + '/' + yyyy + ' ';
-				// document.querySelector("[data-js~='activeExclusion__startDate']").value = today;
+				var today = mm + '/' + dd + '/' + yyyy + ' ';
+				document.querySelector("[data-js~='activeExclusion__startDate']").value = today;
 			}
 		}
 	};
@@ -803,12 +803,12 @@
 
 
 	var App = {
-		buildHTML : function() {
-			var dataRecords, records, numberOfRecords, listOptions,EC,RC;
-			//var user        = dataConfig[0].userInfo;
-			dataRecords = JSON.parse( reqRecords.response );
-			records     = dataRecords.records;
-			//userData["PDM"] = dataConfig[0].config.PDM_URL;
+		buildHTML : function( appData ) {
+			var records,user,config, numberOfRecords, listOptions,EC,RC;
+			records = appData.records.records;
+			user    = appData.config.userInfo;
+			config  = appData.config.config;
+			userData["PDM"] = config.PDM_URL;
 
 					
 
@@ -885,6 +885,10 @@
 			recordTableBodyHTML[recRow++] = '</tbody>';
 			
 			document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", recordTableBodyHTML.join('') );
+			document.querySelector("[data-js~='userName']").innerHTML = user.firstName;
+			if ( user.roles.indexOf( "IQ_ADMIN" ) == -1 ) {
+				UI.DOM.addDataValue( document.querySelector("[data-js~='adminFileOption']"),"data-ui-state","is__hidden");
+			}
 
 
 			this.adjustHTML();
@@ -979,39 +983,56 @@
 
 
 
-
+	var requests = {
+		records    : true,
+		config     : true,
+		exclusions : true
+	};
 
 	var reqRecords = new XMLHttpRequest();
 	reqRecords.open("GET","js/bio.json",true);
 	reqRecords.onreadystatechange = function() {
-	  if( this.readyState == 4) {
-	    if( this.status == 200) {
-	    	
-	    }
-	    else {
-	    	console.log("HTTP error "+this.status+" "+this.statusText);
-	    }
-	  }
+		if( this.readyState == 4) {
+			if( this.status == 200) {
+
+			}
+			else {
+				requests.records = false;
+				console.log("Records HTTP error "+this.status+" "+this.statusText);
+			}
+		}
 	}
 	reqRecords.send();
 
 	var reqConfig = new XMLHttpRequest();
-	reqConfig.open("GET","/iqService/rest/config.json",true);
+	reqConfig.open("GET","/iqService/rest/config.json?meta=true",true);
 	reqConfig.onreadystatechange = function() {
-	  if( this.readyState == 4) {
-	    if( this.status == 200) {
-	    	
-	    }
-	    else {
-	    	console.log("HTTP error "+this.status+" "+this.statusText);
-	    }
-	  }
+		if( this.readyState == 4) {
+			if( this.status == 200) {
+
+			}
+			else {
+				requests.config = false;
+				console.log("Config HTTP error "+this.status+" "+this.statusText);
+			}
+		}
 	}
 	reqConfig.send();
 
+	var reqExclusions = new XMLHttpRequest();
+	reqExclusions.open("GET","/iqService/mba/bio/excl.json",true);
+	reqExclusions.onreadystatechange = function() {
+		if( this.readyState == 4) {
+			if( this.status == 200) {
 
-
-
+			}
+			else {
+				requests.exclusions = false;
+				console.log("Exclusoins HTTP error "+this.status+" "+this.statusText);
+			}
+		}
+	}
+	reqExclusions.send();
 
 
 
@@ -1020,10 +1041,15 @@
 		app : {
 			el : document.querySelector("[data-js~='appLoader']"),
 			settings : {
-				requests : [reqRecords,reqConfig],
+				requests : [reqRecords,reqConfig,reqExclusions],
 				loaderCompleteAnimation : "fade out",
 				onComplete       : function() {
-					App.buildHTML( JSON.parse( reqRecords.response ) );
+					var appData = {
+						records    : ( requests.records ) ? JSON.parse( reqRecords.response ) : false,
+						config     : ( requests.config ) ? JSON.parse( reqConfig.response ) : false,
+						exclusions : ( requests.exclusions ) ? JSON.parse( reqExclusions.response ) : false
+					};
+					App.buildHTML( appData );
 				}
 			},
 			__UI : undefined,

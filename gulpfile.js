@@ -120,7 +120,7 @@ config = {
 		}
 		settings = config.env[source];
 
-		var UI = gulp.src(['./src/js/__UI.js', './src/js/UI_utilities/*.js', './src/js/UI_modules/*.js', './src/js/__api.js'])
+		var UI = gulp.src(['./src/js/UI_utilities/*.js', './src/js/UI_modules/*.js', './src/js/__api.js'])
 			.pipe(sourcemaps.init())
 				.pipe(concat('UI.js'))
 				//.pipe(uglify())

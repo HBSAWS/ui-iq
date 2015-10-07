@@ -7,6 +7,8 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
     </head>
     <body data-ui-state="adjusted__forNav">
+
+        <!-- THE LOADER LAYER  ** GETS REMOVED AFTER LOAD IS FINISHED ** -->
         <div class="splash" data-js="splash__finishedLoad">
             <div class="splash-content">
                 <div class="splash-content-logo">
@@ -22,6 +24,10 @@
                 </div>
             </div>
         </div>
+        <!-- THE LOADER LAYER  ** GETS REMOVED AFTER LOAD IS FINISHED ** -->
+
+
+
         <nav class="nav__global">
             <div class="cuboid__global" data-js="cuboid__initAppSuite">
                 <div class="cuboid-faces__global" data-ui-state="show__back" data-js="cuboid__updateSide">
@@ -33,7 +39,16 @@
                             <div class="nav-branding-title__global">Harvard | Business | School</div>
                         </div>
                         <div style="text-align:right;" class="nav-control__global">
-                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js="cuboid__showAppSuiteApps">
+                            <button class="button__light" data-ui-settings="size__large">
+                                <div class="button-icon__transparent" data-ui-settings="size__large" data-ui-icon="user_settings" style="font-size:1rem;padding-right:5px;"></div>
+                                <p data-ui-settings="size__large" class="button-content__transparent" data-js="userName"></p>
+                            </button>
+
+                            <button class="button__light" data-ui-settings="size__large" style="padding-right:4px;padding-left:10px;">
+                                <div class="button-icon__transparent" data-ui-settings="size__large"data-ui-icon="settings" style="font-size:1rem;"></div>
+                                <p data-ui-settings="size__large" class="button-content__transparent"></p>
+                            </button>
+                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js="cuboid__showAppSuiteApps" style="padding-left:4px;">
                                 <div class="button-icon__transparent" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="th" style="font-size:1rem;"></div>
                                 <p data-ui-settings="size__large" data-ui-addon="icon__left icon__right" class="button-content__transparent"></p>
                             </button>
@@ -114,7 +129,7 @@
                                     height: 617px;
                                     margin-left: -13px;
                                     position: relative;
-                                    margin-top: -112px;"></iframe>
+                                    margin-top: -113px;"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -163,17 +178,17 @@
                                 <div class="layout_">
                                     <!-- TABS : file summary  TAB : file records   ** START ** -->
                                     <div class="layout" data-ui-tab="tab__fileRecords">
-                                        <div data-ui-settings="padding__mobile-horizontal-sm padding__mobile-top-md" class="layout">
+                                        <div class="layout" data-ui-settings="padding__mobile-horizontal-sm padding__mobile-top-md" data-js="adminFileOption">
                                             <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
                                                 <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__programs-toggle" value="doctoral" class="toggler-input__inverted" checked="">
                                                 <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
                                                     <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">Doctoral</div>
                                                 </div>
                                             </div>
-                                            <div id="file_options" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__inverted">
-                                                <input data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__programs-toggle" value="MBA" class="toggler-input__inverted">
-                                                <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__inverted">
-                                                    <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__inverted">MBA</div>
+                                            <div id="file_options" class="toggler__inverted" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6">
+                                                <input class="toggler-input__inverted" data-js="file-summary__segmentcontrol" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="file-summary__programs-toggle" value="MBA">
+                                                <div class="toggler-toggle__inverted" data-ui-settings="mode__segmentcontrol size__large">
+                                                    <div class="toggler-toggle-indicator__inverted" data-ui-settings="mode__segmentcontrol size__large">MBA</div>
                                                 </div>
                                             </div>
                                         </div>
