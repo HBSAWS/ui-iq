@@ -1,5 +1,5 @@
 
-	var App;
+	var App,a = new XMLHttpRequest();
 	var userData    = {
 		role : undefined, // either MBA,DOCTORAL or ADMIN
 		PDM  : undefined
@@ -33,30 +33,30 @@
 	var calendar = {
 		exclusions : {
 			init : function() {
-				var calendar = new Pikaday({ 
-					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
-					format: 'D MMM YYYY',
-					onSelect: function() {
-					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
-					    this._o.field.value = formattedDate;
-					}
-				 });
-				var calendar = new Pikaday({ 
-					field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
-					format: 'D MMM YYYY',
-					onSelect: function() {
-					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
-					    this._o.field.value = formattedDate;
-					}
-				 });
+				// var calendar = new Pikaday({ 
+				// 	field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
+				// 	format: 'D MMM YYYY',
+				// 	onSelect: function() {
+				// 	    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
+				// 	    this._o.field.value = formattedDate;
+				// 	}
+				//  });
+				// var calendar = new Pikaday({ 
+				// 	field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
+				// 	format: 'D MMM YYYY',
+				// 	onSelect: function() {
+				// 	    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
+				// 	    this._o.field.value = formattedDate;
+				// 	}
+				//  });
 
-				var today = new Date();
-				var dd    = today.getDate();
-				var mm    = today.getMonth()+1;
-				var yyyy  = today.getFullYear();
+				// var today = new Date();
+				// var dd    = today.getDate();
+				// var mm    = today.getMonth()+1;
+				// var yyyy  = today.getFullYear();
 
-				var today = mm + '/' + dd + '/' + yyyy + ' ';
-				document.querySelector("[data-js~='activeExclusion__startDate']").value = today;
+				// var today = mm + '/' + dd + '/' + yyyy + ' ';
+				// document.querySelector("[data-js~='activeExclusion__startDate']").value = today;
 			}
 		}
 	};
@@ -263,34 +263,6 @@
 
 
 
-	var loaders = {
-		app : {
-			configProgress     : 0,
-			exclusionsProgress : 0,
-			recordsProgress    : 0,
-			el : document.querySelector("[data-js~='appLoader']"),
-			settings : {
-				loaderOnComplete : "fadeOut"
-			},
-			__UI : undefined,
-			init : function() {
-				var __self,loader, settings, __UI;
-				__self   = this;
-				loader   = __self.el;
-				settings = __self.settings;
-
-				__UI = __self.UI = UI.loader(loader,settings);
-			},
-			updateProgress : function() {
-				var __self, appLoader, appProgress;
-				__self      = this;
-				appLoader   = __self.__UI;
-				appProgress = ( __self.configProgress + __self.exclusionsProgress + __self.recordsProgress ) * 0.03;
-
-				appLoader.progress( appProgress );
-			}
-		}
-	};
 
 
 
@@ -832,13 +804,15 @@
 
 
 
-	App = {
-		buildHTML : function( dataRecords ) {
-			var records, numberOfRecords, listOptions,EC,RC;
+	var App = {
+		buildHTML : function() {
+			var dataRecords, records, numberOfRecords, listOptions,EC,RC;
 			//var user        = dataConfig[0].userInfo;
-			var records     = dataRecords.records;
+			dataRecords = JSON.parse( a.response );
+			records     = dataRecords.records;
 			//userData["PDM"] = dataConfig[0].config.PDM_URL;
 
+					
 
 			var totalRecords = records.length;
 			stats.records    = totalRecords;
@@ -1004,32 +978,94 @@
 
 
 
-loaders.app.init();
 
 
-var a = new XMLHttpRequest();
+
+a = new XMLHttpRequest();
 a.open("GET","js/bio.json",true);
 a.onreadystatechange = function() {
   if( this.readyState == 4) {
     if( this.status == 200) {
-    	App.buildHTML( JSON.parse( a.response ) );
+    	
     }
     else {
     	console.log("HTTP error "+this.status+" "+this.statusText);
     }
   }
 }
-a.addEventListener("progress", function(e) {
-	if ( e.lengthComputable ) {
-		var percentComplete;
-
-		percentComplete = ( e.loaded / e.total ) * 100;
-		loaders.app.init();
-		loaders.app.UI.progress(percentComplete);
-	}
-});
 a.send();
 
+b = new XMLHttpRequest();
+b.open("GET","js/testOne.json",true);
+b.onreadystatechange = function() {
+  if( this.readyState == 4) {
+    if( this.status == 200) {
+    	
+    }
+    else {
+    	console.log("HTTP error "+this.status+" "+this.statusText);
+    }
+  }
+}
+b.send();
+
+c = new XMLHttpRequest();
+c.open("GET","js/testTwo.json",true);
+c.onreadystatechange = function() {
+  if( this.readyState == 4) {
+    if( this.status == 200) {
+    	
+    }
+    else {
+    	console.log("HTTP error "+this.status+" "+this.statusText);
+    }
+  }
+}
+c.send();
+
+d = new XMLHttpRequest();
+d.open("GET","js/testThree.json",true);
+d.onreadystatechange = function() {
+  if( this.readyState == 4) {
+    if( this.status == 200) {
+    	
+    }
+    else {
+    	console.log("HTTP error "+this.status+" "+this.statusText);
+    }
+  }
+}
+d.send();
+
+
+
+
+
+
+
+
+	var loaders = {
+		app : {
+			el : document.querySelector("[data-js~='appLoader']"),
+			settings : {
+				requests : [a,b,c,d],
+				loaderCompleteAnimation : "fade out",
+				onComplete       : function() {
+					App.buildHTML( JSON.parse( a.response ) );
+				}
+			},
+			__UI : undefined,
+			init : function() {
+				var __self,loader, settings, __UI;
+				__self   = this;
+				loader   = __self.el;
+				settings = __self.settings;
+
+				__UI = __self.UI = UI.loader(loader,settings);
+			}
+		}
+	};
+loaders.app.init();
 
 
 
