@@ -1,5 +1,3 @@
-
-	var App,a = new XMLHttpRequest();
 	var userData    = {
 		role : undefined, // either MBA,DOCTORAL or ADMIN
 		PDM  : undefined
@@ -808,7 +806,7 @@
 		buildHTML : function() {
 			var dataRecords, records, numberOfRecords, listOptions,EC,RC;
 			//var user        = dataConfig[0].userInfo;
-			dataRecords = JSON.parse( a.response );
+			dataRecords = JSON.parse( reqRecords.response );
 			records     = dataRecords.records;
 			//userData["PDM"] = dataConfig[0].config.PDM_URL;
 
@@ -981,61 +979,35 @@
 
 
 
-a = new XMLHttpRequest();
-a.open("GET","js/bio.json",true);
-a.onreadystatechange = function() {
-  if( this.readyState == 4) {
-    if( this.status == 200) {
-    	
-    }
-    else {
-    	console.log("HTTP error "+this.status+" "+this.statusText);
-    }
-  }
-}
-a.send();
 
-b = new XMLHttpRequest();
-b.open("GET","js/testOne.json",true);
-b.onreadystatechange = function() {
-  if( this.readyState == 4) {
-    if( this.status == 200) {
-    	
-    }
-    else {
-    	console.log("HTTP error "+this.status+" "+this.statusText);
-    }
-  }
-}
-b.send();
 
-c = new XMLHttpRequest();
-c.open("GET","js/testTwo.json",true);
-c.onreadystatechange = function() {
-  if( this.readyState == 4) {
-    if( this.status == 200) {
-    	
-    }
-    else {
-    	console.log("HTTP error "+this.status+" "+this.statusText);
-    }
-  }
-}
-c.send();
+	var reqRecords = new XMLHttpRequest();
+	reqRecords.open("GET","js/bio.json",true);
+	reqRecords.onreadystatechange = function() {
+	  if( this.readyState == 4) {
+	    if( this.status == 200) {
+	    	
+	    }
+	    else {
+	    	console.log("HTTP error "+this.status+" "+this.statusText);
+	    }
+	  }
+	}
+	reqRecords.send();
 
-d = new XMLHttpRequest();
-d.open("GET","js/testThree.json",true);
-d.onreadystatechange = function() {
-  if( this.readyState == 4) {
-    if( this.status == 200) {
-    	
-    }
-    else {
-    	console.log("HTTP error "+this.status+" "+this.statusText);
-    }
-  }
-}
-d.send();
+	var reqConfig = new XMLHttpRequest();
+	reqConfig.open("GET","/iqService/rest/config.json",true);
+	reqConfig.onreadystatechange = function() {
+	  if( this.readyState == 4) {
+	    if( this.status == 200) {
+	    	
+	    }
+	    else {
+	    	console.log("HTTP error "+this.status+" "+this.statusText);
+	    }
+	  }
+	}
+	reqConfig.send();
 
 
 
@@ -1048,10 +1020,10 @@ d.send();
 		app : {
 			el : document.querySelector("[data-js~='appLoader']"),
 			settings : {
-				requests : [a,b,c,d],
+				requests : [reqRecords,reqConfig],
 				loaderCompleteAnimation : "fade out",
 				onComplete       : function() {
-					App.buildHTML( JSON.parse( a.response ) );
+					App.buildHTML( JSON.parse( reqRecords.response ) );
 				}
 			},
 			__UI : undefined,
@@ -1065,7 +1037,7 @@ d.send();
 			}
 		}
 	};
-loaders.app.init();
+	loaders.app.init();
 
 
 

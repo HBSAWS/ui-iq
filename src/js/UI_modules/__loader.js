@@ -58,12 +58,19 @@ UI_loader.prototype.RequestTracker = (function() {
 		_this = this;
 		this.progress = 0;
 		if (window.ProgressEvent != null) {
-			size = null;
 			request.addEventListener('progress', function(evt) {
 				if (evt.lengthComputable) {
+					console.log("inside event: " + 100 * evt.loaded / evt.total);
 					return _this.progress = 100 * evt.loaded / evt.total;
 				}
 			}, false);
+			_ref2 = ['load', 'abort', 'timeout', 'error'];
+			for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+				event = _ref2[_j];
+				request.addEventListener(event, function() {
+					return _this.progress = 100;
+				}, false);
+			}
 		}
 	}
 
@@ -72,7 +79,7 @@ UI_loader.prototype.RequestTracker = (function() {
 
 
 UI_loader.prototype.updateProgressBar = function() {
-	var __self,totalRequests,currentProgress;
+	var __self,totalRequests,checkProgress,currentProgress;
 	__self          = this;
 	totalRequests = __self.requests.length;
 	
@@ -96,9 +103,8 @@ UI_loader.prototype.updateProgressBar = function() {
 };
 
 UI_loader.prototype.finishedLoading = function() {
-	var __self,totalPercentage,loader,requests,completeAnimation,onComplete,transitionTiming,transitionAnimation,transitionProperty;
+	var __self,loader,requests,completeAnimation,transitionTiming,transitionAnimation,transitionProperty,onComplete;
 	__self = this;
-	console.log(totalPercentage);
 	if ( __self.percentageLoaded == 100 ) {
 		loader            = __self.loader;
 		requests          = __self.requests;
@@ -107,15 +113,15 @@ UI_loader.prototype.finishedLoading = function() {
 
 		if ( completeAnimation !== "none" ) {
 			if ( completeAnimation === "out top" ) {
-				transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1) .3s";
+				transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
 				transitionAnimation = "translateY( -100% ) translateX( 100% )";
 				transitionProperty  = "transform";
 			} else if ( completeAnimation === "out bottom" ) {
-				transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1) .3s";
+				transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
 				transitionAnimation = "translateY( 100% ) translateX( 100% )";
 				transitionProperty  = "transform";
 			} else if ( completeAnimation == "fade out" ) {
-				transitionTiming    = "opacity .45s cubic-bezier(.43,0,0,1) .1s";
+				transitionTiming    = "opacity .45s cubic-bezier(.43,0,0,1)";
 				transitionAnimation = "0";
 				transitionProperty  = "opacity";
 			}
@@ -127,12 +133,17 @@ UI_loader.prototype.finishedLoading = function() {
 		}
 
 		if ( onComplete !== undefined ) {
+			// if there is a onComplete function, it fires here
+			// loader is the actual loader DOM element
+			// requests are the original request objects submitted
 			__self.onComplete( loader,requests );
 		}
 
+		// remove the event listener for the progress bar transitions
 		__self.loaderProgressbar.removeEventListener( 'webkitTransitionEnd',__self.__finishedLoading);
 
 		if ( __self.destroyOnComplete ) {
+			// removes the DOM loader and progress bar elements
 			loader.remove();
 		}
 	}
