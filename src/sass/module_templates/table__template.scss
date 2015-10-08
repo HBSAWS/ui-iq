@@ -248,10 +248,10 @@
 					// 	}
 					// }
 					// thinking about having only a single highlighted state -- if that's going to be the case I THINK I like this one better -- still up in the air
-					@include prefix( transform, scale(0.996) translateY(2.5px) translateZ(-1px) );
+					@include prefix( transform, scale(0.996) translateY(3px) translateZ(-1px) );
 					[class^="table-body-row-cell_"] {
 						&:after {
-							opacity : 0.6;
+							opacity : 0.75;
 						}
 					}
 				}

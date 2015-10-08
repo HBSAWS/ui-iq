@@ -153,10 +153,6 @@ UI_keyboard.prototype.keyDown = function(e) {
 	key    = window.event ? e.keyCode : e.which;
     __self.keysDown.push( key );
 
-	if ( __self.preventDefaultAction ) {
-		e.preventDefault();
-	}
-
 	if ( !__self.exception() ) {
 		// if the exception isn't true, then we can fire our function 
 		var unlocked,pins;
@@ -170,6 +166,10 @@ UI_keyboard.prototype.keyDown = function(e) {
 		}
 
 		if ( pins == unlocked ) {
+			if ( __self.preventDefaultAction ) {
+				e.preventDefault();
+			}
+
 			__self.onPress();
 		}
 	}
@@ -182,10 +182,6 @@ UI_keyboard.prototype.keyUp = function(e) {
 	e      = e || event; // to deal with IE
 	key    = window.event ? e.keyCode : e.which;
 	index  = __self.keysDown.indexOf( key );
-
-	if ( __self.preventDefaultAction ) {
-		e.preventDefault();
-	}
 
 	__self.keysDown.splice(index, 1);
 	e.stopPropagation();

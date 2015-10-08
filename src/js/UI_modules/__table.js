@@ -23,7 +23,7 @@ function UI_table(DOMelement, settings) {
 	__self.hoverFocusesTable      = settings.hoverFocusesTable      || true;
 	__self.returnKeySelectsRow    = settings.returnKeySelectsRow    || true;
 	__self.clickSelectsRow        = settings.clickSelectsRow        || true;
-	__self.onRowSelection         = settings.onRowSelection         || function() { console.log( "return key pressed on " + __self.highlightedRow ); };
+	__self.onRowSelection         = settings.onRowSelection         || function() {  };
 	__self.addStateToRowOnSelect  = settings.addStateToRowOnSelect  || true;
 	__self.selectFirstRowOnInit   = settings.selectFirstRowOnInit   || false;
 	if ( settings.exceptions == undefined || settings.exceptions == null ) { 
@@ -264,7 +264,7 @@ UI_table.prototype.sort = function(toSort,sortDirection) {
 		} else {
 			__self.sorted.direction = sortDirection;
 		}
-		__self.el.querySelector("[data-sort='" + __self.sorted.active +"']").setAttribute("data-ui-state", "is__sortable-" + __self.sorted.direction);
+		__self.el.querySelector("[data-sort='" + __self.sorted.active + "']").setAttribute("data-ui-state", "is__sortable-" + __self.sorted.direction);
 		//this.$el.find("[data-js-handler~='" + this.sortHandlerID + "'][data-sort='" + _self.sorted.active +"']").attr("data-ui-state", "is__sortable-" + _self.sorted.direction);
 	} else if ( __self.sorted.active === toSort ) {
 		if ( sortDirection == undefined ) {

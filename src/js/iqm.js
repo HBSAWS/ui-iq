@@ -1,11 +1,23 @@
-	var userData    = {
-		role : undefined, // either MBA,DOCTORAL or ADMIN
-		PDM  : undefined
-	};
-	var recordsData = {
+	var recordsData,file,stats;
+	recordsData = {
 		active : undefined
 	};
-	var stats = {
+	file = {
+		PDM_URL_base : undefined,
+		role         : undefined, // MBA|DOC
+		report       : "bio",     // bio|admit *is bio by default on load
+		term         : undefined, // S = sping|F = fall
+		year         : undefined, // ex: 1999,2000,etc
+
+		fieldNames : {
+			bio   : {},
+			admit : {}
+		},
+		records    : {
+			active : undefined
+		}
+	};
+	stats = {
 		records : 0,
 		errors  : 0,
 		EC      : 0,
@@ -176,95 +188,6 @@
 
 
 
-
-
-
-
-
-	/**
-	    Smoothly scroll element to the given target (element.scrollTop)
-	    for the given duration
-
-	    Returns a promise that's fulfilled when done, or rejected if
-	    interrupted
-	 */
-	smooth_scroll_to = function(element, target, duration) {
-	    target = Math.round(target);
-	    duration = Math.round(duration);
-	    if (duration < 0) {
-	        return Promise.reject("bad duration");
-	    }
-	    if (duration === 0) {
-	        element.scrollTop = target;
-	        return Promise.resolve();
-	    }
-
-	    var start_time = Date.now();
-	    var end_time = start_time + duration;
-
-	    var start_top = element.scrollTop;
-	    var distance = target - start_top;
-
-	    // based on http://en.wikipedia.org/wiki/Smoothstep
-	    var smooth_step = function(start, end, point) {
-	        if(point <= start) { return 0; }
-	        if(point >= end) { return 1; }
-	        var x = (point - start) / (end - start); // interpolation
-	        return x*x*(3 - 2*x);
-	    }
-
-	    return new Promise(function(resolve, reject) {
-	        // This is to keep track of where the element's scrollTop is
-	        // supposed to be, based on what we're doing
-	        var previous_top = element.scrollTop;
-
-	        // This is like a think function from a game loop
-	        var scroll_frame = function() {
-	            if(element.scrollTop != previous_top) {
-	                reject("interrupted");
-	                return;
-	            }
-
-	            // set the scrollTop for this frame
-	            var now = Date.now();
-	            var point = smooth_step(start_time, end_time, now);
-	            var frameTop = Math.round(start_top + (distance * point));
-	            element.scrollTop = frameTop;
-
-	            // check if we're done!
-	            if(now >= end_time) {
-	                resolve();
-	                return;
-	            }
-
-	            // If we were supposed to scroll but didn't, then we
-	            // probably hit the limit, so consider it done; not
-	            // interrupted.
-	            if(element.scrollTop === previous_top
-	                && element.scrollTop !== frameTop) {
-	                resolve();
-	                return;
-	            }
-	            previous_top = element.scrollTop;
-
-	            // schedule next frame for execution
-	            setTimeout(scroll_frame, 0);
-	        }
-
-	        // boostrap the animation process
-	        setTimeout(scroll_frame, 0);
-	    });
-	}
-
-
-
-
-
-
-
-
-
-
 	var modals = {
 		iframe : {
 			el       : document.querySelector("[data-js~='modal__iframe']"),
@@ -289,21 +212,21 @@
 				});
 			},
 			updateModaliFrameSource : function(recordID) {
-				var pdmId,pdmIframe,dept,newURL;
+				var pdmId,pdmIframe,role,newURL;
 
 				fastdom.read(function() {
 					pdmIframe = document.querySelector("[data-js~='iframePDM']");
 				});
 
-				if ( userData.role === "MBA") {
-					dept = 'mba';
-				} else if ( userData.role === "DOCTORAL" ) {
-					dept = 'doctoral';
-				} else if ( userData.role === "ADMIN" ) {
-					dept = document.querySelector("[name='file-summary__programs-toggle']:checked").value;
+				if ( file.role === "MBA") {
+					role = 'mba';
+				} else if ( file.role === "DOC" ) {
+					role = 'doctoral';
+				} else if ( file.role === "ADMIN" ) {
+					role = document.querySelector("[data-js~='updateFile'][name='role']:checked").value;
 				}
 
-				newURL = userData.PDM + "mba/btStuDtl/edit?prsnId=" + recordID;
+				newURL = file.PDM_URL_base + role + "/btStuDtl/edit?prsnId=" + recordID;
 
 				fastdom.write(function() {
 					pdmIframe.setAttribute('src', newURL);
@@ -451,6 +374,39 @@
 
 
 
+	var segmentControls = {
+		fileSettings : function() {
+			var fileSettings;
+			fileSettings = ['report','term']; // will eventually include year
+			if ( file.role === "ADMIN" ) {
+				fileSettings.push('role');
+			} 
+			for ( var setting = 0, settingsLen = fileSettings.length; setting < settingsLen; setting++ ) {
+				var currentSetting,settingControls;
+				currentSetting  = fileSettings[setting];
+				settingControls = document.querySelectorAll("[name='" + currentSetting + "']");
+
+				for ( var control = 0, controlsLen = settingControls.length; control < controlsLen; control++ ) {
+					var currentControl;
+					currentControl = settingControls[control];
+
+					currentControl.addEventListener( 'change', function(e) {
+						var el,isChecked;
+						el        = e.currentTarget;
+						isChecked = el.checked;
+
+						if ( isChecked ) {
+							// the name is one of the fileSettings, ex. 'report'|'term'
+							file[ el.name ] = el.value;
+						}
+					});
+				}
+			}
+		}
+	};
+
+
+
 
 	var sticky = {
 		records : {
@@ -482,7 +438,7 @@
 			},
 			removeOffsetScroll : function() {
 				var toOffset,offsetValue; 
-				toOffset    = document.querySelector("[data-js~='records__offsetSticky']");
+				toOffset = document.querySelector("[data-js~='records__offsetSticky']");
 
 				toOffset.style.paddingTop = "0px";
 			}
@@ -516,12 +472,13 @@
 			},
 			removeOffsetScroll : function() {
 				var toOffset,offsetValue; 
-				toOffset    = document.querySelector("[data-js~='details__offsetSticky']");
+				toOffset = document.querySelector("[data-js~='details__offsetSticky']");
 
 				toOffset.style.paddingTop = "0px";
 			}
 		}
 	}; 
+
 
 
 
@@ -536,13 +493,13 @@
 			document.querySelector("[data-js~='appHuver__recordsInner']").addEventListener( 'mouseover', function() {
 				__self.records.UI.focusTable();
 				__self.details.UI.unfocusTable();
-				console.log("records rollover");
+				//console.log("records rollover");
 			});
 			// when the user hovers the details panel, the details table becomes the active table
 			document.querySelector("[data-js~='appHuver__details-inner']").addEventListener( 'mouseover', function() {
 				__self.records.UI.unfocusTable();
 				__self.details.UI.focusTable();
-				console.log("details rollover");
+				//console.log("details rollover");
 			});
 			// when the tab button is pressed, we want to toggle between the active tables
 			UI.keyboard({
@@ -572,8 +529,10 @@
 						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
 						exception = false;
 
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+						 // if the panel is showing, exception is true
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false;
+						// if the modal is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; 
 
 						if ( fileSummaryIsOpen || modalIsShowing ) {
 							exception = true;
@@ -638,7 +597,7 @@
 					});
 
 					pdmId  = recordsData.active;
-					newURL = userData.PDM + "mba/btStuDtl/edit?prsnId=" + pdmId;
+					newURL = file.PDM_URL_base + "mba/btStuDtl/edit?prsnId=" + pdmId;
 
 					fastdom.write(function() {
 						pdmIframe.setAttribute('src', newURL);
@@ -704,7 +663,7 @@
 				var __self,recordID,record,toAdd,detailsTableFilterEl,detailsTableTitle;
 				__self   = this;
 				recordID = recordsTableRowEl.dataset.record;
-				record   = recordsData[recordID];
+				record   = file.records[recordID];
 				toAdd    = [];
 
 				// update the modal iframesource
@@ -803,100 +762,125 @@
 
 
 	var App = {
-		buildHTML : function( appData ) {
-			var records,user,config, numberOfRecords, listOptions,EC,RC;
-			records = appData.records.records;
-			user    = appData.config.userInfo;
-			config  = appData.config.config;
-			userData["PDM"] = config.PDM_URL;
+		recordsTable : [],
+		setupUser : function( config ) {  // CONFIG SETUP STEP 1
+			var __self,user,roles,role,config; 
+			__self = this;
+			user   = config.userInfo;
+			roles  = user.roles;
+			role   = undefined;
+			// adds the base URL for PDM lookups in the iframe
+			file.PDM_URL_base = config.config.PDM_URL;
 
-					
+			// determine's the logged in user's role
+			if ( roles.indexOf("IQ_ADMIN") > -1 ) {
+				role = file.role = "ADMIN";
+			} else if ( roles.indexOf("IQ_MBA") > -1 ) {
+				role = file.role = "MBA";
+			} else if ( roles.indexOf("IQ_DOC") > -1 ) {
+				role = file.role = "DOC";
+			}
 
-			var totalRecords = records.length;
-			stats.records    = totalRecords;
-			var firstVisibleRecord;
+			// sets user's name in the global navigation
+			document.querySelector("[data-js~='userName']").innerHTML = user.firstName;
+			// if the user isn't an admin we remove the segment control that allows the user to switch between MBA/DOCTORAL files
+			if ( role !== "ADMIN" ) {
+				document.querySelector("[data-js~='adminFileOption']").remove();
+			}
 
+			// creates in the 'file' variable, under fieldNames a reference of human readable field names for our HTML
+			__self.setupFields( config.metadata );
 
-			var recRow = 1;
-			var recordTableBodyHTML = [];
-			recordTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
-
-			var detRow = 1;
-			var detailTableBodyHTML = [];
-			detailTableBodyHTML[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
-
-
-			for(var __record=0;__record < totalRecords;__record++) {
-				var currentRecord,details,errors,hbsId,firstName,lastName,templates, recordsRow;
-				currentRecord = records[__record];
-				details       = currentRecord.record;
-				errors        = currentRecord.errors;
-				if ( currentRecord["hbsId"] !== undefined ) {
-					hbsId = currentRecord["hbsId"].toString();
-				} else {
-					hbsId = details.huid;
+			// everything that's needed for the initial records request is been processed
+			// so now we request the initial set of records
+			reqRecords.send();
+			// we initialize the records loader
+			loaders.app.startup.records.init();
+		},
+		setupFields : function( fieldData ) { // CONFIG SETUP STEP 2
+			// fieldData = config.metadata
+			var bioFields,bioFieldNames,admitFields,admitFieldNames,buildFields;
+			// prsnId,degPrgmNum,etc
+			bioFields       = fieldData.bio2Fields;
+			// the name is under the title attribute
+			bioFieldNames   = fieldData.bio2Meta;
+			admitFields     = fieldData.admitFields;
+			admitFieldNames = fieldData.admitMeta;
+			buildFields     = function(report,fields,fieldNames) {
+				for ( var field = 0,len = fields.length; field < len; field++ ) {
+					var currentField = fields[field];
+					file.fieldNames[report][currentField] = fieldNames[currentField]["title"];
 				}
-				firstName     = details.name.firstName;
-				lastName      = details.name.lastName;
+			};
 
-				totalErrors   = errors.length;
-				stats.errors  += totalErrors;
-				if (details.career.yearInProgram === "EC") {
-					stats.EC ++;
-				} else if (details.career.yearInProgram === "RC") {
-					stats.RC ++;
-				}
-				tables.details.settings.valueNames.push("detailOf__" + hbsId);
+			buildFields( "bio",bioFields,bioFieldNames );
+			buildFields( "admit",admitFields,admitFieldNames );
+		},
+		buildRecords : function( recordsData ) { // RECORDS SETUP STEP 1
+			var __self,records,totalRecords,fields,tableRow;
+			__self       = this;
+			records      = recordsData.records;
+			totalRecords = records.length;
+			fields       = file.fieldNames[file.report];
 
-				recordsData[hbsId] = {};
-				if ( currentRecord.errors !== undefined ) {
-					recordsData[hbsId]["errors"] = {};
+			// starts generating the HTML for records table
+			tableRow     = 1;
+			__self.recordsTable[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
 
-					for ( var error = 0; error < totalErrors; error++ ) {
-						var currentError      = errors[error];
-						var currentErrorField = currentError.field.split(".").pop();
+			for ( var record = 0; record < totalRecords; record++ ) {
+				var currentRecord,errors,errorCount,recordId;
+				currentRecord = records[record]["record"];
+				errors        = records[record]["errors"];
+				hasErrors     = ( errors.length > 0 ) ? true : false;
+				recordId      = currentRecord["prsnId"];
+				//tables.details.settings.valueNames.push("detailOf__" + recordId);  // pretty sure this doesn't actually need to happen
 
-						recordsData[hbsId]["errors"][currentErrorField] = {
-							type    : currentError["type"],
+				// adds the current record to our recordTable array
+				__self.recordsTable[tableRow++] = '<tr class="table-body-row__light" data-record="' + recordId + '" data-ui-settings="size__large material__paper" data-js="load__record">';
+				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__firstName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.firstName + '</td>';
+				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__lastName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.lastName + '</td>';
+				__self.recordsTable[tableRow++] = '</tr>';
+
+				// create an entry in file.records for the current record
+				file.records[recordId] = {};
+
+				if ( hasErrors ) {
+					// records without errors have an empty array - if the errors array length is greater than zero then we know there are errors
+					// then we add the errors to the record entry in file.records[recordId]["errors"]
+					file.records[recordId]["errors"] = {};
+					for ( var error = 0,len = errors.length; error < len; error++ ) {
+						var currentError;
+						currentError = errors[error];
+						file.records[recordId]["errors"][currentError["field"]] = {
 							message : currentError["message"],
-							field   : currentErrorField
+							type    : currentError["type"],
+							ind     : currentError["ind"]
 						};
 					}
 				}
 
-
-
-				var has__error = errors.length > 0 ? " has__error" : "";
-
-				recordTableBodyHTML[recRow++] = '<tr class="table-body-row__light" data-record="' + hbsId + '" data-ui-settings="size__large material__paper" data-js="load__record">';
-				recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__firstName' + has__error + '" data-ui-settings="size__large">' + firstName + '</td>';
-				recordTableBodyHTML[recRow++] = '<td class="table-body-row-cell_ is__lastName' + has__error + '" data-ui-settings="size__large">' + lastName + '</td>';
-				recordTableBodyHTML[recRow++] = '</tr>';
-
-				for (var fieldGroups in details) {
-					if (fieldGroups !== "updateDate" && fieldGroups !== "hbsId") {
-						var fieldGroup = details[fieldGroups];
-						for ( var field in fieldGroup) {
-							recordsData[hbsId][field] = fieldGroup[field];
-						}
-					}
+				// add the fields in the record to the file.records[recordId]
+				for ( var field in fields ) {
+					var currentFieldValue;
+					// we use the fields we pull from the user's meta data
+					// by looping through the values in this we look up the fields in the current record
+					// and then add them to our file.records[recordId] attribute
+					currentFieldValue = currentRecord[field];
+					file.records[recordId][field] = currentFieldValue;					
 				}
 			}
-			recordTableBodyHTML[recRow++] = '</tbody>';
-			
-			document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", recordTableBodyHTML.join('') );
-			document.querySelector("[data-js~='userName']").innerHTML = user.firstName;
-			if ( user.roles.indexOf( "IQ_ADMIN" ) == -1 ) {
-				UI.DOM.addDataValue( document.querySelector("[data-js~='adminFileOption']"),"data-ui-state","is__hidden");
-			}
+			// finishes the recordsTable array
+			__self.recordsTable[tableRow++] = '</tbody>';
+			// converts the array into a string containing the records table 'tbody'cvvgvv
+			__self.recordsTable.join('');
+			document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", __self.recordsTable );
 
-
-			this.adjustHTML();
+			// all of the HTML has been generated
+			// now we need to update it with our plugins and custom javascript
+			__self.setupUI();
 		},
-		adjustHTML : function() {
+		setupUI : function() {
 			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-
 
 			// APPLY ALL OF THE UI PLUGINS
 			UI.tabs();
@@ -911,6 +895,8 @@
 
 			offCanvasPanels.fileSummary.init();
 			offCanvasPanels.records.init();
+
+			segmentControls.fileSettings();
 
 			tables.records.init();
 			tables.details.init();
@@ -931,16 +917,14 @@
 				FastClick.attach(document.body);
 			}
 
-
-
 			// OPEN THE TABLES TO THE FIRST RECORD
 			var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
 			tables.details.openRecord(firstRecord);
 
 
-			this.animateInHTML();
+			this.animateInUI();
 		},
-		animateInHTML : function() {
+		animateInUI : function() {
 			var splash,removeSplash;
 			splash = document.querySelector("[data-js~='splash__finishedLoad']");
 
@@ -989,20 +973,6 @@
 		exclusions : true
 	};
 
-	var reqRecords = new XMLHttpRequest();
-	reqRecords.open("GET","js/bio.json",true);
-	reqRecords.onreadystatechange = function() {
-		if( this.readyState == 4) {
-			if( this.status == 200) {
-
-			}
-			else {
-				requests.records = false;
-				console.log("Records HTTP error "+this.status+" "+this.statusText);
-			}
-		}
-	}
-	reqRecords.send();
 
 	var reqConfig = new XMLHttpRequest();
 	reqConfig.open("GET","/iqService/rest/config.json?meta=true",true);
@@ -1016,54 +986,96 @@
 				console.log("Config HTTP error "+this.status+" "+this.statusText);
 			}
 		}
-	}
-	reqConfig.send();
+	};
 
-	var reqExclusions = new XMLHttpRequest();
-	reqExclusions.open("GET","/iqService/mba/bio/excl.json",true);
-	reqExclusions.onreadystatechange = function() {
+	var reqRecords = new XMLHttpRequest();
+	reqRecords.open("GET","js/bio.json",true);
+	reqRecords.onreadystatechange = function() {
 		if( this.readyState == 4) {
 			if( this.status == 200) {
 
 			}
 			else {
-				requests.exclusions = false;
-				console.log("Exclusoins HTTP error "+this.status+" "+this.statusText);
+				requests.records = false;
+				console.log("Records HTTP error "+this.status+" "+this.statusText);
 			}
 		}
-	}
-	reqExclusions.send();
+	};
+
+
+
+	// var reqExclusions = new XMLHttpRequest();
+	// reqExclusions.open("GET","/iqService/mba/bio/excl.json",true);
+	// reqExclusions.onreadystatechange = function() {
+	// 	if( this.readyState == 4) {
+	// 		if( this.status == 200) {
+
+	// 		}
+	// 		else {
+	// 			requests.exclusions = false;
+	// 			console.log("Exclusoins HTTP error "+this.status+" "+this.statusText);
+	// 		}
+	// 	}
+	// }
+	// reqExclusions.send();
 
 
 
 
 	var loaders = {
 		app : {
-			el : document.querySelector("[data-js~='appLoader']"),
-			settings : {
-				requests : [reqRecords,reqConfig,reqExclusions],
-				loaderCompleteAnimation : "fade out",
-				onComplete       : function() {
-					var appData = {
-						records    : ( requests.records ) ? JSON.parse( reqRecords.response ) : false,
-						config     : ( requests.config ) ? JSON.parse( reqConfig.response ) : false,
-						exclusions : ( requests.exclusions ) ? JSON.parse( reqExclusions.response ) : false
-					};
-					App.buildHTML( appData );
-				}
-			},
-			__UI : undefined,
-			init : function() {
-				var __self,loader, settings, __UI;
-				__self   = this;
-				loader   = __self.el;
-				settings = __self.settings;
+			startup : {
+				config : {
+					el : document.querySelector("[data-js~='appLoader__config']"),
+					settings : {
+						requests   : reqConfig,
+						onComplete : function() {
+							if ( requests.config ) {
+								var configData = JSON.parse( reqConfig.response );
+								App.setupUser( configData );
+							}
+						}
+					},
+					__UI : undefined,
+					init : function() {
+						var __self,loader, settings, __UI;
+						__self   = this;
+						loader   = __self.el;
+						settings = __self.settings;
 
-				__UI = __self.UI = UI.loader(loader,settings);
+						document.querySelector("[data-js~='appLoader__description']").innerHTML = "creating user profile";
+						__UI = __self.UI = UI.loader(loader,settings);
+					}
+				},
+				records : {
+					el : document.querySelector("[data-js~='appLoader__records']"),
+					settings : {
+						requests   : reqRecords,
+						onComplete : function() {
+							if ( requests.records ) {
+								var recordsData = JSON.parse( reqRecords.response );
+								App.buildRecords( recordsData );
+							}
+						}
+					},
+					__UI : undefined,
+					init : function() {
+						var __self,loader, settings, __UI;
+						__self   = this;
+						loader   = __self.el;
+						settings = __self.settings;
+
+						document.querySelector("[data-js~='appLoader__description']").innerHTML = "processing records";
+						__UI = __self.UI = UI.loader(loader,settings);
+					}					
+				}
 			}
 		}
 	};
-	loaders.app.init();
+	// we send the request for the config data
+	reqConfig.send();
+	// we initialize the config loader
+	loaders.app.startup.config.init();
 
 
 

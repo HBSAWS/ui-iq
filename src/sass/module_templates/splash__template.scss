@@ -1,5 +1,5 @@
 .splash {
-    z-index  : 200;
+    z-index  : 10000000;
     position : absolute;
     top      : 0px;
     left     : 0px;
@@ -17,8 +17,8 @@
 
     background  : $color__dark;
     will-change : transform, opacity;
-    @include prefix(transition, "-webkit-transform 1s cubic-bezier(.43,0,0,1) 0.3s, opacity 0.46s cubic-bezier(.43,0,0,1) .3s");
-    -webkit-transition : -webkit-transform 1s cubic-bezier(.43,0,0,1) 0.3s, opacity 0.46s cubic-bezier(.43,0,0,1) .3s;
+    @include prefix(transition, "-webkit-transform 1s cubic-bezier(.43,0,0,1), opacity 0.46s cubic-bezier(.43,0,0,1)");
+    -webkit-transition : -webkit-transform 1s cubic-bezier(.43,0,0,1), opacity 0.46s cubic-bezier(.43,0,0,1);
 }
     .splash-content {
         text-align : center;
@@ -47,7 +47,16 @@
             position   : relative;
             width      : 200%;
             height     : 4px;
-            margin     : 55px 0px 0px -50%;
+            margin     : 50px 0px 0px -50%;
             overflow   : hidden;
             @include prefix( border-radius, 20px );
         }
+            .splash-content-loader-description {
+                position    : relative;
+                left        : -50%;
+                width       : 200%;
+                padding-top : 8px;
+                font-size   : 0.55rem;
+                text-align  : left;
+                color       : rgba(255,255,255, 0.2); 
+            }

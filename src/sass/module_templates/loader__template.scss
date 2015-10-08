@@ -7,10 +7,22 @@
     overflow : hidden;
     @include prefix( border-radius, 20px );
     @include prefix( will-change, opacity );
-    @include prefix( transition, opacity 2s cubic-bezier(.43,0,0,1) );
+    @include prefix( transition, opacity 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) );
 
     &[class$="_initialize"] {
         background : rgba(255,255,255,0.15);
+    }
+    &[data-ui-settings~="partial__small"] {
+        width : 32%;
+        @include prefix( border-radius, 0px );
+    }
+    &[data-ui-settings~="partial__medium"] {
+        width : 52%;
+        @include prefix( border-radius, 0px );
+    }
+    &[data-ui-settings~="partial__large"] {
+        width : 72%;
+        @include prefix( border-radius, 0px );
     }
 }
     [class^="loader-progress_"] {
@@ -21,7 +33,7 @@
         left     : -100%;
         background : #fff;
         @include prefix( will-change, transform );
-        @include prefix( transition, transform 2s );
+        @include prefix( transition, transform 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) );
 
         &[class$="_initialize"] {
             background : #fff;
