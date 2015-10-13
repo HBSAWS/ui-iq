@@ -69,7 +69,7 @@
 .icon-paper-plane-empty:before { content: '\e843'; } /* '' */
 .icon-paper-plane:before { content: '\e844'; } /* '' */
 .icon-ok:before { content: '\e845'; } /* '' */
-.icon-attention:before { content: '\e846'; } /* '' */
+.icon-warning:before { content: '\e846'; } /* '' */
 .icon-clock:before { content: '\e847'; } /* '' */
 .icon-bell:before { content: '\e848'; } /* '' */
 .icon-th:before { content: '\e849'; } /* '' */

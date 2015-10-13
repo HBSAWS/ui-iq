@@ -8,11 +8,28 @@ UI_cuboid.prototype.initialize_module = function(settings) {
 	var __self = this;
 };
 // side values : front|back|top|bottom
-UI_cuboid.prototype.show = function(side) {
-	var __self = this;
+UI_cuboid.prototype.show = function(side,callback) {
+	var __self,targetFace; 
+	__self = this;
 	UI.DOM.removeDataValue( __self.rotator, "data-ui-state", "show__" + __self.activeSide );
 	UI.DOM.addDataValue( __self.rotator, "data-ui-state", "show__" + side );
 	__self.activeSide = side;
+
+	if ( callback !== undefined && callback !== null ) {
+		targetFace = __self.rotator.querySelector("[class^='cuboid-faces-" + side + "_']");
+		var onComplete = function(e) {
+			if ( e.target == e.currentTarget ) {
+				targetFace.removeEventListener( 'webkistTransitionEnd', onComplete );
+
+				if ( callback !== undefined && callback !== null ) {
+					callback();
+				}	
+				e.stopPropagation();
+			}
+		};
+
+		targetFace.addEventListener( 'webkitTransitionEnd', onComplete);
+	}
 };
 UI_cuboid.prototype.activeSide = function() {
 	var __self = this;

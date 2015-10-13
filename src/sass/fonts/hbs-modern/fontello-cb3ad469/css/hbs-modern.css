@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'hbs-modern';
-  src: url('../font/hbs-modern.eot?92271108');
-  src: url('../font/hbs-modern.eot?92271108#iefix') format('embedded-opentype'),
-       url('../font/hbs-modern.woff?92271108') format('woff'),
-       url('../font/hbs-modern.ttf?92271108') format('truetype'),
-       url('../font/hbs-modern.svg?92271108#hbs-modern') format('svg');
+  src: url('../font/hbs-modern.eot?89014325');
+  src: url('../font/hbs-modern.eot?89014325#iefix') format('embedded-opentype'),
+       url('../font/hbs-modern.woff?89014325') format('woff'),
+       url('../font/hbs-modern.ttf?89014325') format('truetype'),
+       url('../font/hbs-modern.svg?89014325#hbs-modern') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'hbs-modern';
-    src: url('../font/hbs-modern.svg?92271108#hbs-modern') format('svg');
+    src: url('../font/hbs-modern.svg?89014325#hbs-modern') format('svg');
   }
 }
 */
@@ -124,7 +124,7 @@
 .icon-paper-plane-empty:before { content: '\e843'; } /* '' */
 .icon-paper-plane:before { content: '\e844'; } /* '' */
 .icon-ok:before { content: '\e845'; } /* '' */
-.icon-attention:before { content: '\e846'; } /* '' */
+.icon-warning:before { content: '\e846'; } /* '' */
 .icon-clock:before { content: '\e847'; } /* '' */
 .icon-bell:before { content: '\e848'; } /* '' */
 .icon-th:before { content: '\e849'; } /* '' */

@@ -67,7 +67,7 @@
         } 
 
         &[data-ui-state~="is__hidden"] {
-            display : none;
+            display : none !important;
         }  
 
         &[data-ui-settings~="float__right"] {

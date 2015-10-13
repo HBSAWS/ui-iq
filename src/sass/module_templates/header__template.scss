@@ -37,10 +37,10 @@
 		vertical-align : middle; 
 	}
 }
-	[class^="header-row"] {
+	[class^="header-content"] {
 		&[data-ui-settings~="content__multiple"] {
 			display         : flex;
-			flex-direction  : row;
+			flex-direction  : content;
 			flex-wrap       : wrap;
 			justify-content : space-between;
 			align-items     : center;

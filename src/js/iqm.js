@@ -79,7 +79,7 @@
 		appSuite : {
 			el       : document.querySelector("[data-js~='cuboid__initAppSuite']"),
 			settings : {
-				sideToShowOnInit : "back"
+				sideToShowOnInit : "bottom"
 			},
 			UI       : null,
 			init : function() {
@@ -117,7 +117,7 @@
 		app : {
 			el       : document.querySelector("[data-js~='cuboid__initApp']"),
 			settings : {
-				sideToShowOnInit : "back"
+				sideToShowOnInit : "bottom"
 			},
 			UI   : null,
 			init : function() {
@@ -889,6 +889,8 @@
 
 			modals.iframe.init();
 
+			notifications.inApp.init();
+
 			offCanvasPanels.fileSummary.init();
 			offCanvasPanels.records.init();
 
@@ -925,10 +927,16 @@
 					// });
 					setTimeout(function(){
 						cuboids.appSuite.UI.show("front");
+						UI.DOM.removeDataValue( cuboids.app.el.querySelector("[data-ui-state~='is__camouflaged']"),"data-ui-state","is__camouflaged" );
 					},100);
 					setTimeout(function(){
 						cuboids.app.UI.show("front");
-					},300);
+						UI.DOM.removeDataValue( cuboids.appSuite.el.querySelector("[data-ui-state~='is__camouflaged']"),"data-ui-state","is__camouflaged" );
+					},280);
+					setTimeout(function() {
+						var inAppNotification = document.querySelector("[data-js='inAppNotification']");
+						UI.DOM.removeDataValue( inAppNotification,"data-ui-state","is__hidden" );
+					},800);
 				}
 			};
 
@@ -1007,9 +1015,65 @@
 	// }
 	// reqExclusions.send();
 
+	var notifications = {
+		inApp : {
+			el         : document.querySelector( "[data-js~='inAppNotification']" ),
+			backing    : document.querySelector( "[data-js~='inAppNotificationBacking']" ),
+			message    : document.querySelector( "[data-js~='inAppNotificationMessage']" ),
+			close      : document.querySelector( "[data-js~='inAppNotificationClose']" ),
+			icon       : document.querySelector( "[data-js~='inAppNotificationIcon']" ),
+			status     : "error",
+			init : function() {
+				notifications.inApp.close.addEventListener( 'click', function(e) {
+					notifications.inApp.hideNotification();
+					e.stopPropagation();
+				});
+			},
+			showNotification : function() {
+				var backing;
+				backing = notifications.inApp.backing;
+
+				cuboids.app.UI.show("bottom");
+				UI.DOM.addDataValue( backing,"data-ui-state","is__animating" );
+				UI.DOM.removeDataValue( backing,"data-ui-state","fade__out" );
+
+				
+				setTimeout(function() {
+					console.log("timeout 1");
+					notifications.inApp.hideNotification();
+				},5000);
+			},
+			hideNotification : function() {
+				var backing;
+				backing = notifications.inApp.backing;
+
+				cuboids.app.UI.show("front");
+				setTimeout(function() {
+					UI.DOM.removeDataValue( backing,"data-ui-state","is__animating" );
+					UI.DOM.addDataValue( backing,"data-ui-state","fade__out" );
+				},700);
+			},
+			updateStatus : function( status,message ) {
+				var icon,backingStatus;
+
+				backingStatus = "is__" + status;
+
+				notifications.inApp.message.innerHTML = message;
+				UI.DOM.removeDataValue( notifications.inApp.backing,"data-ui-state",notifications.inApp.status );
+				UI.DOM.addDataValue( notifications.inApp.backing,"data-ui-state", backingStatus );
+				if ( status === "error" || status === "warning" ) {
+					icon = "attention";
+				} else if ( status === "sucess" ) {
+					icon = "ok";
+				}
+				notifications.inApp.icon.setAttribute( "data-ui-icon", icon );
+				notifications.inApp.status = status;
+			}
+		}
+	};
 
 	test = function() {
-		var reqFile,fileLoader,appLogo;
+		var reqFile,fileLoader,appLogo,error;
 
 		reqFile = new XMLHttpRequest();
 		reqFile.open("GET","js/bio.json",true);
@@ -1020,7 +1084,7 @@
 				}
 				else {
 					requests.records = false;
-					console.log("Records HTTP error "+this.status+" "+this.statusText);
+					error = "Records HTTP error " + this.status + " " + this.statusText;
 				}
 			}
 		};
@@ -1030,20 +1094,23 @@
 		fileLoader = document.querySelector("[data-js~='inApp__loader']");
 		UI.loader( fileLoader, {
 			requests                : reqFile,
-			loaderCompleteAnimation : "out bottom",
+			loaderCompleteAnimation : "fade out",
 			resetLoaderOnComplete   : true,
 			onComplete              : function() {
 				var stopRotating; 
+
+				notifications.inApp.updateStatus( "error", "these are not the droids you're looking for." );
+				notifications.inApp.showNotification();
+
 				stopRotating = function(e) {
 					UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
 					appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
+					e.stopPropagation();
 				};
 				appLogo.addEventListener("webkitAnimationIteration", stopRotating);
 			}
 		});
 		UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
-
-		
 	};
 
 

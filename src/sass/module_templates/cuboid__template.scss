@@ -44,7 +44,7 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 %fader__in {
 	> [class^="fader"] {
 		visibility : visible;  
-		opacity    : 0.5;
+		opacity    : 0.25;
 		@include prefix(transition, "visibility 0s, opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)");		
 	}
 }
@@ -74,9 +74,9 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			> div { 
 				background : #fff;
 			}
-			[class^="cuboid-faces-back_"] {
-				background : $color__dark;
-			}
+			// [class^="cuboid-faces-back_"] {
+			// 	background : $color__dark;
+			// }
 		}
 		&[class$="_app"] {
 			&[data-ui-state~="show__front"],&[data-ui-state~="show__bottom"],&[data-ui-state~="show__top"] {
@@ -85,9 +85,9 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			> div {
 				background : #4cc1bc;
 			}
-			[class^="cuboid-faces-back_"] {
-				background : $color__dark;
-			}
+			// [class^="cuboid-faces-back_"] {
+			// 	background : $color__dark;
+			// }
 		}
 
 		> div {
@@ -100,11 +100,18 @@ $tertiarySurface__app  : darken( $primarySurface__app, 20% );
 			@include prefix(transition, transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1));	
 			@include prefix(transition, -webkit-transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1));	
 
-		}
-		&[data-ui-state~="is__rewinding"] {
-			div {
-    			backface-visibility : hidden;
+			> .fader {
+				background : $color__dark; 
 			}
+			&[data-ui-state~="is__camouflaged"] {
+				> .fader {
+					opacity    : 1 !important;
+					visibility : visible !important; 
+				}
+			}
+			&[data-ui-state~="is__rewinding"] {
+    			backface-visibility : hidden;
+    		}
 		}	
 
 		&[data-ui-state~="show__front"] {

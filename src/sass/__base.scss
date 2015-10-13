@@ -57,7 +57,7 @@ h3 {
 	width      : 100%;
 	height     : 100%;
 	visibility : hidden; 
-	background : rgba(0,0,0,0.5);
+	background : rgba($color__dark, 0.5);
 	opacity    : 0;
 	@include prefix(will-change, "visibility, opacity");
 }
@@ -133,26 +133,28 @@ $error__color : rgba(245, 101, 91, 0.96);
 
 
 
-	&[class*="_error"] {
+	&[data-ui-state~="is__error"] {
+		background : $color__error !important;
 		&[data-ui-settings~="material__paper"] {
-			background : $color__error;
+			background : $color__error !important;
 		}
 		&[data-ui-settings~="material__film"] {
-			background : rgba($color__error, 0.96);
+			background : rgba($color__error, 0.96) !important;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color__error, 0);
+			background : rgba($color__error, 0) !important;
 		}
 	}
-	&[class*="_warning"] {
+	&[data-ui-state~="is__warning"] {
+		background : $color__warning !important;
 		&[data-ui-settings~="material__paper"] {
-			background : $color__warning;
+			background : $color__warning !important;
 		}
 		&[data-ui-settings~="material__film"] {
-			background : rgba($color__warning, 0.96);
+			background : rgba($color__warning, 0.96) !important;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color__warning, 0);
+			background : rgba($color__warning, 0) !important;
 		}
 	}
 	// SUBCLASSES  -- END	

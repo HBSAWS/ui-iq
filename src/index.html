@@ -37,9 +37,9 @@
 
         <nav class="nav__global">
             <div class="cuboid__global" data-js="cuboid__initAppSuite">
-                <div class="cuboid-faces__global" data-ui-state="show__back" data-js="cuboid__updateSide">
+                <div class="cuboid-faces__global" data-ui-state="show__bottom" data-js="cuboid__updateSide">
                     <div class="cuboid-faces-front__global">
-                        <div class="fader_"></div>
+                        <div class="fader"></div>
                         <div class="nav-branding__global">
                             <div data-ui-icon="logo" class="nav-branding-icon__global"> </div>
                             <div class="nav-branding-abrtitle__global">HBS</div>
@@ -61,14 +61,14 @@
                             </button>
                         </div>
                     </div>
-                    <div class="cuboid-faces-bottom__global">
-                        <div class="fader_"></div>
+                    <div class="cuboid-faces-bottom__global" data-ui-state="is__camouflaged">
+                        <div class="fader"></div>
                     </div>
                     <div class="cuboid-faces-back__global">
-                        <div class="fader_"></div>
+                        <div class="fader"></div>
                         </div>
                     <div class="cuboid-faces-top__global">
-                        <div class="fader_"></div>
+                        <div class="fader"></div>
                         <div style="text-align:left;" class="nav-control__global">
                             <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js="cuboid__showAppSuiteApp">
                                 <div class="button-icon__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
@@ -92,8 +92,9 @@
                     <div class="fader_dark"></div>
                     <nav class="nav__app">
                         <div class="cuboid__app" data-js="cuboid__initApp">
-                            <div class="cuboid-faces__app" data-ui-state="show__back" data-js="cuboid__updateSide">
+                            <div class="cuboid-faces__app" data-ui-state="show__bottom" data-js="cuboid__updateSide">
                                 <div class="cuboid-faces-front__app">
+                                    <div class="fader"></div>
                                     <div class="nav-branding__app">
                                         <div class="nav-branding-icon__app" data-js="appLogo">
                                             <div data-ui-icon="huver-logo"></div>
@@ -113,20 +114,37 @@
                                         <div class="loader-progress__inApp"></div>
                                     </div>
                                 </div>
-                                <div class="cuboid-faces-bottom__app">
-                                    <div class="fader_"></div>
+                                <div class="cuboid-faces-bottom__app" data-ui-state="is__camouflaged">
+                                    <div class="fader"></div>
+                                    <div class="notification__app" data-ui-state="is__hidden" data-js="inAppNotification">
+                                        <div class="notification-content__app">
+                                            <div class="notification-content-message__app">
+                                                <div class="notification-content-message-icon__app" data-ui-icon="attention" data-js="inAppNotificationIcon"></div>
+                                                <div class="notification-content-message-text__app" data-js="inAppNotificationMessage">
+                                                    The file you requested doesn't exist.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="notification-close__app">
+                                            <button class="button__inverted" data-ui-settings="size__large" style="top:-2px;" data-js="inAppNotificationClose">
+                                                <div class="button-content__inverted" data-ui-settings="size__large">
+                                                    <div data-ui-icon="cancel size__small"></div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <div class="notification-backing__app" data-ui-state="fade__out" data-js="inAppNotificationBacking"></div>
+                                    </div>
                                 </div>
                                 <div class="cuboid-faces-back__app">
-                                    <div class="fader_"></div>
+                                    <div class="fader"></div>
                                 </div>
                                 <div class="cuboid-faces-top__app">
-                                    <div class="fader_"></div>
+                                    <div class="fader"></div>
                                 </div>
                             </div>
                         </div>
                     </nav>
                     <div class="layout__dark" data-ui-settings="mode__full" data-ui-grid="mobile_12" style="-webkit-perspective:1000;">
-                        <div class="notification_"></div>
                         <div class="modal_" data-ui-state="animate__in move__top" data-js="modal__iframe">
                             <div class="modal-window_" data-ui-state="animate__in scale__down rotate__bottom">
                                 <div class="modal-window-content_">
@@ -150,9 +168,9 @@
                             <div class="deck-slide-content__dark" data-ui-settings="dimensions__parent">  
                             
                                 <div class="header__default" data-ui-settings="rule__bottom inset__thick">
-                                    <div class="header-row__default" data-ui-settings="content__multiple">
+                                    <div class="header-content__default" data-ui-settings="content__multiple">
                                         <div class="header-title__light">File Summary</div>
-                                        <div data-ui-settings="float__right">
+                                        <div>
                                             <button class="button__inverted">
                                                 <div class="button-content__inverted">
                                                     <div data-ui-icon="file-download" style="font-size: 1.2rem;"></div>
@@ -334,7 +352,7 @@
                                     <div class="deck-slide-content_" data-ui-settings="depth__low" data-js="appHuver__recordsInner">
                                         <div class="fader"></div>
                                         <div class="header__light" data-ui-settings="inset__thick material__film" data-js="records__positionSticky">
-                                            <div class="header-row_" data-ui-settings="content__multiple">
+                                            <div class="header-content_" data-ui-settings="content__multiple">
                                                 <div class="header-title__dark">
                                                     <button class="button__primary-inverted" data-ui-settings="size__large padding__right-none padding__left-none margin__right-xs" data-ui-addon="icon__right" data-ui-state="is__hidden-desktop" data-js="hideFileContents">
                                                         <div class="button-content__primary-inverted" data-ui-settings="size__large">
@@ -345,7 +363,7 @@
                                                         Records
                                                     </span>
                                                 </div>
-                                                <div data-ui-settings="float__right">
+                                                <div>
                                                     <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__tab-contents" data-js="tooltip__error">
                                                         <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked data-js="recordsTable__filter">
                                                         <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
@@ -359,7 +377,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> <!-- header-row  ** end ** -->
+                                            </div> <!-- header-content  ** end ** -->
                                             <div data-ui-settings="padding__top-xs" data-ui-grid="mobile__12">
                                                 <input class="field_" placeholder="search" data-js="recordsTable__search">
                                             </div>
@@ -421,8 +439,8 @@
                                             </div>
                                         </div>
 
-                                            <div class="header-row_" data-ui-settings="content__multiple">
-                                                <div class="header-row_" data-ui-settings="content__multiple">
+                                            <div class="header-content_" data-ui-settings="content__multiple">
+                                                <div class="header-content_" data-ui-settings="content__multiple">
                                                     <button class="button__primary-inverted" data-ui-settings="size__large padding__left-none" data-ui-addon="icon__left" data-ui-state="is__hidden-desktop" data-js="showFileContents">
                                                         <div class="button-icon__primary-inverted" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
                                                         <div class="button-content__primary-inverted" data-ui-settings="size__large">records</div>
