@@ -106,11 +106,10 @@ var UI_keyboard = function( settings ) {
 	// combination can either be a space separated string or array
 	__self.encryptedCombination    = ( settings.combination.indexOf(',') > -1 ) ? settings.combination.join(',') : settings.combination;
 	__self.onPress 	               = settings.onPress;
-	__self.exception               = settings.exception || function() { return false };
-	__self.numbersIncludeNumberPad = settings.numbersIncludeNumberPad || true;
-	__self.returnKeyIncludesEnter  = settings.returnKeyIncludesEnter || true;
-	__self.stopPropagationEvent    = ( settings.stopPropagationEvent !== undefined ) ? settings.stopPropagationEvent : true;
-	__self.preventDefaultAction    = settings.preventDefaultAction || false;
+	__self.exception               = ( settings.exception !== undefined )               ? settings.exception : function() { return false };
+	__self.numbersIncludeNumberPad = ( settings.numbersIncludeNumberPad !== undefined ) ? settings.numbersIncludeNumberPad : true;
+	__self.stopPropagationEvent    = ( settings.stopPropagationEvent !== undefined )    ? settings.stopPropagationEvent    : true;
+	__self.preventDefaultAction    = ( settings.preventDefaultAction !== undefined )    ? settings.preventDefaultAction    : false;
 
 
 	__self.keysDown             = [];

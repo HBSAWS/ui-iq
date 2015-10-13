@@ -8,17 +8,17 @@ function UI_loader( DOMelement,settings ) {
 	// the XMLHttpRequest objects.  Either singular or array
 	__self.requests                = settings.requests;
 	// whether the loader should be destroyed when finished
-	__self.destroyOnComplete       = settings.destroyOnComplete || false;
+	__self.destroyOnComplete       = ( settings.destroyOnComplete !== undefined )       ? settings.destroyOnComplete : false;
 	// if this loader will be running over and over again, it needs to be reset after completeing
-	__self.resetLoaderOnComplete   = settings.resetLoaderOnComplete || false;
+	__self.resetLoaderOnComplete   = ( settings.resetLoaderOnComplete !== undefined )   ? settings.resetLoaderOnComplete : false;
 	// the loader has several premade animate out functions
 	// dev doesn't have to use, by default it's off
 	// animation names/attribute accepted values : 'fade out'|'out top'|'out bottom'
-	__self.loaderCompleteAnimation = settings.loaderCompleteAnimation || "none";
+	__self.loaderCompleteAnimation = ( settings.loaderCompleteAnimation !== undefined ) ? settings.loaderCompleteAnimation : undefined;
 	// this function will fire after the loader animation completes
 		// dev has access to the loader DOM object via the 'loader' parameter
 		// dev has access to an array of the request objects via the 'requests' parameter
-	__self.onComplete              = settings.onComplete || undefined;
+	__self.onComplete              = ( settings.onComplete !== undefined ) ? settings.onComplete : undefined;
 
 	// this is the total percent loaded of all the requests
 	__self.percentageLoaded  = 0;
@@ -105,58 +105,62 @@ UI_loader.prototype.updateProgressBar = function() {
 	checkProgress();
 };
 
+UI_loader.prototype.resetLoader = function() {
+	var __self;
+	__self = this;
+
+	__self.loader.offsetHeight;
+	__self.loader.style.transition = "opacity 0s,transform 0s";
+	__self.loader.style.transform  = "translateY( 0 )";
+	__self.loader.style.opacity    = 1;
+
+	__self.loaderProgressbar.style.transition = "opacity 0s,transform 0s";
+	__self.loaderProgressbar.style.transform  = "translateX( 0 )";
+	__self.loaderProgressbar.offsetHeight;
+	__self.loaderProgressbar.style.transition = "transform 1.5s cubic-bezier(0.39, 0.575, 0.565, 1)";
+};
+
 UI_loader.prototype.finishedLoading = function() {
-	var __self,loader,requests,completeAnimation,transitionTiming,transitionAnimation,transitionProperty,onComplete,resetLoader;
+	var __self,loader,requests,transitionTiming,transitionAnimation,transitionProperty,onComplete,resetLoader;
 	__self = this;
 	console.log("finished");
 	if ( __self.percentageLoaded == 100 ) {
 		loader            = __self.loader;
 		requests          = __self.requests;
-		completeAnimation = __self.loaderCompleteAnimation;
 		onComplete        = __self.onComplete;
 
 		// remove the event listener for the progress bar transitions
 		__self.loaderProgressbar.removeEventListener( 'webkitTransitionEnd',__self.__finishedLoading);		
-		resetLoader = function(e) {
-			
-			__self.loaderProgressbar.style.transition = "transform 0s";
-			__self.loaderProgressbar.style.transform  = "translateX( 0% )";
 
-			__self.loader.style.transition            = "transform 0s,opacity 0s";
-			__self.loader.style.transform  			  = "translateY( 0% )";
-			__self.loader.style.opacity               = 1;
-			__self.loader.offsetWidth;
-			__self.loader.transition                  = "transform 2s";
-			__self.loaderProgressbar.style.transition = "transform 1.5s cubic-bezier(0.39, 0.575, 0.565, 1)";
+		if ( __self.loaderCompleteAnimation !== undefined ) {
+			var completeAnimation = function(e) {
+				if ( e.target === e.currentTarget ) { 
+					__self.loader.removeEventListener( 'webkitTransitionEnd', completeAnimation );
 
-			__self.loader.removeEventListener( 'webkitTransitionEnd',resetLoader );
-		};
-		if ( completeAnimation !== "none" ) {
-			if ( __self.resetLoaderOnComplete ) {
-				__self.loader.addEventListener( 'webkitTransitionEnd', resetLoader );
-			}
-		}
-
-		if ( completeAnimation !== "none" || __self.resetLoaderOnComplete ) {
-			if ( completeAnimation !== "none" ) {
-				if ( completeAnimation === "out top" ) {
-					transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
-					transitionAnimation = "translateY( -100% )";
-					transitionProperty  = "transform";
-				} else if ( completeAnimation === "out bottom" ) {
-					transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
-					transitionAnimation = "translateY( 100% )";
-					transitionProperty  = "transform";
-				} else if ( completeAnimation == "fade out" ) {
-					transitionTiming    = "opacity .45s cubic-bezier(.43,0,0,1)";
-					transitionAnimation = "0";
-					transitionProperty  = "opacity";
+					if ( __self.resetLoaderOnComplete ) {
+						__self.resetLoader();
+					}
 				}
-				__self.loader.style.transition           = transitionTiming;
-				__self.loader.style[transitionProperty]  = transitionAnimation;
-			} else if ( __self.resetLoaderOnComplete ) {
+			};
+			__self.loader.addEventListener( 'webkitTransitionEnd', completeAnimation );
 
+			if ( __self.loaderCompleteAnimation === "out top" ) {
+				transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
+				transitionAnimation = "translateY( -100% )";
+				transitionProperty  = "transform";
+			} else if ( __self.loaderCompleteAnimation === "out bottom" ) {
+				transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
+				transitionAnimation = "translateY( 100% )";
+				transitionProperty  = "transform";
+			} else if ( __self.loaderCompleteAnimation == "fade out" ) {
+				transitionTiming    = "opacity .45s cubic-bezier(.43,0,0,1)";
+				transitionAnimation = "0";
+				transitionProperty  = "opacity";
 			}
+			__self.loader.style.transition           = transitionTiming;
+			__self.loader.style[transitionProperty]  = transitionAnimation;
+		} else if ( __self.loaderCompleteAnimation == undefined && __self.resetLoaderOnComplete ) {
+			__self.resetLoader();
 		}
 
 		if ( onComplete !== undefined ) {

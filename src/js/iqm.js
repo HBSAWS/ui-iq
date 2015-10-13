@@ -900,11 +900,6 @@
 
 			tooltips.errors.init();
 			tooltips.fileSummary.init();
-			
-			// tables.records.el.querySelector("tbody").addEventListener('click', function(e) {
-			// 	var recordEl = e.target.parentElement;
-			// 	tables.records.openRecord(recordEl);
-			// });
 
 			sticky.records.init();
 			sticky.details.init();
@@ -912,11 +907,6 @@
 			if( is__mobile ) {
 				FastClick.attach(document.body);
 			}
-
-			// OPEN THE TABLES TO THE FIRST RECORD
-			// var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
-			// //tables.details.openRecord(firstRecord);
-			// tables.records.UI.selectRow( firstRecord );
 
 			this.animateInUI();
 		},
