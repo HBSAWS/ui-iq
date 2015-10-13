@@ -109,6 +109,7 @@ var UI_keyboard = function( settings ) {
 	__self.exception               = settings.exception || function() { return false };
 	__self.numbersIncludeNumberPad = settings.numbersIncludeNumberPad || true;
 	__self.returnKeyIncludesEnter  = settings.returnKeyIncludesEnter || true;
+	__self.stopPropagationEvent    = ( settings.stopPropagationEvent !== undefined ) ? settings.stopPropagationEvent : true;
 	__self.preventDefaultAction    = settings.preventDefaultAction || false;
 
 
@@ -148,10 +149,15 @@ UI_keyboard.prototype.__decryptKeycodes = function() {
 
 UI_keyboard.prototype.keyDown = function(e) {
 	var __self,e,key;
-	__self = this; 
-	e      = e || event; // to deal with IE
-	key    = window.event ? e.keyCode : e.which;
-    __self.keysDown.push( key );
+	__self     = this; 
+	e          = e || event; // to deal with IE
+	key        = window.event ? e.keyCode : e.which;
+
+	// because we're using length to determine whether the combination has been unlocked or not
+	// it's important we don't hvae duplicate values in our array
+	if ( __self.keysDown.indexOf( key ) == -1 ) {
+    	__self.keysDown.push( key );
+    }
 
 	if ( !__self.exception() ) {
 		// if the exception isn't true, then we can fire our function 
@@ -170,10 +176,12 @@ UI_keyboard.prototype.keyDown = function(e) {
 				e.preventDefault();
 			}
 
-			__self.onPress();
+			__self.onPress( e );
 		}
 	}
-	e.stopPropagation();
+	if ( __self.stopPropagationEvent ) {
+		e.stopPropagation();
+	}
 };
 
 UI_keyboard.prototype.keyUp = function(e) {
@@ -184,7 +192,9 @@ UI_keyboard.prototype.keyUp = function(e) {
 	index  = __self.keysDown.indexOf( key );
 
 	__self.keysDown.splice(index, 1);
-	e.stopPropagation();
+	if ( __self.stopPropagationEvent ) {
+		e.stopPropagation();
+	}
 };
 
 

@@ -106,7 +106,7 @@ UI_loader.prototype.updateProgressBar = function() {
 };
 
 UI_loader.prototype.finishedLoading = function() {
-	var __self,loader,requests,completeAnimation,transitionTiming,transitionAnimation,transitionProperty,onComplete;
+	var __self,loader,requests,completeAnimation,transitionTiming,transitionAnimation,transitionProperty,onComplete,resetLoader;
 	__self = this;
 	console.log("finished");
 	if ( __self.percentageLoaded == 100 ) {
@@ -115,15 +115,37 @@ UI_loader.prototype.finishedLoading = function() {
 		completeAnimation = __self.loaderCompleteAnimation;
 		onComplete        = __self.onComplete;
 
+		// remove the event listener for the progress bar transitions
+		__self.loaderProgressbar.removeEventListener( 'webkitTransitionEnd',__self.__finishedLoading);		
+		resetLoader = function(e) {
+			
+			__self.loaderProgressbar.style.transition = "transform 0s";
+			__self.loaderProgressbar.style.transform  = "translateX( 0% )";
+
+			__self.loader.style.transition            = "transform 0s,opacity 0s";
+			__self.loader.style.transform  			  = "translateY( 0% )";
+			__self.loader.style.opacity               = 1;
+			__self.loader.offsetWidth;
+			__self.loader.transition                  = "transform 2s";
+			__self.loaderProgressbar.style.transition = "transform 1.5s cubic-bezier(0.39, 0.575, 0.565, 1)";
+
+			__self.loader.removeEventListener( 'webkitTransitionEnd',resetLoader );
+		};
+		if ( completeAnimation !== "none" ) {
+			if ( __self.resetLoaderOnComplete ) {
+				__self.loader.addEventListener( 'webkitTransitionEnd', resetLoader );
+			}
+		}
+
 		if ( completeAnimation !== "none" || __self.resetLoaderOnComplete ) {
 			if ( completeAnimation !== "none" ) {
 				if ( completeAnimation === "out top" ) {
 					transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
-					transitionAnimation = "translateY( -100% ) translateX( 100% )";
+					transitionAnimation = "translateY( -100% )";
 					transitionProperty  = "transform";
 				} else if ( completeAnimation === "out bottom" ) {
 					transitionTiming    = "transform .45s cubic-bezier(.43,0,0,1)";
-					transitionAnimation = "translateY( 100% ) translateX( 100% )";
+					transitionAnimation = "translateY( 100% )";
 					transitionProperty  = "transform";
 				} else if ( completeAnimation == "fade out" ) {
 					transitionTiming    = "opacity .45s cubic-bezier(.43,0,0,1)";
@@ -133,13 +155,7 @@ UI_loader.prototype.finishedLoading = function() {
 				__self.loader.style.transition           = transitionTiming;
 				__self.loader.style[transitionProperty]  = transitionAnimation;
 			} else if ( __self.resetLoaderOnComplete ) {
-				transitionTiming    = "transform 0s cubic-bezier(.43,0,0,1)";
-				transitionAnimation = "translateY( 0% ) translateX( 0% )";
-				transitionProperty  = "transform";
-				__self.loader.style.transition           = transitionTiming;
-				__self.loader.style[transitionProperty]  = transitionAnimation;
-				__self.loader.offsetWidth;
-				__self.loader.transition                 = "transform 2s";
+
 			}
 		}
 
@@ -150,8 +166,7 @@ UI_loader.prototype.finishedLoading = function() {
 			__self.onComplete( loader,requests );
 		}
 
-		// remove the event listener for the progress bar transitions
-		__self.loaderProgressbar.removeEventListener( 'webkitTransitionEnd',__self.__finishedLoading);
+
 
 		if ( __self.destroyOnComplete ) {
 			// removes the DOM loader and progress bar elements

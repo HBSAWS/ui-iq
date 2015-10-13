@@ -40,16 +40,40 @@ $darkSurface   : darken( $lightSurface, 20% );
 	}
 		[class^="nav-branding-icon_"] {
 			display        : table-cell;
-			padding-right  : 10px;
+			padding-right  : 8px;
 			font-family    : "hbs-modern"; 
 			vertical-align : middle; 
 			
 			&[class$="_global"] {
-				padding-left : 3px;
+				padding-left : 2px;
 				color        : #a41034;
 			}
 			&[class$="_app"] {
 				color : #fff;
+
+				@include prefix( perspective, 200 );
+				&[data-ui-state~="is__rotating"] {
+					> div {
+						@include prefix( animation, rotate__logo 2.5s infinite );
+					}
+				}
+				@keyframes rotate__logo {
+					0% {
+						@include prefix( transform, rotateX(0deg) rotateY(0deg) );
+					}
+					25% {
+						@include prefix( transform, rotateX(180deg) rotateY(0deg) );
+					}
+					50% {
+						@include prefix( transform, rotateX(180deg) rotateY(180deg) );
+					}
+					75% {
+						@include prefix( transform, rotateX(360deg) rotateY(180deg) );
+					}
+					100% {
+						@include prefix( transform, rotateX(360deg) rotateY(360deg) );
+					}
+				}
 			}	
 		}
 		[class^="nav-branding-title_"] {

@@ -18,14 +18,14 @@ function UI_table(DOMelement, settings) {
 	__self.filterEl   = settings.filterElements;
 
 
-	__self.arrowKeysHighlightRows = settings.arrowKeysHighlightRows || true;
-	__self.hoverHighlightsRows    = settings.hoverHighlightsRows    || true;
-	__self.hoverFocusesTable      = settings.hoverFocusesTable      || true;
-	__self.returnKeySelectsRow    = settings.returnKeySelectsRow    || true;
-	__self.clickSelectsRow        = settings.clickSelectsRow        || true;
-	__self.onRowSelection         = settings.onRowSelection         || function() {  };
-	__self.addStateToRowOnSelect  = settings.addStateToRowOnSelect  || true;
-	__self.selectFirstRowOnInit   = settings.selectFirstRowOnInit   || false;
+	__self.arrowKeysHighlightRows = ( settings.arrowKeysHighlightRows !== undefined ) ? settings.arrowKeysHighlightRows : true;
+	__self.hoverHighlightsRows    = ( settings.hoverHighlightsRows !== undefined )    ? settings.hoverHighlightsRows    : true;
+	__self.hoverFocusesTable      = ( settings.hoverFocusesTable !== undefined )      ? settings.hoverFocusesTable      : true;
+	__self.returnKeySelectsRow    = ( settings.returnKeySelectsRow !== undefined )    ? settings.returnKeySelectsRow    : true;
+	__self.clickSelectsRow        = ( settings.clickSelectsRow !== undefined )        ? settings.clickSelectsRow        : true;
+	__self.onRowSelection         = ( settings.onRowSelection !== undefined )         ? settings.onRowSelection         : undefined;
+	__self.addStateToRowOnSelect  = ( settings.addStateToRowOnSelect !== undefined )  ? settings.addStateToRowOnSelect  : true;
+	__self.selectFirstRowOnInit   = ( settings.selectFirstRowOnInit !== undefined )   ? settings.selectFirstRowOnInit   : false;
 	if ( settings.exceptions == undefined || settings.exceptions == null ) { 
 		settings.exceptions = {};
 	}
@@ -50,7 +50,7 @@ function UI_table(DOMelement, settings) {
 		__self.__upArrow = new UI_keyboard({
 									combination : ["up arrow"],
 									onPress     : function(e) {
-										var previousRow;
+										var previousRow;console.log("upkey pressed");
 
 										if ( __self.highlightedRow !== undefined && __self.highlightedRow.previousElementSibling !== null && __self.highlightedRow.previousElementSibling !== undefined && __self.highlightedRow.previousElementSibling !== __self.selectedRow ) {
 											// if there is a highlighted row already, and it has a previous sibling that's not the currently selected row, then we use the highlight as our starting point
@@ -77,7 +77,7 @@ function UI_table(DOMelement, settings) {
 		__self.__downArrow = new UI_keyboard({
 									combination : ["down arrow"],
 									onPress     : function(e) {
-										var nextRow;
+										var nextRow;console.log("downkey pressed");
 
 										if ( __self.highlightedRow !== undefined && __self.highlightedRow.nextElementSibling !== null && __self.highlightedRow.nextElementSibling !== undefined && __self.highlightedRow.nextElementSibling !== __self.selectedRow ) {
 											// if there is a highlighted row already, and it has a next sibling that's not the currently selected row, then we use the highlight as our starting point
@@ -106,10 +106,12 @@ function UI_table(DOMelement, settings) {
 	if ( __self.returnKeySelectsRow ) {
 		__self.__returnKey = new UI_keyboard({
 									combination : ["enter"],
-									onPress     : function() {
+									onPress     : function( e ) {
 										if ( __self.highlightedRow !== undefined ) {
-											__self.selectRow( __self.highlightedRow );
-											__self.onRowSelection();
+											if ( __self.onRowSelection !== undefined ) {
+												__self.selectRow( __self.highlightedRow );
+											}
+											e.stopPropagation();
 										}
 									},
 									exception : function() {
@@ -364,14 +366,18 @@ UI_table.prototype.initialize_module = function() {
 		});
 	}
 
-
 	// adds event listenters for click/hover events if the settings ask for them
 	if ( __self.clickSelectsRow ) {
 		// select table row on click
 		tableBody.addEventListener( 'click', function(e) {
 			var clicked = e.target.parentElement;
 			if ( clicked.tagName == "TR" ) {
-				__self.selectRow( clicked );
+				if ( __self.highlightedRow !== undefined ) {
+					if ( __self.onRowSelection !== undefined ) {
+						__self.selectRow( __self.highlightedRow );
+					}
+					e.stopPropagation();
+				}
 			}
 		});
 	}

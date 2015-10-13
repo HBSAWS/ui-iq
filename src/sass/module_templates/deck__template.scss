@@ -75,6 +75,7 @@
 		[class^="deck-slide-content_"] {
 			position   : relative;
 			width      : 100%;
+
 			&[data-ui-settings~="dimensions__parent"] {
 				width  : 100%;
 				height : 100%;

@@ -248,7 +248,7 @@
 					// 	}
 					// }
 					// thinking about having only a single highlighted state -- if that's going to be the case I THINK I like this one better -- still up in the air
-					@include prefix( transform, scale(0.996) translateY(3px) translateZ(-1px) );
+					@include prefix( transform, scale(0.99) translateY(3px) translateZ(-1px) );
 					[class^="table-body-row-cell_"] {
 						&:after {
 							opacity : 0.75;
@@ -264,7 +264,7 @@
 			cursor     : pointer;
 			@include prefix( transform, translate(0px) );
 			@include prefix( transform-origin, center );
-			@include prefix( transition, "transform 0.4s cubic-bezier(.43,0,0,1), filter 0.4s cubic-bezier(.43,0,0,1)" );
+			@include prefix( transition, "transform 0.38s cubic-bezier(.43,0,0,1), filter 0.38s cubic-bezier(.43,0,0,1)" );
 
 			[class$="_inverted"] {
 				color : #ffffff;

@@ -5,13 +5,8 @@
     top      : 0px;
     left     : 0px;
     overflow : hidden;
-    @include prefix( border-radius, 20px );
-    @include prefix( will-change, opacity );
     @include prefix( transition, opacity 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) );
 
-    &[class$="_initialize"] {
-        background : rgba(255,255,255,0.15);
-    }
     &[data-ui-settings~="partial__small"] {
         width : 32%;
         @include prefix( border-radius, 0px );
@@ -23,6 +18,17 @@
     &[data-ui-settings~="partial__large"] {
         width : 72%;
         @include prefix( border-radius, 0px );
+    }
+
+
+
+    &[class$="_initialize"] {
+        @include prefix( border-radius, 20px );
+        @include prefix( will-change, opacity );
+        background : rgba(255,255,255,0.15);
+    }
+    &[class$="_inApp"] {
+        background : transparent;
     }
 }
     [class^="loader-progress_"] {
@@ -37,5 +43,8 @@
 
         &[class$="_initialize"] {
             background : #fff;
+        }
+        &[class$="_inApp"] {
+            background : #50D6D0;
         }
     }

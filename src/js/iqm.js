@@ -196,20 +196,12 @@
 			},
 			UI : undefined,
 			init : function() {
-				var __self,modal,settings,__UI;
+				var __self,modal,settings,modal;
 				__self   = this;
-				modal    = __self.el;
+				el       = __self.el;
 				settings = __self.settings;
 
-				__UI = __self.UI = UI.modal(modal,settings);
-
-				tables.details.el.addEventListener("click", function(e) {
-					if ( e.target.parentElement.dataset.js === "show__iframe" ) {
-						offCanvasPanels.fileSummary.UI.hidePanel();
-						__UI.showModal();
-					}
-					e.stopPropagation();
-				});
+				modal = __self.UI = UI.modal( el,settings );
 			},
 			updateModaliFrameSource : function(recordID) {
 				var pdmId,pdmIframe,role,newURL;
@@ -551,6 +543,9 @@
 				searchElements : document.querySelectorAll("[data-js~='recordsTable__search']"),
 				sortElements   : document.querySelectorAll("[data-js~='recordsTable__sort']"), 
 				filterElements : document.querySelectorAll("[data-js~='recordsTable__filter']"),
+				onRowSelection : function( selectRow ) {
+					tables.details.openRecord( selectRow );
+				},
 				exceptions : {
 					allKeys : function() {
 						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
@@ -587,32 +582,21 @@
 						__table.unfilter( toFilter );
 					}
 				});
-			},
-			openRecord : function(recordEl) {
-				if ( recordEl.dataset.js === "load__record" ) {
-					var pdmId,pdmIframe,newURL;
-
-					fastdom.read(function() {
-						pdmIframe = document.querySelector("[data-js~='iframePDM']");
-					});
-
-					pdmId  = recordsData.active;
-					newURL = file.PDM_URL_base + "mba/btStuDtl/edit?prsnId=" + pdmId;
-
-					fastdom.write(function() {
-						pdmIframe.setAttribute('src', newURL);
-					});
-				}
 			}
 		},
 		details : {
 			el       : document.querySelector("[data-js~='detailsTable']"),
 			UI       : null,
 			settings : {
-				valueNames     : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
-				searchElements : document.querySelectorAll("[data-js~='detailsTable__search']"),
-				sortElements   : document.querySelectorAll("[data-js~='detailsTable__sort']"), 
-				filterElements : document.querySelectorAll("[data-js~='detailsTable__filter']"),
+				valueNames            : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
+				searchElements        : document.querySelectorAll("[data-js~='detailsTable__search']"),
+				sortElements          : document.querySelectorAll("[data-js~='detailsTable__sort']"), 
+				filterElements        : document.querySelectorAll("[data-js~='detailsTable__filter']"),
+				addStateToRowOnSelect : false,
+				onRowSelection        : function() {
+					offCanvasPanels.fileSummary.UI.hidePanel();
+					modals.iframe.UI.showModal();
+				},
 				exceptions : {
 					allKeys : function() {
 						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
@@ -633,9 +617,9 @@
 			activeRecord : null,
 			init : function() {
 				var __self,__table;
-				__self    = this;
-				__self.UI = __table = UI.table( __self.el, __self.settings );
-				detailsTable =  __table; 
+				__self       = this;
+				__self.UI    = __table = UI.table( __self.el, __self.settings );
+				detailsTable = __table; 
 
 				document.querySelector("[data-js~='detailsTable__filter']").addEventListener( 'change', function(e) {
 					var filter,toFilter;
@@ -658,6 +642,18 @@
 						tables.details.openRecord( targetEl );
 					}
 				});
+
+				__self.el.addEventListener("click", function(e) {
+					if ( e.target.parentElement.dataset.js === "show__iframe" ) {
+						offCanvasPanels.fileSummary.UI.hidePanel();
+						modals.iframe.UI.showModal();
+					}
+					e.stopPropagation();
+				});
+
+				var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
+				//tables.details.openRecord(firstRecord);
+				tables.records.UI.selectRow( firstRecord );
 			},
 			openRecord : function(recordsTableRowEl) {
 				var __self,recordID,record,toAdd,detailsTableFilterEl,detailsTableTitle;
@@ -905,10 +901,10 @@
 			tooltips.errors.init();
 			tooltips.fileSummary.init();
 			
-			tables.records.el.querySelector("tbody").addEventListener('click', function(e) {
-				var recordEl = e.target.parentElement;
-				tables.records.openRecord(recordEl);
-			});
+			// tables.records.el.querySelector("tbody").addEventListener('click', function(e) {
+			// 	var recordEl = e.target.parentElement;
+			// 	tables.records.openRecord(recordEl);
+			// });
 
 			sticky.records.init();
 			sticky.details.init();
@@ -918,9 +914,9 @@
 			}
 
 			// OPEN THE TABLES TO THE FIRST RECORD
-			var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
-			tables.details.openRecord(firstRecord);
-
+			// var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
+			// //tables.details.openRecord(firstRecord);
+			// tables.records.UI.selectRow( firstRecord );
 
 			this.animateInUI();
 		},
@@ -952,7 +948,8 @@
 				// the file summary off canvas panel changes the state of the main canvas depending on whether it's open or close
 				// so we simply want to give a unique state of pushed way back, and to have an opacity of zero
 				// so that when we show the panel and it would normally animate the canvas back in space, this animates it forward
-				document.querySelector("[data-js~='app__mainCanvas']").setAttribute("data-ui-state", "animate__off scale__down-lg fade__out");
+				var mainCanvas = document.querySelector("[data-js~='app__mainCanvas']");
+				UI.DOM.addDataValue( mainCanvas,"data-ui-state","animate__off scale__down-lg fade__out" );
 				document.querySelector("[data-js~='app__mainCanvas']").offsetHeight;
 
 				// this moves the splash element up and fades it out
@@ -975,7 +972,8 @@
 
 
 	var reqConfig = new XMLHttpRequest();
-	reqConfig.open("GET","/iqService/rest/config.json?meta=true",true);
+	//reqConfig.open("GET","/iqService/rest/config.json?meta=true",true);
+	reqConfig.open("GET","js/config.json",true);
 	reqConfig.onreadystatechange = function() {
 		if( this.readyState == 4) {
 			if( this.status == 200) {
@@ -1020,6 +1018,43 @@
 	// reqExclusions.send();
 
 
+	test = function() {
+		var reqFile,fileLoader,appLogo;
+
+		reqFile = new XMLHttpRequest();
+		reqFile.open("GET","js/bio.json",true);
+		reqFile.onreadystatechange = function() {
+			if( this.readyState == 4) {
+				if( this.status == 200) {
+
+				}
+				else {
+					requests.records = false;
+					console.log("Records HTTP error "+this.status+" "+this.statusText);
+				}
+			}
+		};
+		reqFile.send();
+
+		appLogo    = document.querySelector("[data-js~='appLogo']");
+		fileLoader = document.querySelector("[data-js~='inApp__loader']");
+		UI.loader( fileLoader, {
+			requests                : reqFile,
+			loaderCompleteAnimation : "out bottom",
+			resetLoaderOnComplete   : true,
+			onComplete              : function() {
+				var stopRotating; 
+				stopRotating = function(e) {
+					UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
+					appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
+				};
+				appLogo.addEventListener("webkitAnimationIteration", stopRotating);
+			}
+		});
+		UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
+
+		
+	};
 
 
 	var loaders = {
