@@ -50,7 +50,7 @@ function UI_table(DOMelement, settings) {
 		__self.__upArrow = new UI_keyboard({
 									combination : ["up arrow"],
 									onPress     : function(e) {
-										var previousRow;console.log("upkey pressed");
+										var previousRow;
 
 										if ( __self.highlightedRow !== undefined && __self.highlightedRow.previousElementSibling !== null && __self.highlightedRow.previousElementSibling !== undefined && __self.highlightedRow.previousElementSibling !== __self.selectedRow ) {
 											// if there is a highlighted row already, and it has a previous sibling that's not the currently selected row, then we use the highlight as our starting point
@@ -77,7 +77,7 @@ function UI_table(DOMelement, settings) {
 		__self.__downArrow = new UI_keyboard({
 									combination : ["down arrow"],
 									onPress     : function(e) {
-										var nextRow;console.log("downkey pressed");
+										var nextRow;
 
 										if ( __self.highlightedRow !== undefined && __self.highlightedRow.nextElementSibling !== null && __self.highlightedRow.nextElementSibling !== undefined && __self.highlightedRow.nextElementSibling !== __self.selectedRow ) {
 											// if there is a highlighted row already, and it has a next sibling that's not the currently selected row, then we use the highlight as our starting point
@@ -198,6 +198,13 @@ UI_table.prototype.unhighlightRow = function() {
 		UI_DOM.removeDataValue( __self.highlightedRow,"data-ui-state","is__highlighted" );
 	}
 	__self.highlightedRow = undefined;
+};
+UI_table.prototype.currentHighlightedRow = function() {
+	var __self;
+	__self = this;
+
+	return __self.highlightedRow;
+
 };
 UI_table.prototype.selectRow = function( selectRow ) {
 	var __self;

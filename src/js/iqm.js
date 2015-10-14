@@ -545,6 +545,15 @@
 				filterElements : document.querySelectorAll("[data-js~='recordsTable__filter']"),
 				onRowSelection : function( selectRow ) {
 					tables.details.openRecord( selectRow );
+
+					// set a timeout so that the refocusing doesn't also cause the details table to fire a selection event as well
+					setTimeout(function() {
+						tables.records.UI.unfocusTable();
+						tables.details.UI.focusTable();
+					},200);
+					if ( window.innerWidth < 1300 ) {
+						offCanvasPanels.records.UI.hidePanel();
+					}
 				},
 				exceptions : {
 					allKeys : function() {
@@ -558,7 +567,6 @@
 						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
 							exception = true;
 						}
-
 						return exception;
 					}
 				}
@@ -709,6 +717,12 @@
 				UI.DOM.addDataValue( recordsTableRowEl, "data-ui-state", "is__selected" );
 				detailsTableTitle           = document.querySelector("[data-js~='recordName']");
 				detailsTableTitle.innerHTML = record.firstName + " " + record.lastName;
+
+
+				if ( tables.details.UI.currentHighlightedRow() == undefined ) {
+					var firstRow = tables.details.el.querySelector("tbody tr ");
+					tables.details.UI.highlightRow( firstRow );
+				}
 
 				recordsData.active = recordID;
 				init = false;

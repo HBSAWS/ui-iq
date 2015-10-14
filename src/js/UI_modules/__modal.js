@@ -29,11 +29,13 @@ UI_modal.prototype.isModalShowing = function() {
 	return this.active;
 };
 
+// modal is the entire modal module, refering to the backing
+// modal window is the actually 'modal' element
 UI_modal.prototype.showModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState,hideModal;
 	__self 	         = this;
-	modalState       = "animate__in-delay is__showing-modal";
-	modalWindowState = "animate__in";
+	modalState       = "animate__in-delay-sm is__showing-modal";
+	modalWindowState = "animate__in-delay-lg";
 	mainCanvasState  = "animate__out scale__down";
 
 	if ( __self.closeOnEscape ) {
@@ -58,7 +60,7 @@ UI_modal.prototype.hideModal = function() {
 	__self 	         = this;
 	modalState       = "animate__out-delay move__top";
 	modalWindowState = "animate__out scale__down rotate__top";
-	mainCanvasState  = "animate__in-delay";
+	mainCanvasState  = "animate__in-delay-lg";
 
 	fastdom.write(function() {
 		__self.modal.setAttribute("data-ui-state", modalState);

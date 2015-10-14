@@ -9,19 +9,29 @@
 	}
 
 	&[data-ui-state~="animate__in"] {
-		@include prefix(transition, transform 0.23s ease-out, opacity 0.23s cubic-bezier(.43,0,0,1));
-		-webkit-transition : -webkit-transform 0.23s ease-out, opacity 0.23s cubic-bezier(.43,0,0,1);
+		@include prefix(transition, transform 0.27s cubic-bezier(.19,1,.22,.97) ); 
+		-webkit-transition : -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97); 
 		> .fader {
-			@include prefix(transition, "visibility 0.46s, opacity 0.46s cubic-bezier(.43,0,0,1)");
+			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in");
 		}
 	}
-	&[data-ui-state~="animate__in-delay"] {
-		@include prefix(transition, transform 0.23s ease-out 0.46s, opacity 0.23s cubic-bezier(.43,0,0,1) 0.46s);
-		-webkit-transition : -webkit-transform 0.23s ease-out 0.46s, opacity 0.23s cubic-bezier(.43,0,0,1) 0.46s;
+
+	&[data-ui-state~="animate__in-delay-sm"] {
+		@include prefix(transition, transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s); 
+		-webkit-transition : -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97) 0.32s; 
+		> .fader {
+			@include prefix(transition, "visibility 1.3s, opacity 0.3s ease-in 0.38s");
+		}
+	}
+	&[data-ui-state~="animate__in-delay-lg"] {
+		@include prefix(transition, transform 0.23s ease-out 0.46s, opacity 0.23s ease-out 0.46s);
+		-webkit-transition : -webkit-transform 0.23s ease-out 0.46s, opacity 0.23s ease-out 0.46s;
 		> .fader {
 			@include prefix(transition, "visibility 0.92s, opacity 0.46s cubic-bezier(.43,0,0,1) 0.46s");
 		}
 	}
+
+
 
 	&[data-ui-state~="animate__out"] {
 		@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s, opacity 0.46s cubic-bezier(.43,0,0,1) 0s); 
