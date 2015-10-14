@@ -111,7 +111,7 @@ UI_offCanvasPanel.prototype.hidePanel = function(toAnimate) {
 	}	
 
 	if ( __toAnimate ) {
-		mainCanvasState = "animate__out";
+		mainCanvasState = "animate__in";
 		panelState      = "animate__out move__" + __self.side;
 	} else {
 		mainCanvasState = "animate__off";

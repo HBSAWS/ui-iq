@@ -1036,9 +1036,8 @@
 
 				notifications.inApp.el.addEventListener( 'mouseout', function() {
 					notifications.inApp.timer = setTimeout(function() {
-													console.log("timeout 1");
 													notifications.inApp.hideNotification();
-												},5000);
+												}, 5000);
 				});
 			},
 			showNotification : function() {
@@ -1050,9 +1049,8 @@
 				UI.DOM.removeDataValue( backing,"data-ui-state","fade__out" );
 
 				notifications.inApp.timer = setTimeout(function() {
-												console.log("timeout 1");
 												notifications.inApp.hideNotification();
-											},5000);
+											}, 5000);
 			},
 			hideNotification : function() {
 				var backing;

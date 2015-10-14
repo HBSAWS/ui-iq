@@ -58,7 +58,7 @@ UI_modal.prototype.hideModal = function() {
 	__self 	         = this;
 	modalState       = "animate__out-delay move__top";
 	modalWindowState = "animate__out scale__down rotate__top";
-	mainCanvasState  = "animate__in";
+	mainCanvasState  = "animate__in-delay";
 
 	fastdom.write(function() {
 		__self.modal.setAttribute("data-ui-state", modalState);

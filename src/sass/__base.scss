@@ -49,19 +49,6 @@ h3 {
 	font-size   : 1.3rem;
 }
 
-[class^="fader"] {
-	position   : absolute;
-	z-index    : 11;
-	top        : 0px;
-	left       : 0px;
-	width      : 100%;
-	height     : 100%;
-	visibility : hidden; 
-	background : rgba($color__dark, 0.5);
-	opacity    : 0;
-	@include prefix(will-change, "visibility, opacity");
-}
-$error__color : rgba(245, 101, 91, 0.96);
 
 
 
