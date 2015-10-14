@@ -572,14 +572,15 @@
 				}
 			},
 			init     : function() {
-				var __self,__table;
-				__self    = this;
-				__self.UI = __table = UI.table( __self.el, __self.settings );
+				var __self,__table,errorsFilter;
+				__self       = this;
+				__self.UI    = __table = UI.table( __self.el, __self.settings );
+				errorsFilter = document.querySelector("[data-js~='recordsTable__filter']");
 
 				__table.filter("has__error");
 				__table.focusTable();
 
-				document.querySelector("[data-js~='recordsTable__filter']").addEventListener( 'change', function(e) {
+				errorsFilter.addEventListener( 'change', function(e) {
 					var filter,toFilter;
 					filter   = e.currentTarget;
 					toFilter = filter.value;
@@ -588,6 +589,34 @@
 						__table.filter( toFilter );
 					} else {
 						__table.unfilter( toFilter );
+					}
+				});
+
+				UI.keyboard({
+					combination : ['alt','e'],
+					onPress     : function(e) {
+						var toFilter = errorsFilter.value;
+
+						if ( errorsFilter.checked == true ) {
+							__table.unfilter( toFilter );
+							errorsFilter.checked = false;
+						} else {
+							__table.filter( toFilter );
+							errorsFilter.checked = true;
+						}
+					},
+					exception  : function() {
+						var exception;
+						exception = false;
+
+						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+							exception = true;
+						}
+						return exception;
 					}
 				});
 			}
@@ -628,16 +657,45 @@
 				__self       = this;
 				__self.UI    = __table = UI.table( __self.el, __self.settings );
 				detailsTable = __table; 
+				errorsFilter = document.querySelector("[data-js~='detailsTable__filter']");
 
-				document.querySelector("[data-js~='detailsTable__filter']").addEventListener( 'change', function(e) {
+				errorsFilter.addEventListener( 'change', function(e) {
 					var filter,toFilter;
 					filter   = e.currentTarget;
 					toFilter = filter.value;
 
-					if ( filter.checked === true ) {
+					if ( filter.checked == true ) {
 						__table.filter( toFilter );
 					} else {
 						__table.unfilter( toFilter );
+					}
+				});
+
+				UI.keyboard({
+					combination : ['alt','e'],
+					onPress     : function(e) {
+						var toFilter = errorsFilter.value;
+
+						if ( errorsFilter.checked == true ) {
+							__table.unfilter( toFilter );
+							errorsFilter.checked = false;
+						} else {
+							__table.filter( toFilter );
+							errorsFilter.checked = true;
+						}
+					},
+					exception  : function() {
+						var exception;
+						exception = false;
+
+						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+							exception = true;
+						}
+						return exception;
 					}
 				});
 
@@ -724,7 +782,8 @@
 					tables.details.UI.highlightRow( firstRow );
 				}
 
-				recordsData.active = recordID;
+				recordsData.active  = recordID;
+				file.records.active = recordID;
 				init = false;
 			}
 		}
@@ -738,7 +797,7 @@
 			settings : {
 				target   : undefined,
 				position : 'bottom center',
-				content  : "filter errors",
+				content  : "filter errors (alt + e)",
 				classes  : 'tooltip-theme-arrows'
 			},
 			init : function() {

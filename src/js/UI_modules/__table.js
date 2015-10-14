@@ -65,6 +65,19 @@ function UI_table(DOMelement, settings) {
 											previousRow = __self.el.querySelector("tbody tr");
 											__self.highlightRow( previousRow );
 										}
+
+										// adjusts top
+										var header     = document.querySelector("[data-js='details__positionSticky']");
+										headerTop      = header.getBoundingClientRect().top + header.getBoundingClientRect().height;
+										highlightedTop = previousRow.getBoundingClientRect().top;
+
+										if ( headerTop > highlightedTop && previousRow !== null && previousRow !== undefined ) {
+											highlightedTop = Math.abs( highlightedTop );
+											var calcDiff   = Math.abs( headerTop - highlightedTop )
+											var newTop     = document.querySelector("[data-js='appHuver__recDetails']").scrollTop - calcDiff;
+
+											document.querySelector("[data-js='appHuver__recDetails']").scrollTop = newTop;
+										}
 									},
 									exception : function() {
 										var exception = false;
@@ -92,6 +105,18 @@ function UI_table(DOMelement, settings) {
 											nextRow = __self.el.querySelector("tbody tr");
 											__self.highlightRow( nextRow );
 										}
+
+
+										var windowHeight      = window.innerHeight;
+										var highlightedBottom = nextRow.getBoundingClientRect().bottom;
+
+										if ( highlightedBottom > windowHeight && nextRow !== null && nextRow !== undefined ) {
+											var calcDiff   = highlightedBottom - windowHeight;
+											var newBottom  = document.querySelector("[data-js='appHuver__recDetails']").scrollTop + calcDiff;
+											
+											document.querySelector("[data-js='appHuver__recDetails']").scrollTop = newBottom;
+										}
+
 									},
 									exception : function() {
 										var exception = false;
