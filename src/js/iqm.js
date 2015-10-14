@@ -1023,10 +1023,22 @@
 			close      : document.querySelector( "[data-js~='inAppNotificationClose']" ),
 			icon       : document.querySelector( "[data-js~='inAppNotificationIcon']" ),
 			status     : "error",
+			timer      : undefined,
 			init : function() {
 				notifications.inApp.close.addEventListener( 'click', function(e) {
 					notifications.inApp.hideNotification();
 					e.stopPropagation();
+				});
+
+				notifications.inApp.el.addEventListener( 'mouseover', function() {
+					clearTimeout( notifications.inApp.timer );
+				});
+
+				notifications.inApp.el.addEventListener( 'mouseout', function() {
+					notifications.inApp.timer = setTimeout(function() {
+													console.log("timeout 1");
+													notifications.inApp.hideNotification();
+												},5000);
 				});
 			},
 			showNotification : function() {
@@ -1037,11 +1049,10 @@
 				UI.DOM.addDataValue( backing,"data-ui-state","is__animating" );
 				UI.DOM.removeDataValue( backing,"data-ui-state","fade__out" );
 
-				
-				setTimeout(function() {
-					console.log("timeout 1");
-					notifications.inApp.hideNotification();
-				},5000);
+				notifications.inApp.timer = setTimeout(function() {
+												console.log("timeout 1");
+												notifications.inApp.hideNotification();
+											},5000);
 			},
 			hideNotification : function() {
 				var backing;
@@ -1053,6 +1064,7 @@
 					UI.DOM.addDataValue( backing,"data-ui-state","fade__out" );
 				},700);
 			},
+			// status can be 'warning','error' or sucess
 			updateStatus : function( status,message ) {
 				var icon,backingStatus;
 
@@ -1063,7 +1075,7 @@
 				UI.DOM.addDataValue( notifications.inApp.backing,"data-ui-state", backingStatus );
 				if ( status === "error" || status === "warning" ) {
 					icon = "attention";
-				} else if ( status === "sucess" ) {
+				} else if ( status === "success" ) {
 					icon = "ok";
 				}
 				notifications.inApp.icon.setAttribute( "data-ui-icon", icon );
@@ -1099,7 +1111,7 @@
 			onComplete              : function() {
 				var stopRotating; 
 
-				notifications.inApp.updateStatus( "error", "these are not the droids you're looking for." );
+				notifications.inApp.updateStatus( "success", "These are not the droids you're looking for.... actually I guess they are, sorry about that." );
 				notifications.inApp.showNotification();
 
 				stopRotating = function(e) {

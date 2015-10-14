@@ -22,10 +22,21 @@
 			}
 			[class^="notification-content-message-text_"] {
 				font-family : "Open Sans", sans-serif;
-				font-size   : 0.85rem;
-				line-height : 0.85rem;
 				font-weight : 300;
 				color       : white;
+
+				@include gridle_state( mobile ) {
+					font-size   : 0.65rem;
+					line-height : 0.9rem;
+				}
+				@include gridle_state( tablet ) {
+					font-size   : 0.75rem;
+					line-height : 0.9rem;
+				}
+				@include gridle_state( laptop ) {
+					font-size   : 0.85rem;
+					line-height : 0.85rem;
+				}
 			}
 	[class^="notification-close_"] {
     	padding-right : 23px;

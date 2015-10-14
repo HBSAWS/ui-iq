@@ -157,5 +157,17 @@ $error__color : rgba(245, 101, 91, 0.96);
 			background : rgba($color__warning, 0) !important;
 		}
 	}
+	&[data-ui-state~="is__success"] {
+		background : $color__success !important;
+		&[data-ui-settings~="material__paper"] {
+			background : $color__success !important;
+		}
+		&[data-ui-settings~="material__film"] {
+			background : rgba($color__success, 0.96) !important;
+		}
+		&[data-ui-settings~="material__transparency"] {
+			background : rgba($color__success, 0) !important;
+		}
+	}
 	// SUBCLASSES  -- END	
 }
