@@ -101,6 +101,13 @@
 					combination          : ['escape'],
 					onPress     : function(e) {
 						__self.show__appSuiteApp();
+					},
+					exception : function() {
+						var exception = false;
+						if ( !cuboids.appSuite.isAppSuiteOpen ) {
+							exception = true;
+						}
+						return exception;
 					}
 				});
 			},
