@@ -77,8 +77,9 @@
 	// UI module objects
 	var cuboids = {
 		appSuite : {
-			el       : document.querySelector("[data-js~='cuboid__initAppSuite']"),
-			settings : {
+			isAppSuiteOpen : false,
+			el             : document.querySelector("[data-js~='cuboid__initAppSuite']"),
+			settings       : {
 				sideToShowOnInit : "bottom"
 			},
 			UI       : null,
@@ -92,27 +93,35 @@
 
 				UI.keyboard({
 					combination          : ['alt','a'],
-					preventDefaultAction : true,
 					onPress     : function(e) {
 						__self.show__appSuiteApps();
 					}
 				});
+				UI.keyboard({
+					combination          : ['escape'],
+					onPress     : function(e) {
+						__self.show__appSuiteApp();
+					}
+				});
 			},
 			show__appSuiteApps : function() {
-				var apps,app;
-				apps = document.querySelector("[data-js~='appSuite__apps']");
-				app  = document.querySelector("[data-js~='appSuite__app']");
+				var __self,apps,app;
+				__self = this;
+				apps   = document.querySelector("[data-js~='appSuite__apps']");
+				app    = document.querySelector("[data-js~='appSuite__app']");
 
 				UI.animate({
 					animation : "swap",
 					el 		  : [app,apps]
 				});
 				this.UI.show("top");
+				cuboids.appSuite.isAppSuiteOpen = true;
 			},
 			show__appSuiteApp : function() {
-				var apps,app;
-				apps = document.querySelector("[data-js~='appSuite__apps']");
-				app  = document.querySelector("[data-js~='appSuite__app']");
+				var __self,apps,app;
+				__self = this;
+				apps   = document.querySelector("[data-js~='appSuite__apps']");
+				app    = document.querySelector("[data-js~='appSuite__app']");
 
 				UI.animate({
 					animation : "swap",
@@ -120,6 +129,9 @@
 				});
 
 				this.UI.show("front");
+				setTimeout(function() {
+					cuboids.appSuite.isAppSuiteOpen = false;
+				},700);
 			}
 		},
 		app : {
@@ -247,6 +259,16 @@
 				onActiveUnfocusMainCanvas  : true,
 				closeOnClickOutside        : true,
 				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")],
+				closeOnEscape              : true,
+				closeOnEscapeExemption     : function() {
+					var exception;
+					exception = false;
+
+					if ( cuboids.appSuite.isAppSuiteOpen ) {
+						exception = true;
+					}
+					return exception;
+				},
 				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
 				toggleBtnSelector          : "[data-js~='file-options__toggle']",
 				side                       : "right"
@@ -323,7 +345,7 @@
 					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
 					resolution__isToHight       = ( window.innerWidth > 1299 ) ? true : false;
 
-					if ( iframeModal__isOpen || fileSumaryOffCanvas__isOpen || resolution__isToHight ) {
+					if ( iframeModal__isOpen || fileSumaryOffCanvas__isOpen || resolution__isToHight || cuboids.appSuite.isAppSuiteOpen ) {
 						dontClose = true;
 					}
 					return dontClose;
@@ -880,6 +902,11 @@
 
 
 	var tooltips = {
+		init   : function() {
+			tooltips.errors.init();
+			tooltips.fileSummary.init();
+			tooltips.appGrid.init();
+		},
 		errors : {
 			settings : {
 				target   : undefined,
@@ -889,12 +916,12 @@
 			},
 			init : function() {
 				var _self,errorFilters__checkbox; 
-				_self = this;
+				__self = this;
 				errorFilters__checkbox = document.querySelectorAll("[data-js~='tooltip__error']");
 
 				for (var currentFilter = 0, len = errorFilters__checkbox.length; currentFilter < len; currentFilter++) {
-					_self.settings.target = errorFilters__checkbox[currentFilter];
-					new Tooltip(_self.settings);
+					__self.settings.target = errorFilters__checkbox[currentFilter];
+					new Tooltip( __self.settings );
 				}
 			}
 		},
@@ -909,7 +936,21 @@
 				var __self;
 				__self = this;
 
-				new Tooltip(__self.settings);
+				new Tooltip( __self.settings );
+			}
+		},
+		appGrid : {
+			settings : {
+				target   : document.querySelector("[data-js~='cuboid__showAppSuiteApps'] > div"),
+				position : 'bottom right',
+				content  : 'Apps Grid (alt + a)',
+				classes  : 'tooltip-theme-arrows'
+			},
+			init : function() {
+				var __self;
+				__self = this;
+
+				new Tooltip( __self.settings );
 			}
 		}
 	};
@@ -1060,8 +1101,7 @@
 			tables.details.init();
 			tables.init();
 
-			tooltips.errors.init();
-			tooltips.fileSummary.init();
+			tooltips.init();
 
 			sticky.records.init();
 			sticky.details.init();

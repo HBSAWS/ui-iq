@@ -3,8 +3,10 @@
 }
 
 .tooltip-element {
-    position: absolute;
-    display: none; 
+    z-index     : 5000000000; 
+    position    : absolute;
+    display     : none; 
+    padding-top : 3px;
 }
     .tooltip-element.tooltip-open {
         display: block; 

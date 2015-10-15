@@ -204,10 +204,7 @@ UI_offCanvasPanel.prototype.escapeClose = function(e) {
 	var __self;
 	__self = this;
 
-	if ( __self.closeOnEscapeExemption() ) {
-		return;
-	}
-	if ( e.keyCode == 27 ) { // escape key maps to keycode `27`
+	if ( !__self.closeOnEscapeExemption() && e.keyCode == 27 ) { // escape key maps to keycode `27`
 		__self.hidePanel();
 		e.stopPropagation();
 	}

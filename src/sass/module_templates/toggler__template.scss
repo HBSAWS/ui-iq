@@ -76,6 +76,7 @@
 		font-size      : 0.55rem;
 		font-weight    : 400;
 		font-family    : $font__family;		
+		color          : #909090;
 		@include prefix(transition, all .1s ease-out);
 	}
 	[class^="toggler-toggle_"] {
