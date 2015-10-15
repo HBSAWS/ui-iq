@@ -85,7 +85,7 @@
                     <div class="fader"></div>
                 </div>
             </div>
-            <div class="deck-slide__dark" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__app">
+            <div class="deck-slide__dark" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__app" style="overflow-y:hidden;">
                 <div class="deck-slide-content__default" data-ui-settings="dimensions__parent" data-js="animateInner" style="padding-top:50px;transform:translate(0px);overflow-x:hidden;">
 
 
@@ -166,7 +166,66 @@
                         <!-- offCanvas__fileSettings  ** START ** -->
                         <div class="deck-slide__dark" data-ui-settings="offCanvas__right offCanvas__fixed material__film depth__medium" data-ui-state="move__right" data-js="offCanvasPanel__fileSettings">
                             <div class="deck-slide-content__dark" data-ui-settings="dimensions__parent">  
-                            
+                                <div class="actionsheet_" data-js="actionsheetArchiveFiles" data-ui-state="move__bottom">
+                                    <select class="actionsheet-select" data-js="actionsheetSelect">
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                        <option value="2009">2009</option>
+                                        <option value="2008">2008</option>
+                                        <option value="2007">2007</option>
+                                        <option value="2006">2006</option>
+                                        <option value="2005">2005</option>
+                                        <option value="2004">2004</option>
+                                        <option value="2003">2003</option>
+                                        <option value="2002">2002</option>
+                                        <option value="2001">2001</option>
+                                        <option value="2000">2000</option>
+                                        <option value="1999">1999</option>
+                                        <option value="1998">1998</option>
+                                        <option value="1997">1997</option>
+                                        <option value="1996">1996</option>
+                                        <option value="1995">1995</option>
+                                        <option value="1994">1994</option>
+                                        <option value="1993">1993</option>
+                                        <option value="1992">1992</option>
+                                        <option value="1991">1991</option>
+                                        <option value="1990">1990</option>
+                                        <option value="1989">1989</option>
+                                        <option value="1988">1988</option>
+                                        <option value="1987">1987</option>
+                                        <option value="1986">1986</option>
+                                    </select>
+                                    <div class="actionsheet-header_">Archive Files</div>
+                                    <ul class="actionsheet-items_" data-js="actionsheetList">
+                                        <li class="actionsheet-items-item_">2014</li>
+                                        <li class="actionsheet-items-item_">2013</li>
+                                        <li class="actionsheet-items-item_">2012</li>
+                                        <li class="actionsheet-items-item_">2011</li>
+                                        <li class="actionsheet-items-item_">2010</li>
+                                        <li class="actionsheet-items-item_">2009</li>
+                                        <li class="actionsheet-items-item_">2008</li>
+                                        <li class="actionsheet-items-item_">2007</li>
+                                        <li class="actionsheet-items-item_">2006</li>
+                                        <li class="actionsheet-items-item_">2005</li>
+                                        <li class="actionsheet-items-item_">2004</li>
+                                        <li class="actionsheet-items-item_">2003</li>
+                                        <li class="actionsheet-items-item_">2002</li>
+                                        <li class="actionsheet-items-item_">2001</li>
+                                        <li class="actionsheet-items-item_">2000</li>
+                                        <li class="actionsheet-items-item_">1999</li>
+                                        <li class="actionsheet-items-item_">1998</li>
+                                        <li class="actionsheet-items-item_">1997</li>
+                                        <li class="actionsheet-items-item_">1996</li>
+                                        <li class="actionsheet-items-item_">1995</li>
+                                        <li class="actionsheet-items-item_">1994</li>
+                                        <li class="actionsheet-items-item_">1993</li>
+                                        <li class="actionsheet-items-item_">1992</li>
+                                    </ul>
+                                </div>
+
                                 <div class="header__default" data-ui-settings="rule__bottom inset__thick">
                                     <div class="header-content__default" data-ui-settings="content__multiple">
                                         <div class="header-title__light">File Summary</div>
@@ -252,9 +311,9 @@
                                         </div>
                                         <div class="layout" data-ui-settings="padding__mobile-horizontal-sm padding__mobile-top-md">
                                             <div class="toggler__inverted" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2">
-                                                <input class="toggler-input__inverted" data-ui-settings="mode__segmentcontrol size__large" type="radio" data-js="updateFile" name="year" value="prev">
+                                                <input class="toggler-input__inverted" data-ui-settings="mode__segmentcontrol size__large" type="radio" data-js="updateFile" name="year" value="archive">
                                                 <div class="toggler-toggle__inverted" data-ui-settings="mode__segmentcontrol size__large">
-                                                    <div class="toggler-toggle-indicator__inverted" data-ui-settings="mode__segmentcontrol size__large">prev</div>
+                                                    <span data-ui-icon="left-open"></span>
                                                 </div>
                                             </div>
                                             <div class="toggler__inverted" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__2">

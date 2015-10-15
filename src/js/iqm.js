@@ -40,6 +40,24 @@
 
 
 
+	var actionsheets = {
+		archiveFiles : {
+			el : document.querySelector("[data-js~='actionsheetArchiveFiles']") ,
+			UI : undefined,
+			init : function() {
+				var __self,actionsheet;
+				__self = this;
+				actionsheet = __self.UI = UI.actionsheet(__self.el);
+
+				document.querySelector("[data-js~='updateFile'][value='archive']").addEventListener( 'change', function(e) {
+					actionsheet.open();
+				});
+			}
+		}
+	};
+
+
+
 	var calendar = {
 		exclusions : {
 			init : function() {
@@ -1088,6 +1106,9 @@
 
 			// APPLY ALL OF THE UI PLUGINS
 			UI.tabs();
+
+			actionsheets.archiveFiles.init();
+
 			calendar.exclusions.init();
 
 			cuboids.appSuite.init();

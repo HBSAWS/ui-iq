@@ -1,9 +1,10 @@
 @import "../utilities/_utilities";
 
 [class^="toggler_"] {
-	position   : relative;
-	display    : inline-block;
-	text-align : center;
+	position       : relative;
+	display        : inline-block;
+	text-align     : center;
+	vertical-align : middle;
 	&[data-ui-state~="is__disabled"] {
 		cursor         : not-allowed;
 		pointer-events : none;
@@ -24,11 +25,12 @@
 		&:checked {
 			~ [class^="toggler-label_"] {
 				color : #4cc1bc;
+				@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 			}
 			+ [class^="toggler-toggle_"] {
 				background : #4cc1bc;
 				color      : rgba(255,255,255,1.0);
-				@include prefix(transition, all .1s ease-out);
+				@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 
 				&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"],&[data-ui-settings~="mode__radio"],&[data-ui-settings~="mode__segmentcontrol"] {
 					top  : 0px;
@@ -38,7 +40,7 @@
 				[class^="toggler-toggle-indicator_"] {
 					&:before {
 						color : rgba(255,255,255,1.0);
-						@include prefix(transition, all .1s ease-out);
+						@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 					}
 
 					&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"],&[data-ui-settings~="mode__radio"],&[data-ui-settings~="mode__segmentcontrol"] {
@@ -56,12 +58,12 @@
 			+ [class^="toggler-toggle_"] {
 				background : rgba(0,0,0,0.1);
 				color      : rgba(0,0,0,0.13);
-				@include prefix(transition, all .1s ease-out);	
+				@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 
 				[class^="toggler-toggle-indicator_"] {
 					&:before {
 						color : rgba(0,0,0,0.13);
-						@include prefix(transition, all .1s ease-out);
+						@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 					}
 				}
 			}		
@@ -77,7 +79,13 @@
 		font-weight    : 400;
 		font-family    : $font__family;		
 		color          : #909090;
-		@include prefix(transition, all .1s ease-out);
+		@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
+	}
+	div[class^="toggler-label_"] {
+		width         : 33px;
+		white-space   : nowrap;
+		text-overflow : ellipsis;
+		overflow-x    : hidden;
 	}
 	[class^="toggler-toggle_"] {
 			position       : relative;
@@ -93,7 +101,7 @@
 				background : rgba(255, 255, 255, 0.23);
 				color      : rgba(255, 255, 255, 0.6);
 			}
-			@include prefix(transition, all .1s ease-in);
+			@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 	}
 		[class^="toggler-toggle-indicator_"] {
 			position      : absolute;
@@ -102,9 +110,9 @@
 			font-weight   : 300;
 			font-size     : 0.79rem;
 			background    : transparent;
-			@include prefix(transition, all .1s ease-in);
+			@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 			&:before {
-				@include prefix(transition, all .1s ease-in);
+				@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 				color : #ababab;
 			}
 		}
@@ -130,23 +138,23 @@
 				height : 30px;
 				width  : 45px;
 				@include prefix(border-radius, 40px);
-				@include prefix(transition, all .1s ease-out);
+				@include prefix( transition, "transform .8s cubic-bezier(.19,1,.22,.97), background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 			}
 			&[data-ui-settings~="size__small"] {
 				height : 25px;
 				width  : 37px;
 				@include prefix(border-radius, 40px);
-				@include prefix(transition, all .1s ease-out);
+				@include prefix( transition, "transform .8s cubic-bezier(.19,1,.22,.97), background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 			}
 
 			&[data-ui-state~="is__checked"] {
-				@include prefix(transition, all .1s ease-out);
+				@include prefix( transition, "transform .8s cubic-bezier(.19,1,.22,.97), background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 			}
 			&[data-ui-state~="is__disabled"] {
 				pointer-events : none;
 				cursor         : not-allowed;
 				border         : 0px solid rgba(0,0,0,0); 
-				@include prefix(transition, all .1s ease-out);
+				@include prefix( transition, "transform .8s cubic-bezier(.19,1,.22,.97), background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 			}	
 		}	
 	}
@@ -192,14 +200,14 @@
 					@include prefix(border-radius, 30px);
 
 					&[data-ui-state~="is__checked"] {
-						top  : 2px;
-						left : 16px;
+						@include prefix( transform, translateY(2px) translateX(16px) );
 
 					}
-					&[data-ui-state~="is__disabled"] {  
-						top  : 2px;    
-						left : 3px;
-					}
+					// should just need to removed is__checked to have the translate removed
+					// &[data-ui-state~="is__disabled"] {  
+					// 	top  : 2px;    
+					// 	left : 3px;
+					// }
 				}
 				&[data-ui-settings~="size__small"] {
 					top    : 2px;
@@ -209,13 +217,13 @@
 					@include prefix(border-radius, 30px);
 
 					&[data-ui-state~="is__checked"] {
-						top  : 2px;
-						left : 13px;
+						@include prefix( transform, translateY(2px) translateX(13px) );
 					}
-					&[data-ui-state~="is__disabled"] {   
-						top  : 2px;   
-						left : 3px;
-					}
+					// should just need to removed is__checked to have the translate removed
+					// &[data-ui-state~="is__disabled"] {  
+					// 	top  : 2px;    
+					// 	left : 3px;
+					// }
 				}
 			}
 		}
@@ -426,7 +434,7 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 		height : 100%;
 		&:checked {
 			+ [class^="toggler-toggle_"] {
-				@include prefix(transition, all .1s ease-out);
+				@include prefix( transition, "background .5s cubic-bezier(.19,1,.22,.97), color .5s cubic-bezier(.19,1,.22,.97)" );
 			}
 		}
 		&:disabled {
@@ -434,7 +442,7 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 				pointer-events : none;
 				cursor         : not-allowed;
 				border         : 0px solid rgba(0,0,0,0); 
-				@include prefix(transition, all .1s ease-out);
+				@include prefix( transition, "background .5s cubic-bezier(.19,1,.22,.97), color .5s cubic-bezier(.19,1,.22,.97)" );
 			}
 		}
 	}
@@ -442,7 +450,6 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 			&[data-ui-settings~="mode__segmentcontrol"] {
 				position   : relative;
 				display    : inline-block;
-                @include prefix(text-stroke-width, 0.15px);
 
 				&[data-ui-state~="is__checked"] {}
 				&[data-ui-state~="is__disabled"] {}
@@ -455,11 +462,13 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 					@include prefix(border-radius, 30px);
 				}
 				&[data-ui-settings~="size__small"] {
-					top       : 0px;
-					left      : 0px;
-					width     : 100%;
-					height    : 100%;
-					font-size : 0.57rem !important;
+					top         : 0px;
+					left        : 0px;
+					width       : 100%;
+					height      : 100%;
+					font-size   : 0.6rem !important;   
+    				font-weight : 600; 
+					@include prefix( font-smoothing, antialiased !important );
 					@include prefix(border-radius, 30px);
 				}
 			}

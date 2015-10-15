@@ -1,4 +1,7 @@
 UI = {
+	actionsheet : function(DOMelement,settings) {
+		return new UI_actionsheet(DOMelement,settings);
+	},
 	animate   : UI_animate.animate,
 	collection : function(items,activeItem) {
 		return new UI_collection(items,activeItem);
