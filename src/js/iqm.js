@@ -626,6 +626,29 @@
 						return exception;
 					}
 				});
+
+
+
+				UI.keyboard({
+					combination          : ['alt','space'],
+					preventDefaultAction : true,
+					onPress     : function(e) {
+						document.querySelector("[data-js~='recordsTable__search']").focus();
+					},
+					exception : function() {
+						var exception;
+						exception = false;
+
+						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+							exception = true;
+						}
+						return exception;
+					}
+				});
 			}
 		},
 		details : {
@@ -712,6 +735,28 @@
 						return exception;
 					}
 				});
+
+				UI.keyboard({
+					combination          : ['alt','space'],
+					preventDefaultAction : true,
+					onPress     : function(e) {
+						document.querySelector("[data-js~='detailsTable__search']").focus();
+					},
+					exception : function() {
+						var exception;
+						exception = false;
+
+						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
+						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
+						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
+
+						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
+							exception = true;
+						}
+						return exception;
+					}
+				});
+				
 
 
 				var init = true;
