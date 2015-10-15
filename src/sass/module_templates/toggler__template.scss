@@ -1,8 +1,9 @@
 @import "../utilities/_utilities";
 
 [class^="toggler_"] {
-	position : relative;
-	display  : inline-block;
+	position   : relative;
+	display    : inline-block;
+	text-align : center;
 	&[data-ui-state~="is__disabled"] {
 		cursor         : not-allowed;
 		pointer-events : none;
@@ -66,10 +67,14 @@
 			}		
 		}
 	}
+	// using a label tag will sit the label to the right or left of the toggle element
+	// using a div will sit in on top or bellow the toggle element
+	// the side depends on whether you place the label element before or after the 'toggler-toggle' element
 	[class^="toggler-label_"] {
 		vertical-align : middle; 
-		font-size      : 0.85rem;
-		font-weight    : 300;
+		padding-top    : 4px;
+		font-size      : 0.55rem;
+		font-weight    : 400;
 		font-family    : $font__family;		
 		@include prefix(transition, all .1s ease-out);
 	}
