@@ -18,14 +18,20 @@ function UI_table(DOMelement, settings) {
 	__self.filterEl   = settings.filterElements;
 
 
-	__self.arrowKeysHighlightRows = ( settings.arrowKeysHighlightRows !== undefined ) ? settings.arrowKeysHighlightRows : true;
-	__self.hoverHighlightsRows    = ( settings.hoverHighlightsRows !== undefined )    ? settings.hoverHighlightsRows    : true;
-	__self.hoverFocusesTable      = ( settings.hoverFocusesTable !== undefined )      ? settings.hoverFocusesTable      : true;
-	__self.returnKeySelectsRow    = ( settings.returnKeySelectsRow !== undefined )    ? settings.returnKeySelectsRow    : true;
-	__self.clickSelectsRow        = ( settings.clickSelectsRow !== undefined )        ? settings.clickSelectsRow        : true;
-	__self.onRowSelection         = ( settings.onRowSelection !== undefined )         ? settings.onRowSelection         : undefined;
-	__self.addStateToRowOnSelect  = ( settings.addStateToRowOnSelect !== undefined )  ? settings.addStateToRowOnSelect  : true;
-	__self.selectFirstRowOnInit   = ( settings.selectFirstRowOnInit !== undefined )   ? settings.selectFirstRowOnInit   : false;
+	__self.arrowKeysHighlightRows            = ( settings.arrowKeysHighlightRows !== undefined )            ? settings.arrowKeysHighlightRows            : true;
+	__self.scrollAdjustmentOnArrowNavigation = ( settings.scrollAdjustmentOnArrowNavigation !== undefined ) ? settings.scrollAdjustmentOnArrowNavigation : true;
+	__self.scrollAdjustmentOffsetTop         = ( settings.scrollAdjustmentOffsetTop !== undefined )         ? settings.scrollAdjustmentOffsetTop         : undefined;
+	__self.scrollAdjustmentOffsetBottom      = ( settings.scrollAdjustmentOffsetBottom !== undefined )      ? settings.scrollAdjustmentOffsetBottom      : undefined;
+	__self.scrollingElement                  = ( settings.scrollingElement !== undefined )                  ? settings.scrollingElement                  : undefined;
+
+
+	__self.hoverHighlightsRows               = ( settings.hoverHighlightsRows !== undefined )               ? settings.hoverHighlightsRows    : true;
+	__self.hoverFocusesTable                 = ( settings.hoverFocusesTable !== undefined )                 ? settings.hoverFocusesTable      : true;
+	__self.returnKeySelectsRow               = ( settings.returnKeySelectsRow !== undefined )               ? settings.returnKeySelectsRow    : true;
+	__self.clickSelectsRow                   = ( settings.clickSelectsRow !== undefined )                   ? settings.clickSelectsRow        : true;
+	__self.onRowSelection                    = ( settings.onRowSelection !== undefined )                    ? settings.onRowSelection         : undefined;
+	__self.addStateToRowOnSelect             = ( settings.addStateToRowOnSelect !== undefined )             ? settings.addStateToRowOnSelect  : true;
+	__self.selectFirstRowOnInit              = ( settings.selectFirstRowOnInit !== undefined )              ? settings.selectFirstRowOnInit   : false;
 	if ( settings.exceptions == undefined || settings.exceptions == null ) { 
 		settings.exceptions = {};
 	}
@@ -66,18 +72,21 @@ function UI_table(DOMelement, settings) {
 											__self.highlightRow( previousRow );
 										}
 
-										// adjusts top
-										var header     = document.querySelector("[data-js='details__positionSticky']");
-										headerTop      = header.getBoundingClientRect().top + header.getBoundingClientRect().height;
-										highlightedTop = previousRow.getBoundingClientRect().top;
+										
+										if ( __self.scrollAdjustmentOnArrowNavigation ) {
+											var scrollingElement = __self.scrollingElement;
+											var offset           = ( __self.scrollAdjustmentOffsetTop !== undefined ) ? __self.scrollAdjustmentOffsetTop() + 0 : 0;
+											var highlightedTop   = previousRow.getBoundingClientRect().top;
+											// if the top of the highlighted item is less than 0 ( or 0 + the offset ), then we know it's past that point and needs to be adjusted
+											if ( offset > highlightedTop ) {
+												highlightedTop     = Math.abs ( highlightedTop );
+												var calcDifference = Math.abs( offset - highlightedTop );
+												var newTop         = scrollingElement.scrollTop - calcDifference;
 
-										if ( headerTop > highlightedTop && previousRow !== null && previousRow !== undefined ) {
-											highlightedTop = Math.abs( highlightedTop );
-											var calcDiff   = Math.abs( headerTop - highlightedTop )
-											var newTop     = document.querySelector("[data-js='appHuver__recDetails']").scrollTop - calcDiff;
-
-											document.querySelector("[data-js='appHuver__recDetails']").scrollTop = newTop;
+												scrollingElement.scrollTop = newTop;
+											}
 										}
+
 									},
 									exception : function() {
 										var exception = false;
@@ -107,14 +116,17 @@ function UI_table(DOMelement, settings) {
 										}
 
 
-										var windowHeight      = window.innerHeight;
-										var highlightedBottom = nextRow.getBoundingClientRect().bottom;
+										if ( __self.scrollAdjustmentOnArrowNavigation ) {
+											var scrollingElement  = __self.scrollingElement;
+											var offset            = ( __self.scrollAdjustmentOffsetBottom !== undefined ) ? window.innerHeight - __self.scrollAdjustmentOffsetTop() : window.innerHeight;
+											var highlightedBottom = nextRow.getBoundingClientRect().bottom;
 
-										if ( highlightedBottom > windowHeight && nextRow !== null && nextRow !== undefined ) {
-											var calcDiff   = highlightedBottom - windowHeight;
-											var newBottom  = document.querySelector("[data-js='appHuver__recDetails']").scrollTop + calcDiff;
-											
-											document.querySelector("[data-js='appHuver__recDetails']").scrollTop = newBottom;
+											if ( highlightedBottom > offset ) {
+												var calcDifference = highlightedBottom - offset;
+												var newBottom      = scrollingElement.scrollTop + calcDifference;
+												
+												scrollingElement.scrollTop = newBottom;
+											}
 										}
 
 									},

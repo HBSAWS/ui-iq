@@ -543,6 +543,13 @@
 				searchElements : document.querySelectorAll("[data-js~='recordsTable__search']"),
 				sortElements   : document.querySelectorAll("[data-js~='recordsTable__sort']"), 
 				filterElements : document.querySelectorAll("[data-js~='recordsTable__filter']"),
+
+				scrollAdjustmentOnArrowNavigation : true,
+				scrollAdjustmentOffsetTop         : function() {
+					return document.querySelector("[data-js~='records__positionSticky']").getBoundingClientRect().bottom;
+				},
+				scrollingElement 	              : document.querySelector("[data-js~='appHuver__records']"),	
+
 				onRowSelection : function( selectRow ) {
 					tables.details.openRecord( selectRow );
 
@@ -629,6 +636,13 @@
 				searchElements        : document.querySelectorAll("[data-js~='detailsTable__search']"),
 				sortElements          : document.querySelectorAll("[data-js~='detailsTable__sort']"), 
 				filterElements        : document.querySelectorAll("[data-js~='detailsTable__filter']"),
+
+				scrollAdjustmentOnArrowNavigation : true,
+				scrollAdjustmentOffsetTop         : function() {
+					return document.querySelector("[data-js~='details__positionSticky']").getBoundingClientRect().bottom;
+				},
+				scrollingElement 	              : document.querySelector("[data-js~='appHuver__recDetails']"),			
+
 				addStateToRowOnSelect : false,
 				onRowSelection        : function() {
 					offCanvasPanels.fileSummary.UI.hidePanel();
@@ -797,7 +811,7 @@
 			settings : {
 				target   : undefined,
 				position : 'bottom center',
-				content  : "filter errors (alt + e)",
+				content  : "filter errors (alt + e)	",
 				classes  : 'tooltip-theme-arrows'
 			},
 			init : function() {
