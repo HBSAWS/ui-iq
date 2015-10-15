@@ -89,6 +89,14 @@
 
 				document.querySelector("[data-js~='cuboid__showAppSuiteApps']").addEventListener( 'click', __self.show__appSuiteApps.bind(this) );
 				document.querySelector("[data-js~='cuboid__showAppSuiteApp']").addEventListener( 'click', __self.show__appSuiteApp.bind(this) );
+
+				UI.keyboard({
+					combination          : ['alt','a'],
+					preventDefaultAction : true,
+					onPress     : function(e) {
+						__self.show__appSuiteApps();
+					}
+				});
 			},
 			show__appSuiteApps : function() {
 				var apps,app;
@@ -167,10 +175,10 @@
 				if ( exclusionNotes.offsetHeight > 0 ) {
 					// if the current rendered height is greater than zero we'll collapse it, other wise we'll expand it
 					__el.setAttribute("data-ui-state", "animate__out rotate__90-neg");
-					UI.animate({ el : exclusionNotes ,animation : "collapse"});
+					UI.animate({ el : exclusionNotes, animation : "collapse"});
 				} else {
 					__el.setAttribute("data-ui-state", "animate__out");
-					UI.animate({ el : exclusionNotes ,animation : "expand"});
+					UI.animate({ el : exclusionNotes, animation : "expand"});
 				}
 			});
 
@@ -192,7 +200,8 @@
 		iframe : {
 			el       : document.querySelector("[data-js~='modal__iframe']"),
 			settings : {
-				mainCanvasElement : document.querySelector("[data-js~='app__mainCanvas']")
+				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
+				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")]
 			},
 			UI : undefined,
 			init : function() {
@@ -234,12 +243,13 @@
 		fileSummary : {
 			el : document.querySelector("[data-js~='offCanvasPanel__fileSettings']"),
 			settings : {
-				showOnInit                : false,
-				onActiveUnfocusMainCanvas : true,
-				closeOnClickOutside       : true,
-				mainCanvasElement         : document.querySelector("[data-js~='app__mainCanvas']"),
-				toggleBtnSelector         : "[data-js~='file-options__toggle']",
-				side                      : "right"
+				showOnInit                 : false,
+				onActiveUnfocusMainCanvas  : true,
+				closeOnClickOutside        : true,
+				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")],
+				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
+				toggleBtnSelector          : "[data-js~='file-options__toggle']",
+				side                       : "right"
 			},
 			UI : undefined,
 			init : function() {
@@ -286,7 +296,7 @@
 			settings : {
 				showOnInit                 : true, 
 				closeOnClickOutside        : true,
-				clickOutsideExemptElements : [document.querySelector("[data-js~='file-options__toggle']")],
+				clickOutsideExemptElements : [document.querySelector("[data-js~='file-options__toggle']"),document.querySelector("[data-js~='appClickException']")],
 				clickOutsideExemption      : function() {
 					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen,resolution__isToHight ;
 

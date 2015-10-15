@@ -8,9 +8,10 @@ var UI_modal = function UI_modal(DOMelement,settings) {
 	});
 	__self.mainCanvas  = settings.mainCanvasElement;
 
-	__self.closeOnEscape       = settings.closeOnEscape || true;
-	__self.closeOnClickOutisde = settings.closeOnClickOutisde || true;
-	__self.closeBtn            = this.modal.querySelector(settings.closeSelector || "[data-js~='closeModal']");
+	__self.closeOnEscape              = ( settings.closeOnEscape !== undefined)               ? settings.closeOnEscape              : true;
+	__self.closeOnClickOutisde        = ( settings.closeOnClickOutisde !== undefined )        ? settings.closeOnClickOutisde        : true;
+	__self.clickOutsideExemptElements = ( settings.clickOutsideExemptElements !== undefined ) ? settings.clickOutsideExemptElements : undefined;
+	__self.closeBtn                   = this.modal.querySelector(settings.closeSelector || "[data-js~='closeModal']");
 
 	// these are references to new versions of the classes function where the this reference is 
 	// the UI_modal.  This means these can be passed to DOM objects without loosing that reference
