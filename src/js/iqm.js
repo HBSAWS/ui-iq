@@ -250,6 +250,24 @@
 
 				__UI = __self.UI = UI.offCanvasPanel(panel,settings);
 
+
+				UI.keyboard({
+					combination          : ['alt','f'],
+					onPress     : function(e) {
+						__UI.showPanel();
+					},
+					exception : function() {
+						var exception;
+						exception = false;
+
+						if ( modals.iframe.UI.isModalShowing() || __UI.isPanelShowing() ) {
+							exception = true;
+						}
+						return exception;
+					}
+				});
+
+
 				var appCanvas  = document.querySelector("[data-js~='app__mainCanvas']");
 				var hammertime = new Hammer(appCanvas);
 
@@ -266,10 +284,10 @@
 		records : {
 			el       : document.querySelector("[data-js~='appHuver__records']"),
 			settings : {
-				showOnInit              : true, 
-				closeOnClickOutside     : true,
-				exemptFromClickOutside  : ["[data-js~='file-options__toggle']"],
-				clickOutsideExemption : function() {
+				showOnInit                 : true, 
+				closeOnClickOutside        : true,
+				clickOutsideExemptElements : [document.querySelector("[data-js~='file-options__toggle']")],
+				clickOutsideExemption      : function() {
 					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen,resolution__isToHight ;
 
 					dontClose                   = false;

@@ -5,23 +5,23 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 	__self.panel  = DOMelement;
 	__self.active = settings.showOnInit || false;
 
-	__self.mainCanvas                = settings.mainCanvasElement || undefined;
-	__self.onActiveUnfocusMainCanvas = settings.onActiveUnfocusMainCanvas || false;
-	__self.closeOnClickOutside       = settings.closeOnClickOutside || false;
-	__self.clickOutsideExemption   = settings.clickOutsideExemption || function() { return false; };
-	__self.exemptFromClickOutside    = settings.exemptFromClickOutside || undefined;
+	__self.mainCanvas                 = ( settings.mainCanvasElement !== undefined )          ? settings.mainCanvasElement          : undefined;
+	__self.onActiveUnfocusMainCanvas  = ( settings.onActiveUnfocusMainCanvas !== undefined )  ? settings.onActiveUnfocusMainCanvas  : false;
+	__self.closeOnClickOutside        = ( settings.closeOnClickOutside !== undefined )        ? settings.closeOnClickOutside        : false;
+	__self.clickOutsideExemption      = ( settings.clickOutsideExemption !== undefined)       ? settings.clickOutsideExemption      : function() { return false; };
+	__self.clickOutsideExemptElements = ( settings.clickOutsideExemptElements !== undefined ) ? settings.clickOutsideExemptElements : [];
 
-	__self.closeOnEscape             = settings.closeOnEscape || true;
-	__self.closeOnEscapeExemption    = settings.closeOnEscapeExemption || function() { return false; };
+	__self.closeOnEscape             = ( settings.closeOnEscape !== undefined )               ? settings.closeOnEscape              : true;
+	__self.closeOnEscapeExemption    = ( settings.closeOnEscapeExemption !== undefined )      ? settings.closeOnEscapeExemption     : function() { return false; };
 
 	__self.side 					 = settings.side;
 
-	__self.hideBtn        	         = ( settings.hideBtnSelector == undefined ) ? undefined : document.querySelectorAll(settings.hideBtnSelector);
-	__self.showBtn       			 = ( settings.showBtnSelector == undefined ) ? undefined : document.querySelectorAll(settings.showBtnSelector);
+	__self.hideBtn        	         = ( settings.hideBtnSelector == undefined )   ? undefined : document.querySelectorAll(settings.hideBtnSelector);
+	__self.showBtn       			 = ( settings.showBtnSelector == undefined )   ? undefined : document.querySelectorAll(settings.showBtnSelector);
 	__self.toggleBtn 				 = ( settings.toggleBtnSelector == undefined ) ? undefined : document.querySelectorAll(settings.toggleBtnSelector);
 
 
-	__self.mainCanvasFader           = ( __self.mainCanvasElement === undefined ) ? undefined : __self.mainCanvas.querySelector("[class^='fader']");
+	__self.mainCanvasFader           = ( __self.mainCanvasElement === undefined )  ? undefined : __self.mainCanvas.querySelector("[class^='fader']");
 
 	__self.__togglePanel             = this.togglePanel.bind(this);
 	__self.__showPanel               = this.showPanel.bind(this);
@@ -148,7 +148,7 @@ UI_offCanvasPanel.prototype.clickOutSideClose = function(e) {
 		return;
 	}
 	for (var element = e.target; element; element = element.parentNode) {
-		if ( element === __self.panel || __self.isShowBtn(element) || __self.isHideBtn(element) || __self.isToggleBtn(element) ) {
+		if ( element == __self.panel || __self.isShowBtn(element) || __self.isHideBtn(element) || __self.isToggleBtn(element) || __self.clickOutsideExemptElements.indexOf( element ) > -1 ) {
 		 	return;
 		}
 		level++;
