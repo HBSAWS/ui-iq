@@ -38,6 +38,7 @@ UI_actionsheet.prototype.initialize = function() {
 			// triggers the change event
 			__self.select.dispatchEvent(UI.utilities.events.change);
 		}
+		__self.close(true);
 	});
 
 	// all change events are handled through the dropdown select
@@ -57,7 +58,6 @@ UI_actionsheet.prototype.initialize = function() {
 		}
 
 		__self.selectedItem = newSelectSelected;
-		__self.close(true);
 	});
 
 	if ( !UI.utilities.isMobile ) {

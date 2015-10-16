@@ -1,5 +1,5 @@
 	var recordsData,file,stats;
-	recordsData = {
+	recordsData = { // this will eventually go away, and we'll only be using the file object
 		active : undefined
 	};
 	file = {
@@ -102,17 +102,27 @@
 			},
 			UI       : null,
 			init : function() {
-				var __self,__cuboid; 
-				__self    = this;
-				__self.UI = __cuboid = UI.cuboid( __self.el,__self.settings );
+				var __self,__cuboid,backToApp; 
+				__self       = this;
+				__self.UI    = __cuboid = UI.cuboid( __self.el,__self.settings );
 
+				document.querySelector("[data-js~='cuboid__showAppSuiteSettings']").addEventListener( 'click', __self.show__appSuiteSettings.bind(this) );
 				document.querySelector("[data-js~='cuboid__showAppSuiteApps']").addEventListener( 'click', __self.show__appSuiteApps.bind(this) );
-				document.querySelector("[data-js~='cuboid__showAppSuiteApp']").addEventListener( 'click', __self.show__appSuiteApp.bind(this) );
+				backToApp = document.querySelectorAll("[data-js~='cuboid__showAppSuiteApp']");
+				for ( var backBtn = 0, backBtnsLen = backToApp.length; backBtn < backBtnsLen; backBtn++ ) {
+					backToApp[backBtn].addEventListener( 'click', __self.show__appSuiteApp.bind(this) );
+				}
 
 				UI.keyboard({
 					combination          : ['alt','a'],
 					onPress     : function(e) {
 						__self.show__appSuiteApps();
+					}
+				});
+				UI.keyboard({
+					combination          : ['alt','s'],
+					onPress     : function(e) {
+						__self.show__appSuiteSettings();
 					}
 				});
 				UI.keyboard({
@@ -129,17 +139,40 @@
 					}
 				});
 			},
-			show__appSuiteApps : function() {
-				var __self,apps,app;
-				__self = this;
-				apps   = document.querySelector("[data-js~='appSuite__apps']");
-				app    = document.querySelector("[data-js~='appSuite__app']");
+			show__appSuiteSettings : function() {
+				var __self,apps,app,appsGrid,appsSettings;
+				__self       = this;
+				apps         = document.querySelector("[data-js~='appSuite__apps']");
+				app          = document.querySelector("[data-js~='appSuite__app']");
+				appsGrid     = document.querySelector("[data-js~='appsGrid']");
+				appsSettings = document.querySelector("[data-js~='appsSettings");
+
+				UI.DOM.removeDataValue( appsSettings,"data-ui-state","is__hidden" );
+				UI.DOM.addDataValue( appsGrid,"data-ui-state","is__hidden" );
 
 				UI.animate({
 					animation : "swap",
 					el 		  : [app,apps]
 				});
 				this.UI.show("top");
+				cuboids.appSuite.isAppSuiteOpen = true;
+			},
+			show__appSuiteApps : function() {
+				var __self,apps,app,appsGrid,appsSettings;
+				__self       = this;
+				apps         = document.querySelector("[data-js~='appSuite__apps']");
+				app          = document.querySelector("[data-js~='appSuite__app']");
+				appsGrid     = document.querySelector("[data-js~='appsGrid']");
+				appsSettings = document.querySelector("[data-js~='appsSettings");
+
+				UI.DOM.removeDataValue( appsGrid,"data-ui-state","is__hidden" );
+				UI.DOM.addDataValue( appsSettings,"data-ui-state","is__hidden" );
+
+				UI.animate({
+					animation : "swap",
+					el 		  : [app,apps]
+				});
+				this.UI.show("bottom");
 				cuboids.appSuite.isAppSuiteOpen = true;
 			},
 			show__appSuiteApp : function() {

@@ -40,65 +40,278 @@
                 <div class="cuboid-faces__global" data-ui-state="show__bottom" data-js="cuboid__updateSide">
                     <div class="cuboid-faces-front__global">
                         <div class="fader"></div>
-                        <div class="nav-branding__global">
-                            <div data-ui-icon="logo" class="nav-branding-icon__global"> </div>
-                            <div class="nav-branding-abrtitle__global">HBS</div>
-                            <div class="nav-branding-title__global">Harvard | Business | School</div>
-                        </div>
-                        <div style="text-align:right;" class="nav-control__global">
-                            <button class="button__light" data-ui-settings="size__large">
-                                <p data-ui-settings="size__large" class="button-content__transparent" data-js="userName"></p>
-                            </button>
-
-                            <button class="button__light" data-ui-settings="size__large" style="padding-right:4px;padding-left:10px;">
-                                <div class="button-icon__transparent" data-ui-settings="size__large"style="font-size:1rem;">
-                                    <div class="glyph_" data-ui-settings="mode__gears"></div>
+                        <div class="navbar__HBS">
+                            <div class="navbar-left__HBS">
+                                <div class="navbar-branding__HBS">
+                                    <div class="navbar-branding-icon__HBS" data-ui-icon="logo"></div>
+                                    <!--<div class="nav-branding-abrtitle__global">HBS</div>-->
+                                    <div class="navbar-branding-text__HBS">Harvard | Business | School</div>
                                 </div>
-                                <p data-ui-settings="size__large" class="button-content__transparent"></p>
-                            </button>
-                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js="cuboid__showAppSuiteApps" style="padding-left:4px;">
-                                <div class="button-icon__transparent" data-ui-settings="size__large" data-ui-addon="icon__left" style="font-size:1rem;">
-                                    <div class="glyph_" data-ui-settings="mode__grid">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
+                            </div>
+                            <div class="navbar-center__HBS"></div>
+
+                            <div class="navbar-right__HBS">
+                                <button class="button__light" data-ui-settings="size__large">
+                                    <p data-ui-settings="size__large" class="button-content__transparent" data-js="userName"></p>
+                                </button>
+
+                                <button class="button__light" data-ui-settings="size__large" data-js="cuboid__showAppSuiteSettings">
+                                    <div class="button-icon__transparent" data-ui-settings="size__large">
+                                        <div class="glyph_" data-ui-settings="mode__gears"></div>
                                     </div>
+                                    <p data-ui-settings="size__large" class="button-content__transparent"></p>
+                                </button>
+                                <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js="cuboid__showAppSuiteApps">
+                                    <div class="button-icon__transparent" data-ui-settings="size__large" data-ui-addon="icon__left" style="font-size:1rem;">
+                                        <div class="glyph_" data-ui-settings="mode__grid">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
 
-                                </div>
-                                <p data-ui-settings="size__large" data-ui-addon="icon__left icon__right" class="button-content__transparent"></p>
-                            </button>
+                                    </div>
+                                    <p data-ui-settings="size__large" data-ui-addon="icon__left icon__right" class="button-content__transparent"></p>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="cuboid-faces-bottom__global" data-ui-state="is__camouflaged">
+                    <!-- bottom face  ** start ** -->
+                    <div class="cuboid-faces-bottom__global" data-ui-state="is__camouflaged"> 
                         <div class="fader"></div>
-                    </div>
+                        <div class="navbar__appsuite">
+                            <div class="navbar-left__appsuite">
+                                <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js="cuboid__showAppSuiteApp">
+                                    <div class="button-icon__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
+                                    <div class="button-content__light" data-ui-settings="size__large">back</div>
+                                </button>
+                                <div class="navbar-branding__appsuite">
+                                    <div class="navbar-branding-icon__appsuite" data-ui-icon="apps"></div>
+                                    <!-- <div class="nav-branding-abrtitle__app">HUVER</div> -->
+                                    <div class="navbar-branding-text__appsuite">APPS</div>
+                                </div>
+                            </div>
+                        
+                            <div class="navbar-center__appsuite">
+                            </div>
+                            <div class="navbar-right__appsuite"></div>
+                        </div>
+                    </div> 
+                    <!-- bottom face  ** end ** -->
                     <div class="cuboid-faces-back__global">
                         <div class="fader"></div>
-                        </div>
-                    <div class="cuboid-faces-top__global">
-                        <div class="fader"></div>
-                        <div style="text-align:left;" class="nav-control__global">
-                            <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js="cuboid__showAppSuiteApp">
-                                <div class="button-icon__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
-                                <div class="button-content__light" data-ui-settings="size__large">back</div>
-                            </button>
-                        </div>
                     </div>
+                    <!-- top face  ** start ** -->
+                    <div class="cuboid-faces-top__global"> 
+                        <div class="fader"></div>
+                        <div class="navbar__appsuite">
+                            <div class="navbar-left__appsuite">
+                                <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js="cuboid__showAppSuiteApp">
+                                    <div class="button-icon__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
+                                    <div class="button-content__light" data-ui-settings="size__large">back</div>
+                                </button>
+                                <div class="navbar-branding__appsuite">
+                                    <div class="navbar-branding-icon__appsuite" data-ui-icon="settings_app"></div>
+                                    <!-- <div class="nav-branding-abrtitle__app">HUVER</div> -->
+                                    <div class="navbar-branding-text__appsuite">SETTINGS</div>
+                                </div>
+                            </div>
+                        
+                            <div class="navbar-center__appsuite">
+                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__4">
+                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="tabs__settings" value="tab__settingsShortcuts" checked>
+                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__large">
+                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__large">Keyboard Shortcuts</div>
+                                    </div>
+                                </div>
+                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__4">
+                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="tabs__settings" value="tab__settingsApp">
+                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__large">
+                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__large">App Settings</div>
+                                    </div>
+                                </div>
+                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__4">
+                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="tabs__settings" value="tab__settingsIT">
+                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__large">
+                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__large">IT Help</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="navbar-right__appsuite"></div>
+                        </div>
+                    </div> 
+                    <!-- top face  ** end ** -->
                 </div>
             </div>
         </nav>
-        <div id="tester" class="deck__dark" data-ui-settings="dimensions__parent" data-js="appSuite">
+        <div class="deck__dark" data-ui-settings="dimensions__parent" data-js="appSuite">
+
+            <!-- SETTINGS AND APPS GRID CONTAINER  ** START ** -->
             <div class="deck-slide_" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__apps" data-ui-state="animate__off move__top" style="position:absolute;left:0px;top:0px;height:100%;">
                 <div class="deck-slide-content__light" data-ui-settings="dimensions__parent material__paper" data-js="animateInner">
                     <div class="fader"></div>
+                    <!-- APPS GRID  ** START ** -->
+                    <div class="layout" data-ui-state="is__hidden" data-js="appsGrid">
+                    </div>
+                    <!-- APPS GRID  ** FINISH ** -->
+
+                    <!-- SETTINGS  ** START  ** -->
+                    <div class="layout" data-js="appsSettings" data-ui-settings="padding__top-xxl">
+                        <div data-ui-tab="tab__settingsApp"></div>
+                        <div data-ui-tab="tab__settingsIT"></div>
+                        <div class="list_" data-ui-tab="tab__settingsShortcuts">
+
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">open settings</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">alt</div>
+                                    <div>+</div>
+                                    <div class="key" data-ui-settings="size__small">s</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">close settings</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">esc</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">open Apps</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">alt</div>
+                                    <div>+</div>
+                                    <div class="key" data-ui-settings="size__small">a</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">close Apps</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">esc</div>
+                                </div>
+                            </div>
+
+
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">open file settings</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">alt</div>
+                                    <div> + </div>
+                                    <div class="key" data-ui-settings="size__small">f</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">close file settings</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">esc</div>
+                                </div>
+                            </div>
+
+
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">alternate tables</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__large">tab</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">change table row</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">
+                                        <span data-ui-icon="sort-up" style="margin-top : 5px;"></span>
+                                    </div>
+                                    <div>or</div>
+                                    <div class="key" data-ui-settings="size__small">
+                                        <span data-ui-icon="sort-down" style="margin-top : -5px;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">select table row</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__large">enter</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">search table</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">alt</div>
+                                    <div>+</div>
+                                    <div class="key" data-ui-settings="size__large">spacebar</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">filter table errors</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">alt</div>
+                                    <div> + </div>
+                                    <div class="key" data-ui-settings="size__small">e</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">mark field exclusion</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">alt</div>
+                                    <div> + </div>
+                                    <div class="key" data-ui-settings="size__small">x</div>
+                                </div>
+                            </div>
+
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">close records panel</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">esc</div>
+                                </div>
+                            </div>
+                            <div class="list-row_">
+                                <div class="list-column_" data-ui-settings="size__medium align__left">
+                                    <div class="list-column-title_">close modal</div>
+                                </div>
+                                <div class="list-column_" data-ui-settings="size__small align__right">
+                                    <div class="key" data-ui-settings="size__small">esc</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- SETTINGS  ** FINISH ** -->
+
                 </div>
             </div>
+            <!-- SETTINGS AND APPS GRID CONTAINER  ** FINISH ** -->
+
+            <!-- CURRENT APP CONTAINER  ** START ** -->
             <div class="deck-slide__dark" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__app" style="overflow-y:hidden;">
                 <div class="deck-slide-content__default" data-ui-settings="dimensions__parent" data-js="animateInner" style="padding-top:50px;transform:translate(0px);overflow-x:hidden;">
 
@@ -109,23 +322,29 @@
                             <div class="cuboid-faces__app" data-ui-state="show__bottom" data-js="cuboid__updateSide">
                                 <div class="cuboid-faces-front__app">
                                     <div class="fader"></div>
-                                    <div class="nav-branding__app">
-                                        <div class="nav-branding-icon__app" data-js="appLogo">
-                                            <div data-ui-icon="huver-logo"></div>
-                                        </div>
-                                        <div class="nav-branding-abrtitle__app">HUVER</div>
-                                        <div class="nav-branding-title__app">HUVER</div>
-                                    </div>
-                                    <div style="text-align:right;" class="nav-control_">
-                                        <button class="button__inverted" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js="file-options__toggle">
-                                            <div class="button-content__inverted" data-ui-settings="size__large" data-ui-addon="icon__left icon__right">
-                                                <div class="glyph_" data-ui-settings="mode__file-settings">
-                                                    <div class="glyph_" data-ui-settings="mode__gears"></div>
+                                    <div class="navbar__app">
+                                        <div class="navbar-left__app">
+                                            <div class="navbar-branding__app">
+                                                <div class="navbar-branding-icon__app" data-js="appLogo">
+                                                    <div data-ui-icon="huver-logo"></div>
                                                 </div>
+                                                <!-- <div class="nav-branding-abrtitle__app">HUVER</div> -->
+                                                <div class="navbar-branding-text__app">HUVER</div>
                                             </div>
-                                            <div class="button-icon__inverted" data-ui-settings="size__small" data-ui-addon="icon__right" data-ui-icon="sort-down"></div>
-                                        </button>
+                                        </div>
+                                    
+                                        <div class="navbar-right__app">
+                                            <button class="button__inverted" data-ui-settings="size__large" data-ui-addon="icon__left icon__right" data-js="file-options__toggle" style="transform: scale(.85);">
+                                                <div class="button-content__inverted" data-ui-settings="size__large" data-ui-addon="icon__left icon__right">
+                                                    <div class="glyph_" data-ui-settings="mode__file-settings">
+                                                        <div class="glyph_" data-ui-settings="mode__gears"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="button-icon__inverted" data-ui-settings="size__small" data-ui-addon="icon__right" data-ui-icon="sort-down"></div>
+                                            </button>
+                                        </div>
                                     </div>
+
                                     <div class="loader_inApp" data-js="inApp__loader">
                                         <div class="loader-progress__inApp"></div>
                                     </div>
@@ -566,6 +785,7 @@
                     </div><!-- -->
                 </div>
             </div>
+            <!-- CURRENT APP CONTAINER  ** END ** -->
         </div>
 
         <script src="<%= _default%>anima.js"></script>

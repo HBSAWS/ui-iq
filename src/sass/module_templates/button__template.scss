@@ -63,9 +63,11 @@
 			display        : inline-block;
 			vertical-align : middle; 
 			margin    	   : 0px;
-			font-size 	   : 0.7rem;
+			font-size 	   : 0.8rem;
 		}
-
+		p[class^="button-content_"] {
+			font-weight : 400;
+		}
 
 
 

@@ -81,8 +81,8 @@ UI_tabs = {
 		tabNewContent = document.querySelector("[data-ui-tab~='" + tab.value + "']");
 		if ( tabNewContent !== undefined && tabNewContent !== null ) {
 			tabOldContent = __self.tabGroups[ tab.name ];
-			tabOldContent.style.display = "none";
-			tabNewContent.style.display = "initial";
+			UI_DOM.addDataValue( tabOldContent,"data-ui-state","is__hidden" );
+			UI_DOM.removeDataValue( tabNewContent,"data-ui-state","is__hidden" );
 
 			__self.tabGroups[ tab.name ] = tabNewContent;
 		}

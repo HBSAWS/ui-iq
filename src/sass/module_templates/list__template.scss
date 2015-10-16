@@ -1,0 +1,44 @@
+[class^="list_"] {
+    width          : 80%;
+    display        : flex;
+	flex-flow      : row wrap;
+    flex-direction : row;
+    margin         : auto;
+	font-size      : 0.8rem;
+	font-weight    : 300;
+}
+	[class^="list-row_"] {
+		display : flex;
+		flex    : 1 50%;
+    	padding : 0px 10px;
+	}
+	[class^="list-column_"] {
+		display         : flex;
+		justify-content : space-between; 
+		align-items     : center;
+		padding         : 10px 20px;
+
+		&[data-ui-settings~="size__small"] {
+			flex : 1;
+		}
+		&[data-ui-settings~="size__medium"] {
+			flex : 2;
+		}
+		&[data-ui-settings~="size__large"] {
+			flex : 3;
+		}
+
+		&[data-ui-settings~="align__left"] {
+			justify-content : flex-start; 
+		}
+		&[data-ui-settings~="align__center"] {
+			justify-content : center; 
+		}
+		&[data-ui-settings~="align__right"] {
+			justify-content : flex-end; 
+		}
+	}
+		[class^="list-column-title_"] {
+			font-size   : 0.9rem;
+			font-weight : 400;
+		}

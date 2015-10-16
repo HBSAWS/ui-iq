@@ -26,31 +26,70 @@ $darkSurface   : darken( $lightSurface, 20% );
 	height      : $navHeight + px;
 }
 
-	[class^="nav-branding_"] {
-		position       : relative;
-		z-index        : 1; 
-		display        : table-cell;
-		padding-left   : 35px;
-		vertical-align : middle;
-		text-align     : left;
-		font-family    : $font__family; 
-		font-size      : 1.65rem;
-		line-height    : 1.65rem;
-		color          : #ffffff;
+
+[class^="navbar_"] {
+    z-index         : 2;
+    position        : relative;
+	display         : flex;
+	height          : 100%;
+	justify-content : space-between;
+}
+	[class^="navbar-left_"] {
+		display      : flex;
+		height       : 100%;
+		padding-left : 35px;
+		align-items  : center; 
+
+		&[class$="_appsuite"] {
+			flex         : 1;
+			padding-left : 0px;
+		}
 	}
-		[class^="nav-branding-icon_"] {
-			display        : table-cell;
-			padding-right  : 8px;
-			font-family    : "hbs-modern"; 
-			vertical-align : middle; 
+	[class^="navbar-center_"] {
+		display     : flex;
+		height      : 100%;
+		align-items : center; 
+
+		&[class$="_appsuite"] {
+			flex      : 2;
+			max-width : 650px;
+		}
+	}
+	[class^="navbar-right_"] {
+		display     : flex;
+		height      : 100%;
+		align-items : center; 
+
+		&[class$="_HBS"] {
+			padding-right : 25px;
+		}
+		&[class$="_app"] {
+			padding-right : 20px;
+		}
+		&[class$="_appsuite"] {
+			flex : 1;
+		}
+	}
+
+
+
+
+	[class^="navbar-branding_"] {
+		display     : flex;
+		align-items : center;
+	}
+		[class^="navbar-branding-icon_"] {
+			font-size     : 1.6rem;
+			line-height   : 1.6rem;
+			padding-right : 10px; 
+
 			
-			&[class$="_global"] {
+			&[class$="_HBS"] {
 				padding-left : 2px;
-				color        : #a41034;
+				color        : $color__brand;
 			}
 			&[class$="_app"] {
 				color : #fff;
-
 				@include prefix( perspective, 200 );
 				&[data-ui-state~="is__rotating"] {
 					> div {
@@ -74,63 +113,33 @@ $darkSurface   : darken( $lightSurface, 20% );
 						@include prefix( transform, rotateX(360deg) rotateY(360deg) );
 					}
 				}
-			}	
+			}
+			&[class$="_appsuite"] {
+				font-size   : 1.8rem;
+				line-height : 1.8rem;
+				color       : $color__brand;
+			}
 		}
-		[class^="nav-branding-title_"] {
-			display        : none;
-			vertical-align : middle; 
-			@include gridle_state(mobile) {
-				display : none;
-			}
-			@include gridle_state(tablet) {
-				display : table-cell;
-			}
+		[class^="navbar-branding-text_"] {
+			font-family    : "Open Sans", sans-serif;
+			text-transform : uppercase;
 
-			&[class$="_global"] {
-				color          : #999999;
-				font-family    : $font__family;
-				color          : #999999;
-				text-transform : uppercase;
-				font-size      : .82rem;
-				line-height    : .82rem;
-				font-weight    : 400;
+			&[class$="_HBS"] {
+				font-size   : .82rem;
+				line-height : .82rem;
+				font-weight : 400;
+				color       : #999999;
 			}
 			&[class$="_app"] {
-				font-family    : $font__family;
-				font-weight    : 300;
-				font-size      : 1.1rem;
-				line-height    : 1.1rem;
-			}	
+				font-size   : 1rem;
+				line-height : 1rem;
+				font-weight : 300;
+				color       : #ffffff;
+			}
+			&[class$="_appsuite"] {
+				font-size   : .82rem;
+				line-height : .82rem;
+				font-weight : 400;
+				color       : $color__brand;
+			}
 		}
-		[class^="nav-branding-abrtitle_"] {
-			display        : table-cell;
-			vertical-align : middle; 
-			@include gridle_state(mobile) {
-				display : table-cell;
-			}
-			@include gridle_state(tablet) {
-				display : none;
-			}
-
-			&[class$="_global"] {
-				color          : #999999;
-				font-family    : $font__family;
-				color          : #999999;
-				text-transform : uppercase;
-				font-size      : .82rem;
-				line-height    : .82rem;
-				font-weight    : 400;
-			}
-			&[class$="_app"] {
-				font-family    : $font__family;
-				font-weight    : 300;
-				font-size      : 1.1rem;
-				line-height    : 1.1rem;
-			}	
-		}
-	[class^="nav-control_"] {
-		display        : table-cell;
-		padding-right  : 10px;
-		text-align     : right;
-		vertical-align : middle;		
-	}
