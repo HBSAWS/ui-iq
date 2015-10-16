@@ -1,0 +1,159 @@
+[class^="glyph_"] {
+	font-family : "hbs-modern";
+	font-size   : 1rem;
+	opacity  : 0.25;
+	@include prefix( transition, opacity .5s cubic-bezier(.19,1,.22,.97) );
+
+	&[data-ui-settings~="mode__gears"] {
+		&:before {
+			content   : '\e84f' !important;
+			position  : relative;
+			display   : inline-block;
+			color     : #000000;
+			font-size : 0.85rem;
+			@include prefix( font-smoothing, antialiased );
+			@include prefix( transform, translateY(2px) translateX(-3px) );
+			@include prefix( animation, rotating-sm 2.5s linear infinite );
+			@include prefix( animation-play-state, paused );
+		}
+		&:after{
+			content  : '\e84f' !important;
+			position : absolute;
+			display  : inline-block;
+			left     : 0px;
+			top      : 0px;
+			color    : #000000;
+			font-size: 0.6rem;
+			@include prefix( font-smoothing, antialiased );
+			@include prefix( transform, translateY(-6px) translateX(7px) rotate(17deg) );
+			@include prefix( animation, rotating-lg 2.5s linear infinite );
+			@include prefix( animation-play-state, paused );
+		}
+
+		&:hover {
+			opacity : 0.4;
+			&:before {
+				@include prefix( animation-play-state, running );
+			}
+			&:after {
+				@include prefix( animation-play-state, running );
+			}
+		}
+
+		@-webkit-keyframes rotating-sm /* Safari and Chrome */ {
+			from {
+				@include prefix( transform, translateY(2px) translateX(-3px) rotate(0deg) );
+			}
+			to {
+				@include prefix( transform, translateY(2px) translateX(-3px) rotate(360deg) );
+			}
+		}
+		@-webkit-keyframes rotating-lg /* Safari and Chrome */ {
+			from {
+				@include prefix( transform, translateY(-6px) translateX(7px) rotate(17deg) );
+			}
+			to {
+				@include prefix( transform, translateY(-6px) translateX(7px) rotate(377deg) );
+			}
+		}
+	}
+
+
+	&[data-ui-settings~="mode__grid"] {
+		position : relative;
+		top      : 0px;
+		left     : 0px;
+		width    : 18px;
+		height   : 18px;
+		> div {
+			float         : left;
+			width         : 4px;
+			height        : 4px;
+			margin-right  : 2px;
+			margin-bottom : 2px;
+			background    : #000000;
+			@include prefix( transform, scale(1) );
+		}
+		&:hover {
+			opacity : 0.4;
+			> div:nth-child(1) {
+				@include prefix( animation, wave .35s forwards );
+			}
+			> div:nth-child(2), > div:nth-child(4) {
+				@include prefix( animation, wave .35s .05s forwards );
+			}
+			> div:nth-child(2), > div:nth-child(4) {
+				@include prefix( animation, wave .35s .1s forwards );
+			}
+			> div:nth-child(3), > div:nth-child(5), > div:nth-child(7) {
+				@include prefix( animation, wave .35s .15s forwards );
+			}
+			> div:nth-child(6), > div:nth-child(8) {
+				@include prefix( animation, wave .35s .2s forwards );
+			}
+			> div:nth-child(9) {
+				@include prefix( animation, wave .35s .25s forwards );
+			}
+		}
+
+		@-webkit-keyframes wave {
+			0% {
+				@include prefix( transform, scale(1) );
+			}
+			50% {
+				@include prefix( transform, scale(1.6) );
+			}
+			100% {
+				@include prefix( transform, scale(1) );
+			}
+		}
+	}
+
+	&[data-ui-settings~="mode__file-settings"] {
+		opacity : 1 !important;
+		div {
+			&[data-ui-settings~="mode__gears"] {
+				position  : absolute;
+				transform : rotate(105deg) scale(1);
+				opacity   : 1;
+				left      : -4px;
+				top       : 1px;
+				color     : #4cc1bc;
+
+				&:before {
+					color       : #4cc1bc;
+					text-shadow : -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+				}
+				&:after {
+					color : #4cc1bc;
+				}
+			}
+		}
+		&:after {
+			content     : '\e857' !important;
+			margin-top  : 1px;
+			font-size   : 1.4rem;
+			line-height : 1.4rem;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

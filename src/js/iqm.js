@@ -1102,8 +1102,6 @@
 			__self.setupUI();
 		},
 		setupUI : function() {
-			var is__mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
 			// APPLY ALL OF THE UI PLUGINS
 			UI.tabs();
 
@@ -1134,7 +1132,7 @@
 			sticky.records.init();
 			sticky.details.init();
 
-			if( is__mobile ) {
+			if( UI.utilities.isMobile ) {
 				FastClick.attach(document.body);
 			}
 
