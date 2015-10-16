@@ -37,13 +37,14 @@ UI = {
 	DOM : UI_DOM,
 	utilities : {
 		events : {
-			// usage : element.dispatchEvent(clickEvent);
+			// usage : element.dispatchEvent(UI.utilities.events.change);
 			click : new MouseEvent('click', {
 				"view"       : window,
 				"bubbles"    : true,
 				"cancelable" : false
 			}),
 			change : new Event('change')
-		}
+		},
+		isMobile : /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 	}
 };

@@ -49,7 +49,7 @@
 				__self = this;
 				actionsheet = __self.UI = UI.actionsheet(__self.el);
 
-				document.querySelector("[data-js~='updateFile'][value='archive']").addEventListener( 'change', function(e) {
+				document.querySelector("[data-js~='updateFile'][value='archive']").addEventListener( 'click', function(e) {
 					actionsheet.open();
 				});
 			}

@@ -46,6 +46,14 @@
 			background : transparent;
 			transition : color 0.7s cubic-bezier(.19,1,.22,.97);
 
+			&[data-ui-state~="is__selected"] {
+				background  : rgba(255,255,255,0.9) !important;
+				color       : #151515 !important;
+				font-weight : 400 !important;
+				transition : color 0.7s cubic-bezier(.19,1,.22,.97), background 0.7s cubic-bezier(.19,1,.22,.97);
+			}
+
+
 			&:before {
 				content    : '';
 				z-index    : -2;
@@ -73,7 +81,7 @@
 				transition : top 0.7s cubic-bezier(.19,1,.22,.97), height 0.7s cubic-bezier(.19,1,.22,.97);
 			}
 
-			&:hover {
+			&[data-ui-state~="is__hovered"] {
 				//color       : #151515;
 				//font-weight : 400;
 				color : rgba(255,255,255,1);
