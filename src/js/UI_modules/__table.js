@@ -260,6 +260,7 @@ UI_table.prototype.selectRow = function( selectRow ) {
 };
 
 
+// THESE ARE SPECIFIC TO THE LIST.JS API  ** START **
 UI_table.prototype.__filter = function() {
 	var __self,activeFilters,totalActiveFilters;
 	__self             = this;
@@ -365,13 +366,21 @@ UI_table.prototype.remove = function(valueName,valueToRemove) {
 	__self.list.remove(valueName, valueToRemove);	
 
 };
+
+
+UI_table.prototype.get = function(valueName, value) {
+	var __self;
+	__self = this;
+	return __self.get(valueName, value);
+};
+
 UI_table.prototype.addRow = function(rowColumnArray,rowIndex) {
 
 };
 UI_table.prototype.removeRow = function(rowIndex) {
 
 };
-
+// THESE ARE SPECIFIC TO THE LIST.JS API  ** FINISH **
 
 
 

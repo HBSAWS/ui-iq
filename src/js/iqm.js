@@ -14,7 +14,9 @@
 			admit : {}
 		},
 		records    : {
-			active : undefined
+			active        : undefined,
+			isFieldActive : false,
+			activeField   : undefined
 		}
 	};
 	stats = {
@@ -275,12 +277,15 @@
 			},
 			UI : undefined,
 			init : function() {
-				var __self,modal,settings,modal;
+				var __self,modal,settings,modal,submitButton;
 				__self   = this;
 				el       = __self.el;
 				settings = __self.settings;
 
 				modal = __self.UI = UI.modal( el,settings );
+
+				submitButton = document.querySelector("[data-js~='reValidateRecordField']");
+				submitButton.addEventListener( 'click', App.reValidateRecordField );
 			},
 			updateModaliFrameSource : function(recordID) {
 				var pdmId,pdmIframe,role,newURL;
@@ -582,7 +587,7 @@
 
 
 
-	var tables = {
+	tables = {
 		init : function() {
 			var __self,recordsTable,detailsTable; 
 			__self       = this;
@@ -763,7 +768,9 @@
 			el       : document.querySelector("[data-js~='detailsTable']"),
 			UI       : null,
 			settings : {
-				valueNames            : ['is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
+				// fieldName is the none human readable name, we use it for lookups in the code
+				// is__field is the human readable version of the field name, we use it for displaying in the table
+				valueNames            : ['fieldName','is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 
 				searchElements        : document.querySelectorAll("[data-js~='detailsTable__search']"),
 				sortElements          : document.querySelectorAll("[data-js~='detailsTable__sort']"), 
 				filterElements        : document.querySelectorAll("[data-js~='detailsTable__filter']"),
@@ -885,7 +892,6 @@
 				});
 
 				var firstRecord = tables.records.el.querySelector("[data-js~='load__record']");
-				//tables.details.openRecord(firstRecord);
 				tables.records.UI.selectRow( firstRecord );
 			},
 			openRecord : function(recordsTableRowEl) {
@@ -909,7 +915,9 @@
 						}
 					}
 					row = {
-						'is__field'     : field,
+						// this looks up the human readable version of the field name
+						'fieldName'     : field,
+						'is__field'     : file.fieldNames.bio[field],
 						'is__error'     : errorMessage,
 						'has__error'    : has__error,
 						'is__exclusion' : "",
@@ -1048,6 +1056,20 @@
 
 			// everything that's needed for the initial records request is been processed
 			// so now we request the initial set of records
+			reqRecords.open( "GET", App.generateRecordAPI_URL(),true );
+			//reqRecords.open("GET","/iqService/rest/mba/bio2.json?term=S&year=1999",true);
+			//reqRecords.open("GET","js/bio.json",true);
+			reqRecords.onreadystatechange = function() {
+				if( this.readyState == 4) {
+					if( this.status == 200) {
+
+					}
+					else {
+						requests.records = false;
+						console.log("Records HTTP error "+this.status+" "+this.statusText);
+					}
+				}
+			};
 			reqRecords.send();
 			// we initialize the records loader
 			loaders.app.startup.records.init();
@@ -1213,6 +1235,103 @@
 				splash.style.transform = "translateY(-100px)";
 				splash.style.opacity   = 0;
 			});
+		},
+		generateRecordAPI_URL : function(recordId) {
+			var report,term,year,role,personId,API_URL;
+			// report is either 'Bio' or 'Admit'
+			report = document.querySelector("[data-js~='updateFile'][name='report']:checked").value;
+			// term is either 'S' for spring or 'F' for fall
+			term   = document.querySelector("[data-js~='updateFile'][name='term']:checked").value;
+
+			year   = document.querySelector("[data-js~='updateFile'][name='year']:checked").value;
+			if ( year === "archive" ) {
+				// if the selected 'year' segment control is the archive, we need to look to our action sheet to find the value
+				year = actionsheets.archiveFiles.UI.getSelectedValue();
+			}
+
+			if ( file.role === "MBA") {
+				role = 'mba';
+			} else if ( file.role === "DOC" ) {
+				role = 'doctoral';
+			} else if ( file.role === "ADMIN" ) {
+				role = document.querySelector("[data-js~='updateFile'][name='role']:checked").value;
+			}
+
+			// if there is no 'recordId' parameter passed then we make the variable an empty string
+			// other wise we have it equal a search parameter
+			personId = ( recordId == undefined ) ? "" : "&personId=" + recordId;
+
+			API_URL = "/iqService/rest/" + role + "/" + report + ".json?term=" + term + "&year=" + year + personId;
+
+			return API_URL;
+		},
+		reValidateRecordField : function(e) {
+			var selectedField,fieldDisplayName,fieldName,reqRecords,API_URL,appLogo,fileLoader;
+			selectedField    = tables.details.UI.currentHighlightedRow();
+			fieldDisplayName = selectedField.querySelector("[data-table-title~='Field']").innerHTML;
+			fieldName        = tables.details.UI.list.get("is__field",fieldDisplayName)[0].values().fieldName;
+
+			// generate the URL for our API call
+			API_URL          = App.generateRecordAPI_URL(file.records.active);
+			// setup the XMLHttpRequest
+			reqRecords = new XMLHttpRequest();
+			reqRecords.open("GET",API_URL,true);
+			reqRecords.onreadystatechange = function() {
+				var errorStatus,errorMessage;
+				if( this.readyState == 4) {
+					if( this.status == 200) {
+						var records = JSON.parse( this.response );
+						var errors  = records.records[0].errors;
+						if ( errors !== undefined && errors !== null ) {
+							// we know there are still errors, so we need to check if the field that was active when the request was sent still has an error
+							var errorIsFixed = true;
+							for ( var error = 0, totalErrors = errors.length; error < totalErrors; error++ ) {
+								var currentError = errors[error];
+								if ( currentError.field = fieldName ) {
+									// if this conditional passes it means the error still exists
+									errorIsFixed = false;
+								}
+							}
+							if ( errorIsFixed ) {
+								// the error was sucessfully fixed
+								errorStatus  = "success";
+								errorMessage = "You're a rockstar, the error has been fixed!";
+							} else {
+								// the error is still there
+								errorStatus  = "error";
+								errorMessage = "Ugh, what a pesky error, it's still there!";
+							}
+						}
+						notifications.inApp.updateStatus( errorStatus, errorMessage );
+					}
+					else {
+						var message = this.statusText;
+						notifications.inApp.updateStatus( "error", message );
+						//console.log("Records HTTP error "+this.status+" "+this.statusText);
+					}
+				}
+			};
+			reqRecords.send();
+
+			appLogo    = document.querySelector("[data-js~='appLogo']");
+			fileLoader = document.querySelector("[data-js~='inApp__loader']");
+			UI.loader( fileLoader, {
+				requests                : reqRecords,
+				loaderCompleteAnimation : "fade out",
+				resetLoaderOnComplete   : true,
+				onComplete              : function() {
+					var stopRotating; 
+					notifications.inApp.showNotification();
+
+					stopRotating = function(e) {
+						UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
+						appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
+						e.stopPropagation();
+					};
+					appLogo.addEventListener("webkitAnimationIteration", stopRotating);
+				}
+			});
+			UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
 		}
 	}
 
@@ -1229,8 +1348,8 @@
 
 
 	var reqConfig = new XMLHttpRequest();
-	//reqConfig.open("GET","/iqService/rest/config.json?meta=true",true);
-	reqConfig.open("GET","js/config.json",true);
+	reqConfig.open("GET","/iqService/rest/config.json?meta=true",true);
+	//reqConfig.open("GET","js/config.json",true);
 	reqConfig.onreadystatechange = function() {
 		if( this.readyState == 4) {
 			if( this.status == 200) {
@@ -1244,18 +1363,6 @@
 	};
 
 	var reqRecords = new XMLHttpRequest();
-	reqRecords.open("GET","js/bio.json",true);
-	reqRecords.onreadystatechange = function() {
-		if( this.readyState == 4) {
-			if( this.status == 200) {
-
-			}
-			else {
-				requests.records = false;
-				console.log("Records HTTP error "+this.status+" "+this.statusText);
-			}
-		}
-	};
 
 
 

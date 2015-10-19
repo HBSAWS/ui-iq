@@ -85,6 +85,13 @@ UI_actionsheet.prototype.removeItem = function() {
 
 };
 
+UI_actionsheet.prototype.getSelectedValue = function() {
+	var __self;
+	__self = this;
+
+	return __self.selectedItem.value;
+};
+
 UI_actionsheet.prototype.open = function() {
 	var __self;
 	__self = this;
