@@ -361,9 +361,51 @@ UI_table.prototype.add = function(toAdd) {
 	var __self = this;
 	__self.list.add(toAdd);	
 };
-UI_table.prototype.remove = function(valueName,valueToRemove) {
+UI_table.prototype.remove = function(valueName,valueToRemove,toAnimate,callback) {
 	var __self = this;
-	__self.list.remove(valueName, valueToRemove);	
+	
+	if ( toAnimate ) {
+		var selectedField = __self.list.get(valueName, valueToRemove)[0].elm;
+
+		selectedField.style.transition = "transform 0.6s cubic-bezier(.43,0,0,1), filter 0.6s cubic-bezier(.43,0,0,1) !important";
+		var newHeight = selectedField.clientHeight;
+		var tds = selectedField.querySelectorAll("td");
+		for ( var td = 0, totalTds = tds.length; td < totalTds; td++ ) {
+			var currentTd = tds[td];
+			var wrapper = document.createElement('div');
+			wrapper.style.transition = "max-height 0.46s cubic-bezier(.43,0,0,1), padding 0.46s cubic-bezier(.43,0,0,1)";
+			wrapper.style.padding    = "11px 50px";
+			wrapper.style.maxHeight  = newHeight + "px";
+			wrapper.style.overflow   = "hidden";
+			wrapper.offsetWidth;
+			currentTd.style.padding  = "0px";
+
+			currentTd.appendChild(wrapper);
+			while ( currentTd.firstChild !== wrapper ) {
+				wrapper.appendChild( currentTd.firstChild );
+			}
+		}
+
+		var deleteError = function(e) {
+			// check to make sure the event is for the selectedElement, not a child element
+			if ( e.target == e.currentTarget ) {
+				selectedField.removeEventListener( 'webkitTransitionEnd', deleteError );
+				selectedField.style.transition = "transform 0.38s cubic-bezier(.43,0,0,1), filter 0.38s cubic-bezier(.43,0,0,1)";
+				__self.list.remove(valueName, valueToRemove);
+
+				e.stopPropagation();
+				if ( callback !== undefined ) {
+					callback();
+				}
+			}
+		}
+
+		selectedField.addEventListener( 'webkitTransitionEnd', deleteError);
+
+		UI.DOM.addDataValue( selectedField,"data-ui-state","is__deleting" );
+	} else {
+		__self.list.remove(valueName, valueToRemove);	
+	}
 
 };
 
@@ -372,13 +414,6 @@ UI_table.prototype.get = function(valueName, value) {
 	var __self;
 	__self = this;
 	return __self.get(valueName, value);
-};
-
-UI_table.prototype.addRow = function(rowColumnArray,rowIndex) {
-
-};
-UI_table.prototype.removeRow = function(rowIndex) {
-
 };
 // THESE ARE SPECIFIC TO THE LIST.JS API  ** FINISH **
 

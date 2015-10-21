@@ -240,14 +240,10 @@
 		@include prefix( perspective, 10000 );
 		&[data-ui-state~="is__focused"] {
 			[class^="table-body-row_"] {
+				&[data-ui-state~="is__highlighted-step"] {
+	    			@include prefix( filter, drop-shadow(0px 11px 6px rgba(0,0,0,0.1)) );
+				}
 				&[data-ui-state~="is__highlighted"] {
-					// @include prefix( transform, scale(0.986) translateY(3px) translateZ(-1px) );
-					// [class^="table-body-row-cell_"] {
-					// 	&:after {
-					// 		opacity : 0.85;
-					// 	}
-					// }
-					// thinking about having only a single highlighted state -- if that's going to be the case I THINK I like this one better -- still up in the air
 					@include prefix( transform, scale(0.99) translateY(3px) translateZ(-1px) );
 					[class^="table-body-row-cell_"] {
 						&:after {
@@ -280,16 +276,29 @@
 					}
 				}
 			}
-			&[data-ui-state~="is__highlighted-step"] {
-    			@include prefix( filter, drop-shadow(0px 11px 6px rgba(0,0,0,0.1)) );
+
+			&[data-ui-state~="is__deleting"] {
+				@include prefix( transition, "transform 0.6s cubic-bezier(.43,0,0,1), filter 0.6s cubic-bezier(.43,0,0,1) !important" );
+				@include prefix( transform, scale(0.2) !important);
+				[class^="table-body-row-cell_"] {
+					> div {
+						@include prefix( transition, "max-height 0.48s cubic-bezier(.43,0,0,1), padding 0.48s cubic-bezier(.43,0,0,1)" );
+						padding    : 0px 50px !important;
+						max-height : 0px !important;
+					}
+				}
 			}
-			&[data-ui-state~="is__highlighted"] {
-				// @include prefix( transform, scale(0.996) translateY(2px) translateZ(-1px) );
-				// [class^="table-body-row-cell_"] {
-				// 	&:after {
-				// 		opacity : 0.32;
-				// 	}
-				// }
+
+			&[data-ui-state~="has__error"] {
+				[class^="table-body-row-cell_"]:nth-last-child(1) {
+					&:before {
+						content     : "\e846";
+						position    : absolute;
+						right       : 15px;
+						font-family : "HBS-modern";
+						color       : rgba( $color__error, 0.3 );
+					}
+				}
 			}
 
 		}		

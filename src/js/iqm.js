@@ -4,6 +4,7 @@
 	};
 	file = {
 		PDM_URL_base : undefined,
+		user         : undefined, // MBA|DOC|ADMIN
 		role         : undefined, // MBA|DOC
 		report       : "bio",     // bio|admit *is bio by default on load
 		term         : undefined, // S = sping|F = fall
@@ -271,6 +272,7 @@
 	var modals = {
 		iframe : {
 			el       : document.querySelector("[data-js~='modal__iframe']"),
+			iFrame   : document.querySelector("[data-js~='iframePDM']"),
 			settings : {
 				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
 				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")]
@@ -288,25 +290,13 @@
 				submitButton.addEventListener( 'click', App.reValidateRecordField );
 			},
 			updateModaliFrameSource : function(recordID) {
-				var pdmId,pdmIframe,role,newURL;
+				var iFrameURL;
 
-				fastdom.read(function() {
-					pdmIframe = document.querySelector("[data-js~='iframePDM']");
-				});
+				App.updateAPI_URLValues();
+				iFrameURL = file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + recordID;
 
-				if ( file.role === "MBA") {
-					role = 'mba';
-				} else if ( file.role === "DOC" ) {
-					role = 'doctoral';
-				} else if ( file.role === "ADMIN" ) {
-					role = document.querySelector("[data-js~='updateFile'][name='role']:checked").value;
-				}
-
-				newURL = file.PDM_URL_base + role + "/btStuDtl/edit?prsnId=" + recordID;
-
-				fastdom.write(function() {
-					pdmIframe.setAttribute('src', newURL);
-				});		
+				
+				modals.iframe.iFrame.setAttribute('src', iFrameURL);	
 			}
 		}
 	};
@@ -940,10 +930,18 @@
 				__self.UI.remove("hbsId", "");
 				recordsData.active = recordID;
 
+
 				// reapply the details table filter
 				deatilsTableFilterEl         = document.querySelector("[data-js~='detailsTable__filter']");
 				detailsTableFilterEl.checked = true;
 				detailsTableFilterEl.dispatchEvent(__events.__change);
+
+				var errorItems = tables.details.UI.list.visibleItems;
+				for ( var errorItem = 0, totalErrorItems = errorItems.length; errorItem < totalErrorItems; errorItem++ ){
+					var currentErrorItem = errorItems[errorItem];
+					var currentErrorTR   = currentErrorItem.elm;
+					UI.DOM.addDataValue( currentErrorTR,'data-ui-state','has__error' );
+				} 
 
 
 				var recordsTableSelectedRow = tables.records.el.querySelector("[data-ui-state~='is__selected']");
@@ -1037,27 +1035,27 @@
 
 			// determine's the logged in user's role
 			if ( roles.indexOf("IQ_ADMIN") > -1 ) {
-				role = file.role = "ADMIN";
-			} else if ( roles.indexOf("IQ_MBA") > -1 ) {
 				role = file.role = "MBA";
+				file.user = "ADMIN";
+			} else if ( roles.indexOf("IQ_MBA") > -1 ) {
+				role = file.user = file.role = "MBA";
 			} else if ( roles.indexOf("IQ_DOC") > -1 ) {
-				role = file.role = "DOC";
+				role = file.user = file.role = "DOC";
 			}
 
 			// sets user's name in the global navigation
 			document.querySelector("[data-js~='userName']").innerHTML = user.firstName;
 			// if the user isn't an admin we remove the segment control that allows the user to switch between MBA/DOCTORAL files
-			if ( role !== "ADMIN" ) {
+			if ( file.user !== "ADMIN" ) {
 				document.querySelector("[data-js~='adminFileOption']").remove();
 			}
 
 			// creates in the 'file' variable, under fieldNames a reference of human readable field names for our HTML
 			__self.setupFields( config.metadata );
-
 			// everything that's needed for the initial records request is been processed
 			// so now we request the initial set of records
-			reqRecords.open( "GET", App.generateRecordAPI_URL(),true );
-			//reqRecords.open("GET","/iqService/rest/mba/bio2.json?term=S&year=1999",true);
+			reqRecords.open( "GET", App.getAPI_URL(),true );
+			//reqRecords.open("GET","/iqService/rest/mba/bio.json?term=S&year=1999",true);
 			//reqRecords.open("GET","js/bio.json",true);
 			reqRecords.onreadystatechange = function() {
 				if( this.readyState == 4) {
@@ -1070,6 +1068,19 @@
 					}
 				}
 			};
+			reqExclusions.open("GET","/iqService/rest/" + file.role + "/" + file.report + "/excl.json",true);
+			reqExclusions.onreadystatechange = function() {
+				if( this.readyState == 4) {
+					if( this.status == 200) {
+
+					}
+					else {
+						requests.exclusions = false;
+						console.log("Exclusoins HTTP error "+this.status+" "+this.statusText);
+					}
+				}
+			}
+			reqExclusions.send();
 			reqRecords.send();
 			// we initialize the records loader
 			loaders.app.startup.records.init();
@@ -1078,9 +1089,9 @@
 			// fieldData = config.metadata
 			var bioFields,bioFieldNames,admitFields,admitFieldNames,buildFields;
 			// prsnId,degPrgmNum,etc
-			bioFields       = fieldData.bio2Fields;
+			bioFields       = fieldData.bioFields;
 			// the name is under the title attribute
-			bioFieldNames   = fieldData.bio2Meta;
+			bioFieldNames   = fieldData.bioMeta;
 			admitFields     = fieldData.admitFields;
 			admitFieldNames = fieldData.admitMeta;
 			buildFields     = function(report,fields,fieldNames) {
@@ -1113,7 +1124,7 @@
 				//tables.details.settings.valueNames.push("detailOf__" + recordId);  // pretty sure this doesn't actually need to happen
 
 				// adds the current record to our recordTable array
-				__self.recordsTable[tableRow++] = '<tr class="table-body-row__light" data-record="' + recordId + '" data-ui-settings="size__large material__paper" data-js="load__record">';
+				__self.recordsTable[tableRow++] = '<tr class="table-body-row__light" data-record="' + recordId + '" data-ui-settings="size__large material__paper"' + ( hasErrors ? "data-ui-state='has__error'":"" ) + 'data-js="load__record">';
 				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__firstName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.firstName + '</td>';
 				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__lastName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.lastName + '</td>';
 				__self.recordsTable[tableRow++] = '</tr>';
@@ -1236,32 +1247,28 @@
 				splash.style.opacity   = 0;
 			});
 		},
-		generateRecordAPI_URL : function(recordId) {
+		updateAPI_URLValues : function() {
 			var report,term,year,role,personId,API_URL;
 			// report is either 'Bio' or 'Admit'
-			report = document.querySelector("[data-js~='updateFile'][name='report']:checked").value;
+			file.report = document.querySelector("[data-js~='updateFile'][name='report']:checked").value;
 			// term is either 'S' for spring or 'F' for fall
-			term   = document.querySelector("[data-js~='updateFile'][name='term']:checked").value;
-
-			year   = document.querySelector("[data-js~='updateFile'][name='year']:checked").value;
+			file.term   = document.querySelector("[data-js~='updateFile'][name='term']:checked").value;
+			file.year   = document.querySelector("[data-js~='updateFile'][name='year']:checked").value;
 			if ( year === "archive" ) {
 				// if the selected 'year' segment control is the archive, we need to look to our action sheet to find the value
-				year = actionsheets.archiveFiles.UI.getSelectedValue();
+				file.year = actionsheets.archiveFiles.UI.getSelectedValue();
 			}
 
-			if ( file.role === "MBA") {
-				role = 'mba';
-			} else if ( file.role === "DOC" ) {
-				role = 'doctoral';
-			} else if ( file.role === "ADMIN" ) {
-				role = document.querySelector("[data-js~='updateFile'][name='role']:checked").value;
+			if ( file.user === "ADMIN" ) {
+				file.role = document.querySelector("[data-js~='updateFile'][name='role']:checked").value;
 			}
-
-			// if there is no 'recordId' parameter passed then we make the variable an empty string
-			// other wise we have it equal a search parameter
-			personId = ( recordId == undefined ) ? "" : "&personId=" + recordId;
-
-			API_URL = "/iqService/rest/" + role + "/" + report + ".json?term=" + term + "&year=" + year + personId;
+		},
+		getAPI_URL : function(lookupActiveRecord) {
+			var API_URL,activeRecord;
+			App.updateAPI_URLValues();
+			activeRecord = ( lookupActiveRecord !== undefined ) ? "&personId=" + file.records.active : "";
+			//var __file = ( file.report === "bio" ) ? "bio" : file.report;
+			API_URL      = "/iqService/rest/" + file.role + "/" + file.report + ".json?term=" + file.term + "&year=" + file.year + activeRecord;
 
 			return API_URL;
 		},
@@ -1269,10 +1276,11 @@
 			var selectedField,fieldDisplayName,fieldName,reqRecords,API_URL,appLogo,fileLoader;
 			selectedField    = tables.details.UI.currentHighlightedRow();
 			fieldDisplayName = selectedField.querySelector("[data-table-title~='Field']").innerHTML;
-			fieldName        = tables.details.UI.list.get("is__field",fieldDisplayName)[0].values().fieldName;
+			fieldObject      = tables.details.UI.list.get("is__field",fieldDisplayName)[0].values();
+			fieldName        = fieldObject.fieldName;
 
 			// generate the URL for our API call
-			API_URL          = App.generateRecordAPI_URL(file.records.active);
+			API_URL          = App.getAPI_URL(true);
 			// setup the XMLHttpRequest
 			reqRecords = new XMLHttpRequest();
 			reqRecords.open("GET",API_URL,true);
@@ -1298,11 +1306,25 @@
 								errorMessage = "You're a rockstar, the error has been fixed!";
 							} else {
 								// the error is still there
-								errorStatus  = "error";
-								errorMessage = "Ugh, what a pesky error, it's still there!";
+								delete file.records[file.records.active].errors[fieldName];
+								tables.details.UI.remove( "fieldName", fieldName, true, function() {
+									errorStatus  = "error";
+									errorMessage = "Ugh, what a pesky error, it's still there!";
+									notifications.inApp.updateStatus( errorStatus, errorMessage );
+									
+									tables.details.UI.list.add({
+										'fieldName'     : fieldName,
+										'is__field'     : file.fieldNames.bio[fieldName],
+										'is__error'     : "no error",
+										'has__error'    : "",
+										'is__exclusion' : "",
+										'is__pending'   : "", 
+										'content'       : records.records[0].record[fieldName],
+										'hbsId'         : records.records[0].record.prsnId
+									});
+								});
 							}
 						}
-						notifications.inApp.updateStatus( errorStatus, errorMessage );
 					}
 					else {
 						var message = this.statusText;
@@ -1363,23 +1385,8 @@
 	};
 
 	var reqRecords = new XMLHttpRequest();
+	var reqExclusions = new XMLHttpRequest();
 
-
-
-	// var reqExclusions = new XMLHttpRequest();
-	// reqExclusions.open("GET","/iqService/mba/bio/excl.json",true);
-	// reqExclusions.onreadystatechange = function() {
-	// 	if( this.readyState == 4) {
-	// 		if( this.status == 200) {
-
-	// 		}
-	// 		else {
-	// 			requests.exclusions = false;
-	// 			console.log("Exclusoins HTTP error "+this.status+" "+this.statusText);
-	// 		}
-	// 	}
-	// }
-	// reqExclusions.send();
 
 	var notifications = {
 		inApp : {
@@ -1448,47 +1455,6 @@
 		}
 	};
 
-	test = function() {
-		var reqFile,fileLoader,appLogo,error;
-
-		reqFile = new XMLHttpRequest();
-		reqFile.open("GET","js/bio.json",true);
-		reqFile.onreadystatechange = function() {
-			if( this.readyState == 4) {
-				if( this.status == 200) {
-
-				}
-				else {
-					requests.records = false;
-					error = "Records HTTP error " + this.status + " " + this.statusText;
-				}
-			}
-		};
-		reqFile.send();
-
-		appLogo    = document.querySelector("[data-js~='appLogo']");
-		fileLoader = document.querySelector("[data-js~='inApp__loader']");
-		UI.loader( fileLoader, {
-			requests                : reqFile,
-			loaderCompleteAnimation : "fade out",
-			resetLoaderOnComplete   : true,
-			onComplete              : function() {
-				var stopRotating; 
-
-				notifications.inApp.updateStatus( "success", "These are not the droids you're looking for.... actually I guess they are, sorry about that." );
-				notifications.inApp.showNotification();
-
-				stopRotating = function(e) {
-					UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
-					appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
-					e.stopPropagation();
-				};
-				appLogo.addEventListener("webkitAnimationIteration", stopRotating);
-			}
-		});
-		UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
-	};
-
 
 	var loaders = {
 		app : {
@@ -1518,7 +1484,7 @@
 				records : {
 					el : document.querySelector("[data-js~='appLoader__records']"),
 					settings : {
-						requests   : reqRecords,
+						requests   : [reqRecords,reqExclusions],
 						onComplete : function() {
 							if ( requests.records ) {
 								var recordsData = JSON.parse( reqRecords.response );
