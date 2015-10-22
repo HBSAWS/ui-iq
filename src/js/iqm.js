@@ -642,7 +642,7 @@
 			el       : document.querySelector("[data-js~='recordsTable']"),
 			UI       : null,
 			settings : {
-				valueNames     : ['is__firstName','is__lastName','has__error','is__exclusion','is__pending'], 
+				valueNames     : ['is__firstName','is__lastName','has__error','is__exclusion','is__pending','personId'], 
 				searchElements : document.querySelectorAll("[data-js~='recordsTable__search']"),
 				sortElements   : document.querySelectorAll("[data-js~='recordsTable__sort']"), 
 				filterElements : document.querySelectorAll("[data-js~='recordsTable__filter']"),
@@ -686,6 +686,14 @@
 				__self       = this;
 				__self.UI    = __table = UI.table( __self.el, __self.settings );
 				errorsFilter = document.querySelector("[data-js~='recordsTable__filter']");
+
+				// adding the personIds the the table record objects
+				var tableRecordObjects = __table.list.items;
+				for ( var tableRecord = 0, totalTableRecords = tableRecordObjects.length; tableRecord < totalTableRecords; tableRecord++ ) {
+					var currentTableRecordObject = tableRecordObjects[tableRecord];
+					var currentTableRecordNumber = currentTableRecordObject.elm.dataset.record;
+					currentTableRecordObject._values.personId = currentTableRecordNumber;
+				}
 
 				__table.filter("has__error");
 				__table.focusTable();
@@ -925,6 +933,7 @@
 				detailsTableFilterEl.checked = false;
 				detailsTableFilterEl.dispatchEvent(__events.__change);
 
+				// adds our new table rows via the 'toAdd' array we've just finished creating
 				__self.UI.add(toAdd);
 				__self.UI.remove("hbsId", recordsData.active);
 				__self.UI.remove("hbsId", "");
@@ -1302,16 +1311,15 @@
 							}
 							if ( errorIsFixed ) {
 								// the error was sucessfully fixed
+
+								// we update the variables for our notification
 								errorStatus  = "success";
 								errorMessage = "You're a rockstar, the error has been fixed!";
-							} else {
-								// the error is still there
+
+								modals.iframe.UI.hideModal();
+								// we remove the specific error from the record in our file.records variable
 								delete file.records[file.records.active].errors[fieldName];
 								tables.details.UI.remove( "fieldName", fieldName, true, function() {
-									errorStatus  = "error";
-									errorMessage = "Ugh, what a pesky error, it's still there!";
-									notifications.inApp.updateStatus( errorStatus, errorMessage );
-									
 									tables.details.UI.list.add({
 										'fieldName'     : fieldName,
 										'is__field'     : file.fieldNames.bio[fieldName],
@@ -1323,7 +1331,25 @@
 										'hbsId'         : records.records[0].record.prsnId
 									});
 								});
+								if ( errors.length == 0 ) {
+									// if this passes it means there are no remaining errors, so we need to update the record in the first record table to not show as having errors
+									tables.records.UI.remove("personId", records.records[0].record.prsnId, true, function() {
+										tables.records.UI.list.add({
+											has__error    : "",
+											is__exclusion : "",
+											is__firstName : records.records[0].record.firstName,
+											is__lastName  : records.records[0].record.lastName,
+											is__pending   : "",
+											personId      : records.records[0].record.prsnId
+										});
+									});
+								}
+							} else {
+								// the error is still there
+								errorStatus  = "error";
+								errorMessage = "Ugh, what a pesky error, it's still there!";
 							}
+							notifications.inApp.updateStatus( errorStatus, errorMessage );
 						}
 					}
 					else {
