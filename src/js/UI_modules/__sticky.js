@@ -20,9 +20,10 @@ function UI_sticky( DOMelement, settings ) {
 
 UI_sticky.prototype.initialize_module = function() {
 	var __self,stickyEl,stickyEl__sibling;
-	__self            = this;
-	stickyEl          = __self.stickyEl;
-	stickyEl__sibling = __self.siblingEl;
+	__self               = this;
+	stickyEl             = __self.stickyEl;
+	stickyElPositionInit = getComputedStyle( __self.stickyEl ).position;
+	stickyEl__sibling    = __self.siblingEl;
 	
 	__self.scrollingEl.addEventListener('scroll', function() {
 		var distanceScrolled = __self.scrollingEl.scrollTop;
@@ -36,7 +37,7 @@ UI_sticky.prototype.initialize_module = function() {
 				__self.onActivateSticky();
 			}
 		} else {
-			stickyEl.style.position = __self.stickyPosition;
+			stickyEl.style.position = stickyElPositionInit;
 			stickyEl.style.width    = "100%";
 			UI.DOM.removeDataValue( stickyEl, 'data-ui-state', "is__stuck" );
 
