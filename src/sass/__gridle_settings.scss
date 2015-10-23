@@ -21,6 +21,12 @@
     	min-width : 480px
 	) 
 );
+@include gridle_register_state ( 
+	below__phablet, (
+    	max-width : 480px
+	) 
+);
+
 
 // tablet resolutions
 @include gridle_register_state ( 
@@ -28,6 +34,12 @@
     	min-width : 768px
 	) 
 );
+@include gridle_register_state ( 
+	below__tablet , (
+    	max-width : 768px
+	) 
+);
+
 
 // laptop resolutions
 @include gridle_register_state ( 
@@ -35,6 +47,12 @@
     	min-width : 950px
 	) 
 );
+@include gridle_register_state ( 
+	below__laptop , (
+    	max-width : 950px
+	) 
+);
+
 
 // desktop resolutions
 @include gridle_register_state ( 
@@ -42,6 +60,12 @@
     	min-width : 1300px
 	) 
 );
+@include gridle_register_state ( 
+	below__desktop , (
+    	max-width : 1300px
+	) 
+);
+
 
 // large desktop resolutions
 @include gridle_register_state ( 
@@ -49,6 +73,12 @@
     	min-width : 1600px
 	) 
 );
+@include gridle_register_state ( 
+	below__retina , (
+    	max-width : 1600px
+	) 
+);
+
 
 
 $context    : 12;

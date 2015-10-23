@@ -44,7 +44,7 @@
                             <div class="navbar-left__HBS">
                                 <div class="navbar-branding__HBS">
                                     <div class="navbar-branding-icon__HBS" data-ui-icon="logo"></div>
-                                    <!--<div class="nav-branding-abrtitle__global">HBS</div>-->
+                                    <div class="navbar-branding-abrtext__HBS">HBS</div>
                                     <div class="navbar-branding-text__HBS">Harvard | Business | School</div>
                                 </div>
                             </div>
@@ -92,7 +92,6 @@
                                 </button>
                                 <div class="navbar-branding__appsuite">
                                     <div class="navbar-branding-icon__appsuite" data-ui-icon="apps"></div>
-                                    <!-- <div class="nav-branding-abrtitle__app">HUVER</div> -->
                                     <div class="navbar-branding-text__appsuite">APPS</div>
                                 </div>
                             </div>
@@ -117,7 +116,6 @@
                                 </button>
                                 <div class="navbar-branding__appsuite">
                                     <div class="navbar-branding-icon__appsuite" data-ui-icon="settings_app"></div>
-                                    <!-- <div class="nav-branding-abrtitle__app">HUVER</div> -->
                                     <div class="navbar-branding-text__appsuite">SETTINGS</div>
                                 </div>
                             </div>
@@ -328,7 +326,7 @@
                                                 <div class="navbar-branding-icon__app" data-js="appLogo">
                                                     <div data-ui-icon="huver-logo"></div>
                                                 </div>
-                                                <!-- <div class="nav-branding-abrtitle__app">HUVER</div> -->
+                                                <div class="navbar-branding-abrtext__app">HUVER</div>
                                                 <div class="navbar-branding-text__app">HUVER</div>
                                             </div>
                                         </div>
@@ -382,19 +380,16 @@
                     <div class="layout__dark" data-ui-settings="mode__full" data-ui-grid="mobile_12" style="-webkit-perspective:1000;">
                         <div class="modal_" data-ui-state="animate__in move__top" data-js="modal__iframe">
                             <div class="modal-window_" data-ui-state="animate__in scale__down rotate__bottom">
-                                <div class="modal-window-content_">
-                                    <div class="fader"></div>
-                                    <div data-ui-settings="mode__float" class="bar_">
-                                        <button data-ui-settings="size__large" data-ui-addon="icon__left" data-js="closeModal" style="float:right;" class="button__light">
-                                            <div data-ui-icon="cancel size__small"></div>
-                                        </button>
-                                    </div>
-                                    <button class="modal-window-content-submit_" data-js="reValidateRecordField">Update HUVER</button>
-                                    <iframe data-js="iframePDM" src="https://secure-stage.hbs.edu/pdm/sis/mba/btStuDtl/edit?prsnId=690993" style="width: 840px;
-                                    height: 617px;
-                                    margin-left: -13px;
-                                    position: relative;
-                                    margin-top: -113px;"></iframe>
+                                <div class="fader"></div>
+                                <div class="modal-window-header_">
+                                    <div class="modal-window-header-title_">PDM Updates</div>
+                                    <button class="modal-window-header-close_" data-js="closeModal"></button>
+                                </div>
+                                <div class="modal-window-body_">
+                                    <iframe class="iframe-PDM" data-js="iframePDM" src="https://secure-stage.hbs.edu/pdm/sis/mba/btStuDtl/edit?prsnId=690993" ></iframe>
+                                </div>
+                                <div class="modal-window-controls_">
+                                    <button class="modal-window-controls-button_" data-ui-settings="mode__single" data-js="reValidateRecordField">Update HUVER</button>
                                 </div>
                             </div>
                         </div>

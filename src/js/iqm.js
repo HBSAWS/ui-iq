@@ -979,6 +979,7 @@
 			tooltips.errors.init();
 			tooltips.fileSummary.init();
 			tooltips.appGrid.init();
+			tooltips.appSettings.init();
 		},
 		errors : {
 			settings : {
@@ -1014,10 +1015,24 @@
 		},
 		appGrid : {
 			settings : {
-				target   : document.querySelector("[data-js~='cuboid__showAppSuiteApps'] > div"),
+				target   : document.querySelector("[data-js~='cuboid__showAppSuiteApps']"),
 				position : 'bottom right',
 				content  : 'Apps Grid (alt + a)',
 				classes  : 'tooltip-theme-arrows'
+			},
+			init : function() {
+				var __self;
+				__self = this;
+
+				new Tooltip( __self.settings );
+			}
+		},
+		appSettings : {
+			settings : {
+				target   : document.querySelector("[data-js~='cuboid__showAppSuiteSettings']"),
+				position : 'bottom center',
+				content  : 'App Settings (alt + s)',
+				classes  : 'tooltip-theme-arrows' 
 			},
 			init : function() {
 				var __self;
@@ -1113,10 +1128,11 @@
 			buildFields( "bio",bioFields,bioFieldNames );
 			buildFields( "admit",admitFields,admitFieldNames );
 		},
-		buildRecords : function( recordsData ) { // RECORDS SETUP STEP 1
-			var __self,records,totalRecords,fields,tableRow;
+		buildRecords : function( data ) { // RECORDS SETUP STEP 1
+			var __self,exclusions,records,totalRecords,fields,tableRow;
 			__self       = this;
-			records      = recordsData.records;
+			exclusions   = data.exclusions;
+			records      = data.records.records;
 			totalRecords = records.length;
 			fields       = file.fieldNames[file.report];
 
@@ -1125,21 +1141,35 @@
 			__self.recordsTable[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
 
 			for ( var record = 0; record < totalRecords; record++ ) {
-				var currentRecord,errors,errorCount,recordId;
+				var currentRecord,errors,hasErrors,hasExclusion,errorCount,recordId;
 				currentRecord = records[record]["record"];
 				errors        = records[record]["errors"];
 				hasErrors     = ( errors.length > 0 ) ? true : false;
+				hasExclusion  = false;
 				recordId      = currentRecord["prsnId"];
-				//tables.details.settings.valueNames.push("detailOf__" + recordId);  // pretty sure this doesn't actually need to happen
+
+				// adds an entry into 'file.records' for the current record
+				file.records[recordId] = {};
+
+				// check to see if there is an exclusion for this record
+				for ( var exclusion = 0, totalExclusions = exclusions.length; exclusion < totalExclusions; exclusion++ ) {
+					var currentExclusion = exclusions[exclusion];
+					if ( currentExclusion.hbsId == currentRecord.huId ) {
+						file.records[recordId]["exclusion"] = currentExclusion;
+						hasExclusion = true;
+					}
+				}
 
 				// adds the current record to our recordTable array
-				__self.recordsTable[tableRow++] = '<tr class="table-body-row__light" data-record="' + recordId + '" data-ui-settings="size__large material__paper"' + ( hasErrors ? "data-ui-state='has__error'":"" ) + 'data-js="load__record">';
+				__self.recordsTable[tableRow++] = '<tr class="table-body-row__light" data-record="' + recordId + '" data-ui-settings="size__large material__paper" data-ui-state="' + ( hasExclusion ? "has__exclusion" : "" ) + ( hasErrors ? " has__error" :"" ) + '" data-js="load__record">';
 				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__firstName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.firstName + '</td>';
 				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__lastName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.lastName + '</td>';
 				__self.recordsTable[tableRow++] = '</tr>';
 
 				// create an entry in file.records for the current record
-				file.records[recordId] = {};
+				
+
+
 
 				if ( hasErrors ) {
 					// records without errors have an empty array - if the errors array length is greater than zero then we know there are errors
@@ -1513,8 +1543,11 @@
 						requests   : [reqRecords,reqExclusions],
 						onComplete : function() {
 							if ( requests.records ) {
-								var recordsData = JSON.parse( reqRecords.response );
-								App.buildRecords( recordsData );
+								var data = {
+									records    : JSON.parse( reqRecords.response ),
+									exclusions : JSON.parse( reqExclusions.response )
+								};
+								App.buildRecords( data );
 							}
 						}
 					},

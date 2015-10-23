@@ -36,6 +36,85 @@
 		background     : #fff;
 	    @include prefix(box-shadow, "0 0 50px 0 rgba(0, 0, 0, 0.18), 0 0 7px 0 rgba(0, 0, 0, 0.1)");
 	}
+		[class^="modal-window-header_"] {
+			position        : relative;
+			display         : flex;
+			justify-content : space-between;
+			align-items     : center;
+			padding         : 10px 15px;
+			background      : #FFFFFF;
+			@include prefix( box-shadow, "inset 0 -7px 50px -7px rgba(0,0,0,0.16), inset 0 -7px 15px -7px rgba(0,0,0,0.04)" );
+			// the before is imporant, as it's the place holder for the left hand side item in the space between layout
+			&:before {
+				content : " ";
+			}
+		}
+			[class^="modal-window-header-title_"] {
+				max-width   : 500px;
+				align-items : center;
+
+				font-size   : 1rem;
+				font-weight : 400;
+				color       : rgba( $color__dark, 0.65 );
+			}
+			[class^="modal-window-header-close_"] {
+				padding    : 5px;
+				border     : 0px;
+				outline    : none;
+				cursor     : pointer;
+				opacity    : 0.25;
+				background : transparent;
+				color      : $color__dark;
+				@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s, opacity 0.46s cubic-bezier(.43,0,0,1) 0s !important); 
+				-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s, opacity 0.46s cubic-bezier(.43,0,0,1) 0s !important; 
+
+				&:hover {
+					opacity : 0.5;
+					@include prefix( transform, scale(1.2) rotate(360deg) );
+				}
+				&:before {
+					content     : '\e803';
+					font-family : "HBS-modern";
+					font-size   : 0.6rem;
+					line-height : 0.6rem;
+				}
+			}
+		[class^="modal-window-body_"] {
+			position : relative; 
+			overflow : hidden;
+		}
+		[class^="modal-window-controls_"] {
+			position : relative; 
+		}
+			[class^="modal-window-controls-button_"] {
+				&[data-ui-settings~="mode__single"] {
+					position    : relative;
+					height      : 50px;
+					width       : 100%;
+					padding     : 10px 8px;
+					font-family : $font__family;
+					font-size   : 1rem;
+					font-weight : 300;
+					text-align  : center;
+					outline     : none;
+					border      : 0px;
+					cursor      : pointer;
+					@include prefix( box-shadow, 0px 8px 16px 6px rgba(0,0,0,0.4) );
+					background  : #4cc1bc;
+					color       : white;
+
+					@include prefix(transition, "box-shadow 0.46s cubic-bezier(.43,0,0,1), background 0.46s cubic-bezier(.43,0,0,1)" );
+
+					&:hover {
+						@include prefix(box-shadow, "7px 8px 45px 7px rgba(0,0,0,0.3), 0px 8px 10px 7px rgba(0,0,0,0.13)" );
+						background : #4FCCC6;
+						@include prefix(transition, "box-shadow 0.46s cubic-bezier(.43,0,0,1), background 0.46s cubic-bezier(.43,0,0,1)" );
+					}
+				}
+			}
+
+
+
 		[class^="modal-window-content_"] {
 			z-index    : 3;
 			position   : relative;
@@ -49,7 +128,7 @@
 			}
 			[class^="modal-window-content-submit_"] {
 				z-index     : 2;
-				position    : absolute;
+				position    : relative;
 				height      : 50px;
 				width       : 100%;
 				bottom      : 0px;
