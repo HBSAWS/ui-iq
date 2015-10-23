@@ -509,9 +509,7 @@
 			settings : {
 				scrollingElement   : document.querySelector("[data-js~='appHuver__records']"),
 				widthReference     : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
-				distanceToStick    : 30,
-				onActivateSticky   : undefined,
-				onDeactivateSticky : undefined
+				distanceToStick    : 30
 			},
 			UI : undefined,
 			init : function() {
@@ -523,19 +521,6 @@
 				__self.settings.onDeactivateSticky = sticky.records.removeOffsetScroll;
 				settings = __self.settings;
 				__UI     = __self.UI = UI.sticky(__sticky,settings);
-			},
-			addOffsetScroll : function() {
-				var toOffset,offsetValue; 
-				toOffset    = document.querySelector("[data-js~='records__offsetSticky']");
-				offsetValue = document.querySelector("[data-js~='records__positionSticky']").getBoundingClientRect().height;
-
-				toOffset.style.paddingTop = offsetValue + "px";
-			},
-			removeOffsetScroll : function() {
-				var toOffset,offsetValue; 
-				toOffset = document.querySelector("[data-js~='records__offsetSticky']");
-
-				toOffset.style.paddingTop = "0px";
 			}
 		},
 		details : {
@@ -543,9 +528,7 @@
 			settings : {
 				scrollingElement   : document.querySelector("[data-js~='appHuver__recDetails']"),
 				widthReference     : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
-				distanceToStick    : 30,
-				onActivateSticky   : undefined,
-				onDeactivateSticky : undefined
+				distanceToStick    : 30
 			},
 			UI : undefined,
 			init : function() {
@@ -553,23 +536,8 @@
 
 				__self   = this;
 				__sticky = __self.el;
-				__self.settings.onActivateSticky   = sticky.details.addOffsetScroll;
-				__self.settings.onDeactivateSticky = sticky.details.removeOffsetScroll;
 				settings = __self.settings;
 				__UI     = __self.UI = UI.sticky(__sticky,settings);
-			},
-			addOffsetScroll : function() {
-				var toOffset,offsetValue; 
-				toOffset    = document.querySelector("[data-js~='details__offsetSticky']");
-				offsetValue = document.querySelector("[data-js~='details__positionSticky']").getBoundingClientRect().height;
-
-				toOffset.style.paddingTop = offsetValue + "px";
-			},
-			removeOffsetScroll : function() {
-				var toOffset,offsetValue; 
-				toOffset = document.querySelector("[data-js~='details__offsetSticky']");
-
-				toOffset.style.paddingTop = "0px";
 			}
 		}
 	}; 

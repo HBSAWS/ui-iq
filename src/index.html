@@ -42,10 +42,12 @@
                         <div class="fader"></div>
                         <div class="navbar__HBS">
                             <div class="navbar-left__HBS">
-                                <div class="navbar-branding__HBS">
-                                    <div class="navbar-branding-icon__HBS" data-ui-icon="logo"></div>
-                                    <div class="navbar-branding-abrtext__HBS">HBS</div>
-                                    <div class="navbar-branding-text__HBS">Harvard | Business | School</div>
+                                <div class="navbar-title__HBS">
+                                    <div class="navbar-title-icon__HBS" data-ui-icon="logo"></div>
+                                    <div class="navbar-title-text__HBS">
+                                        <div class="navbar-title-text-abbreviated__HBS">HBS</div>
+                                        <div class="navbar-title-text-extended__HBS">Harvard | Business | School</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="navbar-center__HBS"></div>
@@ -86,13 +88,13 @@
                         <div class="fader"></div>
                         <div class="navbar__appsuite">
                             <div class="navbar-left__appsuite">
-                                <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js="cuboid__showAppSuiteApp">
-                                    <div class="button-icon__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
-                                    <div class="button-content__light" data-ui-settings="size__large">back</div>
+                                <button class="navbar-back__appsuite" data-js="cuboid__showAppSuiteApp">
+                                    <div class="navbar-back-icon__appsuite"></div>
+                                    <div class="navbar-back-text__appsuite">back</div>
                                 </button>
-                                <div class="navbar-branding__appsuite">
-                                    <div class="navbar-branding-icon__appsuite" data-ui-icon="apps"></div>
-                                    <div class="navbar-branding-text__appsuite">APPS</div>
+                                <div class="navbar-title__appsuite">
+                                    <div class="navbar-title-icon__appsuite" data-ui-icon="apps"></div>
+                                    <div class="navbar-title-text__appsuite">APPS</div>
                                 </div>
                             </div>
                         
@@ -110,13 +112,13 @@
                         <div class="fader"></div>
                         <div class="navbar__appsuite">
                             <div class="navbar-left__appsuite">
-                                <button class="button__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-js="cuboid__showAppSuiteApp">
-                                    <div class="button-icon__light" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
-                                    <div class="button-content__light" data-ui-settings="size__large">back</div>
+                                <button class="navbar-back__appsuite" data-js="cuboid__showAppSuiteApp">
+                                    <div class="navbar-back-icon__appsuite"></div>
+                                    <div class="navbar-back-text__appsuite">back</div>
                                 </button>
-                                <div class="navbar-branding__appsuite">
-                                    <div class="navbar-branding-icon__appsuite" data-ui-icon="settings_app"></div>
-                                    <div class="navbar-branding-text__appsuite">SETTINGS</div>
+                                <div class="navbar-title__appsuite">
+                                    <div class="navbar-title-icon__appsuite" data-ui-icon="settings_app"></div>
+                                    <div class="navbar-title-text__appsuite">SETTINGS</div>
                                 </div>
                             </div>
                         
@@ -322,12 +324,13 @@
                                     <div class="fader"></div>
                                     <div class="navbar__app">
                                         <div class="navbar-left__app">
-                                            <div class="navbar-branding__app">
-                                                <div class="navbar-branding-icon__app" data-js="appLogo">
+                                            <div class="navbar-title__app">
+                                                <div class="navbar-title-icon__app" data-js="appLogo">
                                                     <div data-ui-icon="huver-logo"></div>
                                                 </div>
-                                                <div class="navbar-branding-abrtext__app">HUVER</div>
-                                                <div class="navbar-branding-text__app">HUVER</div>
+                                                <div class="navbar-title-text__app">
+                                                    HUVER
+                                                </div>
                                             </div>
                                         </div>
                                     
@@ -616,6 +619,60 @@
                                 <div class="deck-slide__default" data-ui-settings="mount__thick offCanvas__left offCanvas__responsive" data-ui-grid="desktop__4" data-js="appHuver__records">
                                     <div class="deck-slide-content_" data-ui-settings="depth__low" data-js="appHuver__recordsInner">
                                         <div class="fader"></div>
+
+                                        <div data-js="records__positionSticky">
+                                            <!-- navbar  ** START ** -->
+                                            <div class="navbar__default" data-ui-settings="material__film mount__thick">
+                                                <div class="navbar-left__default">
+                                                    <button class="navbar-back__highlight" data-ui-settings="material__paper" data-js="hideFileContents">
+                                                        <div class="navbar-back-icon__highlight"></div>
+                                                        <div class="navbar-back-text__highlight">hide</div>
+                                                    </button>
+                                                    <div class="navbar-title__default">
+                                                        <div class="navbar-title-text__default">
+                                                            Records
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="navbar-right__default">
+                                                    <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__tab-contents" data-js="tooltip__error">
+                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked data-js="recordsTable__filter">
+                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
+                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention"></div>
+                                                        </div>
+                                                        <div class="toggler-label__bold">Errors</div>
+                                                    </div>
+                                                    <div class="toggler__bold" data-ui-settings="mode__button size__large">
+                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox">
+                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
+                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-icon="file_exclusion"></div>
+                                                        </div>
+                                                        <div class="toggler-label__bold">Excluded</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="navbar-row__default">
+                                                    <input class="field__accent" data-ui-settings="material__paper" placeholder="search (alt + spacebar)" data-js="recordsTable__search">
+
+                                                    <div data-ui-settings="padding__mobile-top-xxs" data-ui-state="visible__mobile-block hidden__phablet" data-ui-grid="mobile__12" class="layout">
+                                                        <div data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
+                                                            <input data-ui-settings="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" class="toggler-input__bold">
+                                                            <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__bold">
+                                                                <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Fields</div>
+                                                            </div>
+                                                        </div>
+                                                        <div data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
+                                                            <input data-ui-settings="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" value="error" class="toggler-input__bold">
+                                                            <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__bold">
+                                                                <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Errors</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <!-- navbar  ** END ** -->
+                                        </div>
+<!-- 
                                         <div class="header__light" data-ui-settings="inset__thick material__film" data-js="records__positionSticky">
                                             <div class="header-content_" data-ui-settings="content__multiple">
                                                 <div class="header-title__dark">
@@ -645,10 +702,10 @@
                                                     </div>
                                                 </div>
                                             </div> <!-- header-content  ** end ** -->
-                                            <div data-ui-settings="padding__top-xs" data-ui-grid="mobile__12">
-                                                <input class="field_" placeholder="search (alt + spacebar)" data-js="recordsTable__search">
-                                            </div>
-                                        </div>
+<!--                                             <div data-ui-settings="padding__top-xs" data-ui-grid="mobile__12">
+                                                <input class="field__accent" data-ui-settings="material__paper" placeholder="search (alt + spacebar)" data-js="recordsTable__search">
+                                            </div> -->
+                                        <!-- </div> -->
                                         <div class="layout_" data-js="records__offsetSticky">
                                             <table class="table_" data-ui-settings="size__large" data-js="recordsTable">
                                                 <thead class="table-head__light" data-ui-settings="size__large material__paper">
@@ -668,86 +725,95 @@
                                 <div class="deck-slide__default" data-ui-settings="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
                                     <div class="deck-slide-content__light" data-ui-settings="depth__low" data-js="appHuver__details-inner">       
                                         <div class="fader"></div>
-                                        <div class="header__light" data-ui-settings="inset__thick material__film" data-js="details__positionSticky">
 
-                                        <div class="exclude" data-js="toggleExclusion">
-                                            <div class="fader"></div>
-                                            <div class="exclude-content" data-ui-state="animate__off scale__down fade__out">
-                                                <div class="exclude-icon">
-                                                    <div data-ui-icon="file_exclusion"></div>
-                                                </div>
-                                                <div class="exclude-title">
-                                                    Exclusion
-                                                </div>
-                                                <div class="exclude-controls">
-                                                    <button class="button__inverted" data-ui-settings="size__small padding__none margin__right-xxs" data-ui-addon="icon__left icon__right" data-js="toggleExclusionNote">
-                                                        <div class="button-content__inverted" data-ui-settings="size__small" data-ui-addon="icon__left icon__right">
-                                                            <div data-ui-icon="down-open size__medium" data-js="excludeToggle"></div>
-                                                        </div>
-                                                    </button>
-                                                    <button class="button__inverted" data-ui-settings="size__small padding__none" data-ui-addon="icon__left icon__right">
-                                                        <div class="button-content__inverted" data-ui-settings="size__small" data-ui-addon="icon__left icon__right">
-                                                            <div data-ui-icon="trash size__medium" data-js="excludeToggle"></div>
-                                                        </div>
-                                                    </button>
-                                                </div>
-                                                <div class="exclude-dates">
-                                                    <input class="exclude-dates-input" data-js="activeExclusion__startDate exclusionStartDate__datePicker"> - 
-                                                    <input class="exclude-dates-input datepickr" placeholder="set end date" data-js="exclusionEndDate__datePicker">
-                                                </div>
-                                                <div class="exclude-note" data-js="toggleExclusionNotes">
-                                                    <div class="exclude-note-input needsclick" contenteditable="true" placeholder="reason for excluding record..."></div>
-                                                    <button class="button__solid" data-ui-settings="size__small float__right margin__top-sm" data-js="submitExclusion">
-                                                        <div class="button-content_solid" data-ui-settings="size__small">
-                                                            submit
-                                                        </div>
-                                                    </button>
+                                        <div data-js="details__positionSticky">
+                                            <div class="exclude" data-js="toggleExclusion">
+                                                <div class="fader"></div>
+                                                <div class="exclude-content" data-ui-state="animate__off scale__down fade__out">
+                                                    <div class="exclude-icon">
+                                                        <div data-ui-icon="file_exclusion"></div>
+                                                    </div>
+                                                    <div class="exclude-title">
+                                                        Exclusion
+                                                    </div>
+                                                    <div class="exclude-controls">
+                                                        <button class="button__inverted" data-ui-settings="size__small padding__none margin__right-xxs" data-ui-addon="icon__left icon__right" data-js="toggleExclusionNote">
+                                                            <div class="button-content__inverted" data-ui-settings="size__small" data-ui-addon="icon__left icon__right">
+                                                                <div data-ui-icon="down-open size__medium" data-js="excludeToggle"></div>
+                                                            </div>
+                                                        </button>
+                                                        <button class="button__inverted" data-ui-settings="size__small padding__none" data-ui-addon="icon__left icon__right">
+                                                            <div class="button-content__inverted" data-ui-settings="size__small" data-ui-addon="icon__left icon__right">
+                                                                <div data-ui-icon="trash size__medium" data-js="excludeToggle"></div>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <div class="exclude-dates">
+                                                        <input class="exclude-dates-input" data-js="activeExclusion__startDate exclusionStartDate__datePicker"> - 
+                                                        <input class="exclude-dates-input datepickr" placeholder="set end date" data-js="exclusionEndDate__datePicker">
+                                                    </div>
+                                                    <div class="exclude-note" data-js="toggleExclusionNotes">
+                                                        <div class="exclude-note-input needsclick" contenteditable="true" placeholder="reason for excluding record..."></div>
+                                                        <button class="button__solid" data-ui-settings="size__small float__right margin__top-sm" data-js="submitExclusion">
+                                                            <div class="button-content_solid" data-ui-settings="size__small">
+                                                                submit
+                                                            </div>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                            <div class="header-content_" data-ui-settings="content__multiple">
-                                                <div class="header-content_" data-ui-settings="content__multiple">
-                                                    <button class="button__primary-inverted" data-ui-settings="size__large padding__left-none" data-ui-addon="icon__left" data-ui-state="is__hidden-desktop" data-js="showFileContents">
-                                                        <div class="button-icon__primary-inverted" data-ui-settings="size__large" data-ui-addon="icon__left" data-ui-icon="left-open"></div>
-                                                        <div class="button-content__primary-inverted" data-ui-settings="size__large">records</div>
+                                            <!-- navbar  ** START ** -->
+                                            <div class="navbar__default" data-ui-settings="material__film mount__thick">
+                                                <div class="navbar-left__default">
+                                                    <button class="navbar-back__highlight" data-ui-settings="material__paper" data-js="showFileContents">
+                                                        <div class="navbar-back-icon__highlight"></div>
+                                                        <div class="navbar-back-text__highlight">records</div>
                                                     </button>
-                                                    <div class="header-title_" data-js="recordName">Record Details</div>
-
-                                                    <div data-ui-settings="mode__check size__small padding__left-xs" class="toggler__bold">
-                                                        <input data-ui-settings="mode__check size__small" data-js="excludeToggle" type="checkbox" value="is__exclusion" class="toggler-input__bold">
-                                                        <div data-ui-settings="mode__check size__small" class="toggler-toggle__bold">
-                                                            <div data-ui-settings="mode__check size__small" class="toggler-toggle-indicator__bold"></div>
+                                                    <div class="navbar-title__default">
+                                                        <div class="navbar-title-text__default" data-js="recordName">
+                                                            Record Details
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="navbar-right__default">
+                                                    <div class="toggler__bold" data-ui-settings="mode__check size__large">
+                                                        <input data-ui-settings="mode__check size__large" data-js="excludeToggle" type="checkbox" value="is__exclusion" class="toggler-input__bold">
+                                                        <div data-ui-settings="mode__check size__large" class="toggler-toggle__bold">
+                                                            <div data-ui-settings="mode__check size__large" class="toggler-toggle-indicator__bold"></div>
                                                         </div>
                                                         <div class="toggler-label__bold">Exclude</div>
                                                     </div>
-                                                </div>
-                                                <div class="toggler_bold" data-ui-settings="mode__button size__large" data-ui-state="is__hidden-desktop" data-js="tooltip__error">
-                                                    <input data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input__bold" data-js="detailsTable__filter">
-                                                    <div data-ui-settings="mode__button size__large" data-ui-state="" class="toggler-toggle__bold">
-                                                        <div data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
-                                                    </div>
-                                                    <div class="toggler-label__bold">Errors</div>
-                                                </div>
-                                            </div>
-                                            <div data-ui-settings="padding__top-xs" data-ui-grid="mobile__12">
-                                                <input placeholder="search (alt + spacebar)" class="field_" data-js="detailsTable__search">
-                                            </div>
-                                            <div data-ui-settings="padding__mobile-top-xxs" data-ui-state="visible__mobile-block hidden__phablet" data-ui-grid="mobile__12" class="layout">
-                                                <div data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
-                                                    <input data-ui-settings="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" class="toggler-input__bold">
-                                                    <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__bold">
-                                                        <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Fields</div>
+                                                    <div class="toggler_bold" data-ui-settings="mode__button size__large" data-js="tooltip__error">
+                                                        <input data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input__bold" data-js="detailsTable__filter">
+                                                        <div data-ui-settings="mode__button size__large" data-ui-state="" class="toggler-toggle__bold">
+                                                            <div data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention" class="toggler-toggle-indicator__bold"></div>
+                                                        </div>
+                                                        <div class="toggler-label__bold">Errors</div>
                                                     </div>
                                                 </div>
-                                                <div data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
-                                                    <input data-ui-settings="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" value="error" class="toggler-input__bold">
-                                                    <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__bold">
-                                                        <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Errors</div>
+
+                                                <div class="navbar-row__default">
+                                                    <input class="field__accent" data-ui-settings="material__paper" placeholder="search (alt + spacebar)" data-js="detailsTable__search">
+
+                                                    <div data-ui-settings="padding__mobile-top-xxs" data-ui-state="visible__mobile-block hidden__phablet" data-ui-grid="mobile__12" class="layout">
+                                                        <div data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
+                                                            <input data-ui-settings="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" class="toggler-input__bold">
+                                                            <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__bold">
+                                                                <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Fields</div>
+                                                            </div>
+                                                        </div>
+                                                        <div data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6" class="toggler__bold">
+                                                            <input data-ui-settings="mode__segmentcontrol size__large" type="radio" name="mobile__sort-details" value="error" class="toggler-input__bold">
+                                                            <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle__bold">
+                                                                <div data-ui-settings="mode__segmentcontrol size__large" class="toggler-toggle-indicator__bold">Sort Errors</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> 
+                                            <!-- navbar  ** END ** -->
                                         </div>
+
                                         <div class="layout" data-js="details__offsetSticky">
                                             <table class="table_" data-ui-settings="mode__responsive size__large" data-js="detailsTable">
                                                 <thead class="table-head__light" data-ui-settings="size__large material__paper">
@@ -773,6 +839,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
                                     </div> <!-- deck content  ** end ** -->
                                 </div>
                             </div>

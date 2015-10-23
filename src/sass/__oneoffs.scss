@@ -27,3 +27,20 @@
 	// margin-left : -13px;
 	// margin-top  : -55px;"
 }
+
+* {
+	&[data-js~="records__positionSticky"] {
+		&[data-ui-state~="is__stuck"] {
+			z-index : 2;
+			@include gridle_state(desktop) {
+				@include prefix( transform, translateY(-30px) );
+			}
+		}
+	}
+	&[data-js~="details__positionSticky"] {
+		&[data-ui-state~="is__stuck"] {
+			z-index : 1;
+			@include prefix( transform, translateY(-30px) );
+		}
+	}
+}

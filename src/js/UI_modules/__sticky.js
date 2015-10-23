@@ -34,7 +34,7 @@ UI_sticky.prototype.initialize_module = function() {
 			UI.DOM.addDataValue( stickyEl, "data-ui-state", "is__stuck");
 
 			if ( __self.onActivateSticky !== undefined ) {
-				__self.onActivateSticky();
+				__self.onActivateSticky(__self.stickyEl);
 			}
 		} else {
 			stickyEl.style.position = stickyElPositionInit;
@@ -42,7 +42,7 @@ UI_sticky.prototype.initialize_module = function() {
 			UI.DOM.removeDataValue( stickyEl, 'data-ui-state', "is__stuck" );
 
 			if ( __self.onDeactivateSticky !== undefined ) {
-				__self.onDeactivateSticky();
+				__self.onDeactivateSticky(__self.stickyEl);
 			}
 		}
 	});

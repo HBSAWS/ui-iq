@@ -1,12 +1,14 @@
 	// MODULE START
 	// base structural values that remain the same always
 	[class^="button_"] { 
-		position     : relative;
-		z-index      : 1;
-		display      : inline-block;
-		outline      : none;
-		cursor       : pointer;
-		border       : 0px;
+		position        : relative;
+		z-index         : 1;
+		display         : flex;
+		justify-content : space-around;
+		align-items     : center;
+		outline         : none;
+		cursor          : pointer;
+		border          : 0px;
 		@include prefix(border-radius, 4px);
 		touch-action : manipulation;
 

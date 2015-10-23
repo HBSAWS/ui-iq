@@ -72,6 +72,109 @@ h3 {
 	}
 
 
+
+
+	// SUBCLASSES  -- START
+	&[class*="_default"] {
+		&[data-ui-settings~="material__paper"] {
+			background : $color_default_background;
+			color      : $color_default_text;
+		}
+		&[data-ui-settings~="material__film"] {
+			background : rgba($color_default_background, 0.96);
+			color      : $color_default_text;
+		}
+		&[data-ui-settings~="material__transparency"] {
+			background : rgba($color_default_background, 0);
+			color      : $color_default_text;
+		}
+	}
+
+
+	&[class*="_highlight"] {
+		&[data-ui-settings~="material__paper"] {
+			background : $color_highlight_background;
+			color      : $color_highlight_text;
+		}
+		&[data-ui-settings~="material__film"] {
+			background : rgba($color_highlight_background, 0.96);
+			color      : $color_highlight_text;
+		}
+		&[data-ui-settings~="material__transparency"] {
+			background : rgba($color_highlight_background, 0);
+			color      : $color_highlight_text;
+		}
+	}
+
+
+	&[class*="_bold"] {
+		&[data-ui-settings~="material__paper"] {
+			background : $color_bold_background;
+			color      : $color_bold_text;
+		}
+		&[data-ui-settings~="material__film"] {
+			background : rgba($color_bold_background, 0.96);
+			color      : $color_bold_text;
+		}
+		&[data-ui-settings~="material__transparency"] {
+			background : rgba($color_bold_background, 0);
+			color      : $color_bold_text;
+		}
+	}
+
+
+	&[class*="_mute"] {
+		&[data-ui-settings~="material__paper"] {
+			background : $color_mute_background;
+			color      : $color_mute_text;
+		}
+		&[data-ui-settings~="material__film"] {
+			background : rgba($color_mute_background, 0.96);
+			color      : $color_mute_text;
+		}
+		&[data-ui-settings~="material__transparency"] {
+			background : rgba($color_mute_background, 0);
+			color      : $color_mute_text;
+		}
+	}
+
+
+	&[class*="_accent"] {
+		&[data-ui-settings~="material__paper"] {
+			background : $color_accent_background;
+			color      : $color_accent_text;
+		}
+		&[data-ui-settings~="material__film"] {
+			background : rgba($color_accent_background, 0.96);
+			color      : $color_accent_text;
+		}
+		&[data-ui-settings~="material__transparency"] {
+			background : rgba($color_accent_background, 0);
+			color      : $color_accent_text;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// SUBCLASSES  -- START
 	&[class*="_offset"] {
 		&[data-ui-settings~="material__paper"] {
