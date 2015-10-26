@@ -85,7 +85,7 @@ h3 {
 			color      : $color_default_text;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color_default_background, 0);
+			background : transparent;
 			color      : $color_default_text;
 		}
 	}
@@ -101,7 +101,7 @@ h3 {
 			color      : $color_highlight_text;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color_highlight_background, 0);
+			background : transparent;
 			color      : $color_highlight_text;
 		}
 	}
@@ -117,8 +117,13 @@ h3 {
 			color      : $color_bold_text;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color_bold_background, 0);
+			background : transparent;
 			color      : $color_bold_text;
+		}
+
+
+		&[data-ui-settings~="rule__bottom"] {
+			border-bottom : 1px solid rgba(255, 255, 255, 0.3);
 		}
 	}
 
@@ -133,7 +138,7 @@ h3 {
 			color      : $color_mute_text;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color_mute_background, 0);
+			background : transparent;
 			color      : $color_mute_text;
 		}
 	}
@@ -149,7 +154,7 @@ h3 {
 			color      : $color_accent_text;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color_accent_background, 0);
+			background : transparent;
 			color      : $color_accent_text;
 		}
 	}

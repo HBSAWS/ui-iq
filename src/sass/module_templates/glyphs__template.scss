@@ -1,14 +1,35 @@
 [class^="glyph_"] {
-	font-family : "hbs-modern";
-	font-size   : 1rem;
-	opacity  : 0.25;
-	@include prefix( transition, opacity .5s cubic-bezier(.19,1,.22,.97) );
+	position        : relative;
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+	width           : 25px;
+	height          : 25px;
+	font-family     : "hbs-modern";
 
-	&[data-ui-settings~="mode__gears"] {
+	[class^="glyph-gears_"] {
+		opacity : 0.25;
+		@include prefix( transition, opacity .5s cubic-bezier(.19,1,.22,.97) );
+
 		&:before {
 			content   : '\e84f' !important;
-			position  : relative;
+			position  : absolute;
 			display   : inline-block;
+			left      : 6px;
+			top       : 8px;
+			color     : #000000;
+			font-size : 0.6rem;
+			@include prefix( font-smoothing, antialiased );
+			@include prefix( transform, translateY(-6px) translateX(7px) rotate(17deg) );
+			@include prefix( animation, rotating-lg 2.5s linear infinite );
+			@include prefix( animation-play-state, paused );
+		}
+		&:after {
+			content   : '\e84f' !important;
+			position  : absolute;
+			display   : inline-block;
+			bottom    : 4px;
+			left      : 5px;
 			color     : #000000;
 			font-size : 0.85rem;
 			@include prefix( font-smoothing, antialiased );
@@ -16,21 +37,9 @@
 			@include prefix( animation, rotating-sm 2.5s linear infinite );
 			@include prefix( animation-play-state, paused );
 		}
-		&:after{
-			content  : '\e84f' !important;
-			position : absolute;
-			display  : inline-block;
-			left     : 0px;
-			top      : 0px;
-			color    : #000000;
-			font-size: 0.6rem;
-			@include prefix( font-smoothing, antialiased );
-			@include prefix( transform, translateY(-6px) translateX(7px) rotate(17deg) );
-			@include prefix( animation, rotating-lg 2.5s linear infinite );
-			@include prefix( animation-play-state, paused );
-		}
-
-		&:hover {
+	}
+	&[data-ui-state~="is__hovered"] {
+		[class^="glyph-gears_"] {
 			opacity : 0.4;
 			&:before {
 				@include prefix( animation-play-state, running );
@@ -39,32 +48,18 @@
 				@include prefix( animation-play-state, running );
 			}
 		}
-
-		@-webkit-keyframes rotating-sm /* Safari and Chrome */ {
-			from {
-				@include prefix( transform, translateY(2px) translateX(-3px) rotate(0deg) );
-			}
-			to {
-				@include prefix( transform, translateY(2px) translateX(-3px) rotate(360deg) );
-			}
-		}
-		@-webkit-keyframes rotating-lg /* Safari and Chrome */ {
-			from {
-				@include prefix( transform, translateY(-6px) translateX(7px) rotate(17deg) );
-			}
-			to {
-				@include prefix( transform, translateY(-6px) translateX(7px) rotate(377deg) );
-			}
-		}
 	}
 
 
-	&[data-ui-settings~="mode__grid"] {
+
+	[class^="glyph-grid_"] {
 		position : relative;
-		top      : 0px;
-		left     : 0px;
+		top      : 1px;
+		left     : 1px;
 		width    : 18px;
 		height   : 18px;
+		opacity  : 0.25;
+		@include prefix( transition, opacity .5s cubic-bezier(.19,1,.22,.97) );
 		> div {
 			float         : left;
 			width         : 4px;
@@ -74,7 +69,9 @@
 			background    : #000000;
 			@include prefix( transform, scale(1) );
 		}
-		&:hover {
+	}
+	&[data-ui-state~="is__hovered"] {
+		[class^="glyph-grid_"] {
 			opacity : 0.4;
 			> div:nth-child(1) {
 				@include prefix( animation, wave .35s forwards );
@@ -94,51 +91,122 @@
 			> div:nth-child(9) {
 				@include prefix( animation, wave .35s .25s forwards );
 			}
-		}
 
-		@-webkit-keyframes wave {
-			0% {
-				@include prefix( transform, scale(1) );
-			}
-			50% {
-				@include prefix( transform, scale(1.6) );
-			}
-			100% {
-				@include prefix( transform, scale(1) );
+			@-webkit-keyframes wave {
+				0% {
+					@include prefix( transform, scale(1) );
+				}
+				50% {
+					@include prefix( transform, scale(1.6) );
+				}
+				100% {
+					@include prefix( transform, scale(1) );
+				}
 			}
 		}
 	}
 
-	&[data-ui-settings~="mode__file-settings"] {
-		opacity : 1 !important;
-		div {
-			&[data-ui-settings~="mode__gears"] {
-				position  : absolute;
-				transform : rotate(105deg) scale(1);
-				opacity   : 1;
-				left      : -4px;
-				top       : 1px;
+	[class^="glyph-filesettings_"] {
+		position : relative;
+		display  : flex;
+		width    : 100%;
+		height   : 100%;
+		[class^="glyph-filesettings-gears_"] {
+			position : absolute;
+			width    : 100%;
+			height   : 100%;
+			&:before {
+				z-index     : 4;
+				content     : '\e84f' !important;
+				position    : absolute;
+				display     : inline-block;
+				left        : -2px;
+				top         : 16px;
+				color       : #4cc1bc;
+				font-size   : 0.6rem;
 				color     : #4cc1bc;
-
+				@include prefix( text-shadow, "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff" );
+				@include prefix( font-smoothing, antialiased );
+				@include prefix( transform, translateY(-6px) translateX(7px) rotate(17deg) );
+				@include prefix( animation, rotating-lg 2.5s linear infinite );
+				@include prefix( animation-play-state, paused );
+			}
+			&:after {
+				z-index     : 4;
+				content   : '\e84f' !important;
+				position  : absolute;
+				display   : inline-block;
+				top       : -4px;
+				left      : -3px;
+				font-size : 0.85rem;
+				color     : #4cc1bc;
+				@include prefix( text-shadow, "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff" );
+				@include prefix( font-smoothing, antialiased );
+				@include prefix( transform, translateY(2px) translateX(-3px) );
+				@include prefix( animation, rotating-sm 2.5s linear infinite );
+				@include prefix( animation-play-state, paused );
+			}
+		}
+		[class^="glyph-filesettings-file_"] {
+			position      : relative;
+			padding-right : 8px;
+			&:before {
+				content  : '\e857' !important;
+				position : relative;
+			}
+		}
+		[class^="glyph-filesettings-status_"] {
+			position    : relative;
+			font-size   : 0.7rem;
+			display     : flex;
+			align-items : center;
+			&:before {
+				content  : '\e814' !important;
+				position : relative;
+				@include prefix( transform, rotate(90deg) );
+				@include prefix( transition, transform .5s cubic-bezier(.19,1,.22,.97) );
+			}
+		}
+	}
+	&[data-ui-state~="is__hovered"] {
+		[class^="glyph-filesettings_"] {
+			[class^="glyph-filesettings-gears_"] {
 				&:before {
-					color       : #4cc1bc;
-					text-shadow : -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+					@include prefix( animation-play-state, running );
 				}
 				&:after {
-					color : #4cc1bc;
+					@include prefix( animation-play-state, running );
 				}
 			}
 		}
-		&:after {
-			content     : '\e857' !important;
-			margin-top  : 1px;
-			font-size   : 1.4rem;
-			line-height : 1.4rem;
+	}
+	&[data-ui-state~="is__open"] {
+		[class^="glyph-filesettings_"] {
+			[class^="glyph-filesettings-status_"] {
+				&:before {
+					@include prefix( transform, rotate(0deg) );
+				}
+			}
 		}
 	}
 }
 
-
+@-webkit-keyframes rotating-sm /* Safari and Chrome */ {
+	from {
+		@include prefix( transform, translateY(2px) translateX(-3px) rotate(0deg) );
+	}
+	to {
+		@include prefix( transform, translateY(2px) translateX(-3px) rotate(360deg) );
+	}
+}
+@-webkit-keyframes rotating-lg /* Safari and Chrome */ {
+	from {
+		@include prefix( transform, translateY(-6px) translateX(7px) rotate(17deg) );
+	}
+	to {
+		@include prefix( transform, translateY(-6px) translateX(7px) rotate(377deg) );
+	}
+}
 
 
 

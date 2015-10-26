@@ -1,114 +1,62 @@
 	// MODULE START
 	// base structural values that remain the same always
-	[class^="button_"] { 
-		position        : relative;
-		z-index         : 1;
-		display         : flex;
-		justify-content : space-around;
-		align-items     : center;
-		outline         : none;
-		cursor          : pointer;
-		border          : 0px;
-		@include prefix(border-radius, 4px);
-		touch-action : manipulation;
+[class^="button_"] { 
+	position        : relative;
+	z-index         : 1;
+	display         : flex;
+	justify-content : space-around;
+	align-items     : center;
+	outline         : none;
+	cursor          : pointer;
+	border          : 0px;
+	@include prefix(border-radius, 4px);
+	touch-action    : manipulation;
 
-		font-family  : $font__family; 
-		font-weight  : 300; 
+	font-family     : $font__family; 
+	font-weight     : 300; 
+
+	&[data-ui-settings~="size__xsmall"] {
+		font-size : 0.8rem;
 	}
-	.button__default {
-		background : transparent;
-		color      : #151515;
+	&[data-ui-settings~="size__small"] {
+		font-size : 1rem;
 	}		
-	.button__inverted {
-		background : transparent;
-		color      : #ffffff;
-	}
-	.button__light {
-		background : transparent;
-		color      : #c0c0c0;
-	}
-	.button__outline {
-		background : transparent;
-		color      : rgba(255, 255, 255, 0.6);
-		border     : 1px solid rgba(255, 255, 255, 0.6);
+	&[data-ui-settings~="size__medium"] {
+		font-size : 1.2rem;
+	}		
+	&[data-ui-settings~="size__large"] {
+		font-size : 1.4rem;
+	}		
+	&[data-ui-settings~="size__xlarge"] {
+		font-size : 1.6rem;
 	}
 
-	.button__offset {
-		background : #ebeaea;
-		color      : #ababab;
+
+	&[data-ui-settings~="mount__flush"] {
+		padding : 0px;
 	}
-	.button__bold {
-		background : #4cc1bc;
-		color      : #fff;
-	}
-	.button__solid {
-		background  : white;
-		color       : #5A5A5A;
-		font-weight : 400;
-	}
-
-	.button__primary-inverted {
-		background : #fff;
-		color      : #4cc1bc;
-	}
-		[class^="button-icon_"] {
-			position       : relative;
-			display        : inline-block;
-			vertical-align : middle; 
-			&:before {
-				font-family : "hbs-modern";
-				display     : inline-block;
-			}
+	&[data-ui-settings~="mount__thin"] {
+		@include gridle_state(mobile) {
+			padding : 5px 10px;
 		}
-		[class^="button-content_"] {
-			position       : relative;
-			display        : inline-block;
-			vertical-align : middle; 
-			margin    	   : 0px;
-			font-size 	   : 0.8rem;
-		}
-		p[class^="button-content_"] {
-			font-weight : 400;
-		}
-
-
-
-
-
-	[class^="button_"] {
-
-		&[data-ui-settings~="size__small"] {
-			padding : 7px 10px 7px 10px;
-		}
-		&[data-ui-settings~="size__medium"] {
-			padding : 9px;
-		}
-		&[data-ui-settings~="size__large"] {
-			padding : 10px 17px 8px 17px;
-		}
-		&[data-ui-settings~="mode__stripped"] {
-			padding : 0px;
+		@include gridle_state(tablet) {
+			padding : 7px 14px;
 		}
 	}
-		[class^="button-icon_"] {
-			&[data-ui-settings~="size__small"] {
-				font-size   : 0.85rem;
-				line-height : 0.85rem;
-				&[data-ui-addon~="icon__left"] {
-					padding-right : 5px;
-				}
-				&[data-ui-addon~="icon__right"] {
-					padding-left :  5px;
-				}
-			}
-			&[data-ui-settings~="size__large"] {
-				font-size   : 1rem;
-				line-height : 1rem;
-				&[data-ui-addon~="icon__left"] {
-					padding-right : 8px;
-				}
-				&[data-ui-addon~="icon__right"] {
-					padding-left :  8px;
-				}
-			}
+	&[data-ui-settings~="mount__moderate"] {
+		@include gridle_state(mobile) {
+			padding : 7px 14px;
 		}
+		@include gridle_state(tablet) {
+			padding : 10px 17px;
+		}
+	}
+	&[data-ui-settings~="mount__thick"] {
+		@include gridle_state(mobile) {
+			padding : 10px 17px;
+		}
+		@include gridle_state(tablet) {
+			padding : 14px 20px;
+		}
+	}
+}

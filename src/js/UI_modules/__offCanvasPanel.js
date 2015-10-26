@@ -16,6 +16,9 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 
 	__self.side 					 = settings.side;
 
+	__self.onShowPanel               = ( settings.onShowPanel !== undefined )                 ? settings.onShowPanel                : undefined,
+	__self.onHidePanel               = ( settings.onHidePanel !== undefined )                 ? settings.onHidePanel                : undefined,
+
 	__self.hideBtn        	         = ( settings.hideBtnSelector == undefined )   ? undefined : document.querySelectorAll(settings.hideBtnSelector);
 	__self.showBtn       			 = ( settings.showBtnSelector == undefined )   ? undefined : document.querySelectorAll(settings.showBtnSelector);
 	__self.toggleBtn 				 = ( settings.toggleBtnSelector == undefined ) ? undefined : document.querySelectorAll(settings.toggleBtnSelector);
@@ -71,6 +74,9 @@ UI_offCanvasPanel.prototype.showPanel = function(toAnimate,onComplete) {
 	__toAnimate   = toAnimate || true;
 	__self.active = true;
 
+	if ( __self.onShowPanel !== undefined ) {
+		__self.onShowPanel();
+	}
 	if ( __toAnimate ) {
 		mainCanvasState = "animate__out scale__down-sm";
 		panelState      = "animate__out is__showing-offCanvasPanel";
@@ -103,6 +109,9 @@ UI_offCanvasPanel.prototype.hidePanel = function(toAnimate) {
 	__toAnimate   = toAnimate || true;
 	__self.active = false;
 
+	if ( __self.onHidePanel !== undefined ) {
+		__self.onHidePanel();
+	}
 	if ( __self.closeOnClickOutside ) {
 		document.removeEventListener("click", __self.__clickOutSideClose);
 	}

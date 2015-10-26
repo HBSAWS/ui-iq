@@ -33,7 +33,6 @@ $darkSurface   : darken( $lightSurface, 20% );
 	justify-content : space-between;
 	align-items     : center; 
 	flex-flow       : row wrap;
-	height          : 100%;
 
 	&[data-ui-settings~="mount__thin"] {
 
@@ -44,8 +43,14 @@ $darkSurface   : darken( $lightSurface, 20% );
 	&[data-ui-settings~="mount__thick"] {
 		padding : 30px 40px;
 	}
+
+
+	&[class$="_HBS"],&[class$="_app"],&[class$="_appsuite"] {
+		height : 100%;
+	}
 }
 	[class^="navbar-left_"] {
+		z-index      : 1;
 		display      : flex;
 		height       : 100%;
 		padding-left : 0px;
@@ -66,6 +71,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 		}
 	}
 	[class^="navbar-center_"] {
+		z-index     : 1;
 		display     : flex;
 		height      : 100%;
 		align-items : center; 
@@ -76,6 +82,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 		}
 	}
 	[class^="navbar-right_"] {
+		z-index     : 1;
 		display     : flex;
 		height      : 100%;
 		align-items : center; 
@@ -89,11 +96,8 @@ $darkSurface   : darken( $lightSurface, 20% );
 			}
 		}
 
-		&[class$="_HBS"] {
+		&[class$="_HBS"],&[class$="_app"] {
 			padding-right : 25px;
-		}
-		&[class$="_app"] {
-			padding-right : 20px;
 		}
 		&[class$="_appsuite"] {
 			flex : 1;

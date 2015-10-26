@@ -9,6 +9,7 @@ UI = {
 	cuboid   : function(DOMelement,settings) {
 		return new UI_cuboid(DOMelement,settings);
 	},
+	glyphs   : glyphs,
 	keyboard : function( settings ) {
 		return new UI_keyboard( settings );
 	},

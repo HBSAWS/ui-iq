@@ -43,7 +43,7 @@
 			align-items     : center;
 			padding         : 10px 15px;
 			background      : #FFFFFF;
-			@include prefix( box-shadow, "inset 0 -7px 50px -7px rgba(0,0,0,0.16), inset 0 -7px 15px -7px rgba(0,0,0,0.04)" );
+			@include prefix( box-shadow, "inset 0 -7px 50px -7px rgba(0,0,0,0.18), inset 0 -7px 15px -7px rgba(0,0,0,0.06)" );
 			// the before is imporant, as it's the place holder for the left hand side item in the space between layout
 			&:before {
 				content : " ";

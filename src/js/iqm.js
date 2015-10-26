@@ -324,7 +324,15 @@
 				},
 				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
 				toggleBtnSelector          : "[data-js~='file-options__toggle']",
-				side                       : "right"
+				side                       : "right",
+				onShowPanel                : function() {
+					var panelToggleIcon = document.querySelector("[data-js~='fileSummaryToggleIcon']");
+					UI.DOM.addDataValue( panelToggleIcon,"data-ui-state","is__open" );
+				},
+				onHidePanel                : function() {
+					var panelToggleIcon = document.querySelector("[data-js~='fileSummaryToggleIcon']");
+					UI.DOM.removeDataValue( panelToggleIcon,"data-ui-state","is__open" );
+				}
 			},
 			UI : undefined,
 			init : function() {
@@ -1186,7 +1194,7 @@
 			cuboids.app.init();
 
 			exclusions.init();
-
+			UI.glyphs();
 			modals.iframe.init();
 
 			notifications.inApp.init();
