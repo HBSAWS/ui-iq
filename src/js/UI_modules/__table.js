@@ -12,6 +12,7 @@ function UI_table(DOMelement, settings) {
 		size : "large"
 	};
 	__self.list       = null;
+	__self.tableName  = settings.tableName;
 	__self.valueNames = settings.valueNames;
 	__self.searchEl   = settings.searchElements; 
 	__self.sortEl     = settings.sortElements;
@@ -32,16 +33,18 @@ function UI_table(DOMelement, settings) {
 	__self.onRowSelection                    = ( settings.onRowSelection !== undefined )                    ? settings.onRowSelection         : undefined;
 	__self.addStateToRowOnSelect             = ( settings.addStateToRowOnSelect !== undefined )             ? settings.addStateToRowOnSelect  : true;
 	__self.selectFirstRowOnInit              = ( settings.selectFirstRowOnInit !== undefined )              ? settings.selectFirstRowOnInit   : false;
+
 	if ( settings.exceptions == undefined || settings.exceptions == null ) { 
 		settings.exceptions = {};
 	}
 	// if a exception function returns true then the key combination won't fire
-	__self.upArrowException       = settings.exceptions.upArrow   || function() { return false; };
-	__self.downArrowException     = settings.exceptions.downArrow || function() { return false; };
-	__self.returnKeyException     = settings.exceptions.returnKey || function() { return false; };
-	__self.allKeysException       = settings.exceptions.allKeys   || function() { return false; };
+	__self.upArrowException         = ( settings.exceptions.upArrow !== undefined )   ? settings.exceptions.upArrow   : function() { return false; };
+	__self.downArrowException       = ( settings.exceptions.downArrow !== undefined ) ? settings.exceptions.downArrow : function() { return false; };
+	__self.returnKeyException       = ( settings.exceptions.returnKey !== undefined ) ? settings.exceptions.returnKey : function() { return false; };
+	__self.allKeysException         = ( settings.exceptions.allKeys !== undefined )   ? settings.exceptions.allKeys   : function() { return false; };
 
-
+	__self.sortingRadioButtons      = document.querySelectorAll("[name='" + __self.tableName + "']");
+	__self.foundSortingRadioButtons = ( __self.sortingRadioButtons.length == 0 ) ? false : true;
 	__self.sorted     = {
 		active    : null,
 		direction : null
@@ -301,47 +304,105 @@ UI_table.prototype.unfilter = function(toUnFilter) {
 	}
 };
 UI_table.prototype.sort = function(toSort,sortDirection) {
-	var __self,old__activeSort,new__activeSort;
-	__self = this;
+	var __self,oldSortingRadioButton,oldSortingRadioButtonDisplay,newSortingRadioButton,newSortingRadioButtonDisplay,newSortElement,oldSortElement,oldSortValue,oldSortDirection,newSortValue,newSortDirection;
+	__self         = this;
+	newSortValue   = toSort;
 
-	if ( __self.sorted.active == null) { 
-		__self.sorted.active = toSort;
+	if ( __self.sorted.active == null) { // SINGLE DOM ELEMENT TO UPDATE - NO VALUE TO REMOVE - VALUE TO ADD
+		// if nothing has been sorted yet, this means:
+			// there is no active sort value
+			// there is no sort direction yet
+			// there is no DOM elmement with a sorted state
+		oldSortElement   = "none";
+		oldSortValue     = undefined;
+		newSortDirection = 'asc';
+	} else if ( __self.sorted.active === toSort ) { // SINGLE DOM ELEMENT TO UPDATE - VALUE TO REMOVE - VALUE TO ADD
+		// if the current sort value is the same as the new sort value
+		oldSortElement = "same";
 		if ( sortDirection == undefined ) {
-			__self.sorted.direction = "asc";
-		} else {
-			__self.sorted.direction = sortDirection;
-		}
-		__self.el.querySelector("[data-sort='" + __self.sorted.active + "']").setAttribute("data-ui-state", "is__sortable-" + __self.sorted.direction);
-		//this.$el.find("[data-js-handler~='" + this.sortHandlerID + "'][data-sort='" + _self.sorted.active +"']").attr("data-ui-state", "is__sortable-" + _self.sorted.direction);
-	} else if ( __self.sorted.active === toSort ) {
-		if ( sortDirection == undefined ) {
+			// if the user gives no direction they want to sort it, we simply go in the opposite direction of the active sort direction
 			if ( __self.sorted.direction === "asc" ) {
-				__self.sorted.direction = "desc";
+				oldSortDirection = "asc";
+				newSortDirection  = "desc";
 			} else {
-				__self.sorted.direction = "asc";
+				oldSortDirection = "desc";
+				newSortDirection  = "asc";
 			}
 		} else {
-			__self.sorted.direction = sortDirection;
+			oldSortDirection = __self.sorted.direction;
+			newSortDirection  = sortDirection;
 		}	
-		__self.el.querySelector("[data-sort='" + __self.sorted.active +"']").setAttribute("data-ui-state", "is__sortable-" + __self.sorted.direction);
-		//this.$el.find("[data-js-handler~='" + this.sortHandlerID + "'][data-sort='" + _self.sorted.active +"']").attr("data-ui-state", "is__sortable-" + _self.sorted.direction);
-	} else {
-		old__activeSort      = __self.sorted.active;
-		new__activeSort      = toSort;
-		__self.sorted.active = toSort;
+
+		oldSortValue = __self.sorted.active;
+	} else { // TWO DOM ELEMENTS TO UPDATE - BOTH WITH VALUE TO REMOVE - BOTH WITH VALUE TO ADD
+		oldSortElement    = "different";
+		oldSortValue      = __self.sorted.active;
+		oldSortDirection = __self.sorted.direction;
 
 		if ( sortDirection == undefined ) {
-			__self.sorted.direction = "asc";
+			newSortDirection = "asc";
 		} else {
-			__self.sorted.direction = sortDirection;
+			newSortDirection = sortDirection;
 		}
-		__self.el.querySelector("[data-sort='" + old__activeSort + "']").setAttribute("data-ui-state", "is__sortable" );
-		__self.el.querySelector("[data-sort='" + new__activeSort +"']").setAttribute("data-ui-state", "is__sortable-" + __self.sorted.direction);
-		// this.$el.find("[data-js-handler~='" + this.sortHandlerID + "'][data-sort='" + old__activeSort +"']").attr("data-ui-state", "is__sortable");
-		// this.$el.find("[data-js-handler~='" + this.sortHandlerID + "'][data-sort='" + new__activeSort +"']").attr("data-ui-state", "is__sortable-" + _self.sorted.direction);
 	}
 
-	__self.list.sort(toSort,{order: __self.sorted.direction});
+	// we update the DOM elements
+	if ( oldSortElement === "same" ) {
+		newSortElement = __self.el.querySelector("[data-sort='" + oldSortValue +"']");
+		if ( __self.foundSortingRadioButtons ) {
+			newSortingRadioButton        = document.querySelector( "[name='" + __self.tableName + "'][value='" + oldSortValue + "']" );
+			newSortingRadioButtonDisplay = newSortingRadioButton.nextElementSibling;
+
+			newSortingRadioButton.checked = true;
+			UI_DOM.removeDataValue( newSortingRadioButtonDisplay, "data-ui-state", "is__sorted-" + oldSortDirection );
+			UI_DOM.addDataValue( newSortingRadioButtonDisplay, "data-ui-state", "is__sorted-" + newSortDirection );			
+		}
+
+		UI_DOM.removeDataValue( newSortElement, "data-ui-state", "is__sorted-" + oldSortDirection );
+		UI_DOM.addDataValue( newSortElement, "data-ui-state", "is__sorted-" + newSortDirection );
+	} else if ( oldSortElement === "different" ) {
+		oldSortElement = __self.el.querySelector("[data-sort='" + oldSortValue +"']");
+		newSortElement = __self.el.querySelector("[data-sort='" + newSortValue +"']");
+		if ( __self.foundSortingRadioButtons ) {
+			oldSortingRadioButton        = document.querySelector( "[name='" + __self.tableName + "'][value='" + oldSortValue + "']" );
+			oldSortingRadioButtonDisplay = oldSortingRadioButton.nextElementSibling;
+
+			newSortingRadioButton        = document.querySelector( "[name='" + __self.tableName + "'][value='" + newSortValue + "']" );
+			newSortingRadioButtonDisplay = newSortingRadioButton.nextElementSibling;
+
+			oldSortingRadioButton.checked = false;
+			UI_DOM.removeDataValue( oldSortingRadioButtonDisplay, "data-ui-state", "is__sorted-" + oldSortDirection );
+
+			newSortingRadioButton.checked = true;
+			UI_DOM.addDataValue( newSortingRadioButtonDisplay, "data-ui-state", "is__sorted-" + newSortDirection );			
+		}
+
+		UI_DOM.removeDataValue( oldSortElement, "data-ui-state", "is__sorted-" + oldSortDirection );
+		UI_DOM.addDataValue( oldSortElement, "data-ui-state", "is__sortable" );
+
+		UI_DOM.removeDataValue( newSortElement, "data-ui-state", "is__sortable" );
+		UI_DOM.addDataValue( newSortElement, "data-ui-state", "is__sorted-" + newSortDirection );
+	} else {
+		newSortElement = __self.el.querySelector("[data-sort='" + newSortValue +"']");
+		if ( __self.foundSortingRadioButtons ) {
+			newSortingRadioButton        = document.querySelector( "[name='" + __self.tableName + "'][value='" + newSortValue + "']" );
+			newSortingRadioButtonDisplay = newSortingRadioButton.nextElementSibling;
+
+			newSortingRadioButton.checked = true;
+			UI_DOM.addDataValue( newSortingRadioButtonDisplay, "data-ui-state", "is__sorted-" + newSortDirection );			
+		}
+
+		UI_DOM.removeDataValue( newSortElement, "data-ui-state", "is__sortable" );
+		UI_DOM.addDataValue( newSortElement, "data-ui-state", "is__sorted-" + newSortDirection );
+	}
+
+	// we update the table list object, which will update our table body DOM element's contents for us
+	__self.list.sort(toSort,{ order: newSortDirection });
+
+
+	// we update the table UI object's sort tracking object
+	__self.sorted.active    = newSortValue;
+	__self.sorted.direction = newSortDirection;
 };
 UI_table.prototype.search = function(toSearch) {
 	var __self = this;
@@ -479,5 +540,15 @@ UI_table.prototype.initialize_module = function() {
 				__self.highlightRow( hovered );
 			}
 		});
+	}
+
+	if ( __self.foundSortingRadioButtons ) {
+		for ( var radioButton = 0, totalRadioButtons = __self.sortingRadioButtons.length; radioButton < totalRadioButtons; radioButton++ ) {
+			var currentRadioButton = __self.sortingRadioButtons[radioButton];
+
+			currentRadioButton.addEventListener( 'click', function(e) {
+				__self.sort( e.currentTarget.value );
+			});	
+		}
 	}
 };

@@ -618,6 +618,7 @@
 			el       : document.querySelector("[data-js~='recordsTable']"),
 			UI       : null,
 			settings : {
+				tableName      : "recorsTable",
 				valueNames     : ['is__firstName','is__lastName','has__error','is__exclusion','is__pending','personId'], 
 				searchElements : document.querySelectorAll("[data-js~='recordsTable__search']"),
 				sortElements   : document.querySelectorAll("[data-js~='recordsTable__sort']"), 
@@ -742,6 +743,7 @@
 			el       : document.querySelector("[data-js~='detailsTable']"),
 			UI       : null,
 			settings : {
+				tableName             : "detailsTable",
 				// fieldName is the none human readable name, we use it for lookups in the code
 				// is__field is the human readable version of the field name, we use it for displaying in the table
 				valueNames            : ['fieldName','is__field','is__error','has__error','is__exclusion','is__pending', 'content', "hbsId"], 

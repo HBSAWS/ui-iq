@@ -88,27 +88,28 @@
 		overflow-x    : hidden;
 	}
 	[class^="toggler-toggle_"] {
-			position       : relative;
-			display        : inline-block;
-			vertical-align : middle;
-			cursor         : pointer;
-			border         : 0px solid white;
+		position       : relative;
+		display        : inline-block;
+		vertical-align : middle;
+		cursor         : pointer;
+		border         : 0px solid white;
 
-			background     : #ebeaea;
-			color          : #ababab;
+		background     : #ebeaea;
+		color          : #ababab;
 
-			&[class$="_inverted"] {
-				background : rgba(255, 255, 255, 0.23);
-				color      : rgba(255, 255, 255, 0.6);
-			}
-			@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
+		&[class$="_inverted"] {
+			background : rgba(255, 255, 255, 0.23);
+			color      : rgba(255, 255, 255, 0.6);
+		}
+		@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 	}
 		[class^="toggler-toggle-indicator_"] {
 			position      : absolute;
 			display       : block;
 			font-family   : $font__family;
 			font-weight   : 300;
-			font-size     : 0.79rem;
+			font-size     : 0.74rem;
+			line-height   : 0.79rem;
 			background    : transparent;
 			@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 			&:before {
@@ -371,16 +372,20 @@
 
 // ** mode__segmentcontrol ** CSS -- START
 [class^="toggler_"][data-ui-settings~="mode__segmentcontrol"] {
+	&:first-child {
+		padding-left : 0px;
+	}
+	padding-left : 0.08rem;
 	&[data-ui-settings~="size__small"] {
-		padding : 0px 0.03rem;
+		//padding : 0px 0.03rem;
 	}
 	&[data-ui-settings~="size__large"] {
-		padding : 0px 0.05rem;
+		//padding : 0px 0.05rem;
 	}
 }
 div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 	[class^="toggler-toggle_"] {
-		margin-left : 2px;
+		//margin-left : 2px;
 		
 		-webkit-border-top-left-radius    : 3px;
 		-moz-border-radius-topleft        : 3px;
@@ -405,7 +410,7 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 
 	[class^="toggler-toggle_"] {
 		&[data-ui-settings~="mode__segmentcontrol"] {
-			margin-left : 2px;
+			display : flex;
 			&[data-ui-settings~="size__large"] {
 				height      : auto;
 				width       : 99%;
@@ -428,6 +433,22 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 				text-align  : center;
 				@include prefix(border-radius, 0px);
 			}
+
+
+			&[data-ui-state~="is__sorted-asc"] {
+				&:after {
+					content     : '\e814' !important;
+					font-family : "hbs-modern";
+					@include prefix( transform, translateY(-3px) );
+				}
+			}
+			&[data-ui-state~="is__sorted-desc"] {
+				&:after {
+					content     : '\e815' !important;
+					font-family : "hbs-modern";
+					@include prefix( transform, translateY(1px) );
+				}
+			}
 		}
 	}
 	[class^="toggler-input"] {
@@ -448,17 +469,20 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 	}
 		[class^="toggler-toggle-indicator_"] {
 			&[data-ui-settings~="mode__segmentcontrol"] {
-				position   : relative;
-				display    : inline-block;
+				position    : relative;
+				display     : inline-block;
+				font-family : $font__family;
 
 				&[data-ui-state~="is__checked"] {}
 				&[data-ui-state~="is__disabled"] {}
 
 				&[data-ui-settings~="size__large"] {
-					top    : 0px;
-					left   : 0px;
-					width  : 100%;
-					height : 100%;
+					top         : 0px;
+					left        : 0px;
+					font-size   : 0.7rem !important;
+					line-height : 0.79rem !important;
+					width       : 100%;
+					height      : 100%;
 					@include prefix(border-radius, 30px);
 				}
 				&[data-ui-settings~="size__small"] {

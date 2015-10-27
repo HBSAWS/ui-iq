@@ -7,6 +7,10 @@
 	height          : 25px;
 	font-family     : "hbs-modern";
 
+	@include gridle_state(below__phablet) {
+		@include prefix( transform, scale(0.89) );
+	}
+
 	[class^="glyph-gears_"] {
 		opacity : 0.25;
 		@include prefix( transition, opacity .5s cubic-bezier(.19,1,.22,.97) );

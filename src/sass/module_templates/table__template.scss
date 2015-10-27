@@ -201,11 +201,11 @@
 						font-size   : 0.65rem;
 					}
 				}
-				&[data-ui-state~="is__sortable-asc"] {
+				&[data-ui-state~="is__sorted-asc"] {
 					color : #4cc1bc;
 					&:before {
 						position    : relative;
-						top         : -2px;
+						top         : -4px;
 						margin      : 0px 8px 0px 0px;
 						content     : "\e814";
 						font-family : "hbs-modern";   
@@ -213,7 +213,7 @@
 						font-size   : 0.65rem;
 					}
 				}
-				&[data-ui-state~="is__sortable-desc"] {
+				&[data-ui-state~="is__sorted-desc"] {
 					color : #4cc1bc;
 					&:before {
 						position    : relative;

@@ -37,7 +37,7 @@
 	}
 	&[data-ui-settings~="mount__thin"] {
 		@include gridle_state(mobile) {
-			padding : 5px 10px;
+			padding : 5px 8px;
 		}
 		@include gridle_state(tablet) {
 			padding : 7px 14px;
