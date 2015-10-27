@@ -3,20 +3,41 @@
 	justify-content : center;
 	align-items     : center;
     margin          : 0px 8px;
-	font-size       : .8rem;
 	border          : 2px solid $color__primary;
 	color           : $color__primary;
 	@include prefix( border-radius, 5px );
 
+	@include gridle_state(mobile) {
+		font-size : 0.7rem;
+
+	}
+	@include gridle_state(tablet) {
+		font-size : 0.8rem;
+	}
+
 	&[data-ui-settings~="size__small"] {
-		width     : 40px;
-		min-width : 40px;
-		height    : 40px;
+		@include gridle_state(mobile) {
+			width     : 35px;
+			min-width : 35px;
+			height    : 35px;
+		}
+		@include gridle_state(tablet) {
+			width     : 40px;
+			min-width : 40px;
+			height    : 40px;
+		}
 	}
 	&[data-ui-settings~="size__large"] {
-		width     : 80px;
-		min-width : 80px;
-		height    : 40px;
+		@include gridle_state(mobile) {
+			width     : 80px;
+			min-width : 80px;
+			height    : 35px;
+		}
+		@include gridle_state(tablet) {
+			width     : 80px;
+			min-width : 80px;
+			height    : 40px;
+		}
 	}
 }
 .iframe-PDM {
@@ -40,7 +61,9 @@
 	&[data-js~="details__positionSticky"] {
 		&[data-ui-state~="is__stuck"] {
 			z-index : 1;
-			@include prefix( transform, translateY(-30px) );
+			@include gridle_state(tablet) {
+				@include prefix( transform, translateY(-30px) );
+			}
 		}
 	}
 }

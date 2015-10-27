@@ -60,7 +60,7 @@
 
 		tr {
 			@include gridle_state(mobile) {
-				padding    : 20px 0px;
+				padding    : 17px 0px;
 				border-top : 1px solid rgba(0,0,0,0.08);
 			}
 			@include gridle_state(tablet) {
@@ -357,12 +357,12 @@
 				font-weight : 400;
 				text-align  : left;
 				&[data-ui-settings~="size__small"] {
-					padding   : 6px 20px;;
+					padding   : 6px 20px;
 					font-size : 12px;
 					font-size : 1rem;
 				}
 				&[data-ui-settings~="size__large"] {
-					padding   : 11px 50px;;
+					padding   : 11px 50px;
 					font-size : 12px;
 					font-size : 0.9rem;
 				}
@@ -396,14 +396,19 @@
 					@include prefix( transition, opacity 0.4s cubic-bezier(.43,0,0,1) );
 				}
 				&[data-ui-settings~="size__small"] {
-					padding   : 11px 20px;;
+					padding   : 11px 20px;
 					font-size : 12px;
 					font-size : 0.8rem;
 				}
 				&[data-ui-settings~="size__large"] {
-					padding   : 11px 50px;;
 					font-size : 12px;
 					font-size : 0.9rem;
+					@include gridle_state(mobile) {
+						padding   : 7px 50px;
+					}
+					@include gridle_state(tablet) {
+						padding   : 11px 50px;
+					}
 				}
 				&[class$="_inverted"] {
 					color : #ffffff;

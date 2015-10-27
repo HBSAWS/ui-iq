@@ -82,10 +82,15 @@
 		@include prefix( transition, "background .8s cubic-bezier(.19,1,.22,.97), color .8s cubic-bezier(.19,1,.22,.97)" );
 	}
 	div[class^="toggler-label_"] {
-		width         : 33px;
 		white-space   : nowrap;
 		text-overflow : ellipsis;
 		overflow-x    : hidden;
+		@include gridle_state(mobile) {
+			width : 29px;
+		}
+		@include gridle_state(tablet) {
+			width : 33px;
+		}
 	}
 	[class^="toggler-toggle_"] {
 		position       : relative;
@@ -248,13 +253,25 @@
 	[class^="toggler-toggle_"] {
 		&[data-ui-settings~="mode__check"],&[data-ui-settings~="mode__button"] {
 			&[data-ui-settings~="size__large"] {
-				height : 30px;
-				width  : 30px;
+				@include gridle_state(mobile) {
+					height : 25px;
+					width  : 25px;
+				}
+				@include gridle_state(tablet) {
+					height : 30px;
+					width  : 30px;
+				}
 				@include prefix(border-radius, 3px);
 			}
 			&[data-ui-settings~="size__small"] {
-				height : 25px;
-				width  : 25px;
+				@include gridle_state(mobile) {
+					height : 20px;
+					width  : 20px;
+				}
+				@include gridle_state(tablet) {
+					height : 25px;
+					width  : 25px;
+				}
 				@include prefix(border-radius, 3px);
 			}
 		}
@@ -279,7 +296,12 @@
 					height : 100%;
 					@include prefix(border-radius, 30px);					
 					&:before {
-						font-size : 11px;
+						@include gridle_state(mobile) {
+							font-size : 0.65rem;
+						}
+						@include gridle_state(tablet) {
+							font-size : 0.8rem;
+						}
 					}
 				}
 				&[data-ui-settings~="size__small"] {
@@ -289,7 +311,12 @@
 					height : 100%;
 					@include prefix(border-radius, 30px);				
 					&:before {
-						font-size : 8px;
+						@include gridle_state(mobile) {
+							font-size : 0.55rem;
+						}
+						@include gridle_state(tablet) {
+							font-size : 0.7rem;
+						}
 					}
 				}
 			}
@@ -320,13 +347,25 @@
 	[class^="toggler-toggle_"] {
 		&[data-ui-settings~="mode__radio"] {
 			&[data-ui-settings~="size__large"] {
-				height : 30px;
-				width  : 30px;
+				@include gridle_state(mobile) {
+					height : 25px;
+					width  : 25px;
+				}
+				@include gridle_state(tablet) {
+					height : 30px;
+					width  : 30px;
+				}
 				@include prefix(border-radius, 30px);
 			}
 			&[data-ui-settings~="size__small"] {
-				height : 25px;
-				width  : 25px;
+				@include gridle_state(mobile) {
+					height : 20px;
+					width  : 20px;
+				}
+				@include gridle_state(tablet) {
+					height : 25px;
+					width  : 25px;
+				}
 				@include prefix(border-radius, 30px);
 			}
 		}
@@ -350,7 +389,12 @@
 					height : 100%;
 					@include prefix(border-radius, 30px);				
 					&:before {
-						font-size : 15px;
+						@include gridle_state(mobile) {
+							font-size : 0.65rem;
+						}
+						@include gridle_state(tablet) {
+							font-size : 0.8rem;
+						}
 					}
 				}
 				&[data-ui-settings~="size__small"] {
@@ -360,7 +404,12 @@
 					height : 100%;
 					@include prefix(border-radius, 30px);				
 					&:before {
-						font-size : 12px;
+						@include gridle_state(mobile) {
+							font-size : 0.55rem;
+						}
+						@include gridle_state(tablet) {
+							font-size : 0.7rem;
+						}
 					}	
 				}
 			}
@@ -414,13 +463,19 @@ div[class^="toggler_"][data-ui-settings~="mode__segmentcontrol"]:nth-child(1) {
 			&[data-ui-settings~="size__large"] {
 				height      : auto;
 				width       : 99%;
-				padding     : 7px 14px 6px 14px;
 				font-size   : 13px;
 				font-size   : 0.7rem !important;
 				line-height : 14px;
 				line-height : 0.8rem;
 				text-align  : center;
 				@include prefix(border-radius, 0px);
+
+				@include gridle_state(mobile) {
+					padding : 5px 14px;
+				}
+				@include gridle_state(table) {
+					padding : 7px 14px 6px 14px;
+				}
 			}
 			&[data-ui-settings~="size__small"] {
 				height      : auto;

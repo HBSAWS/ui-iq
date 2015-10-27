@@ -148,7 +148,7 @@
 				apps         = document.querySelector("[data-js~='appSuite__apps']");
 				app          = document.querySelector("[data-js~='appSuite__app']");
 				appsGrid     = document.querySelector("[data-js~='appsGrid']");
-				appsSettings = document.querySelector("[data-js~='appsSettings");
+				appsSettings = document.querySelector("[data-js~='appsSettings']");
 
 				UI.DOM.removeDataValue( appsSettings,"data-ui-state","is__hidden" );
 				UI.DOM.addDataValue( appsGrid,"data-ui-state","is__hidden" );
@@ -166,7 +166,7 @@
 				apps         = document.querySelector("[data-js~='appSuite__apps']");
 				app          = document.querySelector("[data-js~='appSuite__app']");
 				appsGrid     = document.querySelector("[data-js~='appsGrid']");
-				appsSettings = document.querySelector("[data-js~='appsSettings");
+				appsSettings = document.querySelector("[data-js~='appsSettings']");
 
 				UI.DOM.removeDataValue( appsGrid,"data-ui-state","is__hidden" );
 				UI.DOM.addDataValue( appsSettings,"data-ui-state","is__hidden" );
@@ -1483,7 +1483,7 @@
 				} else if ( status === "success" ) {
 					icon = "ok";
 				}
-				notifications.inApp.icon.setAttribute( "data-ui-icon", icon );
+				notifications.inApp.icon.setAttribute( "data-ui-icon", "place__before " + icon );
 				notifications.inApp.status = status;
 			}
 		}

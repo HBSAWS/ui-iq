@@ -80,6 +80,12 @@
 );
 
 
+$grid__mobile  : 0;
+$grid__phablet : 480;
+$grid__tablet  : 768;
+$grid__laptop  : 950;
+$grid__desktop : 1300;
+$grid__retina  : 1600;
 
 $context    : 12;
 $grid__1  : gridle_get_column_width( 1 );

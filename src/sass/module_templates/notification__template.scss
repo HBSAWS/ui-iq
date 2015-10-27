@@ -16,7 +16,13 @@
 			[class^="notification-content-message-icon_"] {
 				font-size     : 1.45rem;
 				line-height   : 1.45rem;
-				padding-right : 10px;
+
+				@include gridle_state( mobile ) {
+					padding-right : 10px;
+				}
+				@include gridle_state( tablet ) {
+					padding-right : 15px;
+				}
 
 				color         : white;
 			}
@@ -39,7 +45,27 @@
 				}
 			}
 	[class^="notification-close_"] {
-    	padding-right : 23px;
+		display : flex;
+		padding : 5px 23px 5px 5px;
+		cursor  : pointer;
+    	&:before {
+			font-family : "hbs-modern";
+			content     : '\e803' !important;
+			margin-top  : 2px;
+			font-size   : 0.6rem;
+			line-height : 0.6rem;
+			opacity     : 0.5;
+			color       : #ffffff;
+			@include prefix( transform-origin, center center );
+			@include prefix(transition, transform 0.46s cubic-bezier(.43,0,0,1) 0s, opacity 0.46s cubic-bezier(.43,0,0,1) 0s !important); 
+			-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1) 0s, opacity 0.46s cubic-bezier(.43,0,0,1) 0s !important; 
+    	}
+		&:hover {
+			&:before {
+				opacity : 1;
+				@include prefix( transform, scale(1.2) rotate(360deg) );
+			}
+		}
 	}
 	[class^="notification-backing_"] {
 		z-index  : -1;
@@ -102,7 +128,11 @@
 		color      : white;
 		@include prefix( transition, "transform .46s cubic-bezier(.43,0,0,1), opacity .46s cubic-bezier(.43,0,0,1)" );
 	}
-	.exclude-icon {
+	.exclude-content-header {
+		display     : flex;
+		align-items : center;
+	}
+	.exclude-content-header-icon {
 		display : inline-block;
 		width   : 30px;
 		height  : 30px;
@@ -117,14 +147,14 @@
 			font-size   : 0.9rem;
 		}
 	}
-	.exclude-title {
+	.exclude-content-header-title {
 		display        : inline-block;
 		margin-left    : 3px;
 		font-size      : 1.1rem;
 		font-weight    : 300;
 		vertical-align : middle;
 	}
-	.exclude-dates {
+	.exclude-content-header-dates {
 		display     : inline-block;
 		margin-top  : 5px;
 		margin-left : 10px;
@@ -132,7 +162,7 @@
 		font-weight : 300;
 	}
 		.exclude-dates-input {
-			width   : 85px;
+			width   : 90px;
 			padding : 6px 10px;
 			border  : 1px solid white;
 			outline : none;
@@ -161,12 +191,13 @@
 					color       : rgba(255,255,255,0.7);
 				}
 		}
-	.exclude-controls {
+	.exclude-content-header-controls {
 		position : absolute;
 		top      : 15px;
 		right    : 40px;
+		display  : flex;
 	}
-	.exclude-note {
+	.exclude-content-note {
 		position : relative;
 		overflow : hidden;
 		will-change : height;

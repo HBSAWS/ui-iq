@@ -43,32 +43,76 @@
     $size-list       : "xxs","xs","sm","md","lg","xl","xxl";
     
     * {
-        // VISIBLE AND HIDDEN STATES  -- START
-        @each $breakpoint in $breakpoint-list {
-            &[data-ui-state~="visible__#{$breakpoint}-block"] {
-                @include gridle_show($breakpoint);
-            }
-            &[data-ui-state~="visible__#{$breakpoint}-inlineblock"] {
-                @include gridle_show_inline($breakpoint);
-            }
-           &[data-ui-state~="is__visibleInline-#{$breakpoint}"] {
-                @include gridle_show_inline($breakpoint);
-            }
-            &[data-ui-state~="visible__#{$breakpoint}-table"] {
-                @include gridle_show_inline($breakpoint);
-            }
-
-            &[data-ui-state~="hidden__#{$breakpoint}"] {
-                @include gridle_hide($breakpoint);
-            }
-            &[data-ui-state~="is__hidden-#{$breakpoint}"] {
-                @include gridle_hide($breakpoint);
-            }
-        } 
-
+        // this must come first so that the 'visible' states can override it when used in conjunction with it 
         &[data-ui-state~="is__hidden"] {
-            display : none !important;
+            display : none;
         }  
+        &[data-ui-state~="is__hidden-mobile"] {
+            @media screen and (min-width : $grid__mobile + px) and (max-width: ($grid__phablet - 1) + px ){
+                display : none;
+            }
+        }
+        &[data-ui-state~="is__hidden-phablet"] {
+            @media screen and (min-width : $grid__phablet + px) and (max-width: ($grid__tablet - 1) + px ){
+                display : none;
+            }
+        }
+        &[data-ui-state~="is__hidden-tablet"] {
+            @media screen and (min-width : $grid__tablet + px) and (max-width: ($grid__laptop - 1) + px ){
+                display : none;
+            }
+        }
+        &[data-ui-state~="is__hidden-laptop"] {
+            @media screen and (min-width : $grid__laptop + px) and (max-width: ($grid__desktop - 1) + px ){
+                display : none;
+            }
+        }
+        &[data-ui-state~="is__hidden-desktop"] {
+            @media screen and (min-width : $grid__desktop + px) and (max-width: ($grid__retina - 1) + px ){
+                display : none;
+            }
+        }
+        &[data-ui-state~="is__hidden-retina"] {
+            @media screen and (min-width : $grid__retina + px) {
+                display : none;
+            }
+        }
+
+
+        @each $displayType in block, inline-block, inline, flex {
+            &[data-ui-state~="is__visible-#{$displayType}-mobile"] {
+                @media screen and (min-width : $grid__mobile + px) and (max-width: ($grid__phablet - 1) + px ){
+                    display : $displayType;
+                }
+            }
+            &[data-ui-state~="is__visible-#{$displayType}-phablet"] {
+                @media screen and (min-width : $grid__phablet + px) and (max-width: ($grid__tablet - 1) + px ){
+                    display : $displayType;
+                }
+            }
+            &[data-ui-state~="is__visible-#{$displayType}-tablet"] {
+                @media screen and (min-width : $grid__tablet + px) and (max-width: ($grid__laptop - 1) + px ){
+                    display : $displayType;
+                }
+            }
+            &[data-ui-state~="is__visible-#{$displayType}-laptop"] {
+                @media screen and (min-width : $grid__laptop + px) and (max-width: ($grid__desktop - 1) + px ){
+                    display : $displayType;
+                }
+            }
+            &[data-ui-state~="is__visible-#{$displayType}-desktop"] {
+                @media screen and (min-width : $grid__desktop + px) and (max-width: ($grid__retina - 1) + px ){
+                    display : $displayType;
+                }
+            }
+            &[data-ui-state~="is__visible-#{$displayType}-retina"] {
+                @media screen and (min-width : $grid__retina + px) {
+                    display : $displayType;
+                }
+            }      
+        }
+
+
 
         &[data-ui-settings~="float__right"] {
             float : right;

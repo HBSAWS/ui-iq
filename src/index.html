@@ -81,7 +81,9 @@
                                 </button>
                                 <div class="navbar-title__appsuite">
                                     <div class="navbar-title-icon__appsuite" data-ui-icon="apps place__before"></div>
-                                    <div class="navbar-title-text__appsuite">APPS</div>
+                                    <div class="navbar-title-text__appsuite">
+                                        <div class="navbar-title-text-extended__appsuite">APPS</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="navbar-center__appsuite"></div>
@@ -103,27 +105,35 @@
                                 </button>
                                 <div class="navbar-title__appsuite">
                                     <div class="navbar-title-icon__appsuite" data-ui-icon="settings_app place__before"></div>
-                                    <div class="navbar-title-text__appsuite">SETTINGS</div>
+                                    <div class="navbar-title-text__appsuite">
+                                        <div class="navbar-title-text-extended__appsuite">SETTINGS</div>
+                                    </div>
                                 </div>
                             </div>
                         
                             <div class="navbar-center__appsuite">
-                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__4">
-                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="tabs__settings" value="tab__settingsShortcuts" checked>
-                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__large">
-                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__large">Keyboard Shortcuts</div>
+                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__small" data-ui-grid="mobile__4">
+                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__settings" value="tab__settingsShortcuts" checked>
+                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__small">
+                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__small">
+                                            Keyboard<span data-ui-state="is__hidden-mobile is__hidden-phablet"> Shortcuts</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__4">
-                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="tabs__settings" value="tab__settingsApp">
-                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__large">
-                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__large">App Settings</div>
+                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__small" data-ui-grid="mobile__4">
+                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__settings" value="tab__settingsApp">
+                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__small">
+                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__small">
+                                            <span data-ui-state="is__hidden-mobile is__hidden-phablet">App </span>Settings
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__4">
-                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="tabs__settings" value="tab__settingsIT">
-                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__large">
-                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__large">IT Help</div>
+                                <div class="toggler_" data-ui-settings="mode__segmentcontrol size__small" data-ui-grid="mobile__4">
+                                    <input class="toggler-input_" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__settings" value="tab__settingsIT">
+                                    <div class="toggler-toggle_" data-ui-settings="mode__segmentcontrol size__small">
+                                        <div class="toggler-toggle-indicator_" data-ui-settings="mode__segmentcontrol size__small">
+                                            IT Help
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -141,15 +151,19 @@
                 <div class="deck-slide-content__light" data-ui-settings="dimensions__parent material__paper" data-js="animateInner">
                     <div class="fader"></div>
                     <!-- APPS GRID  ** START ** -->
-                    <div class="layout" data-ui-state="is__hidden" data-js="appsGrid">
-                    </div>
+                    <div class="layout" data-ui-state="is__hidden" data-js="appsGrid"></div>
                     <!-- APPS GRID  ** FINISH ** -->
 
                     <!-- SETTINGS  ** START  ** -->
                     <div class="layout" data-js="appsSettings" data-ui-settings="padding__top-xxl">
+                        <!-- settingsApp tab content  ** START ** -->
                         <div data-ui-tab="tab__settingsApp"></div>
+                        <!-- settingsApp tab content  ** END ** -->
+                        <!-- settingsIT tab content  ** START ** -->
                         <div data-ui-tab="tab__settingsIT"></div>
-                        <div class="list_" data-ui-tab="tab__settingsShortcuts">
+                        <!-- settingsIT tab content  ** END ** -->
+                        <!-- settingsShortcuts tab content  ** START ** -->
+                        <div class="list_" data-ui-settings="layout__constrained" data-ui-tab="tab__settingsShortcuts">
 
                             <div class="list-row_">
                                 <div class="list-column_" data-ui-settings="size__medium align__left">
@@ -290,7 +304,7 @@
 
                         </div>
                     </div>
-                    <!-- SETTINGS  ** FINISH ** -->
+                    <!-- settingsShortcuts tab content  ** END ** -->
 
                 </div>
             </div>
@@ -298,8 +312,7 @@
 
             <!-- CURRENT APP CONTAINER  ** START ** -->
             <div class="deck-slide__dark" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__app" style="overflow-y:hidden;">
-                <div class="deck-slide-content__default" data-ui-settings="dimensions__parent" data-js="animateInner" style="padding-top:50px;transform:translate(0px);overflow-x:hidden;">
-
+                <div class="deck-slide-content__default" data-ui-settings="dimensions__parent" data-js="animateInner" style="padding-top:50px;transform:translate(0px);overflow:hidden;">
 
                     <div class="fader"></div>
                     <nav class="nav__app">
@@ -347,12 +360,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="notification-close__app">
-                                            <button class="button__inverted" data-ui-settings="size__large" style="top:-2px;" data-js="inAppNotificationClose">
-                                                <div class="button-content__inverted" data-ui-settings="size__large">
-                                                    <div data-ui-icon="cancel size__small place__before"></div>
-                                                </div>
-                                            </button>
+                                        <div class="notification-close__app" data-js="inAppNotificationClose">
+<!--                                             <button class="button__bold" data-ui-settings="material__transparency size__large" data-ui-icon="cancel size__small place__before" style="top:-2px;" data-js="inAppNotificationClose"></button> -->
                                         </div>
                                         <div class="notification-backing__app" data-ui-state="fade__out" data-js="inAppNotificationBacking"></div>
                                     </div>
@@ -444,7 +453,7 @@
                                             <input class="toggler-input__inverted" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileRecords" checked>
                                             <div class="toggler-toggle__inverted" data-ui-settings="mode__segmentcontrol size__small">
                                                 <div class="toggler-toggle-indicator__inverted" data-ui-settings="mode__segmentcontrol size__small">
-                                                    File Records
+                                                    <span data-ui-state="is__hidden-mobile is__hidden-phablet">File </span>Records
                                                 </div>
                                             </div>
                                         </div>
@@ -675,29 +684,23 @@
                                             <div class="exclude" data-js="toggleExclusion">
                                                 <div class="fader"></div>
                                                 <div class="exclude-content" data-ui-state="animate__off scale__down fade__out">
-                                                    <div class="exclude-icon">
-                                                        <div data-ui-icon="file_exclusion  place__before"></div>
+                                                    <div class="exclude-content-header_">
+                                                        <div class="exclude-content-header-icon">
+                                                            <div data-ui-icon="file_exclusion  place__before"></div>
+                                                        </div>
+                                                        <div class="exclude-content-header-title">
+                                                            Exclusion
+                                                        </div>
+                                                        <div class="exclude-content-header-controls">
+                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="down-open place__before size__medium" data-js="toggleExclusionNote excludeToggle" style="margin-right : 10px;"></button>
+                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="trash place__before size__medium"></button>
+                                                        </div>
+                                                        <div class="exclude-content-header-dates">
+                                                            <input class="exclude-dates-input" data-js="activeExclusion__startDate exclusionStartDate__datePicker"> - 
+                                                            <input class="exclude-dates-input datepickr" placeholder="set end date" data-js="exclusionEndDate__datePicker">
+                                                        </div>
                                                     </div>
-                                                    <div class="exclude-title">
-                                                        Exclusion
-                                                    </div>
-                                                    <div class="exclude-controls">
-                                                        <button class="button__inverted" data-ui-settings="size__small padding__none margin__right-xxs" data-ui-addon="icon__left icon__right" data-js="toggleExclusionNote">
-                                                            <div class="button-content__inverted" data-ui-settings="size__small" data-ui-addon="icon__left icon__right">
-                                                                <div data-ui-icon="down-open size__medium  place__before" data-js="excludeToggle"></div>
-                                                            </div>
-                                                        </button>
-                                                        <button class="button__inverted" data-ui-settings="size__small padding__none" data-ui-addon="icon__left icon__right">
-                                                            <div class="button-content__inverted" data-ui-settings="size__small" data-ui-addon="icon__left icon__right">
-                                                                <div data-ui-icon="trash size__medium  place__before" data-js="excludeToggle"></div>
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                    <div class="exclude-dates">
-                                                        <input class="exclude-dates-input" data-js="activeExclusion__startDate exclusionStartDate__datePicker"> - 
-                                                        <input class="exclude-dates-input datepickr" placeholder="set end date" data-js="exclusionEndDate__datePicker">
-                                                    </div>
-                                                    <div class="exclude-note" data-js="toggleExclusionNotes">
+                                                    <div class="exclude-content-note" data-js="toggleExclusionNotes">
                                                         <div class="exclude-note-input needsclick" contenteditable="true" placeholder="reason for excluding record..."></div>
                                                         <button class="button__solid" data-ui-settings="size__small float__right margin__top-sm" data-js="submitExclusion">
                                                             <div class="button-content_solid" data-ui-settings="size__small">
@@ -740,7 +743,7 @@
                                                 <div class="navbar-row__default">
                                                     <input class="field__accent" data-ui-settings="material__paper" placeholder="search (alt + spacebar)" data-js="detailsTable__search">
 
-                                                    <div class="layout" data-ui-settings="padding__mobile-top-xxs" data-ui-state="visible__mobile-block hidden__tablet" data-ui-grid="mobile__12">
+                                                    <div class="layout" data-ui-settings="padding__mobile-top-xxs" data-ui-state="is__hidden is__visible-block-mobile is__visible-block-phablet">
                                                         <div class="toggler__bold" data-ui-settings="mode__segmentcontrol size__large" data-ui-grid="mobile__6">
                                                             <input class="toggler-input__bold" data-ui-settings="mode__segmentcontrol size__large" type="radio" name="detailsTable" value="is__field">
                                                             <div class="toggler-toggle__bold" data-ui-settings="mode__segmentcontrol size__large">

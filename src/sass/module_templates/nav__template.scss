@@ -41,7 +41,12 @@ $darkSurface   : darken( $lightSurface, 20% );
 		
 	}
 	&[data-ui-settings~="mount__thick"] {
-		padding : 30px 40px;
+		@include gridle_state(mobile) {
+			padding : 25px 35px 28px 35px;
+		}
+		@include gridle_state(tablet) {
+			padding : 30px 40px;
+		}
 	}
 
 
@@ -77,8 +82,13 @@ $darkSurface   : darken( $lightSurface, 20% );
 		align-items : center; 
 
 		&[class$="_appsuite"] {
-			flex      : 2;
 			max-width : 650px;
+			@include gridle_state(mobile) {
+				flex : 4;
+			}
+			@include gridle_state(tablet) {
+				flex : 2;
+			}
 		}
 	}
 	[class^="navbar-right_"] {
@@ -104,8 +114,13 @@ $darkSurface   : darken( $lightSurface, 20% );
 		}
 	}
 	[class^="navbar-row_"] {
-		padding-top : 15px;
     	flex        : 1 100%;
+    	@include gridle_state(mobile) {
+			padding-top : 8px;
+    	}
+    	@include gridle_state(tablet) {
+			padding-top : 15px;
+    	}
 	}
 
 
@@ -139,7 +154,6 @@ $darkSurface   : darken( $lightSurface, 20% );
 		}
 	}
 		[class^="navbar-back-icon_"] {
-			margin-top  : -1px;
 			font-size   : 1rem;
 			line-height : 1rem;			
 			@include gridle_state(mobile) {
@@ -168,9 +182,18 @@ $darkSurface   : darken( $lightSurface, 20% );
 				display : block;
 			}
 		}
-	[class^="navbar-title_"] { // [class^="navbar-branding_"]
+	[class^="navbar-title_"] {
 		display     : flex;
 		align-items : center;
+
+		&[class$="_appsuite"] {
+			@include gridle_state(mobile) {
+				display : none;
+			}
+			@include gridle_state(tablet) {
+				display : flex;	
+			}
+		}
 	}
 		[class^="navbar-title-icon_"] {
 			font-size     : 1.6rem;
@@ -216,10 +239,16 @@ $darkSurface   : darken( $lightSurface, 20% );
 		}
 
 		[class^="navbar-title-text_"] {
-			font-family  : "Open Sans", sans-serif;
-			font-size    : 1.6rem;
-			line-height  : 1.6rem;
-			font-weight  : 300;
+			font-family : "Open Sans", sans-serif;
+			font-weight : 300;
+			@include gridle_state(mobile) {
+				font-size   : 1.3rem;
+				line-height : 1.3rem;
+			}
+			@include gridle_state(tablet) {
+				font-size   : 1.6rem;
+				line-height : 1.6rem;
+			}
 
 			&[class$="_HBS"] {
 				text-transform : uppercase;
@@ -254,5 +283,11 @@ $darkSurface   : darken( $lightSurface, 20% );
 				display : none;
 				@include gridle_state(tablet) {
 					display : block;
+				}
+				&[class$="_appsuite"] {
+					display : none;
+					@include gridle_state(laptop) {
+						display : block;
+					}
 				}
 			}

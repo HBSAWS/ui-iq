@@ -1,12 +1,18 @@
 [class^="field_"] {
 	position    : relative;
 	width       : 100%;
-    padding     : 6px 17px;
     border      : 0px;
     outline     : 0px;
     font-size   : 0.7rem;
     font-family : $font__family;
     @include prefix(border-radius, 4px);
+
+    @include gridle_state(mobile) {
+        padding : 5px 17px;
+    }
+    @include gridle_state(tablet) {
+        padding : 6px 17px;
+    }
 
     &[class$="_accent"] {
         &::-webkit-input-placeholder {
