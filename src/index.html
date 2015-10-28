@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <title>HUVER</title>
         <link rel="stylesheet" href="css/UI.css">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -684,28 +684,26 @@
                                             <div class="exclude" data-js="toggleExclusion">
                                                 <div class="fader"></div>
                                                 <div class="exclude-content" data-ui-state="animate__off scale__down fade__out">
-                                                    <div class="exclude-content-header_">
-                                                        <div class="exclude-content-header-icon">
-                                                            <div data-ui-icon="file_exclusion  place__before"></div>
-                                                        </div>
-                                                        <div class="exclude-content-header-title">
-                                                            Exclusion
+                                                    <div class="exclude-content-header">
+                                                        <div class="exclude-content-header-overview">
+                                                            <div class="exclude-content-header-overview-icon" data-ui-icon="file_exclusion  place__before"></div>
+                                                            <div class="exclude-content-header-overview-title">
+                                                                Exclusion
+                                                            </div>
+                                                            <div class="exclude-content-header-overview-dates">
+                                                                <input class="exclude-content-header-overview-dates-input" type="date" data-js="activeExclusion__startDate exclusionStartDate__datePicker" required> - 
+                                                                <input class="exclude-content-header-overview-dates-input datepickr" type="date" placeholder="set end date" data-js="exclusionEndDate__datePicker" required>
+                                                            </div>
                                                         </div>
                                                         <div class="exclude-content-header-controls">
-                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="down-open place__before size__medium" data-js="toggleExclusionNote excludeToggle" style="margin-right : 10px;"></button>
+                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="down-open place__before size__medium" data-js="toggleExclusionNote excludeToggle"></button>
                                                             <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="trash place__before size__medium"></button>
-                                                        </div>
-                                                        <div class="exclude-content-header-dates">
-                                                            <input class="exclude-dates-input" data-js="activeExclusion__startDate exclusionStartDate__datePicker"> - 
-                                                            <input class="exclude-dates-input datepickr" placeholder="set end date" data-js="exclusionEndDate__datePicker">
                                                         </div>
                                                     </div>
                                                     <div class="exclude-content-note" data-js="toggleExclusionNotes">
                                                         <div class="exclude-note-input needsclick" contenteditable="true" placeholder="reason for excluding record..."></div>
-                                                        <button class="button__solid" data-ui-settings="size__small float__right margin__top-sm" data-js="submitExclusion">
-                                                            <div class="button-content_solid" data-ui-settings="size__small">
-                                                                submit
-                                                            </div>
+                                                        <button class="button__default" data-ui-settings="material__paper size__xsmall mount__thin" data-js="submitExclusion">
+                                                            submit
                                                         </button>
                                                     </div>
                                                 </div>

@@ -40,23 +40,41 @@
 }
 *[data-ui-icon~="size__large"] {
 	&:before {
-		margin-top  : 1px;
-		font-size   : 1.4rem;
-		line-height : 1.4rem;
+		margin-top : 1px;
+		@include gridle_state(mobile) {
+			font-size   : 1.2rem;
+			line-height : 1.2rem;
+		}
+		@include gridle_state(tablet) {
+			font-size   : 1.4rem;
+			line-height : 1.4rem;
+		}
 	}
 }
 *[data-ui-icon~="size__medium"] {
 	&:before {
-		margin-top  : 2px;
-		font-size   : 1rem;
-		line-height : 1rem;
+		margin-top : 2px;
+		@include gridle_state(mobile) {
+			font-size   : 0.8rem;
+			line-height : 0.8rem;
+		}
+		@include gridle_state(tablet) {
+			font-size   : 1rem;
+			line-height : 1rem;
+		}
 	}
 }
 *[data-ui-icon~="size__small"] {
 	&:before {
-		margin-top  : 2px;
-		font-size   : 0.6rem;
-		line-height : 0.6rem;
+		margin-top : 2px;
+		@include gridle_state(mobile) {
+			font-size   : 0.6rem;
+			line-height : 0.6rem;
+		}
+		@include gridle_state(tablet) {
+			font-size   : 0.45rem;
+			line-height : 0.45rem;
+		}
 	}
 }
 

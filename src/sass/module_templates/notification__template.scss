@@ -121,115 +121,179 @@
 	background : #F2C248;
 }
 	.exclude-content {
-		padding    : 15px 40px;
 		overflow   : hidden;
+		@include gridle_state(mobile) {
+			padding : 15px 30px;
+		}
+		@include gridle_state(tablet) {
+			padding : 15px 40px;
+		}
 
 		background : #F2C248;
 		color      : white;
 		@include prefix( transition, "transform .46s cubic-bezier(.43,0,0,1), opacity .46s cubic-bezier(.43,0,0,1)" );
 	}
-	.exclude-content-header {
-		display     : flex;
-		align-items : center;
-	}
-	.exclude-content-header-icon {
-		display : inline-block;
-		width   : 30px;
-		height  : 30px;
-		padding : 5px 9px 7px 9px;
-		@include prefix(border-radius, 4px);
-		background : white;
-		color      : #F2C248;
-		> div {
-			position    : relative;
-			margin-left : -1px;
-			margin-top  : -1px;
-			font-size   : 0.9rem;
+		.exclude-content-header {
+			display         : flex;
+			align-items     : center;
+			justify-content : space-between;
 		}
-	}
-	.exclude-content-header-title {
-		display        : inline-block;
-		margin-left    : 3px;
-		font-size      : 1.1rem;
-		font-weight    : 300;
-		vertical-align : middle;
-	}
-	.exclude-content-header-dates {
-		display     : inline-block;
-		margin-top  : 5px;
-		margin-left : 10px;
-		font-size   : 0.75rem;
-		font-weight : 300;
-	}
-		.exclude-dates-input {
-			width   : 90px;
-			padding : 6px 10px;
-			border  : 1px solid white;
-			outline : none;
-			@include prefix( border-radius, 4px );
+			.exclude-content-header-overview {
+				display     : flex;
+				align-items : center;
+			}
+				.exclude-content-header-overview-icon {
+					width           : 30px;
+					height          : 30px;
+					align-items     : center;
+					justify-content : center;
+					@include gridle_state(mobile) {
+						display : none;
+					}
+					@include gridle_state(tablet) {
+						display : flex;
+					}
+					@include prefix(border-radius, 4px);
+					background : white;
+					color      : #F2C248;
 
-			background : transparent;
-			color      : white;
-				&::-webkit-input-placeholder {
-					font-weight : 300;
-					font-style  : italic;
-					color       : rgba(255,255,255,0.7);
+					&:before {
+						font-size : 0.8rem;
+					}
 				}
-				&::-moz-placeholder { /* Firefox 18- */
-					font-weight : 300;
-					font-style  : italic;
-					color       : rgba(255,255,255,0.7);
+				.exclude-content-header-overview-title {
+					display        : inline-block;
+					margin-left    : 3px;
+					font-size      : 1.1rem;
+					font-weight    : 300;
+					vertical-align : middle;
 				}
-				&::-moz-placeholder {  /* Firefox 19+ */
+				.exclude-content-header-overview-dates {
+					display     : flex;
+					align-items : center;
+					margin-left : 5px;
+					font-size   : 0.75rem;
 					font-weight : 300;
-					font-style  : italic;
-					color       : rgba(255,255,255,0.7);
-				}
-				&::-ms-input-placeholder {  
-					font-weight : 300;
-					font-style  : italic;
-					color       : rgba(255,255,255,0.7);
-				}
-		}
-	.exclude-content-header-controls {
-		position : absolute;
-		top      : 15px;
-		right    : 40px;
-		display  : flex;
-	}
-	.exclude-content-note {
-		position : relative;
-		overflow : hidden;
-		will-change : height;
 
-		&[data-ui-state~="is__collapsed"] {
-			height : 0px;
-		}
-	}
-		.exclude-note-input {
-			width          : 100%;
-			padding-bottom : 3px;
-			margin-top     : 20px;
-			border         : 0px;
-			border-bottom  : 1px solid white;
-			resize         : none;
-			overflow       : auto;
-			outline        : none;
-			cursor         : text;
-			font-family    : "Open Sans", sans-serif;
-			font-size      : 0.8rem;
-			font-weight    : 300;
-			@include prefix( user-select, text );
-			background: transparent;
+					&[data-ui-state~="has__error"] {
+						&:before {
+							content : attr(placeholder);
+							color   : #ffffff;
+						}
+					}
+				}
+					.exclude-content-header-overview-dates-input {
+						margin  : 0px 5px;
+						padding : 6px 10px;
+						@include gridle_state(mobile) {
+							width     : 55px;
+							padding   : 4px 4px;
+							margin    : 0px 3px;
+							font-size : 0.55rem;
+							@include prefix( appearance, none );
+						}
+						@include gridle_state(tablet) {
+							width     : 90px;
+							padding   : 6px 10px;
+							font-size : 0.7rem;
+						}
+						border  : 1px solid white;
+						outline : none;
+						@include prefix( border-radius, 4px );
 
-			&:empty:before {
-				content     : attr(placeholder);
-				display     : block; /* For Firefox */
-				font-family : $font__family;
-				font-weight : 300;
-				font-size   : 0.8rem;
-				line-height : 0.8rem; 
-				font-style  : italic;
-				color       : rgba(255,255,255,0.7);
+						&:valid {
+							background : #ffffff;
+							color      : #151515;
+						}
+
+						&:invalid {
+							background : transparent;
+							color      : #ffffff;
+						}
+							&::-webkit-input-placeholder {
+								font-weight : 300;
+								font-style  : italic;
+								color       : rgba(255,255,255,0.7);
+							}
+							&::-moz-placeholder { /* Firefox 18- */
+								font-weight : 300;
+								font-style  : italic;
+								color       : rgba(255,255,255,0.7);
+							}
+							&::-moz-placeholder {  /* Firefox 19+ */
+								font-weight : 300;
+								font-style  : italic;
+								color       : rgba(255,255,255,0.7);
+							}
+							&::-ms-input-placeholder {  
+								font-weight : 300;
+								font-style  : italic;
+								color       : rgba(255,255,255,0.7);
+							}
+					}
+		.exclude-content-header-controls {
+			display  : flex;
+			> button {
+				@include gridle_state(mobile) {
+					margin-left : 7px;
+				}
+				@include gridle_state(tablet) {
+					margin-left : 10px;
+				} 
+				&:first-child {
+					margin-left : 0px;
+				}
 			}
 		}
+		.exclude-content-note {
+			position        : relative;
+			display         : flex;
+			flex-wrap       : wrap;
+			justify-content : flex-end;
+			overflow        : hidden;
+			will-change     : height;
+
+			&[data-ui-state~="is__collapsed"] {
+				height : 0px;
+			}
+		}
+			.exclude-note-input {
+				width          : 100%;
+				padding-bottom : 3px;
+				margin: 20px 0px;
+				border         : 0px;
+				border-bottom  : 1px solid white;
+				resize         : none;
+				overflow       : auto;
+				outline        : none;
+				cursor         : text;
+				font-family    : "Open Sans", sans-serif;
+				@include gridle_state(mobile) {
+					font-size   : 0.7rem;
+					line-height : 0.7rem; 
+				}
+				@include gridle_state(tablet) {
+					font-size   : 0.8rem;
+					line-height : 0.8rem; 
+				}
+				font-weight    : 300;
+				@include prefix( user-select, text );
+				background: transparent;
+
+				&:empty:before {
+					content     : attr(placeholder);
+					display     : block; /* For Firefox */
+					font-family : $font__family;
+					font-weight : 300;
+					@include gridle_state(mobile) {
+						font-size   : 0.7rem;
+						line-height : 0.7rem; 
+					}
+					@include gridle_state(tablet) {
+						font-size   : 0.8rem;
+						line-height : 0.8rem; 
+					}
+					font-style  : italic;
+					color       : rgba(255,255,255,0.7);
+				}
+			}

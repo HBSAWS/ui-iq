@@ -64,15 +64,8 @@
 	var calendar = {
 		exclusions : {
 			init : function() {
-				var calendar = new Pikaday({ 
-					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
-					format: 'D MMM YYYY',
-					onSelect: function() {
-					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
-					    this._o.field.value = formattedDate;
-					}
-				 });
-				var calendar = new Pikaday({ 
+				var calendarStart,calendarEnd,today,dd,mm,yyyy,mobileAdjust;
+				calendarStart = new Pikaday({ 
 					field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
 					format: 'D MMM YYYY',
 					onSelect: function() {
@@ -80,6 +73,32 @@
 					    this._o.field.value = formattedDate;
 					}
 				 });
+				calendarEnd = new Pikaday({ 
+					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
+					format: 'D MMM YYYY',
+					onSelect: function() {
+					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
+					    this._o.field.value = formattedDate;
+					}
+				 });
+
+				// by making the inputs readOnly we prevent the soft keyboard from opening when the input is focused
+				// this is important because in mobile view our date picker sits on the bottom of the screen and is full width
+				// so when the soft keyboard slides in, it covers our date picker
+				mobileAdjust = function(e) {
+					var isReadOnly;
+					if ( window.innerWidth < 768 || UI.utilities.isMobile ) {
+						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = "readonly";
+						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = "readonly";
+					} else {
+						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = false;
+						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = false;
+					}
+				};
+				mobileAdjust();
+				if ( !UI.utilities.isMobile ) {
+					window.addEventListener( 'resize', mobileAdjust );
+				}
 
 				var today = new Date();
 				var dd    = today.getDate();

@@ -229,15 +229,23 @@ h3 {
 
 
 	&[data-ui-state~="is__error"] {
-		background : $color__error !important;
+		color        : #ffffff;
+		background   : $color__error !important;
+		border-color : $color__error !important;
 		&[data-ui-settings~="material__paper"] {
-			background : $color__error !important;
+			color        : #ffffff;
+			background   : $color__error !important;
+			border-color : $color__error !important;
 		}
 		&[data-ui-settings~="material__film"] {
-			background : rgba($color__error, 0.96) !important;
+			color        : #ffffff;
+			background   : rgba($color__error, 0.96) !important;
+			border-color : rgba($color__error, 0.96) !important;
 		}
 		&[data-ui-settings~="material__transparency"] {
-			background : rgba($color__error, 0) !important;
+			color        : initial;
+			background   : rgba($color__error, 0) !important;
+			border-color : initial;
 		}
 	}
 	&[data-ui-state~="is__warning"] {

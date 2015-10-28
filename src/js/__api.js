@@ -46,6 +46,18 @@ UI = {
 			}),
 			change : new Event('change')
 		},
-		isMobile : /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+		isMobile : /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+		trigger : function (obj, evt) {
+			var fireOnThis = obj;
+			if( document.createEvent ) {
+				var evObj = document.createEvent('MouseEvents');
+				evObj.initEvent( evt, true, false );
+				fireOnThis.dispatchEvent( evObj );
+			}
+			else if( document.createEventObject ) { //IE
+				var evObj = document.createEventObject();
+				fireOnThis.fireEvent( 'on' + evt, evObj );
+			} 
+		} 
 	}
 };
