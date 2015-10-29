@@ -272,7 +272,7 @@
 			.exclude-note-input {
 				width          : 100%;
 				padding-bottom : 3px;
-				margin: 20px 0px;
+				margin 		   : 25px 0px 20px 0px;
 				border         : 0px;
 				border-bottom  : 1px solid white;
 				resize         : none;
@@ -291,6 +291,23 @@
 				font-weight    : 300;
 				@include prefix( user-select, text );
 				background: transparent;
+
+				&:empty:before {
+					content     : attr(placeholder);
+					display     : block; /* For Firefox */
+					font-family : $font__family;
+					font-weight : 300;
+					@include gridle_state(mobile) {
+						font-size   : 0.7rem;
+						line-height : 0.7rem; 
+					}
+					@include gridle_state(tablet) {
+						font-size   : 0.8rem;
+						line-height : 0.8rem; 
+					}
+					font-style  : italic;
+					color       : rgba(255,255,255,0.7);
+				}
 			}
 			.exlude-note-message {
 				position    : absolute;
