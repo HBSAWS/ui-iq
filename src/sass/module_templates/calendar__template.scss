@@ -26,6 +26,7 @@
             display    : inline-block;
             bottom     : 0px;
             height     : auto;
+            width      : 255px;
             padding    : 15px 10px 10px 10px;
             background : transparent;
             .pika-mobile-controls-button {
@@ -130,7 +131,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 }
 
 .pika-lendar {
-    float  : left;
+    //float  : left;
     width  : 240px;
     margin : 8px;
     @include gridle_state(below__tablet) {

@@ -229,16 +229,16 @@ h3 {
 
 
 	&[data-ui-state~="is__error"] {
-		color        : #ffffff;
+		color        : #ffffff !important;
 		background   : $color__error !important;
 		border-color : $color__error !important;
 		&[data-ui-settings~="material__paper"] {
-			color        : #ffffff;
+			color        : #ffffff !important;
 			background   : $color__error !important;
 			border-color : $color__error !important;
 		}
 		&[data-ui-settings~="material__film"] {
-			color        : #ffffff;
+			color        : #ffffff !important;
 			background   : rgba($color__error, 0.96) !important;
 			border-color : rgba($color__error, 0.96) !important;
 		}

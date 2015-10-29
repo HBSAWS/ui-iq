@@ -241,9 +241,15 @@ $darkSurface   : darken( $lightSurface, 20% );
 		[class^="navbar-title-text_"] {
 			font-family : "Open Sans", sans-serif;
 			font-weight : 300;
+			@include gridle_state(below__phablet) {
+				white-space   : nowrap;
+				text-overflow : ellipsis;
+				overflow-x    : hidden;
+				max-width     : 150px;
+			}
 			@include gridle_state(mobile) {
-				font-size   : 1.3rem;
-				line-height : 1.3rem;
+				font-size     : 1.3rem;
+				line-height   : 1.3rem;
 			}
 			@include gridle_state(tablet) {
 				font-size   : 1.6rem;

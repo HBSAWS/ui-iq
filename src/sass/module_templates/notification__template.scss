@@ -169,6 +169,7 @@
 					vertical-align : middle;
 				}
 				.exclude-content-header-overview-dates {
+					position    : relative;
 					display     : flex;
 					align-items : center;
 					margin-left : 5px;
@@ -177,8 +178,15 @@
 
 					&[data-ui-state~="has__error"] {
 						&:before {
-							content : attr(placeholder);
-							color   : #ffffff;
+							content     : attr(placeholder);
+							position    : absolute;
+							top         : 31px;
+							left        : 6px;
+							font-size   : 0.55rem;
+							line-height : 0.55rem;
+							font-style  : italic;
+
+							color       : #ffffff;
 						}
 					}
 				}
@@ -283,21 +291,24 @@
 				font-weight    : 300;
 				@include prefix( user-select, text );
 				background: transparent;
-
-				&:empty:before {
-					content     : attr(placeholder);
-					display     : block; /* For Firefox */
-					font-family : $font__family;
-					font-weight : 300;
-					@include gridle_state(mobile) {
-						font-size   : 0.7rem;
-						line-height : 0.7rem; 
-					}
-					@include gridle_state(tablet) {
-						font-size   : 0.8rem;
-						line-height : 0.8rem; 
-					}
-					font-style  : italic;
-					color       : rgba(255,255,255,0.7);
+			}
+			.exlude-note-message {
+				position    : absolute;
+				display     : block; /* For Firefox */
+				left        : 0px;
+				width       : calc( 100% + 60px );
+				font-family : $font__family;
+				font-weight : 400;
+				@include gridle_state(mobile) {
+					top         : 27px;
+					font-size   : 0.55rem;
+					line-height : 0.55rem; 
 				}
+				@include gridle_state(tablet) {
+					top         : 35px;
+					font-size   : 0.6rem;
+					line-height : 0.6rem; 
+				}
+				font-style  : italic;
+				color       : rgba(255,255,255,0.7);	
 			}

@@ -194,4 +194,70 @@
 		@include prefix(font-smoothing, subpixel-antialiased);
 		@include prefix(transform, translateZ(0) translateY(120%));
 	}
+
+
+
+
+
+
+
+	&[data-ui-state~="animation__shake"] {
+		@include prefix( animation, shake .35s ease-in-out );
+	}
+
+	@keyframes shake {
+		0% {
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(0) );
+			}
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(0) );
+			}
+		}
+
+		20% {
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(-5px) );
+			}
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(-10px) );
+			}
+		}
+
+		40% {
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(5px) );
+			}
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(10px) );
+			}
+		}
+
+		60% {
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(-5px) );
+			}
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(-10px) );
+			}
+		}
+
+		80% {
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(5px) );
+			}
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(10px) );
+			}
+		}
+
+		100% {
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(0) );
+			}
+			@include gridle_state(mobile) {	
+				@include prefix( transform, translateX(0) );
+			}
+		}
+	}
 }

@@ -64,7 +64,7 @@
 	var calendar = {
 		exclusions : {
 			init : function() {
-				var renderControls,calendarStart,calendarEnd,today,dd,mm,yyyy,mobileAdjust;
+				var dateValidation,renderControls,calendarStart,calendarEnd,today,dd,mm,yyyy,mobileAdjust;
 				renderControls = function() {
 					if ( window.innerWidth < 767 || UI.utilities.isMobile ) {
 						var renderedCalendarControls = this.el.querySelector(".pika-mobile-controls");
@@ -83,28 +83,44 @@
 						}
 					}
 				};
+				dateValidation = function() {
+					var __self, inputMessage;
+					__self       = this;
+					inputMessage = document.querySelector("[data-js~='exlusionDatesMessage']");
+
+					if ( calendarStart._o.field.value >= calendarEnd._o.field.value ) {
+						inputMessage.innerHTML = "The end date must come after the start date.";
+
+						UI.DOM.removeDataValue ( inputMessage,"data-ui-state","is__hidden" );
+						UI.DOM.addDataValue( __self._o.field, "data-ui-state", "is__error animation__shake");
+					} else {
+						UI.DOM.addDataValue ( inputMessage,"data-ui-state","is__hidden" );
+						UI.DOM.removeDataValue( calendarStart._o.field, "data-ui-state", "is__error animation__shake");	
+						UI.DOM.removeDataValue( calendarEnd._o.field, "data-ui-state", "is__error animation__shake");							
+					}
+				};
+
 				calendarStart = new Pikaday({ 
 					field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
-					format: 'D MMM YYYY',
+					format: 'MM/DD/YYYY',
+					onSelect: function() {
+					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
+					    this._o.field.value = formattedDate;
+					},
+					onOpen   : renderControls,
+					onDraw   : renderControls,
+					onSelect : dateValidation
+				 });
+				calendarEnd = new Pikaday({ 
+					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
+					format: 'MM/DD/YYYY',
 					onSelect: function() {
 					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
 					    this._o.field.value = formattedDate;
 					},
 					onOpen : renderControls,
 					onDraw : renderControls,
-					onClose : function() {
-						console.log("closed");
-					}
-				 });
-				calendarEnd = new Pikaday({ 
-					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
-					format: 'D MMM YYYY',
-					onSelect: function() {
-					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
-					    this._o.field.value = formattedDate;
-					},
-					onOpen : renderControls,
-					onDraw : renderControls
+					onSelect : dateValidation
 				 });
 				// IMPORTANT!! IN THE PIKADAY.JS FILE COMMENT OUT LINE 512
 				// the script has some mobile bugs - this fixes the one where the pikaday closes the calendar when you click the next button
@@ -116,10 +132,10 @@
 				mobileAdjust = function(e) {
 					var isReadOnly;
 					if ( window.innerWidth < 768 || UI.utilities.isMobile ) {
-						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = "readonly";
+						document.querySelector("[data-js~='exclusionStartDate__datePicker']").readOnly = "readonly";
 						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = "readonly";
 					} else {
-						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = false;
+						document.querySelector("[data-js~='exclusionStartDate__datePicker']").readOnly = false;
 						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = false;
 					}
 				};
@@ -134,7 +150,7 @@
 				var yyyy  = today.getFullYear();
 
 				var today = mm + '/' + dd + '/' + yyyy + ' ';
-				document.querySelector("[data-js~='activeExclusion__startDate']").value = today;
+				document.querySelector("[data-js~='exclusionStartDate__datePicker']").value = today;
 
 				// var calendars = document.querySelectorAll(".pika-single");
 				// for (var calendar = 0, totalCalendars = calendars.length; calendar < totalCalendars; calendar++ ) {
