@@ -186,20 +186,20 @@
 						margin  : 0px 5px;
 						padding : 6px 10px;
 						@include gridle_state(mobile) {
-							width     : 55px;
+							width     : 59px;
 							padding   : 4px 4px;
 							margin    : 0px 3px;
 							font-size : 0.55rem;
 							@include prefix( appearance, none );
+
+							background : #ffffff;
+							color      : #151515;
 						}
 						@include gridle_state(tablet) {
 							width     : 90px;
 							padding   : 6px 10px;
 							font-size : 0.7rem;
 						}
-						border  : 1px solid white;
-						outline : none;
-						@include prefix( border-radius, 4px );
 
 						&:valid {
 							background : #ffffff;
@@ -210,6 +210,10 @@
 							background : transparent;
 							color      : #ffffff;
 						}
+						border  : 1px solid white;
+						outline : none;
+						@include prefix( border-radius, 4px );
+
 							&::-webkit-input-placeholder {
 								font-weight : 300;
 								font-style  : italic;

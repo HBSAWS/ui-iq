@@ -7,27 +7,48 @@
 
 // ADDED BY PETER KLOSS
     .pika-mobile-controls {
-        position        : absolute;
-        display         : flex;
+        z-index         : 10000;
         align-items     : center;
         justify-content : space-between;
-        top             : -47px;
         left            : 0px;
         width           : 100%;
-        height          : 44px;
-        padding         : 0px 25px;
-        background      : rgba(47, 50, 56, 0.96);
         @include prefix(border-radius, 4px);
+        @include gridle_state(mobile) {
+            position   : absolute;
+            display    : flex;
+            bottom     : -47px;
+            height     : 44px;
+            padding    : 0px 25px;
+            background : rgba(47, 50, 56, 0.96);            
+        }
+        @include gridle_state(tablet) {
+            position   : relative;
+            display    : inline-block;
+            bottom     : 0px;
+            height     : auto;
+            padding    : 15px 10px 10px 10px;
+            background : transparent;
+            .pika-mobile-controls-button {
+                &:last-child {
+                    float : right;
+                }
+            }
+        }
     }
         .pika-mobile-controls-button {
             position    : relative;
             height      : 100%;
-            background  : transparent;
             border      : 0px;
-            color       : white;
             font-family : "Open Sans", sans-serif;
             font-size   : 0.85rem;
             font-weight : 300;
+            cursor      : pointer;
+
+            color       : white;
+            background  : transparent;
+            @include gridle_state(tablet) {
+                font-weight : 400; 
+            }
         }
 // ADDED BY PETER KLOSS
 
@@ -45,12 +66,12 @@
     @include prefix(border-radius, 4px);
 
     @include gridle_state(below__tablet) {
-        position : fixed !important;
-        top      : auto !important;
-        bottom   : 0px !important;
-        left     : 0px !important;
-        width    : 100%;
-        margin   : 0px;
+        position    : fixed !important;
+        top         : auto !important;
+        bottom      : 49px !important;
+        left        : 50% !important;
+        width       : 99%;
+        margin-left : -49.5%;
         &:before {
             display : none !important;
         }
@@ -90,7 +111,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .pika-single.is-hidden {
     @include gridle_state(mobile) {
         visibility : hidden; 
-        @include prefix( transform, translateY(105%) !important );
+        @include prefix( transform, translateY( calc(105% + 47px) )  !important );
         @include prefix(transition, "visibility 0.3s, transform 0.27s cubic-bezier(.19,1,.22,.97) !important" ); 
         -webkit-transition : visibility 0.3s, -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97) !important; 
     }
@@ -103,7 +124,6 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     position   : absolute;
     @include prefix( box-shadow, 0 0 22px 0 rgba(0,0,0,.18) );
 
-
     @include prefix( transform, translateY(0%) );
     @include prefix(transition, "visibility 0s, transform 0.27s cubic-bezier(.19,1,.22,.97)" ); 
     -webkit-transition : visibility 0s, -webkit-transform 0.27s cubic-bezier(.19,1,.22,.97); 
@@ -114,7 +134,8 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     width  : 240px;
     margin : 8px;
     @include gridle_state(below__tablet) {
-        width : 100%;
+        width  : 100%;
+        margin : 0px !important;
     }
 }
 
@@ -122,6 +143,9 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     position      : relative;
     text-align    : center;
     margin-bottom : 20px;
+    @include gridle_state(below__tablet) {
+        margin-bottom : 12px;
+    }
 }
 
 .pika-label {

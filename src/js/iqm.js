@@ -64,13 +64,36 @@
 	var calendar = {
 		exclusions : {
 			init : function() {
-				var calendarStart,calendarEnd,today,dd,mm,yyyy,mobileAdjust;
+				var renderControls,calendarStart,calendarEnd,today,dd,mm,yyyy,mobileAdjust;
+				renderControls = function() {
+					if ( window.innerWidth < 767 || UI.utilities.isMobile ) {
+						var renderedCalendarControls = this.el.querySelector(".pika-mobile-controls");
+						if ( renderedCalendarControls == null ) {
+							var __self, calendarControls;
+							calendarControls = '<div class="pika-mobile-controls"><button class="pika-mobile-controls-button" data-js="closeCalendar">Close</button><button class="pika-mobile-controls-button" data-js="clearCalendarInput">Clear</button></div>';
+							__self           = this;
+
+							__self.el.insertAdjacentHTML( "beforeend", calendarControls );
+							__self.el.querySelector("[data-js='closeCalendar']").addEventListener( "click", function() {
+								__self.hide();
+							});
+							__self.el.querySelector("[data-js='clearCalendarInput']").addEventListener( "click", function() {
+								__self._o.field.value = "";
+							});
+						}
+					}
+				};
 				calendarStart = new Pikaday({ 
 					field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
 					format: 'D MMM YYYY',
 					onSelect: function() {
 					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
 					    this._o.field.value = formattedDate;
+					},
+					onOpen : renderControls,
+					onDraw : renderControls,
+					onClose : function() {
+						console.log("closed");
 					}
 				 });
 				calendarEnd = new Pikaday({ 
@@ -79,8 +102,13 @@
 					onSelect: function() {
 					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
 					    this._o.field.value = formattedDate;
-					}
+					},
+					onOpen : renderControls,
+					onDraw : renderControls
 				 });
+				// IMPORTANT!! IN THE PIKADAY.JS FILE COMMENT OUT LINE 512
+				// the script has some mobile bugs - this fixes the one where the pikaday closes the calendar when you click the next button
+				// in mobile when the input field gets a blur event it closes the calendar
 
 				// by making the inputs readOnly we prevent the soft keyboard from opening when the input is focused
 				// this is important because in mobile view our date picker sits on the bottom of the screen and is full width
@@ -107,6 +135,13 @@
 
 				var today = mm + '/' + dd + '/' + yyyy + ' ';
 				document.querySelector("[data-js~='activeExclusion__startDate']").value = today;
+
+				// var calendars = document.querySelectorAll(".pika-single");
+				// for (var calendar = 0, totalCalendars = calendars.length; calendar < totalCalendars; calendar++ ) {
+				// 	var currentCalendar  = calendars[calendar];
+				// 	var calendarControls = '<div class="pika-mobile-controls"><button class="pika-mobile-controls-button" data-js="closeCalendar">Close</button><button class="pika-mobile-controls-button" data-js="clearCalendarInput">Clear</button></div>'
+				// 	currentCalendar.insertAdjacentHTML( "beforeend", calendarControls );
+				// }
 			}
 		}
 	};
