@@ -7,10 +7,16 @@
 	right      : 0;
 	bottom     : 0;
 	left       : 0;
-	padding    : 10px 10px 0;
 	overflow   : auto;
 	text-align : center;
 	@include prefix(overflow-scrolling, touch);
+
+	@include gridle_state(mobile) {
+		padding : 60px 10px;
+	}
+	@include gridle_state(tablet) {
+		padding : 10px;
+	}
 
 	&:after {
 		vertical-align : middle;

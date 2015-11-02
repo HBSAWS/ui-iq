@@ -2,7 +2,9 @@ UI = {
 	actionsheet : function(DOMelement,settings) {
 		return new UI_actionsheet(DOMelement,settings);
 	},
-	animate   : UI_animate.animate,
+	animate   : function(DOMelement,settings) {
+		new UI_animate(DOMelement,settings);
+	},
 	collection : function(items,activeItem) {
 		return new UI_collection(items,activeItem);
 	},

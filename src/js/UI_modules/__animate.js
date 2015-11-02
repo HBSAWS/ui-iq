@@ -1,86 +1,299 @@
-// can either animate a host of CSS properties, OR a prebuilt animation from the library
-// some prebuilt animations need two elements, simply submit them as an array
-// we initialize the anima library
-var world      = anima.world();
-var UI_animate = {
-	el         : undefined,
-	toAnimate  : undefined,
-	animation  : undefined,
-	onComplete : undefined,
-	animate : function(settings) {
-		var __self;
-		__self = UI_animate;
-		if ( settings.animation === "collapse" || settings.animation === "expand" ) {
-			__self.toAnimate  = world.add( settings.el );
-			//__self.__onComplete = settings.onComplete || undefined;
-		}
-		__self.el = settings.el;
+UI_animate = function(DOMelement, settings) {
+	var __self;
+	__self = this;
 
-		if ( settings.animation !== undefined ) {
-			var animation = settings.animation;
-			__self[animation]();
-		}
-	},
-	collapse : function() {
-		var __self,newHeight;
-		__self = this;
+	__self.el             = DOMelement;
+	// the anima init and object instantiation
+	__self.animaObj       = anima.world()
+	__self.anima          = __self.animaObj.add( __self.el );
+	// the predefined animation functions are : collapse, expand and swap
+	// these are the only animationNames currently allowed
+	__self.animationName  = settings.animationName;
+	__self.properties     = settings.properties;
+	__self.speed          = settings.speed;
+	__self.onComplete     = settings.onComplete;
+	__self.onStart        = settings.onStart;
+	__self.delay          = settings.delay;
 
-		__self.toAnimate.animate({ 
-			height   : "0px",
-			duration : 120,
-			ease     : 'cubic-bezier(.43,0,0,1)',
-			delay    : 140
-		});
-	},
-	expand : function() {
-		var __self,newHeight;
-		__self    = this;
-		newHeight = __self.el.scrollHeight;
+	// we only define this if a premade animation function isn't being called
+	__self.customAnimation = undefined;
 
-		__self.toAnimate.animate({ 
-			height   : newHeight + "px",
-			duration : 130,
-			ease     : "cubic-bezier(.43,0,0,1)"
-		})
-		.on('end', function() {
-			__self.el.style.height = "auto";
-		});
-	},
-	swap : function() {
-		var __self,oldItem,newItem,oldItemInner,newItemInner,oldItem__outerAnimation,oldItem__innerAnimation,newItem__outerPreAnimation,newItem__innerPreAnimation,newItem__outerAnimation,newItem__innerAnimation;
-		__self = this;
-		oldItem      = __self.el[0];
-		newItem 	 = __self.el[1];
-		oldItemInner = oldItem.querySelector("[data-js~='animateInner']");
-		newItemInner = newItem.querySelector("[data-js~='animateInner']");
-
-		// these items immediately animate
-		oldItem__outerAnimation = "animate__out-delay move__top";
-		oldItem__innerAnimation = "animate__out scale__down rotate__top";
-
-		// we need to make sure these items are in the right position before animating them
-		// so we need to preanimate them (or setup)
-		newItem__outerPreAnimation = "animate__off move__top";
-		newItem__innerPreAnimation = "animate__off scale__down rotate__top";
-		// once we've preanimated or setup our elements we can animate them in
-		newItem__outerAnimation = "animate__in-delay-sm";
-		newItem__innerAnimation = "animate__in-delay-lg";
-
-
-		oldItem.setAttribute("data-ui-state", oldItem__outerAnimation);
-		oldItemInner.setAttribute("data-ui-state", oldItem__innerAnimation);
-
-		newItem.setAttribute("data-ui-state", newItem__outerPreAnimation);
-		newItem.offsetTop;
-
-		newItemInner.setAttribute("data-ui-state", newItem__innerPreAnimation);
-		newItemInner.offsetTop;
-
-		newItem.setAttribute("data-ui-state", newItem__outerAnimation);
-		newItemInner.setAttribute("data-ui-state", newItem__innerAnimation);
-	},
-	downAndOut : undefined
+	__self.initialize(__self);
 };
+
+UI_animate.prototype.initialize = function(__self) {
+	if ( __self.speed === "fast" ) {
+		__self.speed = 120;
+	} else if ( __self.speed === "medium" ) {
+		__self.speed = 200;
+	} else if ( __self.speed === "slow" ) {
+		__self.speed = 300;
+	} else if ( __self.speed === "instant" ) {
+		__self.speed = 0;
+	}
+
+	if ( __self.animationName !== undefined ) {
+		__self[ __self.animationName ]();
+	}
+
+	// if there isn't a animation name defined by the user we assume it's a custom function
+	if ( __self.animationName == undefined && __self.properties !== undefined ) {
+		for ( var property in __self.properties ) {
+			__self.customAnimation[ property ] = __self.properties[property];
+		}
+		__self.customAnimation.duration = ( __self.duration == undefined ) ? 400                       : __self.delay;
+		__self.customAnimation.ease     = ( __self.ease == undefined )     ? "cubic-bezier(.43,0,0,1)" : __self.ease;
+		__self.delay                    = ( __self.delay == undefined )    ? 0                         : __self.delay;
+
+		__self.anima.animate( __self.customAnimation )
+			.on('start', function() {
+				if ( __self.onStart !== undefined ) {
+					__self.onStart(this);
+				}
+			})
+			.on('end', function() {
+				if ( __self.onComplete !== undefined ) {
+					__self.onComplete(this);
+				}
+			});
+	}
+
+};
+
+UI_animate.prototype.collapse = function() {
+	var __self,duration,delay;
+	__self = this;
+
+	if ( __self.speed == undefined ) {
+		duration = 120;
+	} else {
+		duration = __self.speed;
+	}
+
+	if ( __self.delay == undefined ) {
+		delay = 140;
+	} else {
+		delay = __self.delay;
+	}
+
+	__self.anima.animate({ 
+		height   : "0px",
+		duration : duration,
+		ease     : 'cubic-bezier(.43,0,0,1)',
+		delay    : 140
+	})
+	.on('start', function() {
+		if ( __self.onStart !== undefined ) {
+			__self.onStart(this);
+		}
+	})
+	.on('end', function() {
+		if ( __self.onComplete !== undefined ) {
+			__self.onComplete(this);
+		}
+	});
+};
+UI_animate.prototype.expand = function() {
+	var __self,duration,delay,newHeight;
+	__self    = this;
+
+	if ( __self.speed == undefined ) {
+		duration = 130;
+	} else {
+		duration = __self.speed;
+	}
+
+	if ( __self.delay == undefined ) {
+		delay = 0;
+	} else {
+		delay = __self.delay;
+	}
+
+	newHeight = __self.el.scrollHeight;
+	__self.anima.animate({ 
+		height   : newHeight + "px",
+		duration : duration,
+		ease     : "cubic-bezier(.43,0,0,1)",
+		delay    : delay
+	})
+	.on('start', function() {
+		if ( __self.onStart !== undefined ) {
+			__self.onStart(this);
+		}
+	})
+	.on('end', function() {
+		__self.el.style.height = "auto";
+		if ( __self.onComplete !== undefined ) {
+			__self.onComplete(this);
+		}
+	});
+};
+UI_animate.prototype.swap = function() {
+	var __self,oldItem,newItem,oldItemInner,newItemInner,oldItem__outerAnimation,oldItem__innerAnimation,newItem__outerPreAnimation,newItem__innerPreAnimation,newItem__outerAnimation,newItem__innerAnimation;
+	__self       = this;
+	oldItem      = __self.el[0];
+	newItem 	 = __self.el[1];
+	oldItemInner = oldItem.querySelector("[data-js~='animateInner']");
+	newItemInner = newItem.querySelector("[data-js~='animateInner']");
+
+	// these items immediately animate
+	oldItem__outerAnimation = "animate__out-delay move__top";
+	oldItem__innerAnimation = "animate__out scale__down rotate__top";
+
+	// we need to make sure these items are in the right position before animating them
+	// so we need to preanimate them (or setup)
+	newItem__outerPreAnimation = "animate__off move__top";
+	newItem__innerPreAnimation = "animate__off scale__down rotate__top";
+	// once we've preanimated or setup our elements we can animate them in
+	newItem__outerAnimation = "animate__in-delay-sm";
+	newItem__innerAnimation = "animate__in-delay-lg";
+
+
+	oldItem.setAttribute("data-ui-state", oldItem__outerAnimation);
+	oldItemInner.setAttribute("data-ui-state", oldItem__innerAnimation);
+
+	newItem.setAttribute("data-ui-state", newItem__outerPreAnimation);
+	newItem.offsetTop;
+
+	newItemInner.setAttribute("data-ui-state", newItem__innerPreAnimation);
+	newItemInner.offsetTop;
+
+	newItem.setAttribute("data-ui-state", newItem__outerAnimation);
+	newItemInner.setAttribute("data-ui-state", newItem__innerAnimation);
+};
+
+
+	// toAnimate  : undefined,
+	// animation  : undefined,
+	// speed      : undefined,
+	// onComplete : undefined,
+	// speeds allowed :
+		// fast
+		// medium
+		// slow
+		// instant
+		// undefined default value will be used
+		// number - will be animated in miliseconds
+	// animation names allowed : 
+		// collapse
+		// expand
+		// swap
+	// settings = {
+		// el         : the DOM element to be animated
+		// animation  : the name of the animation (list written above ^^),
+		// speed      : the desired animation speed - if left blank a default speed will be used,
+		// onComplete : the function to be called after the animation is finished, access to the animated element is given 
+	// }
+// 	animate : function(settings) {
+// 		var __self;
+// 		__self = UI_animate;
+// 		if ( settings.onComplete !== undefined ) {
+// 			__self.onComplete = settings.onComplete;
+// 		}
+// 		if ( settings.speed !== undefined ) {
+// 			__self.speed = settings.speed;
+// 		} else if ( settings.speed === "fast" ) {
+// 			__self.speed = 120;
+// 		} else if ( settings.speed === "medium" ) {
+// 			__self.speed = 200;
+// 		} else if ( settings.speed === "slow" ) {
+// 			__self.speed = 300;
+// 		} else if ( settings.speed === "instant" ) {
+// 			__self.speed = 0;
+// 		}
+
+// 		if ( settings.animation === "collapse" || settings.animation === "expand" ) {
+// 			__self.toAnimate  = world.add( settings.el );
+// 			//__self.__onComplete = settings.onComplete || undefined;
+// 		}
+// 		__self.el = settings.el;
+
+// 		if ( settings.animation !== undefined ) {
+// 			var animation = settings.animation;
+// 			__self[animation]();
+// 		}
+// 	},
+// 	collapse : function() {
+// 		var __self,newHeight, duration;
+// 		__self = this;
+
+// 		if ( __self.speed == undefined ) {
+// 			duration = 120;
+// 		} else {
+// 			duration = __self.speed;
+// 		}
+
+// 		__self.toAnimate.animate({ 
+// 			height   : "0px",
+// 			duration : duration,
+// 			ease     : 'cubic-bezier(.43,0,0,1)',
+// 			delay    : 140
+// 		})
+// 		.on ('end', function() {
+// 			if ( __self.onComplete !== undefined ) {
+// 				__self.onComplete(this);
+// 				__self.onComplete = undefined;
+// 			}
+// 		});
+// 	},
+// 	expand : function() {
+// 		var __self,newHeight,duration;
+// 		__self    = this;
+// 		newHeight = __self.el.scrollHeight;
+
+// 		if ( __self.speed == undefined ) {
+// 			duration = 130;
+// 		} else {
+// 			duration = __self.speed;
+// 		}
+
+// 		__self.toAnimate.animate({ 
+// 			height   : newHeight + "px",
+// 			duration : duration,
+// 			ease     : "cubic-bezier(.43,0,0,1)"
+// 		})
+// 		.on('end', function() {
+// 			__self.el.style.height = "auto";
+// 			if ( __self.onComplete !== undefined ) {
+// 				__self.onComplete(this);
+// 			}
+// 		});
+// 	},
+// 	swap : function() {
+// 		var __self,oldItem,newItem,oldItemInner,newItemInner,oldItem__outerAnimation,oldItem__innerAnimation,newItem__outerPreAnimation,newItem__innerPreAnimation,newItem__outerAnimation,newItem__innerAnimation;
+// 		__self = this;
+// 		oldItem      = __self.el[0];
+// 		newItem 	 = __self.el[1];
+// 		oldItemInner = oldItem.querySelector("[data-js~='animateInner']");
+// 		newItemInner = newItem.querySelector("[data-js~='animateInner']");
+
+// 		// these items immediately animate
+// 		oldItem__outerAnimation = "animate__out-delay move__top";
+// 		oldItem__innerAnimation = "animate__out scale__down rotate__top";
+
+// 		// we need to make sure these items are in the right position before animating them
+// 		// so we need to preanimate them (or setup)
+// 		newItem__outerPreAnimation = "animate__off move__top";
+// 		newItem__innerPreAnimation = "animate__off scale__down rotate__top";
+// 		// once we've preanimated or setup our elements we can animate them in
+// 		newItem__outerAnimation = "animate__in-delay-sm";
+// 		newItem__innerAnimation = "animate__in-delay-lg";
+
+
+// 		oldItem.setAttribute("data-ui-state", oldItem__outerAnimation);
+// 		oldItemInner.setAttribute("data-ui-state", oldItem__innerAnimation);
+
+// 		newItem.setAttribute("data-ui-state", newItem__outerPreAnimation);
+// 		newItem.offsetTop;
+
+// 		newItemInner.setAttribute("data-ui-state", newItem__innerPreAnimation);
+// 		newItemInner.offsetTop;
+
+// 		newItem.setAttribute("data-ui-state", newItem__outerAnimation);
+// 		newItemInner.setAttribute("data-ui-state", newItem__innerAnimation);
+// 	},
+// 	downAndOut : undefined
+// };
 
 
 

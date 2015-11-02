@@ -59,8 +59,11 @@
 		}
 	};
 
+// code snippet to convert the date format Igor is using to the UI format
+// moment("2015-10-29T19:01:54.749+0000", "YYYY-MM-DDTHH:mm:ss.SSSSZ").format('MM/DD/YYYY');
 
-
+// code snippet to convert UI dates to format Igor is using:
+// moment("10/29/2015","'MM/DD/YYYY'").format("YYYY-MM-DDTHH:mm:ss.SSSSZ");
 	var calendar = {
 		exclusions : {
 			init : function() {
@@ -144,20 +147,24 @@
 					window.addEventListener( 'resize', mobileAdjust );
 				}
 
-				var today = new Date();
-				var dd    = today.getDate();
-				var mm    = today.getMonth()+1;
-				var yyyy  = today.getFullYear();
+				today = new Date();
+				dd    = today.getDate();
+				mm    = today.getMonth()+1;
+				yyyy  = today.getFullYear();
 
-				var today = mm + '/' + dd + '/' + yyyy + ' ';
+				today = mm + '/' + dd + '/' + yyyy + ' ';
 				document.querySelector("[data-js~='exclusionStartDate__datePicker']").value = today;
+			},
+			reset : function() {
+				var today,dd,mm,yyyy,today;
+				today = new Date();
+				dd    = today.getDate();
+				mm    = today.getMonth()+1;
+				yyyy  = today.getFullYear();
 
-				// var calendars = document.querySelectorAll(".pika-single");
-				// for (var calendar = 0, totalCalendars = calendars.length; calendar < totalCalendars; calendar++ ) {
-				// 	var currentCalendar  = calendars[calendar];
-				// 	var calendarControls = '<div class="pika-mobile-controls"><button class="pika-mobile-controls-button" data-js="closeCalendar">Close</button><button class="pika-mobile-controls-button" data-js="clearCalendarInput">Clear</button></div>'
-				// 	currentCalendar.insertAdjacentHTML( "beforeend", calendarControls );
-				// }
+				today = mm + '/' + dd + '/' + yyyy + ' ';
+				document.querySelector("[data-js~='exclusionStartDate__datePicker']").value = today;
+				document.querySelector("[data-js~='exclusionEndDate__datePicker']").value = "";
 			}
 		}
 	};
@@ -223,10 +230,7 @@
 				UI.DOM.removeDataValue( appsSettings,"data-ui-state","is__hidden" );
 				UI.DOM.addDataValue( appsGrid,"data-ui-state","is__hidden" );
 
-				UI.animate({
-					animation : "swap",
-					el 		  : [app,apps]
-				});
+				UI.animate([app,apps], { animationName : "swap" });
 				this.UI.show("top");
 				cuboids.appSuite.isAppSuiteOpen = true;
 			},
@@ -241,10 +245,7 @@
 				UI.DOM.removeDataValue( appsGrid,"data-ui-state","is__hidden" );
 				UI.DOM.addDataValue( appsSettings,"data-ui-state","is__hidden" );
 
-				UI.animate({
-					animation : "swap",
-					el 		  : [app,apps]
-				});
+				UI.animate([app,apps], { animationName : "swap" });
 				this.UI.show("bottom");
 				cuboids.appSuite.isAppSuiteOpen = true;
 			},
@@ -254,10 +255,7 @@
 				apps   = document.querySelector("[data-js~='appSuite__apps']");
 				app    = document.querySelector("[data-js~='appSuite__app']");
 
-				UI.animate({
-					animation : "swap",
-					el 		  : [apps,app]
-				});
+				UI.animate([apps,app], { animationName : "swap" });
 
 				this.UI.show("front");
 				setTimeout(function() {
@@ -287,52 +285,138 @@
 
 
 
+	// code snippet to convert the date format Igor is using to the UI format
+	// moment("2015-10-29T19:01:54.749+0000", "YYYY-MM-DDTHH:mm:ss.SSSSZ").format('MM/DD/YYYY');
 
+	// code snippet to convert UI dates to format Igor is using:
+	// moment("10/29/2015","'MM/DD/YYYY'").format("YYYY-MM-DDTHH:mm:ss.SSSSZ");
 	var exclusions = {
-		el : document.querySelector("[data-js~='toggleExclusion']"),
+		exclusion            : document.querySelector("[data-js~='exclusion']"),
+		exclusionNoteWrapper : document.querySelector("[data-js~='exclusionNoteWrapper']"),
+		exclusionNote        : document.querySelector("[data-js~='exclusionNote']"),
+		exclusionTogglers    : document.querySelectorAll("[data-js~='exclusionToggler']"),
+		exclusionNoteToggler : document.querySelector("[data-js~='exclusionNoteToggler']"),
+		exclusionSubmitBtn   : document.querySelector("[data-js~='submitExclusion']"),
 		init : function() {
 			var __self,excludeToggle;
-			__self        = this;
-			excludeToggle = document.querySelectorAll("[data-js~='excludeToggle']");
+			__self = this;
 
-			for ( var toggle = 0, len = excludeToggle.length; toggle < len; toggle++ ) {
-				var currentToggle = excludeToggle[toggle];
-				currentToggle.addEventListener('change', function() {
-					if ( currentToggle.checked == true ) {
-						__self.openExclusions();
+			for ( var toggler = 0, totalTogglers = __self.exclusionTogglers.length; toggler < totalTogglers; toggler++ ) {
+				var currentToggler = __self.exclusionTogglers[toggler];
+				currentToggler.addEventListener('change', function() {
+					if ( currentToggler.checked == true ) {
+						__self.openExclusion();
 					} else {
-						__self.closeExclusions();
+						__self.closeExclusion();
 					}
 				});			
 			}
 
-			document.querySelector("[data-js~='submitExclusion']").addEventListener('click', function() {
-				UI.animate({ el : document.querySelector("[data-js~='toggleExclusionNotes']"),animation : "collapse"});
+			// the submit button click event listener
+			__self.exclusionSubmitBtn.addEventListener('click', function() {
+				UI.animate( __self.exclusionNote, { animationName : "collapse" });
 			});
 
-			document.querySelector("[data-js~='toggleExclusionNote']").addEventListener('click', function() {	
+			// the event listener for the btn that toggles the exclusion open and close
+			__self.exclusionNoteToggler.addEventListener('click', function(e) {	
 				var __el,exclusionNotes; 
-				__el           = this;
-				exclusionNotes = document.querySelector("[data-js~='toggleExclusionNotes']");
+				__el = e.currentTarget;
 
-				if ( exclusionNotes.offsetHeight > 0 ) {
-					// if the current rendered height is greater than zero we'll collapse it, other wise we'll expand it
-					__el.setAttribute("data-ui-state", "animate__out rotate__90-neg");
-					UI.animate({ el : exclusionNotes, animation : "collapse"});
+				if ( __self.exclusionNoteWrapper.offsetHeight > 0 ) {
+					// if the current rendered height of the exclusion note is greater than 0
+					// then we'll collapse the note because it's open
+					__self.closeExclusionNote();
 				} else {
-					__el.setAttribute("data-ui-state", "animate__out");
-					UI.animate({ el : exclusionNotes, animation : "expand"});
+					// if the current rendered height of the exclusion note is not greater than 0
+					// then we know it's collapsed and we should be expanding it
+					__self.openExclusionNote();
 				}
 			});
 
 		},
-		openExclusions : function() {
-			UI.animate({el : document.querySelector(".exclude"),animation : "expand"});
-			document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out");
+		populateExclusion : function(recordId) {
+			var __self,exclusion,startDate,endDate;
+			__self    = this;
+			exclusion = file.records[recordId].exclusion;
+			startDate = moment( exclusion.startDate, "YYYY-MM-DDTHH:mm:ss.SSSSZ").format('MM/DD/YYYY');
+			if ( exclusion.endDate !== undefined ) {
+				endDate = moment( exclusion.endDate, "YYYY-MM-DDTHH:mm:ss.SSSSZ").format('MM/DD/YYYY');
+				// set UI end date
+				document.querySelector("[data-js~='exclusionEndDate__datePicker']").value = endDate;
+			}
+
+			// set UI start date
+			document.querySelector("[data-js~='exclusionStartDate__datePicker']").value = startDate;
+			// populates the exclusion note
+			__self.exclusionNote.innerHTML = exclusion.note;
 		},
-		closeExclusions : function() {
-			UI.animate({el : document.querySelector(".exclude"),animation : "collapse"});
-			document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out scale__down fade__out");
+		unPopulateExclusion : function() {
+			var __self;
+			__self = this;
+
+			calendar.exclusions.reset();
+			__self.exclusionNote.innerHTML = "";	
+		},
+		updateExclusion : function(recordId) {
+
+		},
+		closeExclusionNote : function() {
+			var __self;
+			__self = this;
+
+			UI.DOM.addDataValue( __self.exclusionNoteToggler, "data-ui-state", "animate__out rotate__90-neg" );
+			UI.animate( __self.exclusionNoteWrapper, { animationName : "collapse" });
+		},
+		openExclusionNote : function() {
+			var __self;
+			__self = this;
+
+			UI.animate( __self.exclusionNoteWrapper, { animationName : "expand" });
+			UI.DOM.removeDataValue( __self.exclusionNoteToggler, "data-ui-state", "rotate__90-neg" );
+		},
+		openExclusion : function(noteCollapsed) {
+			var __self,exclusionNoteToggler,exclusionNote,openExclusionUI;
+			__self = this;
+
+			openExclusionUI = function() {
+				var exclusionChecks;
+
+				UI.animate( document.querySelector(".exclude"), { animationName : "expand"});
+				document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out");
+
+				for ( var exclusionToggler = 0, totalExclusionTogglers = __self.exclusionTogglers.length; exclusionToggler < totalExclusionTogglers; exclusionToggler++ ) {
+					var currentExclusionCheck = __self.exclusionTogglers[exclusionToggler];
+					if ( currentExclusionCheck.checked !== true ) {
+						currentExclusionCheck.checked = true;
+					}
+				}
+			};
+			if ( noteCollapsed ) {
+				UI.DOM.addDataValue( __self.exclusionNoteToggler, "data-ui-state", "rotate__90-neg" );
+				UI.animate( __self.exclusionNoteWrapper, { 
+					animationName : "collapse",
+					speed         : 0,
+					onComplete    : openExclusionUI
+				});
+			} else {
+				__self.openExclusionNote();
+				openExclusionUI();				
+			}
+		},
+		closeExclusion : function() {
+			var __self;
+			__self = this;
+
+			UI.animate( __self.exclusion, { animationName : "collapse"} );
+			UI.DOM.addDataValue( document.querySelector(".exclude-content"), "data-ui-state", "animate__out scale__down fade__out" );
+			//document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out scale__down fade__out");
+
+			for ( var exclusionToggler = 0, totalExclusionTogglers = __self.exclusionTogglers.length; exclusionToggler < totalExclusionTogglers; exclusionToggler++ ) {
+				var currentExclusionCheck = __self.exclusionTogglers[exclusionToggler];
+				if ( currentExclusionCheck.checked == true ) {
+					currentExclusionCheck.checked = false;
+				}
+			}
 		}
 	};
  
@@ -366,7 +450,7 @@
 				iFrameURL = file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + recordID;
 
 				
-				modals.iframe.iFrame.setAttribute('src', iFrameURL);	
+				//modals.iframe.iFrame.setAttribute('src', iFrameURL);	
 			}
 		}
 	};
@@ -947,8 +1031,20 @@
 				record   = file.records[recordID];
 				toAdd    = [];
 
+				if ( recordID === file.records.active ) {
+					return;
+				}
 				// update the modal iframesource
-				modals.iframe.updateModaliFrameSource(recordID);
+				//modals.iframe.updateModaliFrameSource(recordID);
+
+				// check if this record has an exclusion
+				if ( record.exclusion !== undefined ) {
+					exclusions.populateExclusion(recordID);
+					exclusions.openExclusion(true);
+				} else {
+					exclusions.closeExclusion();
+					exclusions.unPopulateExclusion();
+				}
 
 				for ( var field in record ) {
 					var errorMessage,has__error,row;
@@ -1140,7 +1236,8 @@
 					}
 				}
 			};
-			reqExclusions.open("GET","/iqService/rest/" + file.role + "/" + file.report + "/excl.json",true);
+			//reqExclusions.open("GET","/iqService/rest/" + file.role + "/" + file.report + "/excl.json",true);
+			reqExclusions.open("GET", "https://secure-stage.hbsstg.org/static/IQ/js/exclusions.json");
 			reqExclusions.onreadystatechange = function() {
 				if( this.readyState == 4) {
 					if( this.status == 200) {
@@ -1179,7 +1276,7 @@
 		buildRecords : function( data ) { // RECORDS SETUP STEP 1
 			var __self,exclusions,records,totalRecords,fields,tableRow;
 			__self       = this;
-			exclusions   = data.exclusions;
+			exclusions   = data.exclusions.exclusions; // array of the exclusions
 			records      = data.records.records;
 			totalRecords = records.length;
 			fields       = file.fieldNames[file.report];
@@ -1202,6 +1299,7 @@
 				// check to see if there is an exclusion for this record
 				for ( var exclusion = 0, totalExclusions = exclusions.length; exclusion < totalExclusions; exclusion++ ) {
 					var currentExclusion = exclusions[exclusion];
+					// we'll have to update this later when the two fields are made to match ( hbsId vs huId )  IMPORTANT NOTE!!
 					if ( currentExclusion.hbsId == currentRecord.huId ) {
 						file.records[recordId]["exclusion"] = currentExclusion;
 						hasExclusion = true;
@@ -1300,7 +1398,7 @@
 					splash.removeEventListener("webkitTransitionEnd", removeSplash);
 					// fastdom.write(function() {
 						splash.style.display = "none";
-						splash.remove();
+						//splash.remove();
 
 						offCanvasPanels.fileSummary.UI.showPanel();
 					// });

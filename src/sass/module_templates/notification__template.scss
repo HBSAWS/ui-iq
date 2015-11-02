@@ -274,19 +274,20 @@
 				padding-bottom : 3px;
 				margin 		   : 25px 0px 20px 0px;
 				border         : 0px;
-				border-bottom  : 1px solid white;
 				resize         : none;
 				overflow       : auto;
 				outline        : none;
 				cursor         : text;
 				font-family    : "Open Sans", sans-serif;
 				@include gridle_state(mobile) {
-					font-size   : 0.7rem;
-					line-height : 0.7rem; 
+					border-bottom  : 1px solid white;
+					font-size      : 0.7rem;
+					line-height    : 0.7rem; 
 				}
 				@include gridle_state(tablet) {
-					font-size   : 0.8rem;
-					line-height : 0.8rem; 
+					border-bottom  : 2px solid white;
+					font-size      : 0.8rem;
+					line-height    : 0.8rem; 
 				}
 				font-weight    : 300;
 				@include prefix( user-select, text );

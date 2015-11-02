@@ -384,7 +384,7 @@
                                     <button class="modal-window-header-close_" data-js="closeModal"></button>
                                 </div>
                                 <div class="modal-window-body_">
-                                    <iframe class="iframe-PDM" data-js="iframePDM" src="https://secure-stage.hbs.edu/pdm/sis/mba/btStuDtl/edit?prsnId=690993" ></iframe>
+                                    <iframe class="iframe-PDM" data-js="iframePDM" src="#" ></iframe>
                                 </div>
                                 <div class="modal-window-controls_">
                                     <button class="modal-window-controls-button_" data-ui-settings="mode__single" data-js="reValidateRecordField">Update HUVER</button>
@@ -681,7 +681,7 @@
                                         <div class="fader"></div>
 
                                         <div data-js="details__positionSticky">
-                                            <div class="exclude" data-js="toggleExclusion">
+                                            <div class="exclude" data-js="exclusion">
                                                 <div class="fader"></div>
                                                 <div class="exclude-content" data-ui-state="animate__off scale__down fade__out">
                                                     <div class="exclude-content-header">
@@ -690,19 +690,19 @@
                                                             <div class="exclude-content-header-overview-title">
                                                                 Exclusion
                                                             </div>
-                                                            <div class="exclude-content-header-overview-dates" title="error message for datepicker goes here">
+                                                            <div class="exclude-content-header-overview-dates">
                                                                 <input class="exclude-content-header-overview-dates-input" placeholder="start date" data-js="exclusionStartDate__datePicker" required> - 
                                                                 <input class="exclude-content-header-overview-dates-input datepickr" placeholder="end date" data-js="exclusionEndDate__datePicker" required>
                                                                 <div class="exlude-note-message" data-ui-state="is__hidden" data-js="exlusionDatesMessage"></div>
                                                             </div>
                                                         </div>
                                                         <div class="exclude-content-header-controls">
-                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="down-open place__before size__medium" data-js="toggleExclusionNote excludeToggle"></button>
-                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="trash place__before size__medium"></button>
+                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="down-open place__before size__medium" data-js="exclusionNoteToggler"></button>
+                                                            <button class="button__bold" data-ui-settings="size__small material__transparency mount__flush" data-ui-icon="trash place__before size__medium" data-js="exclusionRemove"></button>
                                                         </div>
                                                     </div>
-                                                    <div class="exclude-content-note" data-js="toggleExclusionNotes">
-                                                        <div class="exclude-note-input needsclick" contenteditable="true" placeholder="reason for excluding record..."></div>
+                                                    <div class="exclude-content-note" data-js="exclusionNoteWrapper">
+                                                        <div class="exclude-note-input needsclick" data-js="exclusionNote" contenteditable="true" placeholder="reason for excluding record..."></div>
                                                         <button class="button__default" data-ui-settings="material__paper size__xsmall mount__thin" data-js="submitExclusion">
                                                             submit
                                                         </button>
@@ -724,16 +724,16 @@
                                                 </div>
                                                 <div class="navbar-right__default">
                                                     <div class="toggler__bold" data-ui-settings="mode__check size__large">
-                                                        <input data-ui-settings="mode__check size__large" data-js="excludeToggle" type="checkbox" value="is__exclusion" class="toggler-input__bold">
-                                                        <div data-ui-settings="mode__check size__large" class="toggler-toggle__bold">
-                                                            <div data-ui-settings="mode__check size__large" class="toggler-toggle-indicator__bold"></div>
+                                                        <input class="toggler-input__bold" data-ui-settings="mode__check size__large" data-js="exclusionToggler" type="checkbox" value="is__exclusion">
+                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__check size__large">
+                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__check size__large"></div>
                                                         </div>
                                                         <div class="toggler-label__bold">Exclude</div>
                                                     </div>
                                                     <div class="toggler_bold" data-ui-settings="mode__button size__large" data-js="tooltip__error">
-                                                        <input data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked class="toggler-input__bold" data-js="detailsTable__filter">
-                                                        <div data-ui-settings="mode__button size__large" data-ui-state="" class="toggler-toggle__bold">
-                                                            <div data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before" class="toggler-toggle-indicator__bold"></div>
+                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked data-js="detailsTable__filter">
+                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
+                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
                                                         </div>
                                                         <div class="toggler-label__bold">Errors</div>
                                                     </div>

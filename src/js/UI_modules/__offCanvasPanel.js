@@ -78,7 +78,11 @@ UI_offCanvasPanel.prototype.showPanel = function(toAnimate,onComplete) {
 		__self.onShowPanel();
 	}
 	if ( __toAnimate ) {
-		mainCanvasState = "animate__out scale__down-sm";
+		if ( UI.utilities.isMobile ) {
+			mainCanvasState = "animate__out fader__in"
+		} else {
+			mainCanvasState = "animate__out scale__down-sm";
+		}
 		panelState      = "animate__out is__showing-offCanvasPanel";
 	} else {
 		mainCanvasState = "animate__off scale__down-sm";
@@ -93,14 +97,14 @@ UI_offCanvasPanel.prototype.showPanel = function(toAnimate,onComplete) {
 		if ( onComplete ) {
 			onComplete();
 		}
-	});
 
-	if ( __self.closeOnClickOutside ) {
-		document.addEventListener("click", __self.__clickOutSideClose);
-	}
-	if ( __self.closeOnEscape ) {
-		document.addEventListener('keydown', __self.__escapeClose);
-	}
+		if ( __self.closeOnClickOutside ) {
+			document.addEventListener("click", __self.__clickOutSideClose);
+		}
+		if ( __self.closeOnEscape ) {
+			document.addEventListener('keydown', __self.__escapeClose);
+		}
+	});
 };
 
 UI_offCanvasPanel.prototype.hidePanel = function(toAnimate) {
@@ -111,12 +115,6 @@ UI_offCanvasPanel.prototype.hidePanel = function(toAnimate) {
 
 	if ( __self.onHidePanel !== undefined ) {
 		__self.onHidePanel();
-	}
-	if ( __self.closeOnClickOutside ) {
-		document.removeEventListener("click", __self.__clickOutSideClose);
-	}
-	if ( __self.closeOnEscape ) {
-		document.removeEventListener('keydown', __self.__escapeClose);
 	}	
 
 	if ( __toAnimate ) {
@@ -132,6 +130,13 @@ UI_offCanvasPanel.prototype.hidePanel = function(toAnimate) {
 			__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
 		}
 		__self.panel.setAttribute("data-ui-state", panelState);
+
+		if ( __self.closeOnClickOutside ) {
+			document.removeEventListener("click", __self.__clickOutSideClose);
+		}
+		if ( __self.closeOnEscape ) {
+			document.removeEventListener('keydown', __self.__escapeClose);
+		}
 	});
 };
 
