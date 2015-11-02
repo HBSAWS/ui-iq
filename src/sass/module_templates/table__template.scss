@@ -279,6 +279,31 @@
 						opacity : 0 !important;
 					}
 				}
+				&[data-ui-state~="has__error"],&[data-ui-state~="has__exclusion"] {
+					[class^="table-body-row-cell_"]:nth-last-child(1) {
+							@include gridle_state(tablet) {
+								&:before {
+									color      : rgba(255,255,255,0.7) !important;
+									background : transparent !important;
+									@include prefix( background-clip, none !important );
+									@include prefix( text-fill-color, rgba(255,255,255,0.7) !important );
+								}
+							}
+					}
+					&[data-ui-state~="has__error"] {
+						[class^="table-body-row-cell_"]:nth-last-child(1) {
+							@include gridle_state(tablet) {
+								&:before {
+									opacity    : 1 !important;
+									color      : rgba(255,255,255,0.7) !important;
+									background : transparent !important;
+									@include prefix( background-clip, none !important );
+									@include prefix( text-fill-color, rgba(255,255,255,0.7) !important );
+								}
+							}
+						}
+					}
+				}
 			}
 
 			&[data-ui-state~="is__deleting"] {
@@ -303,7 +328,7 @@
 							right       : 15px;
 							font-size   : 0.7rem;
 							font-family : "HBS-modern";
-							color       : rgba( $color__error, 0.3 );
+							color       : rgba( $color__error, 0.45 );
 						}
 					}
 				}
@@ -318,7 +343,7 @@
 							right       : 15px;
 							font-size   : 0.7rem;
 							font-family : "HBS-modern";
-							color       : rgba( $color__warning, 0.3 );
+							color       : rgba( $color__warning, 0.45 );
 						}
 					}
 				}
@@ -334,7 +359,7 @@
 								top         : 15px;
 								right       : 15px;
 								font-size   : 0.7rem;
-								opacity     : 0.3;
+								opacity     : 0.45;
 								font-family : "HBS-modern";
 								background  : $color__warning;
 								background  : -moz-linear-gradient(left, $color__warning 0%, $color__warning 50%, $color__error 50%, $color__error 100%);
