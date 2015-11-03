@@ -5,7 +5,7 @@ UI_animate = function(DOMelement, settings) {
 	__self.el             = DOMelement;
 	// the anima init and object instantiation
 	__self.animaObj       = anima.world()
-	__self.anima          = __self.animaObj.add( __self.el );
+	__self.anima          = undefined;
 	// the predefined animation functions are : collapse, expand and swap
 	// these are the only animationNames currently allowed
 	__self.animationName  = settings.animationName;
@@ -33,6 +33,9 @@ UI_animate.prototype.initialize = function(__self) {
 	}
 
 	if ( __self.animationName !== undefined ) {
+		if ( __self.animationName !== "swap" ) {
+			__self.anima = __self.animaObj.add( __self.el );
+		}
 		__self[ __self.animationName ]();
 	}
 

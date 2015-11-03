@@ -59,11 +59,11 @@
 		}
 	};
 
-// code snippet to convert the date format Igor is using to the UI format
-// moment("2015-10-29T19:01:54.749+0000", "YYYY-MM-DDTHH:mm:ss.SSSSZ").format('MM/DD/YYYY');
+	// code snippet to convert the date format Igor is using to the UI format
+	// moment("2015-10-29T19:01:54.749+0000", "YYYY-MM-DDTHH:mm:ss.SSSSZ").format('MM/DD/YYYY');
 
-// code snippet to convert UI dates to format Igor is using:
-// moment("10/29/2015","'MM/DD/YYYY'").format("YYYY-MM-DDTHH:mm:ss.SSSSZ");
+	// code snippet to convert UI dates to format Igor is using:
+	// moment("10/29/2015","'MM/DD/YYYY'").format("YYYY-MM-DD");
 	var calendar = {
 		exclusions : {
 			init : function() {
@@ -289,7 +289,7 @@
 	// moment("2015-10-29T19:01:54.749+0000", "YYYY-MM-DDTHH:mm:ss.SSSSZ").format('MM/DD/YYYY');
 
 	// code snippet to convert UI dates to format Igor is using:
-	// moment("10/29/2015","'MM/DD/YYYY'").format("YYYY-MM-DDTHH:mm:ss.SSSSZ");
+	// moment("10/29/2015","'MM/DD/YYYY'").format("YYYY-MM-DD");
 	var exclusions = {
 		exclusion            : document.querySelector("[data-js~='exclusion']"),
 		exclusionNoteWrapper : document.querySelector("[data-js~='exclusionNoteWrapper']"),
@@ -317,6 +317,14 @@
 				UI.animate( __self.exclusionNote, { animationName : "collapse" });
 			});
 
+			__self.exclusionSubmitBtn.addEventListener( 'click', function() {
+				if ( file.records[ file.records.active ].exclusion == undefined ) {
+					// if the active record doesn't have an exclusion we need to create a entry
+					__self.postExclusion("create");
+				} else {
+					// if there is an exclusion already created then we so a simple update
+				}
+			});
 			// the event listener for the btn that toggles the exclusion open and close
 			__self.exclusionNoteToggler.addEventListener('click', function(e) {	
 				var __el,exclusionNotes; 
@@ -357,8 +365,55 @@
 			calendar.exclusions.reset();
 			__self.exclusionNote.innerHTML = "";	
 		},
-		updateExclusion : function(recordId) {
+		returnExclusionValues : function() {
+			var __self,record,exclusion,startDate,endDate;
+			// we make sure the values in our 'file' object are up to date before constructing our API url
+			App.updateAPI_URLValues();
+			__self    = this;
+			// the active/open record in the UI
+			record    = file.records[ file.records.active ];
+			// initialize exclusion object
+			exclusion = {};
+			startDate = document.querySelector("[data-js~='exclusionStartDate__datePicker']").value;
+			endDate   = document.querySelector("[data-js~='exclusionEndDate__datePicker']");
+			// do some light validation on the end date to make sure there is one, and if there is to include it in our exclusion object
+			if ( endDate !== null && endDate !== undefined ) {
+				endDate = endDate.value.replace(/\s/g, '');
+				if ( endDate.length > 0 ) {
+					exclusion["endDate"]   = moment(endDate,"'MM/DD/YYYY'").format("YYYY-MM-DD");
+				}
+			}
 
+			exclusion["prsnId"]    = record.prsnId;
+			exclusion["group"]     = file.role;
+			exclusion["type"]      = file.report;
+			exclusion["firstName"] = record.firstName;
+			exclusion["lastName"]  = record.lastName;
+			exclusion["startDate"] = moment(startDate,"'MM/DD/YYYY'").format("YYYY-MM-DD");
+			exclusion["note"]      = __self.exclusionNote.innerText;
+
+			return exclusion;
+		},
+		postExclusion : function(createOrupdate) {
+			var __self,exclusionData,reqExclusionCreate;
+			__self             = this;
+			exclusionData      = __self.returnExclusionValues();
+			reqExclusionCreate = new XMLHttpRequest();
+			reqExclusionCreate.open("POST","/iqService/rest/" + file.role + "/" + file.report + "/excl/" + createOrupdate, true);
+			reqExclusionCreate.setRequestHeader('Content-Type', 'application/json');
+			reqExclusionCreate.onreadystatechange = function() {
+				if( this.readyState == 4) {
+					if( this.status == 200) {
+						console.log( "Config HTTP error " + this.status + " " + this.statusText );
+						file.records[ exclusionData.prsnId ].exclusion = exclusionData;
+					}
+					else {
+						console.log( "Config HTTP error " + this.status + " " + this.statusText );
+					}
+				}
+			};
+			// we send the request for the config data
+			reqExclusionCreate.send( JSON.stringify( exclusionData ) );
 		},
 		closeExclusionNote : function() {
 			var __self;
@@ -450,7 +505,7 @@
 				iFrameURL = file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + recordID;
 
 				
-				//modals.iframe.iFrame.setAttribute('src', iFrameURL);	
+				modals.iframe.iFrame.setAttribute('src', iFrameURL);	
 			}
 		}
 	};
@@ -1035,7 +1090,7 @@
 					return;
 				}
 				// update the modal iframesource
-				//modals.iframe.updateModaliFrameSource(recordID);
+				modals.iframe.updateModaliFrameSource(recordID);
 
 				// check if this record has an exclusion
 				if ( record.exclusion !== undefined ) {
@@ -1236,8 +1291,8 @@
 					}
 				}
 			};
-			//reqExclusions.open("GET","/iqService/rest/" + file.role + "/" + file.report + "/excl.json",true);
-			reqExclusions.open("GET", "https://secure-stage.hbsstg.org/static/IQ/js/exclusions.json");
+			reqExclusions.open("GET","/iqService/rest/" + file.role + "/" + file.report + "/excl.json",true);
+			//reqExclusions.open("GET", "https://secure-stage.hbsstg.org/static/IQ/js/exclusions.json");
 			reqExclusions.onreadystatechange = function() {
 				if( this.readyState == 4) {
 					if( this.status == 200) {
@@ -1378,11 +1433,14 @@
 			tables.details.init();
 			tables.init();
 
-			tooltips.init();
-
 			sticky.records.init();
 			sticky.details.init();
 
+			// for initializing on none mobile devices only
+			if ( !UI.utilities.isMobile ) {
+				tooltips.init();
+			}
+			// for initializing on mobile devices only
 			if( UI.utilities.isMobile ) {
 				FastClick.attach(document.body);
 			}
