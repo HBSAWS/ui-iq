@@ -1,7 +1,4 @@
-	var recordsData,file,stats;
-	recordsData = { // this will eventually go away, and we'll only be using the file object
-		active : undefined
-	};
+	var file,stats;
 	file = {
 		PDM_URL_base : undefined,
 		user         : undefined, // MBA|DOC|ADMIN
@@ -10,11 +7,11 @@
 		term         : undefined, // S = sping|F = fall
 		year         : undefined, // ex: 1999,2000,etc
 
-		fieldNames : {
+		fieldNames   : {
 			bio   : {},
 			admit : {}
 		},
-		records    : {
+		records      : {
 			active        : undefined,
 			isFieldActive : false,
 			activeField   : undefined
@@ -86,7 +83,7 @@
 						}
 					}
 				};
-				dateValidation = function() {
+				validateDate = function() {
 					var __self, inputMessage;
 					__self       = this;
 					inputMessage = document.querySelector("[data-js~='exlusionDatesMessage']");
@@ -112,7 +109,7 @@
 					},
 					onOpen   : renderControls,
 					onDraw   : renderControls,
-					onSelect : dateValidation
+					onSelect : validateDate
 				 });
 				calendarEnd = new Pikaday({ 
 					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
@@ -123,7 +120,7 @@
 					},
 					onOpen : renderControls,
 					onDraw : renderControls,
-					onSelect : dateValidation
+					onSelect : validateDate
 				 });
 				// IMPORTANT!! IN THE PIKADAY.JS FILE COMMENT OUT LINE 512
 				// the script has some mobile bugs - this fixes the one where the pikaday closes the calendar when you click the next button
@@ -146,14 +143,6 @@
 				if ( !UI.utilities.isMobile ) {
 					window.addEventListener( 'resize', mobileAdjust );
 				}
-
-				today = new Date();
-				dd    = today.getDate();
-				mm    = today.getMonth()+1;
-				yyyy  = today.getFullYear();
-
-				today = mm + '/' + dd + '/' + yyyy + ' ';
-				document.querySelector("[data-js~='exclusionStartDate__datePicker']").value = today;
 			},
 			reset : function() {
 				var today,dd,mm,yyyy,today;
@@ -273,12 +262,6 @@
 				var __self,__cuboid;
 				__self    = this;
 				__self.UI = __cuboid = UI.cuboid( __self.el,__self.settings );
-			},
-			show__appsCuboid : function() {
-				this.UI.show("top");
-			},
-			show__appCuboid : function() {
-				this.UI.show("front");
 			}
 		}
 	};
@@ -312,17 +295,13 @@
 				});			
 			}
 
-			// the submit button click event listener
-			__self.exclusionSubmitBtn.addEventListener('click', function() {
-				UI.animate( __self.exclusionNote, { animationName : "collapse" });
-			});
-
 			__self.exclusionSubmitBtn.addEventListener( 'click', function() {
 				if ( file.records[ file.records.active ].exclusion == undefined ) {
 					// if the active record doesn't have an exclusion we need to create a entry
 					__self.postExclusion("create");
 				} else {
 					// if there is an exclusion already created then we so a simple update
+					__self.postExclusion("update");
 				}
 			});
 			// the event listener for the btn that toggles the exclusion open and close
@@ -402,18 +381,27 @@
 			reqExclusionCreate.open("POST","/iqService/rest/" + file.role + "/" + file.report + "/excl/" + createOrupdate, true);
 			reqExclusionCreate.setRequestHeader('Content-Type', 'application/json');
 			reqExclusionCreate.onreadystatechange = function() {
+				var errorStatus,errorMessage;
 				if( this.readyState == 4) {
 					if( this.status == 200) {
 						console.log( "Config HTTP error " + this.status + " " + this.statusText );
 						file.records[ exclusionData.prsnId ].exclusion = exclusionData;
+						UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
+
+						errorStatus  = "success";
+						errorMessage = exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion.";
 					}
 					else {
-						console.log( "Config HTTP error " + this.status + " " + this.statusText );
+						errorStatus  = "error";
+						errorMessage = "Config HTTP error " + this.status + " " + this.statusText;
 					}
+					notifications.inApp.updateStatus( errorStatus, errorMessage );
 				}
 			};
 			// we send the request for the config data
 			reqExclusionCreate.send( JSON.stringify( exclusionData ) );
+			// create a and initalize a loader for our new XMLHttprequest object
+			loaders.inApp( reqExclusionCreate );
 		},
 		closeExclusionNote : function() {
 			var __self;
@@ -500,11 +488,10 @@
 			},
 			updateModaliFrameSource : function(recordID) {
 				var iFrameURL;
-
+				// we update our file object
 				App.updateAPI_URLValues();
 				iFrameURL = file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + recordID;
 
-				
 				modals.iframe.iFrame.setAttribute('src', iFrameURL);	
 			}
 		}
@@ -1134,9 +1121,9 @@
 
 				// adds our new table rows via the 'toAdd' array we've just finished creating
 				__self.UI.add(toAdd);
-				__self.UI.remove("hbsId", recordsData.active);
+				__self.UI.remove("hbsId", file.records.active);
 				__self.UI.remove("hbsId", "");
-				recordsData.active = recordID;
+				file.records.active = recordID;
 
 
 				// reapply the details table filter
@@ -1163,8 +1150,8 @@
 					tables.details.UI.highlightRow( firstRow );
 				}
 
-				recordsData.active  = recordID;
-				file.records.active = recordID;
+				// recordsData.active  = recordID;
+				// file.records.active = recordID;
 				init = false;
 			}
 		}
@@ -1175,70 +1162,46 @@
 
 	var tooltips = {
 		init   : function() {
-			tooltips.errors.init();
-			tooltips.fileSummary.init();
-			tooltips.appGrid.init();
-			tooltips.appSettings.init();
+			tooltips.errorFilterCheckboxes();
+			tooltips.fileSummary();
+			tooltips.appGrid();
+			tooltips.appSettings();
 		},
-		errors : {
-			settings : {
-				target   : undefined,
-				position : 'bottom center',
-				content  : "filter errors (alt + e)	",
-				classes  : 'tooltip-theme-arrows'
-			},
-			init : function() {
-				var _self,errorFilters__checkbox; 
-				__self = this;
-				errorFilters__checkbox = document.querySelectorAll("[data-js~='tooltip__error']");
+		errorFilterCheckboxes : function() {
+			var errorFilterCheckboxes = document.querySelectorAll("[data-js~='tooltip__error']");
 
-				for (var currentFilter = 0, len = errorFilters__checkbox.length; currentFilter < len; currentFilter++) {
-					__self.settings.target = errorFilters__checkbox[currentFilter];
-					new Tooltip( __self.settings );
-				}
+			for (var currentFilter = 0, totalFilters = errorFilterCheckboxes.length; currentFilter < totalFilters; currentFilter++) {
+				new Tooltip({
+					target   : errorFilterCheckboxes[currentFilter],
+					position : 'bottom center',
+					content  : "filter errors (alt + e)	",
+					classes  : 'tooltip-theme-arrows'
+				});
 			}
 		},
-		fileSummary : {
-			settings : {
+		fileSummary : function() {
+			new Tooltip({
 				target   : document.querySelector("[data-js~='file-options__toggle']"),
 				position : 'bottom right',
 				content  : 'File Summary (alt + f)',
 				classes  : 'tooltip-theme-arrows'
-			},
-			init : function() {
-				var __self;
-				__self = this;
-
-				new Tooltip( __self.settings );
-			}
+			});
 		},
-		appGrid : {
-			settings : {
+		appGrid : function() {
+			new Tooltip({
 				target   : document.querySelector("[data-js~='cuboid__showAppSuiteApps']"),
 				position : 'bottom right',
 				content  : 'Apps Grid (alt + a)',
 				classes  : 'tooltip-theme-arrows'
-			},
-			init : function() {
-				var __self;
-				__self = this;
-
-				new Tooltip( __self.settings );
-			}
+			});
 		},
-		appSettings : {
-			settings : {
+		appSettings : function() {
+			new Tooltip({
 				target   : document.querySelector("[data-js~='cuboid__showAppSuiteSettings']"),
 				position : 'bottom center',
 				content  : 'App Settings (alt + s)',
-				classes  : 'tooltip-theme-arrows' 
-			},
-			init : function() {
-				var __self;
-				__self = this;
-
-				new Tooltip( __self.settings );
-			}
+				classes  : 'tooltip-theme-arrows'
+			});
 		}
 	};
 
@@ -1247,9 +1210,10 @@
 
 	var App = {
 		recordsTable : [],
-		setupUser : function( config ) {  // CONFIG SETUP STEP 1
-			var __self,user,roles,role,config; 
+		setupUser : function( configRequest ) {  // CONFIG SETUP STEP 1
+			var __self,config,user,roles,role,config; 
 			__self = this;
+			config = JSON.parse( configRequest.response );
 			user   = config.userInfo;
 			roles  = user.roles;
 			role   = undefined;
@@ -1274,40 +1238,15 @@
 			}
 
 			// creates in the 'file' variable, under fieldNames a reference of human readable field names for our HTML
-			__self.setupFields( config.metadata );
-			// everything that's needed for the initial records request is been processed
-			// so now we request the initial set of records
-			reqRecords.open( "GET", App.getAPI_URL(),true );
-			//reqRecords.open("GET","/iqService/rest/mba/bio.json?term=S&year=1999",true);
-			//reqRecords.open("GET","js/bio.json",true);
-			reqRecords.onreadystatechange = function() {
-				if( this.readyState == 4) {
-					if( this.status == 200) {
+			App.setupFields( config.metadata );
 
-					}
-					else {
-						requests.records = false;
-						console.log("Records HTTP error "+this.status+" "+this.statusText);
-					}
-				}
-			};
-			reqExclusions.open("GET","/iqService/rest/" + file.role + "/" + file.report + "/excl.json",true);
-			//reqExclusions.open("GET", "https://secure-stage.hbsstg.org/static/IQ/js/exclusions.json");
-			reqExclusions.onreadystatechange = function() {
-				if( this.readyState == 4) {
-					if( this.status == 200) {
+			// we initialize the records and exclusions XMLHTTPRequests
+			var requestRecords    = UI.request({ method: "GET", URL: App.getAPI_URL() });
+			var requestExclusions = UI.request({ method: "GET", URL: "/iqService/rest/" + file.role + "/" + file.report + "/excl.json" });
 
-					}
-					else {
-						requests.exclusions = false;
-						console.log("Exclusoins HTTP error "+this.status+" "+this.statusText);
-					}
-				}
-			}
-			reqExclusions.send();
-			reqRecords.send();
-			// we initialize the records loader
-			loaders.app.startup.records.init();
+			// we initialize the records and exclusions loader loader
+			loaders.initializeApp([requestRecords,requestExclusions],document.querySelector("[data-js~='appLoader__records']"),App.buildRecords);
+			document.querySelector("[data-js~='appLoader__description']").innerHTML = "processing records";
 		},
 		setupFields : function( fieldData ) { // CONFIG SETUP STEP 2
 			// fieldData = config.metadata
@@ -1329,16 +1268,18 @@
 			buildFields( "admit",admitFields,admitFieldNames );
 		},
 		buildRecords : function( data ) { // RECORDS SETUP STEP 1
-			var __self,exclusions,records,totalRecords,fields,tableRow;
+			var __self,exclusions,records,recordsTable,totalRecords,fields,tableRow;
 			__self       = this;
-			exclusions   = data.exclusions.exclusions; // array of the exclusions
-			records      = data.records.records;
+
+			records      = JSON.parse( data.requests[0].response ).records;//  data.records.records;JSON.parse( reqConfig.response )
+			exclusions   = JSON.parse( data.requests[1].response ).exclusions;//  data.exclusions.exclusions; // array of the exclusions
+			recordsTable = [];
 			totalRecords = records.length;
 			fields       = file.fieldNames[file.report];
 
 			// starts generating the HTML for records table
 			tableRow     = 1;
-			__self.recordsTable[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
+			recordsTable[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
 
 			for ( var record = 0; record < totalRecords; record++ ) {
 				var currentRecord,errors,hasErrors,hasExclusion,errorCount,recordId;
@@ -1362,12 +1303,10 @@
 				}
 
 				// adds the current record to our recordTable array
-				__self.recordsTable[tableRow++] = '<tr class="table-body-row__light" data-record="' + recordId + '" data-ui-settings="size__large material__paper" data-ui-state="' + ( hasExclusion ? "has__exclusion" : "" ) + ( hasErrors ? " has__error" :"" ) + '" data-js="load__record">';
-				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__firstName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.firstName + '</td>';
-				__self.recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__lastName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.lastName + '</td>';
-				__self.recordsTable[tableRow++] = '</tr>';
-
-				// create an entry in file.records for the current record
+				recordsTable[tableRow++] = '<tr class="table-body-row__light" data-record="' + recordId + '" data-ui-settings="size__large material__paper" data-ui-state="' + ( hasExclusion ? "has__exclusion" : "" ) + ( hasErrors ? " has__error" :"" ) + '" data-js="load__record">';
+				recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__firstName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.firstName + '</td>';
+				recordsTable[tableRow++] = '<td class="table-body-row-cell_ is__lastName' + ( hasErrors ? " has__error":"" ) + '" data-ui-settings="size__large">' + currentRecord.lastName + '</td>';
+				recordsTable[tableRow++] = '</tr>';
 				
 
 
@@ -1398,14 +1337,14 @@
 				}
 			}
 			// finishes the recordsTable array
-			__self.recordsTable[tableRow++] = '</tbody>';
+			recordsTable[tableRow++] = '</tbody>';
 			// converts the array into a string containing the records table 'tbody'cvvgvv
-			__self.recordsTable.join('');
-			document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", __self.recordsTable );
+			recordsTable.join('');
+			document.querySelector("[data-js~='recordsTable']").insertAdjacentHTML( "beforeend", recordsTable );
 
 			// all of the HTML has been generated
 			// now we need to update it with our plugins and custom javascript
-			__self.setupUI();
+			App.setupUI();
 		},
 		setupUI : function() {
 			// APPLY ALL OF THE UI PLUGINS
@@ -1587,33 +1526,16 @@
 						}
 					}
 					else {
-						var message = this.statusText;
-						notifications.inApp.updateStatus( "error", message );
+						errorMessage = "Records HTTP error " + this.status + " " + this.statusText;
+						notifications.inApp.updateStatus( "error", errorMessage );
 						//console.log("Records HTTP error "+this.status+" "+this.statusText);
 					}
 				}
 			};
 			reqRecords.send();
 
-			appLogo    = document.querySelector("[data-js~='appLogo']");
-			fileLoader = document.querySelector("[data-js~='inApp__loader']");
-			UI.loader( fileLoader, {
-				requests                : reqRecords,
-				loaderCompleteAnimation : "fade out",
-				resetLoaderOnComplete   : true,
-				onComplete              : function() {
-					var stopRotating; 
-					notifications.inApp.showNotification();
-
-					stopRotating = function(e) {
-						UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
-						appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
-						e.stopPropagation();
-					};
-					appLogo.addEventListener("webkitAnimationIteration", stopRotating);
-				}
-			});
-			UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
+			// create a and initalize a loader for our new XMLHttprequest object
+			loaders.inApp( reqRecords );
 		}
 	}
 
@@ -1621,31 +1543,6 @@
 
 
 
-
-	var requests = {
-		records    : true,
-		config     : true,
-		exclusions : true
-	};
-
-
-	var reqConfig = new XMLHttpRequest();
-	reqConfig.open("GET","/iqService/rest/config.json?meta=true",true);
-	//reqConfig.open("GET","js/config.json",true);
-	reqConfig.onreadystatechange = function() {
-		if( this.readyState == 4) {
-			if( this.status == 200) {
-
-			}
-			else {
-				requests.config = false;
-				console.log("Config HTTP error "+this.status+" "+this.statusText);
-			}
-		}
-	};
-
-	var reqRecords = new XMLHttpRequest();
-	var reqExclusions = new XMLHttpRequest();
 
 
 	var notifications = {
@@ -1702,7 +1599,7 @@
 				backingStatus = "is__" + status;
 
 				notifications.inApp.message.innerHTML = message;
-				UI.DOM.removeDataValue( notifications.inApp.backing,"data-ui-state",notifications.inApp.status );
+				UI.DOM.removeDataValue( notifications.inApp.backing,"data-ui-state", "is__" + notifications.inApp.status );
 				UI.DOM.addDataValue( notifications.inApp.backing,"data-ui-state", backingStatus );
 				if ( status === "error" || status === "warning" ) {
 					icon = "attention";
@@ -1717,62 +1614,44 @@
 
 
 	var loaders = {
-		app : {
-			startup : {
-				config : {
-					el : document.querySelector("[data-js~='appLoader__config']"),
-					settings : {
-						requests   : reqConfig,
-						onComplete : function() {
-							if ( requests.config ) {
-								var configData = JSON.parse( reqConfig.response );
-								App.setupUser( configData );
-							}
-						}
-					},
-					__UI : undefined,
-					init : function() {
-						var __self,loader, settings, __UI;
-						__self   = this;
-						loader   = __self.el;
-						settings = __self.settings;
+		inApp : function(XMLHttpRequestObject) {
+			var appLogo,loader;
+			// App logo in the App Navbar that will rotate on loading
+			appLogo    = document.querySelector("[data-js~='appLogo']");
+			// the in app loader
+			loader = document.querySelector("[data-js~='inApp__loader']");
+			UI.loader( loader, {
+				requests                : XMLHttpRequestObject,
+				loaderCompleteAnimation : "fade out",
+				resetLoaderOnComplete   : true,
+				onComplete              : function() {
+					var stopRotating; 
+					notifications.inApp.showNotification();
 
-						document.querySelector("[data-js~='appLoader__description']").innerHTML = "creating user profile";
-						__UI = __self.UI = UI.loader(loader,settings);
-					}
-				},
-				records : {
-					el : document.querySelector("[data-js~='appLoader__records']"),
-					settings : {
-						requests   : [reqRecords,reqExclusions],
-						onComplete : function() {
-							if ( requests.records ) {
-								var data = {
-									records    : JSON.parse( reqRecords.response ),
-									exclusions : JSON.parse( reqExclusions.response )
-								};
-								App.buildRecords( data );
-							}
-						}
-					},
-					__UI : undefined,
-					init : function() {
-						var __self,loader, settings, __UI;
-						__self   = this;
-						loader   = __self.el;
-						settings = __self.settings;
-
-						document.querySelector("[data-js~='appLoader__description']").innerHTML = "processing records";
-						__UI = __self.UI = UI.loader(loader,settings);
-					}					
+					stopRotating = function(e) {
+						UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
+						appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
+						e.stopPropagation();
+					};
+					appLogo.addEventListener("webkitAnimationIteration", stopRotating);
 				}
-			}
+			});
+			UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
+		},
+		initializeApp : function(XMLHttpRequestObject,loader,onComplete) {
+			UI.loader( loader, {
+				requests                : XMLHttpRequestObject,
+				onComplete              : onComplete
+			});
 		}
 	};
-	// we send the request for the config data
-	reqConfig.send();
+
+	// we initialize the config XMLHTTPRequest
+	var requestConfig = UI.request({ method: "GET", URL: "/iqService/rest/config.json?meta=true", success: App.setupUser });
 	// we initialize the config loader
-	loaders.app.startup.config.init();
+	loaders.initializeApp( requestConfig,document.querySelector("[data-js~='appLoader__config']") );
+	// we update the splash page loading message
+	document.querySelector("[data-js~='appLoader__description']").innerHTML = "creating user profile";
 
 
 

@@ -167,7 +167,7 @@ UI_loader.prototype.finishedLoading = function() {
 			// if there is a onComplete function, it fires here
 			// loader is the actual loader DOM element
 			// requests are the original request objects submitted
-			__self.onComplete( loader,requests );
+			__self.onComplete({ loader : loader, requests : requests });
 		}
 
 

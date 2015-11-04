@@ -27,6 +27,9 @@ UI = {
 	panels  : function(DOMelement,settings) {
 		return new UI_panels(DOMelement,settings);
 	},
+	request : function(settings) {
+		return new UI_request(settings);
+	},
 	sticky : function(DOMelement,settings) {
 		return new UI_sticky(DOMelement,settings);
 	},
