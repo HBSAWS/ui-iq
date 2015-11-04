@@ -151,6 +151,12 @@ UI_animate.prototype.swap = function() {
 	newItem__outerAnimation = "animate__in-delay-sm";
 	newItem__innerAnimation = "animate__in-delay-lg";
 
+	newItem.addEventListener( "webkittransitionend", function(e) {
+		if ( e.target == e.currentTarget ) {
+			__self.onComplete(__self);
+		}
+	}, false);
+
 
 	oldItem.setAttribute("data-ui-state", oldItem__outerAnimation);
 	oldItemInner.setAttribute("data-ui-state", oldItem__innerAnimation);

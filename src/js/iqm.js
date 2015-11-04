@@ -5,7 +5,7 @@
 		role         : undefined, // MBA|DOC
 		report       : "bio",     // bio|admit *is bio by default on load
 		term         : undefined, // S = sping|F = fall
-		year         : undefined, // ex: 1999,2000,etc
+		year         : undefined, // ex: 1999,2000,etc,
 
 		fieldNames   : {
 			bio   : {},
@@ -45,12 +45,11 @@
 			el : document.querySelector("[data-js~='actionsheetArchiveFiles']") ,
 			UI : undefined,
 			init : function() {
-				var __self,actionsheet;
-				__self = this;
-				actionsheet = __self.UI = UI.actionsheet(__self.el);
+				var __self = this;
+				__self.UI = UI.actionsheet(__self.el);
 
-				document.querySelector("[data-js~='updateFile'][value='archive']").addEventListener( 'click', function(e) {
-					actionsheet.open();
+				document.querySelector("[data-js~='updateFile'][value='archive']").addEventListener( 'click', function() { 
+					__self.UI.open(); 
 				});
 			}
 		}
@@ -164,93 +163,12 @@
 	// UI module objects
 	var cuboids = {
 		appSuite : {
-			isAppSuiteOpen : false,
-			el             : document.querySelector("[data-js~='cuboid__initAppSuite']"),
-			settings       : {
-				sideToShowOnInit : "bottom"
-			},
-			UI       : null,
+			el   : document.querySelector("[data-js~='cuboid__initAppSuite']"),
+			UI   : null,
 			init : function() {
-				var __self,__cuboid,backToApp; 
-				__self       = this;
-				__self.UI    = __cuboid = UI.cuboid( __self.el,__self.settings );
-
-				document.querySelector("[data-js~='cuboid__showAppSuiteSettings']").addEventListener( 'click', __self.show__appSuiteSettings.bind(this) );
-				document.querySelector("[data-js~='cuboid__showAppSuiteApps']").addEventListener( 'click', __self.show__appSuiteApps.bind(this) );
-				backToApp = document.querySelectorAll("[data-js~='cuboid__showAppSuiteApp']");
-				for ( var backBtn = 0, backBtnsLen = backToApp.length; backBtn < backBtnsLen; backBtn++ ) {
-					backToApp[backBtn].addEventListener( 'click', __self.show__appSuiteApp.bind(this) );
-				}
-
-				UI.keyboard({
-					combination          : ['alt','a'],
-					onPress     : function(e) {
-						__self.show__appSuiteApps();
-					}
-				});
-				UI.keyboard({
-					combination          : ['alt','s'],
-					onPress     : function(e) {
-						__self.show__appSuiteSettings();
-					}
-				});
-				UI.keyboard({
-					combination          : ['escape'],
-					onPress     : function(e) {
-						__self.show__appSuiteApp();
-					},
-					exception : function() {
-						var exception = false;
-						if ( !cuboids.appSuite.isAppSuiteOpen ) {
-							exception = true;
-						}
-						return exception;
-					}
-				});
+				var __self = this;
+				__self.UI  = UI.cuboid( __self.el, { sideToShowOnInit : "bottom" } );
 			},
-			show__appSuiteSettings : function() {
-				var __self,apps,app,appsGrid,appsSettings;
-				__self       = this;
-				apps         = document.querySelector("[data-js~='appSuite__apps']");
-				app          = document.querySelector("[data-js~='appSuite__app']");
-				appsGrid     = document.querySelector("[data-js~='appsGrid']");
-				appsSettings = document.querySelector("[data-js~='appsSettings']");
-
-				UI.DOM.removeDataValue( appsSettings,"data-ui-state","is__hidden" );
-				UI.DOM.addDataValue( appsGrid,"data-ui-state","is__hidden" );
-
-				UI.animate([app,apps], { animationName : "swap" });
-				this.UI.show("top");
-				cuboids.appSuite.isAppSuiteOpen = true;
-			},
-			show__appSuiteApps : function() {
-				var __self,apps,app,appsGrid,appsSettings;
-				__self       = this;
-				apps         = document.querySelector("[data-js~='appSuite__apps']");
-				app          = document.querySelector("[data-js~='appSuite__app']");
-				appsGrid     = document.querySelector("[data-js~='appsGrid']");
-				appsSettings = document.querySelector("[data-js~='appsSettings']");
-
-				UI.DOM.removeDataValue( appsGrid,"data-ui-state","is__hidden" );
-				UI.DOM.addDataValue( appsSettings,"data-ui-state","is__hidden" );
-
-				UI.animate([app,apps], { animationName : "swap" });
-				this.UI.show("bottom");
-				cuboids.appSuite.isAppSuiteOpen = true;
-			},
-			show__appSuiteApp : function() {
-				var __self,apps,app;
-				__self = this;
-				apps   = document.querySelector("[data-js~='appSuite__apps']");
-				app    = document.querySelector("[data-js~='appSuite__app']");
-
-				UI.animate([apps,app], { animationName : "swap" });
-
-				this.UI.show("front");
-				setTimeout(function() {
-					cuboids.appSuite.isAppSuiteOpen = false;
-				},700);
-			}
 		},
 		app : {
 			el       : document.querySelector("[data-js~='cuboid__initApp']"),
@@ -476,23 +394,17 @@
 			},
 			UI : undefined,
 			init : function() {
-				var __self,modal,settings,modal,submitButton;
-				__self   = this;
-				el       = __self.el;
-				settings = __self.settings;
-
-				modal = __self.UI = UI.modal( el,settings );
+				var __self = this,submitButton;
+				modals.iframe.UI = UI.modal( __self.el, {
+					mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
+					clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")]
+				});
 
 				submitButton = document.querySelector("[data-js~='reValidateRecordField']");
 				submitButton.addEventListener( 'click', App.reValidateRecordField );
 			},
 			updateModaliFrameSource : function(recordID) {
-				var iFrameURL;
-				// we update our file object
-				App.updateAPI_URLValues();
-				iFrameURL = file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + recordID;
-
-				modals.iframe.iFrame.setAttribute('src', iFrameURL);	
+				modals.iframe.iFrame.setAttribute('src', file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + recordID );	
 			}
 		}
 	};
@@ -509,7 +421,7 @@
 				closeOnClickOutside        : true,
 				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")],
 				closeOnEscape              : true,
-				closeOnEscapeExemption     : function() {
+				closeOnEscapeException     : function() {
 					var exception;
 					exception = false;
 
@@ -519,53 +431,36 @@
 					return exception;
 				},
 				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
-				toggleBtnSelector          : "[data-js~='file-options__toggle']",
-				side                       : "right",
-				onShowPanel                : function() {
-					var panelToggleIcon = document.querySelector("[data-js~='fileSummaryToggleIcon']");
-					UI.DOM.addDataValue( panelToggleIcon,"data-ui-state","is__open" );
-				},
-				onHidePanel                : function() {
-					var panelToggleIcon = document.querySelector("[data-js~='fileSummaryToggleIcon']");
-					UI.DOM.removeDataValue( panelToggleIcon,"data-ui-state","is__open" );
-				}
+				toggleBtnSelector          : "[data-js~='fileSummaryToggleIcon']",
+				side                       : "right"
 			},
 			UI : undefined,
 			init : function() {
-				var __self, panel,settings,__UI,toggleBtn;
-				__self    = this;
-				panel     = __self.el;
-				settings  = __self.settings;
-
-				__UI = __self.UI = UI.offCanvasPanel(panel,settings);
-
+				var __self = this;
+				__self.UI  = UI.offCanvasPanel( __self.el, __self.settings );
 
 				UI.keyboard({
-					combination          : ['alt','f'],
+					combination : ['alt','f'],
 					onPress     : function(e) {
-						__UI.showPanel();
+						__self.UI.showPanel();
 					},
-					exception : function() {
-						var exception;
-						exception = false;
-
-						if ( modals.iframe.UI.isModalShowing() || __UI.isPanelShowing() ) {
-							exception = true;
-						}
-						return exception;
+					exception   : function() {
+						return App.UIState({
+							iframeModal          : true,
+							fileSummaryOffCanvas : true
+						});
 					}
 				});
-
 
 				var appCanvas  = document.querySelector("[data-js~='app__mainCanvas']");
 				var hammertime = new Hammer(appCanvas);
 
 				hammertime.on("swipeleft", function() {
-					offCanvasPanels.fileSummary.UI.showPanel();
+					__self.UI.showPanel();
 				});
 				hammertime.on("swiperight", function() {
-					if ( __UI.isPanelShowing() ) {
-						offCanvasPanels.fileSummary.UI.hidePanel();
+					if ( __self.UI.isPanelShowing() ) {
+						__self.UI.hidePanel();
 					}
 				});
 			}
@@ -576,65 +471,37 @@
 				showOnInit                 : true, 
 				closeOnClickOutside        : true,
 				clickOutsideExemptElements : [document.querySelector("[data-js~='file-options__toggle']"),document.querySelector("[data-js~='appClickException']")],
-				clickOutsideExemption      : function() {
-					var dontClose,fileSumaryOffCanvas,fileSumaryOffCanvas__isOpen,resolution__isToHight ;
-
-					dontClose                   = false;
-					fileSumaryOffCanvas         = document.querySelector("[data-js~='offCanvasPanel__fileSettings']");
-
-					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
-					resolution__isToHight       = ( window.innerWidth > 1299 ) ? true : false;
-
-					if ( fileSumaryOffCanvas__isOpen || resolution__isToHight ) {
-						dontClose = true;
-					}
-					return dontClose;
-				},
-				closeOnEscape   : true,
-				closeOnEscapeExemption : function() {
-					var dontClose,iframeModal,fileSumaryOffCanvas,iframeModal__isOpen,fileSumaryOffCanvas__isOpen,resolution__isToHight;
-
-					dontClose           = false;
-					iframeModal         = document.querySelector("[data-js~='modal__iframe']");
-					fileSumaryOffCanvas = document.querySelector("[data-js~='offCanvasPanel__fileSettings']");
-
-					iframeModal__isOpen         = ( iframeModal.dataset.uiState.indexOf('is__showing-modal') > -1 ) ? true : false;
-					fileSumaryOffCanvas__isOpen = ( fileSumaryOffCanvas.dataset.uiState.indexOf('is__showing-offCanvasPanel') > -1 ) ? true : false;
-					resolution__isToHight       = ( window.innerWidth > 1299 ) ? true : false;
-
-					if ( iframeModal__isOpen || fileSumaryOffCanvas__isOpen || resolution__isToHight || cuboids.appSuite.isAppSuiteOpen ) {
-						dontClose = true;
-					}
-					return dontClose;
-				},
-				showBtnSelector : "[data-js~='showFileContents']",
-				hideBtnSelector : "[data-js~='hideFileContents']",
-				side : "left"
+				closeOnEscape              : true,
+				showBtnSelector            : "[data-js~='showFileContents']",
+				hideBtnSelector            : "[data-js~='hideFileContents']",
+				side                       : "left"
 			},
 			UI       : undefined,
 			init     : function() {
-				var __self,panel,panelInner,settings,adjustStyles;
+				var __self,exception,adjustStyles;
 				__self       = this;
-				panel        = __self.el;
-				panelInner   = panel.querySelector("[data-js~='appHuver__recordsInner']");
-				settings     = __self.settings; 
+				exception    = function() {
+					return App.UIState({
+						iframeModal          : true,
+						fileSummaryOffCanvas : true,
+						resolutionDesktop    : true
+					});
+				};
+				__self.settings.clickOutsideException  = exception;
+				__self.settings.closeOnEscapeException = exception;
+				__self.UI = UI.offCanvasPanel( __self.el, __self.settings);
+				
+				UI.keyboard({
+					combination : ['alt','r'],
+					onPress     : function(e) {
+						__self.UI.showPanel();
+					},
+					exception   : exception
+				});
+
 				adjustStyles = __self.adjustPanelStyles.bind(__self);
-
-				__UI = __self.UI = UI.offCanvasPanel(panel, settings);
-
 				adjustStyles();
 				window.addEventListener('resize', adjustStyles );
-
-				// when the resolution is less than 1300 px
-				// pressing alt & the 'r' key at the same time will open the records panel
-				var keyboardShortcut = function(e) {
-					if ( window.innerWidth < 1300 ) {
-						if ( e.altKey && e.keyCode == 82 ) {
-							__UI.showPanel();
-						}
-					}
-				};
-				document.addEventListener('keydown', keyboardShortcut);
 			},
 			adjustPanelStyles : function() {
 				// when the window is at desktop reslutions we want the record and detail panels to sit next to each other
@@ -674,32 +541,20 @@
 
 
 	var segmentControls = {
-		fileSettings : function() {
-			var fileSettings;
-			fileSettings = ['report','term']; // will eventually include year
-			if ( file.role === "ADMIN" ) {
-				fileSettings.push('role');
-			} 
-			for ( var setting = 0, settingsLen = fileSettings.length; setting < settingsLen; setting++ ) {
-				var currentSetting,settingControls;
-				currentSetting  = fileSettings[setting];
-				settingControls = document.querySelectorAll("[name='" + currentSetting + "']");
+		fileRecords : function() {
+			// making sure our file values are up to date so that API urls are accurate
+			var fileSourceControls;
+			fileSourceControls = document.querySelectorAll("[data-js~='updateFile']");
 
-				for ( var control = 0, controlsLen = settingControls.length; control < controlsLen; control++ ) {
-					var currentControl;
-					currentControl = settingControls[control];
+			for ( var control = 0, totalControls = fileSourceControls.length; control < totalControls; control++ ) {
+				var currentControl = fileSourceControls[control];
+				currentControl.addEventListener( 'change', function(e) {
+					var toUpdate,updateValue;
+					toUpdate 	= e.currentTarget.name; // this will be 'role','term',etc
+					updateValue = e.currentTarget.value; 
 
-					currentControl.addEventListener( 'change', function(e) {
-						var el,isChecked;
-						el        = e.currentTarget;
-						isChecked = el.checked;
-
-						if ( isChecked ) {
-							// the name is one of the fileSettings, ex. 'report'|'term'
-							file[ el.name ] = el.value;
-						}
-					});
-				}
+					file[toUpdate] = updateValue;
+				});
 			}
 		}
 	};
@@ -710,38 +565,26 @@
 	var sticky = {
 		records : {
 			el : document.querySelector("[data-js~='records__positionSticky']"),
-			settings : {
-				scrollingElement   : document.querySelector("[data-js~='appHuver__records']"),
-				widthReference     : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
-				distanceToStick    : 30
-			},
 			UI : undefined,
 			init : function() {
-				var __self,__sticky,settings,__UI;
-
-				__self   = this;
-				__sticky = __self.el;
-				__self.settings.onActivateSticky   = sticky.records.addOffsetScroll;
-				__self.settings.onDeactivateSticky = sticky.records.removeOffsetScroll;
-				settings = __self.settings;
-				__UI     = __self.UI = UI.sticky(__sticky,settings);
+				var __self = this;
+				sticky.records.UI = UI.sticky( __self.el, {
+					scrollingElement   : document.querySelector("[data-js~='appHuver__records']"),
+					widthReference     : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
+					distanceToStick    : 30
+				});
 			}
 		},
 		details : {
 			el : document.querySelector("[data-js~='details__positionSticky']"),
-			settings : {
-				scrollingElement   : document.querySelector("[data-js~='appHuver__recDetails']"),
-				widthReference     : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
-				distanceToStick    : 30
-			},
 			UI : undefined,
 			init : function() {
-				var __self,__sticky,settings,__UI;
-
-				__self   = this;
-				__sticky = __self.el;
-				settings = __self.settings;
-				__UI     = __self.UI = UI.sticky(__sticky,settings);
+				var __self = this;
+				sticky.details.UI = UI.sticky( __self.el, {
+					scrollingElement   : document.querySelector("[data-js~='appHuver__recDetails']"),
+					widthReference     : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
+					distanceToStick    : 30
+				});
 			}
 		}
 	}; 
@@ -838,38 +681,33 @@
 						offCanvasPanels.records.UI.hidePanel();
 					}
 				},
-				exceptions : {
-					allKeys : function() {
-						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
-						exception = false;
-
-						tableIsNotActive  = ( tables.details.UI.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
-
-						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
-							exception = true;
-						}
-						return exception;
-					}
-				}
+				exceptions : { allKeys : undefined }
 			},
 			init     : function() {
-				var __self,__table,errorsFilter;
+				var __self,exception,errorsFilter;
 				__self       = this;
-				__self.UI    = __table = UI.table( __self.el, __self.settings );
+				exception    = function() {
+					return App.UIState({
+						detailsTableFocused  : true,
+						exclusionFocused     : true,
+						iframeModal          : true,
+						fileSummaryOffCanvas : true
+					});
+				};
+				__self.settings.exceptions.allKeys = exception;
+				__self.UI    = UI.table( __self.el, __self.settings );
 				errorsFilter = document.querySelector("[data-js~='recordsTable__filter']");
 
 				// adding the personIds the the table record objects
-				var tableRecordObjects = __table.list.items;
+				var tableRecordObjects = __self.UI.list.items;
 				for ( var tableRecord = 0, totalTableRecords = tableRecordObjects.length; tableRecord < totalTableRecords; tableRecord++ ) {
 					var currentTableRecordObject = tableRecordObjects[tableRecord];
 					var currentTableRecordNumber = currentTableRecordObject.elm.dataset.record;
 					currentTableRecordObject._values.personId = currentTableRecordNumber;
 				}
 
-				__table.filter("has__error");
-				__table.focusTable();
+				__self.UI.filter("has__error");
+				__self.UI.focusTable();
 
 				errorsFilter.addEventListener( 'change', function(e) {
 					var filter,toFilter;
@@ -877,9 +715,9 @@
 					toFilter = filter.value;
 
 					if ( filter.checked === true ) {
-						__table.filter( toFilter );
+						__self.UI.filter( toFilter );
 					} else {
-						__table.unfilter( toFilter );
+						__self.UI.unfilter( toFilter );
 					}
 				});
 
@@ -889,29 +727,15 @@
 						var toFilter = errorsFilter.value;
 
 						if ( errorsFilter.checked == true ) {
-							__table.unfilter( toFilter );
+							__self.UI.unfilter( toFilter );
 							errorsFilter.checked = false;
 						} else {
-							__table.filter( toFilter );
+							__self.UI.filter( toFilter );
 							errorsFilter.checked = true;
 						}
 					},
-					exception  : function() {
-						var exception;
-						exception = false;
-
-						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
-
-						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
-							exception = true;
-						}
-						return exception;
-					}
+					exception  : exception
 				});
-
-
 
 				UI.keyboard({
 					combination          : ['alt','space'],
@@ -919,19 +743,7 @@
 					onPress     : function(e) {
 						document.querySelector("[data-js~='recordsTable__search']").focus();
 					},
-					exception : function() {
-						var exception;
-						exception = false;
-
-						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
-
-						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
-							exception = true;
-						}
-						return exception;
-					}
+					exception : exception
 				});
 			}
 		},
@@ -952,35 +764,27 @@
 					return document.querySelector("[data-js~='details__positionSticky']").getBoundingClientRect().bottom;
 				},
 				scrollingElement 	              : document.querySelector("[data-js~='appHuver__recDetails']"),			
-
 				addStateToRowOnSelect : false,
 				onRowSelection        : function() {
 					offCanvasPanels.fileSummary.UI.hidePanel();
 					modals.iframe.UI.showModal();
 				},
-				exceptions : {
-					allKeys : function() {
-						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
-						exception = false;
-
-						tableIsNotActive  = ( tables.records.UI.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
-
-						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
-							exception = true;
-						}
-
-						return exception;
-					}
-				}
+				exceptions : { allKeys : undefined }
 			},
 			activeRecord : null,
 			init : function() {
-				var __self,__table;
+				var __self,exception,errorsFilter;
 				__self       = this;
-				__self.UI    = __table = UI.table( __self.el, __self.settings );
-				detailsTable = __table; 
+				exception    = function() {
+					return App.UIState({
+						recordsTableFocused  : true,
+						exclusionFocused     : true,
+						fileSummaryOffCanvas : true,
+						iframeModal          : true
+					});
+				};
+				__self.settings.exceptions.allKeys = exception;
+				__self.UI    = UI.table( __self.el, __self.settings );
 				errorsFilter = document.querySelector("[data-js~='detailsTable__filter']");
 
 				errorsFilter.addEventListener( 'change', function(e) {
@@ -989,9 +793,9 @@
 					toFilter = filter.value;
 
 					if ( filter.checked == true ) {
-						__table.filter( toFilter );
+						__self.UI.filter( toFilter );
 					} else {
-						__table.unfilter( toFilter );
+						__self.UI.unfilter( toFilter );
 					}
 				});
 
@@ -1001,26 +805,14 @@
 						var toFilter = errorsFilter.value;
 
 						if ( errorsFilter.checked == true ) {
-							__table.unfilter( toFilter );
+							__self.UI.unfilter( toFilter );
 							errorsFilter.checked = false;
 						} else {
-							__table.filter( toFilter );
+							__self.UI.filter( toFilter );
 							errorsFilter.checked = true;
 						}
 					},
-					exception  : function() {
-						var exception;
-						exception = false;
-
-						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
-
-						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
-							exception = true;
-						}
-						return exception;
-					}
+					exception  : exception
 				});
 
 				UI.keyboard({
@@ -1029,19 +821,7 @@
 					onPress     : function(e) {
 						document.querySelector("[data-js~='detailsTable__search']").focus();
 					},
-					exception : function() {
-						var exception;
-						exception = false;
-
-						tableIsNotActive  = ( !__table.isTableFocused() ) ? true : false; // if the active table is not the currentTable, exception is true
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false; // if the panel is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; // if the modal is showing, exception is true
-
-						if ( tableIsNotActive || fileSummaryIsOpen || modalIsShowing ) {
-							exception = true;
-						}
-						return exception;
-					}
+					exception : exception
 				});
 				
 
@@ -1209,7 +989,107 @@
 
 
 	var App = {
-		recordsTable : [],
+		appSuite : {
+			App         : document.querySelector("[data-js~='appSuiteApp']"),
+			Apps        : document.querySelector("[data-js~='appSuiteApps']"),
+			Settings    : document.querySelector("[data-js~='appSuiteSettings']"),
+			Preferences : document.querySelector("[data-js~='appSuitePreferences']"),
+			active : "App",
+			init   : function() {
+				var __self = this,showApp;
+				document.querySelector("[data-js~='cuboid__showAppSuiteSettings']").addEventListener( 'click', function() { __self.show("Settings"); });
+				document.querySelector("[data-js~='cuboid__showAppSuiteApps']").addEventListener( 'click', function() { __self.show("Apps"); });
+				showAppBtns = document.querySelectorAll("[data-js~='cuboid__showAppSuiteApp']");
+				for ( var btn = 0, totalBtns = showAppBtns.length; btn < totalBtns; btn++ ) {
+					showAppBtns[btn].addEventListener( 'click', function() { __self.show("App"); });
+				}
+
+				UI.keyboard({
+					combination : ['alt','a'],
+					onPress     : function(e) {
+						__self.show("Apps");
+					}
+				});
+				UI.keyboard({
+					combination : ['alt','s'],
+					onPress     : function(e) {
+						__self.show("Settings");
+					}
+				});
+				UI.keyboard({
+					combination : ['escape'],
+					onPress     : function(e) {
+						__self.show("App");
+					},
+					exception : function() {
+						return ( __self.active === "App" ) ? true : false;
+					}
+				});
+			},
+			show   : function(toShow) {
+				var active,settings,side;
+				active = App.appSuite.active;
+
+				if ( toShow !== active ) {
+					if ( toShow === "App" ) {
+						swapOut  = App.appSuite.Preferences;
+						swapIn   = App.appSuite.App;
+						settings = { 
+							animationName : "swap", 
+							onComplete    : function() { UI.DOM.addDataValue( App.appSuite[active], "data-ui-state", "is__hidden" ); } 
+						};
+						side     = "front";
+					} else {
+						swapOut  = App.appSuite.App;
+						swapIn   = App.appSuite.Preferences;
+						settings = { animationName : "swap" };
+						side     = ( toShow === "Apps" ) ? "bottom" : "top";
+						UI.DOM.removeDataValue( App.appSuite[toShow], "data-ui-state", "is__hidden" );
+					}
+					UI.animate( [swapOut,swapIn], settings );
+					cuboids.appSuite.UI.show( side );
+				}
+			}
+		},
+		UIState : function(check) {
+			var appSuiteGrid,appSuiteSettings,appSuiteApp,iframeModal,fileSummaryOffCanvas,recordsTableFocused,detailsTableFocused,exclusionFocused,resolutionDesktop,resolutionTablet,resolutionMobile,exception;
+			appSuiteGrid         = ( check.appSuiteGrid         !== undefined ) ? true : false;
+			appSuiteSettings     = ( check.appSuiteSettings     !== undefined ) ? true : false;
+			appSuiteApp          = ( check.appSuiteApp          !== undefined ) ? true : false;
+			iframeModal          = ( check.iframeModal          !== undefined ) ? true : false;
+			fileSummaryOffCanvas = ( check.fileSummaryOffCanvas !== undefined ) ? true : false;
+			recordsTableFocused  = ( check.recordsTableFocused  !== undefined ) ? true : false;
+			detailsTableFocused  = ( check.detailsTableFocused  !== undefined ) ? true : false;
+			exclusionFocused     = ( check.exclusionFocused     !== undefined ) ? true : false;
+			isMobileDevice       = ( check.isMobileDevice       !== undefined ) ? true : false;
+			resolutionDesktop    = ( check.resolutionDesktop    !== undefined ) ? true : false;
+			resolutionTablet     = ( check.resolutionTablet     !== undefined ) ? true : false;
+			resolutionMobile     = ( check.resolutionMobile     !== undefined ) ? true : false;
+
+			exception = false;
+
+			if ( iframeModal && modals.iframe.UI.isModalShowing() ) {
+				exception = true;
+			} else if ( fileSummaryOffCanvas && offCanvasPanels.fileSummary.UI.isPanelShowing() ) {
+				exception = true;
+			} else if ( recordsTableFocused && tables.records.UI.isTableFocused() ) {
+				exception = true;
+			} else if ( detailsTableFocused && tables.details.UI.isTableFocused() ) {
+				exception = true;
+			} else if ( exclusionFocused && document.activeElement.dataset.js === "exclusionNote" ) {
+				exception = true;
+			} else if ( resolutionDesktop && window.innerWidth > 1299 ) {
+				exception = true;
+			} else if ( resolutionTablet && window.innerWidth > 767 ) {
+				exception = true;
+			} else if ( resolutionMobile && window.innerWidth > 480 ) {
+				exception = true;
+			} else if ( isMobileDevice && UI.utilities.isMobile ) {
+				exception = true;
+			}
+
+			return exception;
+		},
 		setupUser : function( configRequest ) {  // CONFIG SETUP STEP 1
 			var __self,config,user,roles,role,config; 
 			__self = this;
@@ -1366,7 +1246,7 @@
 			offCanvasPanels.fileSummary.init();
 			offCanvasPanels.records.init();
 
-			segmentControls.fileSettings();
+			segmentControls.fileRecords();
 
 			tables.records.init();
 			tables.details.init();
@@ -1374,6 +1254,8 @@
 
 			sticky.records.init();
 			sticky.details.init();
+
+			App.appSuite.init();
 
 			// for initializing on none mobile devices only
 			if ( !UI.utilities.isMobile ) {

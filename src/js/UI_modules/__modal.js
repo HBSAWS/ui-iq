@@ -57,27 +57,35 @@ UI_modal.prototype.showModal = function() {
 };
 
 UI_modal.prototype.hideModal = function() {
-	var __self,modalState,modalWindowState,mainCanvasState;
+	var __self,modalState,modalWindowState,mainCanvasState,modalClosed;
 	__self 	         = this;
 	modalState       = "animate__out-delay move__top";
 	modalWindowState = "animate__out scale__down rotate__top";
 	mainCanvasState  = "animate__in-delay-lg";
 
+	// we need to make sure these functions don't fire until the modal has actually finished closing
+	modalClosed = function() {
+		__self.modal.removeEventListener( 'webkitTransitionEnd', modalClosed );
+
+		if ( __self.closeOnEscape ) {
+			document.removeEventListener('keydown', __self.__escapeClose);
+		}
+		if ( __self.closeOnClickOutisde ) {
+			__self.modal.removeEventListener('click', __self.__clickOutSideClose);
+		}
+		__self.closeBtn.removeEventListener('click', __self.__hideModal);
+
+		__self.active = false;		
+	}
+
+	__self.modal.addEventListener( 'webkitTransitionEnd', modalClosed, false );
 	fastdom.write(function() {
 		__self.modal.setAttribute("data-ui-state", modalState);
 		__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
 		__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
 	});
 
-	if ( __self.closeOnEscape ) {
-		document.removeEventListener('keydown', __self.__escapeClose);
-	}
-	if ( __self.closeOnClickOutisde ) {
-		__self.modal.removeEventListener('click', __self.__clickOutSideClose);
-	}
-	__self.closeBtn.removeEventListener('click', __self.__hideModal);
 
-	__self.active = false;
 };
 
 UI_modal.prototype.escapeClose = function(e) {

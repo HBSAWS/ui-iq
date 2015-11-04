@@ -18,6 +18,8 @@ function UI_loader( DOMelement,settings ) {
 	// this function will fire after the loader animation completes
 		// dev has access to the loader DOM object via the 'loader' parameter
 		// dev has access to an array of the request objects via the 'requests' parameter
+	__self.onSuccess               = ( settings.onSuccess !== undefined ) ? settings.onSuccess : undefined;
+	__self.onError                 = ( settings.onError !== undefined)    ? settings.onError : undefined;
 	__self.onComplete              = ( settings.onComplete !== undefined ) ? settings.onComplete : undefined;
 
 	// this is the total percent loaded of all the requests

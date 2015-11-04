@@ -8,11 +8,11 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 	__self.mainCanvas                 = ( settings.mainCanvasElement !== undefined )          ? settings.mainCanvasElement          : undefined;
 	__self.onActiveUnfocusMainCanvas  = ( settings.onActiveUnfocusMainCanvas !== undefined )  ? settings.onActiveUnfocusMainCanvas  : false;
 	__self.closeOnClickOutside        = ( settings.closeOnClickOutside !== undefined )        ? settings.closeOnClickOutside        : false;
-	__self.clickOutsideExemption      = ( settings.clickOutsideExemption !== undefined)       ? settings.clickOutsideExemption      : function() { return false; };
+	__self.clickOutsideException      = ( settings.clickOutsideException !== undefined)       ? settings.clickOutsideException      : function() { return false; };
 	__self.clickOutsideExemptElements = ( settings.clickOutsideExemptElements !== undefined ) ? settings.clickOutsideExemptElements : [];
 
 	__self.closeOnEscape             = ( settings.closeOnEscape !== undefined )               ? settings.closeOnEscape              : true;
-	__self.closeOnEscapeExemption    = ( settings.closeOnEscapeExemption !== undefined )      ? settings.closeOnEscapeExemption     : function() { return false; };
+	__self.closeOnEscapeException    = ( settings.closeOnEscapeException !== undefined )      ? settings.closeOnEscapeException     : function() { return false; };
 
 	__self.side 					 = settings.side;
 
@@ -63,8 +63,22 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 		// adds click event listeners for any toggle buttons
 		for ( var el = 0, len = __self.toggleBtn.length; el < len; el++ ) {
 			var currentToggleBtn = __self.toggleBtn[el];
-			currentToggleBtn.addEventListener('click', __self.__togglePanel);
+			
+			__self.updateToggleButtonState( currentToggleBtn );
+			currentToggleBtn.addEventListener('click', function(e) {
+				__self.togglePanel();
+				__self.updateToggleButtonState( e.currentTarget );
+			});
 		}
+	}
+};
+
+UI_offCanvasPanel.prototype.updateToggleButtonState = function(button) {
+	var __self = this;
+	if ( __self.active ) {
+		UI.DOM.addDataValue( button, "data-ui-state", "is__open" );
+	} else {
+		UI.DOM.removeDataValue( button, "data-ui-state", "is__open" );
 	}
 };
 
@@ -158,7 +172,7 @@ UI_offCanvasPanel.prototype.clickOutSideClose = function(e) {
 	__self = this;
 	level  = 0;
 	console.log("fired clicked out side for : " + __self.panel.dataset.js);
-	if ( __self.clickOutsideExemption() ) {
+	if ( __self.clickOutsideException() ) {
 		return;
 	}
 	for (var element = e.target; element; element = element.parentNode) {
@@ -218,7 +232,7 @@ UI_offCanvasPanel.prototype.escapeClose = function(e) {
 	var __self;
 	__self = this;
 
-	if ( !__self.closeOnEscapeExemption() && e.keyCode == 27 ) { // escape key maps to keycode `27`
+	if ( !__self.closeOnEscapeException() && e.keyCode == 27 ) { // escape key maps to keycode `27`
 		__self.hidePanel();
 		e.stopPropagation();
 	}

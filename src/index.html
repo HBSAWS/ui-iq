@@ -147,15 +147,15 @@
         <div class="deck__dark" data-ui-settings="dimensions__parent" data-js="appSuite">
 
             <!-- SETTINGS AND APPS GRID CONTAINER  ** START ** -->
-            <div class="deck-slide_" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__apps" data-ui-state="animate__off move__top" style="position:absolute;left:0px;top:0px;height:100%;">
+            <div class="deck-slide_" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuitePreferences" data-ui-state="animate__off move__top" style="position:absolute;left:0px;top:0px;height:100%;"> <!-- was data-js="appSuite__apps" -->
                 <div class="deck-slide-content__light" data-ui-settings="dimensions__parent material__paper" data-js="animateInner">
                     <div class="fader"></div>
                     <!-- APPS GRID  ** START ** -->
-                    <div class="layout" data-ui-state="is__hidden" data-js="appsGrid"></div>
+                    <div class="layout" data-ui-state="is__hidden" data-js="appSuiteApps"></div> <!-- was data-js="appsGrid" -->
                     <!-- APPS GRID  ** FINISH ** -->
 
                     <!-- SETTINGS  ** START  ** -->
-                    <div class="layout" data-js="appsSettings" data-ui-settings="padding__top-xxl">
+                    <div class="layout" data-js="appSuiteSettings" data-ui-settings="padding__top-xxl"> <!-- was data-js="appsSettings" -->
                         <!-- settingsApp tab content  ** START ** -->
                         <div data-ui-tab="tab__settingsApp"></div>
                         <!-- settingsApp tab content  ** END ** -->
@@ -311,7 +311,7 @@
             <!-- SETTINGS AND APPS GRID CONTAINER  ** FINISH ** -->
 
             <!-- CURRENT APP CONTAINER  ** START ** -->
-            <div class="deck-slide__dark" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuite__app" style="overflow-y:hidden;">
+            <div class="deck-slide__dark" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuiteApp" style="overflow-y:hidden;">  <!-- was data-js="appSuite__app" -->
                 <div class="deck-slide-content__default" data-ui-settings="dimensions__parent" data-js="animateInner" style="padding-top:50px;transform:translate(0px);overflow:hidden;">
 
                     <div class="fader"></div>
