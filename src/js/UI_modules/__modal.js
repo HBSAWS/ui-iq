@@ -19,6 +19,20 @@ var UI_modal = function UI_modal(DOMelement,settings) {
 	__self.__escapeClose       = this.escapeClose.bind(this);
 	__self.__clickOutSideClose = this.clickOutSideClose.bind(this);
 
+
+	__self.states = {
+		show : {
+			modal       : "animate__in-delay-sm is__showing-modal",
+			modalWindow : "animate__in-delay-lg",
+			modalCanvas : "animate__out scale__down"
+		},
+		hide : {
+			modal       : "animate__out-delay move__top",
+			modalWindow : "animate__out scale__down rotate__top",
+			modalCanvas : "animate__in-delay-lg"
+		}
+	};
+
 	__self.active              = false;
 };
 
@@ -35,9 +49,9 @@ UI_modal.prototype.isModalShowing = function() {
 UI_modal.prototype.showModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState,hideModal;
 	__self 	         = this;
-	modalState       = "animate__in-delay-sm is__showing-modal";
-	modalWindowState = "animate__in-delay-lg";
-	mainCanvasState  = "animate__out scale__down";
+	// modalState       = "animate__in-delay-sm is__showing-modal";
+	// modalWindowState = "animate__in-delay-lg";
+	// mainCanvasState  = "animate__out scale__down";
 
 	if ( __self.closeOnEscape ) {
 		document.addEventListener('keydown', __self.__escapeClose);
@@ -47,11 +61,16 @@ UI_modal.prototype.showModal = function() {
 	}
 	__self.closeBtn.addEventListener('click', __self.__hideModal);
 
-	fastdom.write(function() {
-		__self.modal.setAttribute("data-ui-state", modalState);
-		__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
-		__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
-	});
+	UI.DOM.removeDataValue( __self.modal,       "data-ui-state", __self.states.hide.modal );
+	UI.DOM.removeDataValue( __self.modalWindow, "data-ui-state", __self.states.hide.modalWindow );
+	UI.DOM.removeDataValue( __self.mainCanvas,  "data-ui-state", __self.states.hide.modalCanvas );
+
+	UI.DOM.addDataValue( __self.modal,       "data-ui-state", __self.states.show.modal );
+	UI.DOM.addDataValue( __self.modalWindow, "data-ui-state", __self.states.show.modalWindow );
+	UI.DOM.addDataValue( __self.mainCanvas,  "data-ui-state", __self.states.show.modalCanvas );
+	// __self.modal.setAttribute("data-ui-state", modalState);
+	// __self.modalWindow.setAttribute("data-ui-state", modalWindowState);
+	// __self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
 
 	__self.active = true;
 };
@@ -59,9 +78,9 @@ UI_modal.prototype.showModal = function() {
 UI_modal.prototype.hideModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState,modalClosed;
 	__self 	         = this;
-	modalState       = "animate__out-delay move__top";
-	modalWindowState = "animate__out scale__down rotate__top";
-	mainCanvasState  = "animate__in-delay-lg";
+	// modalState       = "animate__out-delay move__top";
+	// modalWindowState = "animate__out scale__down rotate__top";
+	// mainCanvasState  = "animate__in-delay-lg";
 
 	// we need to make sure these functions don't fire until the modal has actually finished closing
 	modalClosed = function() {
@@ -79,13 +98,19 @@ UI_modal.prototype.hideModal = function() {
 	}
 
 	__self.modal.addEventListener( 'webkitTransitionEnd', modalClosed, false );
-	fastdom.write(function() {
-		__self.modal.setAttribute("data-ui-state", modalState);
-		__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
-		__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
-	});
+	UI.DOM.removeDataValue( __self.modal,       "data-ui-state", __self.states.show.modal );
+	UI.DOM.removeDataValue( __self.modalWindow, "data-ui-state", __self.states.show.modalWindow );
+	UI.DOM.removeDataValue( __self.mainCanvas,  "data-ui-state", __self.states.show.modalCanvas );
 
+	UI.DOM.addDataValue( __self.modal,       "data-ui-state", __self.states.hide.modal );
+	UI.DOM.addDataValue( __self.modalWindow, "data-ui-state", __self.states.hide.modalWindow );
+	UI.DOM.addDataValue( __self.mainCanvas,  "data-ui-state", __self.states.hide.modalCanvas );
 
+	// fastdom.write(function() {
+	// 	__self.modal.setAttribute("data-ui-state", modalState);
+	// 	__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
+	// 	__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
+	// });
 };
 
 UI_modal.prototype.escapeClose = function(e) {

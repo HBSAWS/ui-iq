@@ -9,7 +9,8 @@
     display  : -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
     display  : -ms-flexbox;      /* TWEENER - IE 10 */
     display  : -webkit-flex;     /* NEW - Chrome */
-    display  : flex;         
+    display  : flex;       
+    flex-direction : column;  
 
     justify-content : center;
     align-content   : center;
@@ -17,24 +18,97 @@
 
     background  : $color__dark;
     will-change : transform, opacity;
-    @include prefix(transition, "-webkit-transform 1s cubic-bezier(.43,0,0,1), opacity 0.46s cubic-bezier(.43,0,0,1)");
-    -webkit-transition : -webkit-transform 1s cubic-bezier(.43,0,0,1), opacity 0.46s cubic-bezier(.43,0,0,1);
-}
-    .splash-content {
-        text-align : center;
+    @include prefix(transition, "-webkit-transform 1s cubic-bezier(0.43,0,0,1), opacity 0.46s cubic-bezier(0.43,0,0,1)");
+    -webkit-transition : -webkit-transform 1s cubic-bezier(0.43,0,0,1), opacity 0.46s cubic-bezier(0.43,0,0,1);
+
+    &:before {
+        content    : " ";
+        z-index    : 0;  
+        position   : absolute;
+        top        : 0px;
+        left       : 0px;
+        width      : 100%;
+        height     : 100%;
+        opacity    : 0;
+        background : $color__error;
+
+        @include prefix(transition, opacity 0.46s cubic-bezier(0.43,0,0,1) );
+        -webkit-transition : opacity 0.46s cubic-bezier(0.43,0,0,1);
     }
-        .splash-content-logo {
+
+    &[data-ui-state~="has__error"] {
+        &:before {
+            opacity : 1;
+        }
+        .splash-header {
+            @include prefix(transition, "transform 0.46s cubic-bezier(0.43,0,0,1) 0s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0s" ); 
+            -webkit-transition : -webkit-transform 0.46s cubic-bezier(0.43,0,0,1) 0s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0s; 
+            @include prefix( transform, "scale(0.88) translateY(8px)" );
+            opacity : 0.1;
+        }
+        .splash-loader {
+            @include prefix( transform, translateY(-100px) );
+        }
+            .splash-loader-status {
+                width  : 50px;
+                height : 50px;
+                cursor : pointer;
+                background: white;
+                @include prefix( transform, translateX(38px) );
+                @include prefix( box-shadow, 0 0 40px 0 rgba(0,0,0,0.15) );
+                @include prefix(transition, "background 0s cubic-bezier(0.43,0,0,1) 0s, box-shadow 0.46s cubic-bezier(0.43,0,0,1) 0.76s,transform 0.46s cubic-bezier(0.43,0,0,1) 0.66s,width 0.46s cubic-bezier(0.43,0,0,1),height 0.46s cubic-bezier(0.43,0,0,1) 0s" );
+
+                &:before {
+                    opacity : 1; 
+                    @include prefix(transition, opacity 0.46s cubic-bezier(0.43,0,0,1) 0s ); 
+                }
+                > div {
+                    display : none;
+                }
+
+                &:hover {
+                    @include prefix(transition, "box-shadow 0.46s cubic-bezier(0.43,0,0,1) 0s,transform 0.7s cubic-bezier(0.43,0,0,1) 0s,width 0.46s cubic-bezier(0.43,0,0,1) 0s,height 0.46s cubic-bezier(0.43,0,0,1) 0s" ); 
+                    @include prefix( box-shadow, 0 0 50px 0 rgba(0,0,0,0.25) );
+                    @include prefix( transform, scale(1.08) rotate(300deg) );
+                }
+            }
+            .splash-loader-option {
+                visibility : visible; 
+                @include prefix( transform, translateX(-38px) );
+                @include prefix( box-shadow, 0 0 40px 0 rgba(0,0,0,0.15) );
+                @include prefix(transition, "visibility 0s linear 0.66s, box-shadow 0.76s cubic-bezier(0.43,0,0,1) 0.2s,transform 0.46s cubic-bezier(0.43,0,0,1) 0.66s,width 0.46s cubic-bezier(0.43,0,0,1) 0s,height 0.46s cubic-bezier(0.43,0,0,1) 0s" ); 
+            }
+            .splash-loader-message {
+                text-align : center;
+                opacity    : 0.6;
+                @include prefix( transform, translateY(-4px) ); 
+
+                @include prefix(transition, "text-align 0s linear 0s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0.2s, transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s" ); 
+            }
+            .splash-loader-error {
+                opacity : 1;
+                @include prefix( transform, translateY(-20px) );
+
+                @include prefix(transition, "transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0.2s" ); 
+                -webkit-transition : -webkit-transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0.2s; 
+            }
+    }
+}
+    .splash-header {
+        @include prefix(transition, "transform 0.46s cubic-bezier(0.43,0,0,1) 0.18s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0.18s" ); 
+        -webkit-transition : -webkit-transform 0.46s cubic-bezier(0.43,0,0,1) 0.18s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0.18s; 
+        @include prefix( transform-origin, bottom );
+    }
+        .splash-header-icon {
             width       : 100%;
-            display     : block;
-            margin      : 0px;
-            padding     : 0px;
+            font-family : "hbs-modern";
             font-size   : 3.3rem;
             text-align  : center;
-            font-family : "hbs-modern";
             color       : #ffffff;
             text-shadow : 0 0 50px rgba(0,0,0,0.15);
         }
-        .splash-content-title {
+        .splash-header-title {
+            width       : 100%;
             margin-top  : 15px;
             font-family : $font__family;
             font-size   : 2rem;
@@ -43,21 +117,86 @@
             color       : white;
             text-shadow : 0 0 50px rgba(0,0,0,0.15);
         }
-        .splash-content-loader {
+    .splash-loader {
+        position   : relative;
+        width      : 30%;
+        margin-top : 35px;
+        text-align : center;
+        @include prefix( filter, url("#goo") );
+
+        @include prefix(transition, transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s ); 
+        -webkit-transition : -webkit-transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s; 
+    }
+        .splash-loader-status {
             position   : relative;
-            width      : 200%;
+            display    : inline-block;
+            width      : 100%;
             height     : 4px;
-            margin     : 50px 0px 0px -50%;
             overflow   : hidden;
-            @include prefix( border-radius, 20px );
-        }
-            .splash-content-loader-description {
-                position    : relative;
-                left        : -50%;
-                width       : 200%;
-                overflow    : hidden;
-                padding-top : 8px;
-                font-size   : 0.55rem;
-                text-align  : left;
-                color       : rgba(255,255,255, 0.2); 
+            background : transparent;
+            @include prefix( border-radius, 50px );
+            @include prefix(transition, "background 0s cubic-bezier(0.43,0,0,1) 0.4s, box-shadow 0.46s cubic-bezier(0.43,0,0,1) 0.2s,transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s,width 0.46s cubic-bezier(0.43,0,0,1) 0s,height 0.46s cubic-bezier(0.43,0,0,1) 0s" ); 
+
+            &:before {
+                position    : absolute;
+                content     : '\e800';
+                font-family : "hbs-modern";
+                font-size   : 1.2rem;
+                line-height : 1.2rem; 
+                left        : 18px;
+                top         : 16px;
+                opacity     : 0;
+                color       : $color__dark;
+                @include prefix(transition, opacity 0s cubic-bezier(0.43,0,0,1) 0s ); 
             }
+        }
+        .splash-loader-option {
+            position    : absolute;
+            display     : inline-block;
+            left        : 50%;
+            margin-left : -25px;
+            width       : 50px;
+            height      : 50px;
+            cursor      : pointer;
+            background  : white;
+            visibility  : hidden; 
+            @include prefix( box-shadow, 0 0 40px 0 rgba(0,0,0,0.15) );
+            @include prefix( box-shadow, 0 0 40px 0 rgba(0,0,0,0) );
+            @include prefix( border-radius, 50px );
+            @include prefix(transition, "visibility 0s linear 0.4s, box-shadow 0.46s cubic-bezier(0.43,0,0,1) 0.2s,transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s,width 0.46s cubic-bezier(0.43,0,0,1) 0s,height 0.46s cubic-bezier(0.43,0,0,1) 0s" ); 
+
+            &:before {
+                position    : absolute;
+                content     : '\e800';
+                font-family : "hbs-modern";
+                font-size   : 1.2rem;
+                line-height : 1.2rem; 
+                left        : 18px;
+                top         : 16px;
+                opacity     : 0;
+                color       : $color__dark;
+                @include prefix(transition, opacity 0s cubic-bezier(0.43,0,0,1) 0s ); 
+            }
+        }
+        .splash-loader-message {
+            padding-top : 8px;
+            font-size   : 0.55rem;
+            text-align  : left;
+            opacity     : 0.2;
+            color       : #ffffff; 
+
+            @include prefix(transition, "text-align 0s linear 0.46s, opacity 0.46s cubic-bezier(0.43,0,0,1) 0.2s, transform 0.46s cubic-bezier(0.43,0,0,1) 0.2s" ); 
+        }
+        .splash-loader-error {
+            position    : absolute;
+            bottom      : -100%;
+            text-align  : center;
+            font-size   : 0.7rem;
+            line-height : 1.2rem;
+            font-weight : 300;
+            opacity     : 0;
+            color       : #ffffff;
+
+            @include prefix(transition, "transform 0.3s cubic-bezier(0.43,0,0,1) 0s, opacity 0.3s cubic-bezier(0.43,0,0,1) 0s" ); 
+            -webkit-transition : -webkit-transform 0.3s cubic-bezier(0.43,0,0,1) 0s, opacity 0.3s cubic-bezier(0.43,0,0,1) 0s; 
+        }

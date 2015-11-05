@@ -1,11 +1,12 @@
-	var file,stats;
+	var file,stats,updateAPIURLs;
 	file = {
+		API          : undefined,
 		PDM_URL_base : undefined,
 		user         : undefined, // MBA|DOC|ADMIN
 		role         : undefined, // MBA|DOC
 		report       : "bio",     // bio|admit *is bio by default on load
-		term         : undefined, // S = sping|F = fall
-		year         : undefined, // ex: 1999,2000,etc,
+		term         : "S", // S = sping|F = fall
+		year         : new Date().getFullYear(), // ex: 1999,2000,etc.  Defaults to current year
 
 		fieldNames   : {
 			bio   : {},
@@ -22,6 +23,23 @@
 		errors  : 0,
 		EC      : 0,
 		RC      : 0
+	};
+	updateAPIURLs = function() {
+		file.API = {
+			records : {
+				get  : {
+					active : "/iqService/rest/" + file.role + "/" + file.report + ".json?term=" + file.term + "&year=" + file.year + "&personId=" + file.records.active,
+					all    : "/iqService/rest/" + file.role + "/" + file.report + ".json?term=" + file.term + "&year=" + file.year
+				}
+			},
+			exclusions : {
+				get  : "/iqService/rest/" + file.role + "/" + file.report + "/excl.json",
+				post : {
+					create : "/iqService/rest/" + file.role + "/" + file.report + "/excl/create",
+					update : "/iqService/rest/" + file.role + "/" + file.report + "/excl/update"
+				}
+			}
+		};
 	};
 
 
@@ -63,7 +81,7 @@
 	var calendar = {
 		exclusions : {
 			init : function() {
-				var dateValidation,renderControls,calendarStart,calendarEnd,today,dd,mm,yyyy,mobileAdjust;
+				var dateValidation,renderControls,calendarSettings,calendarStart,calendarEnd,today,dd,mm,yyyy,mobileAdjust;
 				renderControls = function() {
 					if ( window.innerWidth < 767 || UI.utilities.isMobile ) {
 						var renderedCalendarControls = this.el.querySelector(".pika-mobile-controls");
@@ -98,29 +116,23 @@
 						UI.DOM.removeDataValue( calendarEnd._o.field, "data-ui-state", "is__error animation__shake");							
 					}
 				};
-
-				calendarStart = new Pikaday({ 
-					field: document.querySelector("[data-js~='exclusionStartDate__datePicker']"),
-					format: 'MM/DD/YYYY',
-					onSelect: function() {
+				calendarSettings = {
+					field    : undefined,
+					format   : 'MM/DD/YYYY',
+					onSelect : function() {
 					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
 					    this._o.field.value = formattedDate;
 					},
 					onOpen   : renderControls,
 					onDraw   : renderControls,
 					onSelect : validateDate
-				 });
-				calendarEnd = new Pikaday({ 
-					field: document.querySelector("[data-js~='exclusionEndDate__datePicker']"),
-					format: 'MM/DD/YYYY',
-					onSelect: function() {
-					    var formattedDate   = this.getMoment().format('MM/DD/YYYY');
-					    this._o.field.value = formattedDate;
-					},
-					onOpen : renderControls,
-					onDraw : renderControls,
-					onSelect : validateDate
-				 });
+				};
+				calendarSettings.field = document.querySelector("[data-js~='exclusionStartDate__datePicker']");
+				calendarStart          = new Pikaday( calendarSettings );
+
+				calendarSettings.field = document.querySelector("[data-js~='exclusionEndDate__datePicker']");
+				calendarEnd            = new Pikaday( calendarSettings );
+
 				// IMPORTANT!! IN THE PIKADAY.JS FILE COMMENT OUT LINE 512
 				// the script has some mobile bugs - this fixes the one where the pikaday closes the calendar when you click the next button
 				// in mobile when the input field gets a blur event it closes the calendar
@@ -132,10 +144,10 @@
 					var isReadOnly;
 					if ( window.innerWidth < 768 || UI.utilities.isMobile ) {
 						document.querySelector("[data-js~='exclusionStartDate__datePicker']").readOnly = "readonly";
-						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = "readonly";
+						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly   = "readonly";
 					} else {
 						document.querySelector("[data-js~='exclusionStartDate__datePicker']").readOnly = false;
-						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly = false;
+						document.querySelector("[data-js~='exclusionEndDate__datePicker']").readOnly   = false;
 					}
 				};
 				mobileAdjust();
@@ -144,13 +156,9 @@
 				}
 			},
 			reset : function() {
-				var today,dd,mm,yyyy,today;
+				var today;
 				today = new Date();
-				dd    = today.getDate();
-				mm    = today.getMonth()+1;
-				yyyy  = today.getFullYear();
-
-				today = mm + '/' + dd + '/' + yyyy + ' ';
+				today = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear() + ' ';
 				document.querySelector("[data-js~='exclusionStartDate__datePicker']").value = today;
 				document.querySelector("[data-js~='exclusionEndDate__datePicker']").value = "";
 			}
@@ -171,15 +179,11 @@
 			},
 		},
 		app : {
-			el       : document.querySelector("[data-js~='cuboid__initApp']"),
-			settings : {
-				sideToShowOnInit : "bottom"
-			},
+			el   : document.querySelector("[data-js~='cuboid__initApp']"),
 			UI   : null,
 			init : function() {
-				var __self,__cuboid;
-				__self    = this;
-				__self.UI = __cuboid = UI.cuboid( __self.el,__self.settings );
+				var __self = this;
+				__self.UI  = UI.cuboid( __self.el, {sideToShowOnInit : "bottom"} );
 			}
 		}
 	};
@@ -264,10 +268,7 @@
 		},
 		returnExclusionValues : function() {
 			var __self,record,exclusion,startDate,endDate;
-			// we make sure the values in our 'file' object are up to date before constructing our API url
-			App.updateAPI_URLValues();
 			__self    = this;
-			// the active/open record in the UI
 			record    = file.records[ file.records.active ];
 			// initialize exclusion object
 			exclusion = {};
@@ -291,35 +292,28 @@
 
 			return exclusion;
 		},
-		postExclusion : function(createOrupdate) {
-			var __self,exclusionData,reqExclusionCreate;
+		postExclusion : function(POSTVerb) {
+			var __self,exclusionData,exclusionRequest;
 			__self             = this;
 			exclusionData      = __self.returnExclusionValues();
-			reqExclusionCreate = new XMLHttpRequest();
-			reqExclusionCreate.open("POST","/iqService/rest/" + file.role + "/" + file.report + "/excl/" + createOrupdate, true);
-			reqExclusionCreate.setRequestHeader('Content-Type', 'application/json');
-			reqExclusionCreate.onreadystatechange = function() {
-				var errorStatus,errorMessage;
-				if( this.readyState == 4) {
-					if( this.status == 200) {
-						console.log( "Config HTTP error " + this.status + " " + this.statusText );
-						file.records[ exclusionData.prsnId ].exclusion = exclusionData;
-						UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
 
-						errorStatus  = "success";
-						errorMessage = exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion.";
-					}
-					else {
-						errorStatus  = "error";
-						errorMessage = "Config HTTP error " + this.status + " " + this.statusText;
-					}
-					notifications.inApp.updateStatus( errorStatus, errorMessage );
+			updateAPIURLs();
+			exclusionRequest = UI.request({ 
+				method   : "POST", 
+				URL      : file.API.exclusions.post[POSTVerb],
+				headers  : 'application/json',
+				postData : JSON.stringify( exclusionData ),
+				success  : function(response) {
+					file.records[ exclusionData.prsnId ].exclusion = exclusionData;
+					UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
+
+					notifications.inApp.updateStatus( "success", exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion." );
+				},
+				error    : function(response) {
+					notifications.inApp.updateStatus( "error", "Config HTTP error " + response.status + " " + response.statusText );
 				}
-			};
-			// we send the request for the config data
-			reqExclusionCreate.send( JSON.stringify( exclusionData ) );
-			// create a and initalize a loader for our new XMLHttprequest object
-			loaders.inApp( reqExclusionCreate );
+			});
+			loaders.inApp( exclusionRequest );
 		},
 		closeExclusionNote : function() {
 			var __self;
@@ -384,18 +378,22 @@
 
 
 
-	var modals = {
+	modals = {
+		login : {
+			el       : document.querySelector("[data-js~='modalLoginiFrame']"),
+			UI       : undefined,
+			init : function() {
+				var __self = this,submitButton;
+				__self.UI = UI.modal( __self.el, { mainCanvasElement : document.querySelector("[data-js~='splashFinishedLoading']") });
+			}
+		},
 		iframe : {
 			el       : document.querySelector("[data-js~='modal__iframe']"),
 			iFrame   : document.querySelector("[data-js~='iframePDM']"),
-			settings : {
-				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
-				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")]
-			},
-			UI : undefined,
+			UI       : undefined,
 			init : function() {
 				var __self = this,submitButton;
-				modals.iframe.UI = UI.modal( __self.el, {
+				__self.UI = UI.modal( __self.el, {
 					mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
 					clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")]
 				});
@@ -404,7 +402,7 @@
 				submitButton.addEventListener( 'click', App.reValidateRecordField );
 			},
 			updateModaliFrameSource : function(recordID) {
-				modals.iframe.iFrame.setAttribute('src', file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + recordID );	
+				modals.iframe.iFrame.setAttribute('src', file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + file.records.active );	
 			}
 		}
 	};
@@ -422,13 +420,7 @@
 				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")],
 				closeOnEscape              : true,
 				closeOnEscapeException     : function() {
-					var exception;
-					exception = false;
-
-					if ( cuboids.appSuite.isAppSuiteOpen ) {
-						exception = true;
-					}
-					return exception;
+					return App.UIState({ appSuiteApps : true, appSuiteSettings : true, });
 				},
 				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
 				toggleBtnSelector          : "[data-js~='fileSummaryToggleIcon']",
@@ -555,6 +547,7 @@
 
 					file[toUpdate] = updateValue;
 				});
+				updateAPIURLs();
 			}
 		}
 	};
@@ -568,10 +561,10 @@
 			UI : undefined,
 			init : function() {
 				var __self = this;
-				sticky.records.UI = UI.sticky( __self.el, {
-					scrollingElement   : document.querySelector("[data-js~='appHuver__records']"),
-					widthReference     : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
-					distanceToStick    : 30
+				__self.UI  = UI.sticky( __self.el, {
+					scrollingElement : document.querySelector("[data-js~='appHuver__records']"),
+					widthReference   : document.querySelector("[data-js~='appHuver__records']").querySelector("[data-js~='appHuver__recordsInner']"),
+					distanceToStick  : 30
 				});
 			}
 		},
@@ -580,10 +573,10 @@
 			UI : undefined,
 			init : function() {
 				var __self = this;
-				sticky.details.UI = UI.sticky( __self.el, {
-					scrollingElement   : document.querySelector("[data-js~='appHuver__recDetails']"),
-					widthReference     : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
-					distanceToStick    : 30
+				__self.UI  = UI.sticky( __self.el, {
+					scrollingElement : document.querySelector("[data-js~='appHuver__recDetails']"),
+					widthReference   : document.querySelector("[data-js~='appHuver__recDetails']").querySelector("[data-js~='appHuver__details-inner']"),
+					distanceToStick  : 30
 				});
 			}
 		}
@@ -667,7 +660,7 @@
 				scrollAdjustmentOffsetTop         : function() {
 					return document.querySelector("[data-js~='records__positionSticky']").getBoundingClientRect().bottom;
 				},
-				scrollingElement 	              : document.querySelector("[data-js~='appHuver__records']"),	
+				scrollingElement : document.querySelector("[data-js~='appHuver__records']"),	
 
 				onRowSelection : function( selectRow ) {
 					tables.details.openRecord( selectRow );
@@ -994,8 +987,8 @@
 			Apps        : document.querySelector("[data-js~='appSuiteApps']"),
 			Settings    : document.querySelector("[data-js~='appSuiteSettings']"),
 			Preferences : document.querySelector("[data-js~='appSuitePreferences']"),
-			active : "App",
-			init   : function() {
+			active      : "App",
+			init        : function() {
 				var __self = this,showApp;
 				document.querySelector("[data-js~='cuboid__showAppSuiteSettings']").addEventListener( 'click', function() { __self.show("Settings"); });
 				document.querySelector("[data-js~='cuboid__showAppSuiteApps']").addEventListener( 'click', function() { __self.show("Apps"); });
@@ -1022,12 +1015,12 @@
 						__self.show("App");
 					},
 					exception : function() {
-						return ( __self.active === "App" ) ? true : false;
+						return App.UIState({ appSuiteApp : true });
 					}
 				});
 			},
-			show   : function(toShow) {
-				var active,settings,side;
+			show : function(toShow) {
+				var active,swapOut,swapIn,settings,side;
 				active = App.appSuite.active;
 
 				if ( toShow !== active ) {
@@ -1046,14 +1039,15 @@
 						side     = ( toShow === "Apps" ) ? "bottom" : "top";
 						UI.DOM.removeDataValue( App.appSuite[toShow], "data-ui-state", "is__hidden" );
 					}
+					App.appSuite.active = toShow;
 					UI.animate( [swapOut,swapIn], settings );
 					cuboids.appSuite.UI.show( side );
 				}
 			}
 		},
 		UIState : function(check) {
-			var appSuiteGrid,appSuiteSettings,appSuiteApp,iframeModal,fileSummaryOffCanvas,recordsTableFocused,detailsTableFocused,exclusionFocused,resolutionDesktop,resolutionTablet,resolutionMobile,exception;
-			appSuiteGrid         = ( check.appSuiteGrid         !== undefined ) ? true : false;
+			var appSuiteApps,appSuiteSettings,appSuiteApp,iframeModal,fileSummaryOffCanvas,recordsTableFocused,detailsTableFocused,exclusionFocused,resolutionDesktop,resolutionTablet,resolutionMobile,exception;
+			appSuiteApps         = ( check.appSuiteApps         !== undefined ) ? true : false;
 			appSuiteSettings     = ( check.appSuiteSettings     !== undefined ) ? true : false;
 			appSuiteApp          = ( check.appSuiteApp          !== undefined ) ? true : false;
 			iframeModal          = ( check.iframeModal          !== undefined ) ? true : false;
@@ -1086,12 +1080,18 @@
 				exception = true;
 			} else if ( isMobileDevice && UI.utilities.isMobile ) {
 				exception = true;
+			} else if ( appSuiteApps && App.appSuite.active === "Apps" ) {
+				exception = true;
+			} else if ( appSuiteApp && App.appSuite.active === "App" ) {
+				exception = true;
+			} else if ( appSuiteSettings && App.appSuite.active === "Settings" ) {
+				exception = true;
 			}
 
 			return exception;
 		},
 		setupUser : function( configRequest ) {  // CONFIG SETUP STEP 1
-			var __self,config,user,roles,role,config; 
+			var __self,config,user,roles,role,config,requestRecords,requestExclusions; 
 			__self = this;
 			config = JSON.parse( configRequest.response );
 			user   = config.userInfo;
@@ -1102,18 +1102,19 @@
 
 			// determine's the logged in user's role
 			if ( roles.indexOf("IQ_ADMIN") > -1 ) {
-				role = file.role = "MBA";
-				file.user = "ADMIN";
+				role      = file.role = "mba";
+				file.user = "admin";
 			} else if ( roles.indexOf("IQ_MBA") > -1 ) {
-				role = file.user = file.role = "MBA";
+				role = file.user = file.role = "mba";
 			} else if ( roles.indexOf("IQ_DOC") > -1 ) {
-				role = file.user = file.role = "DOC";
+				role = file.user = file.role = "doc";
 			}
+			updateAPIURLs();
 
 			// sets user's name in the global navigation
 			document.querySelector("[data-js~='userName']").innerHTML = user.firstName;
 			// if the user isn't an admin we remove the segment control that allows the user to switch between MBA/DOCTORAL files
-			if ( file.user !== "ADMIN" ) {
+			if ( file.user !== "admin" ) {
 				document.querySelector("[data-js~='adminFileOption']").remove();
 			}
 
@@ -1121,12 +1122,12 @@
 			App.setupFields( config.metadata );
 
 			// we initialize the records and exclusions XMLHTTPRequests
-			var requestRecords    = UI.request({ method: "GET", URL: App.getAPI_URL() });
-			var requestExclusions = UI.request({ method: "GET", URL: "/iqService/rest/" + file.role + "/" + file.report + "/excl.json" });
+			requestRecords    = UI.request({ method: "GET", URL: file.API.records.get.all });
+			requestExclusions = UI.request({ method: "GET", URL: file.API.exclusions.get });
 
 			// we initialize the records and exclusions loader loader
 			loaders.initializeApp([requestRecords,requestExclusions],document.querySelector("[data-js~='appLoader__records']"),App.buildRecords);
-			document.querySelector("[data-js~='appLoader__description']").innerHTML = "processing records";
+			document.querySelector("[data-js~='splashLoaderMessage']").innerHTML = "processing records";
 		},
 		setupFields : function( fieldData ) { // CONFIG SETUP STEP 2
 			// fieldData = config.metadata
@@ -1144,8 +1145,8 @@
 				}
 			};
 
-			buildFields( "bio",bioFields,bioFieldNames );
-			buildFields( "admit",admitFields,admitFieldNames );
+			buildFields( "bio", bioFields,bioFieldNames );
+			buildFields( "admit", admitFields,admitFieldNames );
 		},
 		buildRecords : function( data ) { // RECORDS SETUP STEP 1
 			var __self,exclusions,records,recordsTable,totalRecords,fields,tableRow;
@@ -1158,7 +1159,7 @@
 			fields       = file.fieldNames[file.report];
 
 			// starts generating the HTML for records table
-			tableRow     = 1;
+			tableRow        = 1;
 			recordsTable[0] = '<tbody class="table-body_" data-ui-settings="size__large">';
 
 			for ( var record = 0; record < totalRecords; record++ ) {
@@ -1270,7 +1271,7 @@
 		},
 		animateInUI : function() {
 			var splash,removeSplash;
-			splash = document.querySelector("[data-js~='splash__finishedLoad']");
+			splash = document.querySelector("[data-js~='splashFinishedLoading']");
 
 			removeSplash = function(e) {
 				if ( e.target == splash ) {
@@ -1311,31 +1312,6 @@
 				splash.style.opacity   = 0;
 			});
 		},
-		updateAPI_URLValues : function() {
-			var report,term,year,role,personId,API_URL;
-			// report is either 'Bio' or 'Admit'
-			file.report = document.querySelector("[data-js~='updateFile'][name='report']:checked").value;
-			// term is either 'S' for spring or 'F' for fall
-			file.term   = document.querySelector("[data-js~='updateFile'][name='term']:checked").value;
-			file.year   = document.querySelector("[data-js~='updateFile'][name='year']:checked").value;
-			if ( year === "archive" ) {
-				// if the selected 'year' segment control is the archive, we need to look to our action sheet to find the value
-				file.year = actionsheets.archiveFiles.UI.getSelectedValue();
-			}
-
-			if ( file.user === "ADMIN" ) {
-				file.role = document.querySelector("[data-js~='updateFile'][name='role']:checked").value;
-			}
-		},
-		getAPI_URL : function(lookupActiveRecord) {
-			var API_URL,activeRecord;
-			App.updateAPI_URLValues();
-			activeRecord = ( lookupActiveRecord !== undefined ) ? "&personId=" + file.records.active : "";
-			//var __file = ( file.report === "bio" ) ? "bio" : file.report;
-			API_URL      = "/iqService/rest/" + file.role + "/" + file.report + ".json?term=" + file.term + "&year=" + file.year + activeRecord;
-
-			return API_URL;
-		},
 		reValidateRecordField : function(e) {
 			var selectedField,fieldDisplayName,fieldName,reqRecords,API_URL,appLogo,fileLoader;
 			selectedField    = tables.details.UI.currentHighlightedRow();
@@ -1343,11 +1319,10 @@
 			fieldObject      = tables.details.UI.list.get("is__field",fieldDisplayName)[0].values();
 			fieldName        = fieldObject.fieldName;
 
-			// generate the URL for our API call
-			API_URL          = App.getAPI_URL(true);
 			// setup the XMLHttpRequest
+			updateAPIURLs();
 			reqRecords = new XMLHttpRequest();
-			reqRecords.open("GET",API_URL,true);
+			reqRecords.open("GET", file.API.records.get.active ,true);
 			reqRecords.onreadystatechange = function() {
 				var errorStatus,errorMessage;
 				if( this.readyState == 4) {
@@ -1528,12 +1503,13 @@
 		}
 	};
 
+	modals.login.init();
 	// we initialize the config XMLHTTPRequest
-	var requestConfig = UI.request({ method: "GET", URL: "/iqService/rest/config.json?meta=true", success: App.setupUser });
+	var requestConfig = UI.request({ method: "GET", URL: "/iqService/rest/cnfig.json?meta=true", success: App.setupUser });
 	// we initialize the config loader
 	loaders.initializeApp( requestConfig,document.querySelector("[data-js~='appLoader__config']") );
 	// we update the splash page loading message
-	document.querySelector("[data-js~='appLoader__description']").innerHTML = "creating user profile";
+	document.querySelector("[data-js~='splashLoaderMessage']").innerHTML = "creating user profile";
 
 
 

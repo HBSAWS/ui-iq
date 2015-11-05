@@ -7,17 +7,33 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
     </head>
     <body data-ui-state="adjusted__forNav">
+        <!-- in App modal  ** START ** -->
+        <div class="modal_" data-ui-state="move__top" data-js="modalLoginiFrame">
+            <div class="modal-window_" data-ui-state="scale__down rotate__top" style="width : 415px;">
+                <div class="fader"></div>
+                <div class="modal-window-header_">
+                    <div class="modal-window-header-title_">Secure Staging Login</div>
+                    <button class="modal-window-header-close_" data-js="closeModal"></button>
+                </div>
+                <div class="modal-window-body_" style="width : 415px; height : 250px;">
+                    <iframe class="iframe-login" data-js="iframeLogin" src="https://secure-stage.hbsstg.org/login_ceeOAM/index.html" ></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- in App modal  ** END ** -->
+
 
         <!-- THE LOADER LAYER  ** GETS REMOVED AFTER LOAD IS FINISHED ** -->
-        <div class="splash" data-js="splash__finishedLoad">
-            <div class="splash-content">
-                <div class="splash-content-logo">
-                    &#xe84c
-                </div>
-                <div class="splash-content-title">
+        <div class="splash" data-js="splashFinishedLoading">
+            <div class="fader"></div>
+            <div class="splash-header">
+                <div class="splash-header-icon" data-ui-icon="logo-huver place__before"></div>
+                <div class="splash-header-title">
                     HUVER
                 </div>
-                <div class="splash-content-loader">
+            </div>
+            <div class="splash-loader">
+                <div class="splash-loader-status">
                     <div class="loader__initialize" data-js="appLoader">
                         <div class="loader_" data-ui-settings="partial__small" data-js="appLoader__config">
                             <div class="loader-progress__initialize"></div>
@@ -27,10 +43,22 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="splash-content-loader-description" data-js="appLoader__description"></div>
+                <div class="splash-loader-option"></div>
+                <div class="splash-loader-message" data-js="splashLoaderMessage"></div>
+                <div class="splash-loader-error" data-js="splashErrorMessage">
+                    We weren't able to load your user profile. Try logging in and reloading.
+                </div>
             </div>
         </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
+                </filter>
+            </defs>
+        </svg>
         <!-- THE LOADER LAYER  ** GETS REMOVED AFTER LOAD IS FINISHED ** -->
 
 
@@ -376,6 +404,7 @@
                         </div>
                     </nav>
                     <div class="layout__dark" data-ui-settings="mode__full" data-ui-grid="mobile_12" style="-webkit-perspective:1000;">
+                        <!-- in App modal  ** START ** -->
                         <div class="modal_" data-ui-state="animate__in move__top" data-js="modal__iframe">
                             <div class="modal-window_" data-ui-state="animate__in scale__down rotate__bottom">
                                 <div class="fader"></div>
@@ -391,6 +420,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- in App modal  ** END ** -->
                         <!-- offCanvas__fileSettings  ** START ** -->
                         <div class="deck-slide__dark" data-ui-settings="offCanvas__right offCanvas__fixed material__film depth__medium" data-ui-state="move__right" data-js="offCanvasPanel__fileSettings" style="overflow:hidden;">
                             <div class="deck-slide-content__dark" data-ui-settings="dimensions__parent">  

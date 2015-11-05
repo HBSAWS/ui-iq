@@ -40,6 +40,11 @@
 		}
 	}
 }
+.iframe-login {
+    height : 1000px;
+    width  : 1000px;
+    @include prefix( transform, translateY(-155px) translateX(-500px) );
+}
 .iframe-PDM {
 	position : relative;
 	height   : 568px;
