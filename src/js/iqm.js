@@ -381,10 +381,18 @@
 	modals = {
 		login : {
 			el       : document.querySelector("[data-js~='modalLoginiFrame']"),
+			iFrame   : document.querySelector("[data-js~='iframeLogin']"),
 			UI       : undefined,
 			init : function() {
 				var __self = this,submitButton;
-				__self.UI = UI.modal( __self.el, { mainCanvasElement : document.querySelector("[data-js~='splashFinishedLoading']") });
+				__self.UI = UI.modal( __self.el, { mainCanvasElement : document.querySelector("[data-js~='splash']") });
+
+				document.querySelector("[data-js~='splashLogin']").addEventListener( 'click', function() {
+					__self.UI.showModal();
+				});
+				document.querySelector("[data-js~='splashReload']").addEventListener( 'click', function() {
+					splash.removeError( App.getUser() );
+				});
 			}
 		},
 		iframe : {
@@ -555,6 +563,11 @@
 
 
 
+	splash = UI.splash( document.querySelector("[data-js~='splash']") );
+
+
+
+
 	var sticky = {
 		records : {
 			el : document.querySelector("[data-js~='records__positionSticky']"),
@@ -585,7 +598,7 @@
 
 
 
-	tables = {
+	var tables = {
 		init : function() {
 			var __self,recordsTable,detailsTable; 
 			__self       = this;
@@ -981,7 +994,7 @@
 
 
 
-	var App = {
+	App = {
 		appSuite : {
 			App         : document.querySelector("[data-js~='appSuiteApp']"),
 			Apps        : document.querySelector("[data-js~='appSuiteApps']"),
@@ -1089,6 +1102,32 @@
 			}
 
 			return exception;
+		},
+		getUser : function() {
+			// we initialize the config XMLHTTPRequest
+			var requestConfig = UI.request({ 
+				method  : "GET", 
+				URL     : "/iqService/rest/config.json?meta=true", 
+				success : function(request) {
+					if ( request.response.indexOf("!DOCTYPE") > -1 ) {
+						modals.login.iFrame.setAttribute('src', request.responseURL );	
+						setTimeout(function() {
+							splash.addError( "We weren't able to load your user profile. Try logging in and reloading." );
+						}, 600);
+					} else {
+						App.setupUser(request);
+					}
+				},
+				error   : function(request) {
+					setTimeout(function() {
+						splash.addError( "We weren't able to load your user profile. Try logging in and reloading." );
+					}, 400);
+				} 
+			});
+			// we initialize the config loader
+			loaders.initializeApp( requestConfig,document.querySelector("[data-js~='appLoader__config']") );
+			// we update the splash page loading message
+			document.querySelector("[data-js~='splashLoaderMessage']").innerHTML = "creating user profile";
 		},
 		setupUser : function( configRequest ) {  // CONFIG SETUP STEP 1
 			var __self,config,user,roles,role,config,requestRecords,requestExclusions; 
@@ -1271,7 +1310,7 @@
 		},
 		animateInUI : function() {
 			var splash,removeSplash;
-			splash = document.querySelector("[data-js~='splashFinishedLoading']");
+			splash = document.querySelector("[data-js~='splash']");
 
 			removeSplash = function(e) {
 				if ( e.target == splash ) {
@@ -1504,12 +1543,7 @@
 	};
 
 	modals.login.init();
-	// we initialize the config XMLHTTPRequest
-	var requestConfig = UI.request({ method: "GET", URL: "/iqService/rest/cnfig.json?meta=true", success: App.setupUser });
-	// we initialize the config loader
-	loaders.initializeApp( requestConfig,document.querySelector("[data-js~='appLoader__config']") );
-	// we update the splash page loading message
-	document.querySelector("[data-js~='splashLoaderMessage']").innerHTML = "creating user profile";
+	App.getUser();
 
 
 

@@ -75,7 +75,7 @@ UI_modal.prototype.showModal = function() {
 	__self.active = true;
 };
 
-UI_modal.prototype.hideModal = function() {
+UI_modal.prototype.hideModal = function(callback) {
 	var __self,modalState,modalWindowState,mainCanvasState,modalClosed;
 	__self 	         = this;
 	// modalState       = "animate__out-delay move__top";
@@ -94,7 +94,10 @@ UI_modal.prototype.hideModal = function() {
 		}
 		__self.closeBtn.removeEventListener('click', __self.__hideModal);
 
-		__self.active = false;		
+		__self.active = false;	
+		if ( callback !== undefined ) {
+			callback();
+		}	
 	}
 
 	__self.modal.addEventListener( 'webkitTransitionEnd', modalClosed, false );

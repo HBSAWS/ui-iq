@@ -16,7 +16,7 @@
                     <button class="modal-window-header-close_" data-js="closeModal"></button>
                 </div>
                 <div class="modal-window-body_" style="width : 415px; height : 250px;">
-                    <iframe class="iframe-login" data-js="iframeLogin" src="https://secure-stage.hbsstg.org/login_ceeOAM/index.html" ></iframe>
+                    <iframe class="iframe-login" data-js="iframeLogin" src="" ></iframe>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
 
 
         <!-- THE LOADER LAYER  ** GETS REMOVED AFTER LOAD IS FINISHED ** -->
-        <div class="splash" data-js="splashFinishedLoading">
+        <div class="splash" data-js="splash">
             <div class="fader"></div>
             <div class="splash-header">
                 <div class="splash-header-icon" data-ui-icon="logo-huver place__before"></div>
@@ -43,18 +43,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="splash-loader-option"></div>
+                <div class="splash-loader-options">
+                    <div class="splash-loader-options-option" data-ui-icon="login place__before" title="login" data-js="splashLogin"></div>
+                    <div class="splash-loader-options-option" data-ui-icon="reload place__before" title="reload" data-js="splashReload"></div>
+                </div>
                 <div class="splash-loader-message" data-js="splashLoaderMessage"></div>
                 <div class="splash-loader-error" data-js="splashErrorMessage">
                     We weren't able to load your user profile. Try logging in and reloading.
                 </div>
             </div>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" data-ui-state="is__hidden">
             <defs>
                 <filter id="goo">
                     <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                    <feColorMatrix in="blur" mode="matrix" values="255 0 0 0 0  0 255 0 0 0  0 0 255 0 0  0 0 0 18 -7" result="goo" />
                     <feBlend in="SourceGraphic" in2="goo" />
                 </filter>
             </defs>

@@ -30,6 +30,9 @@ UI = {
 	request : function(settings) {
 		return new UI_request(settings);
 	},
+	splash : function(DOMelement) {
+		return new UI_splash(DOMelement);
+	},
 	sticky : function(DOMelement,settings) {
 		return new UI_sticky(DOMelement,settings);
 	},
