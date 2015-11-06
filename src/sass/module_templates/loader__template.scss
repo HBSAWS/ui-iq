@@ -39,7 +39,7 @@
         left     : -100%;
         background : #fff;
         @include prefix( will-change, transform );
-        @include prefix( transition, transform 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) );
+        @include prefix( transition, transform 1s cubic-bezier(0.39, 0.575, 0.565, 1) );
 
         &[class$="_initialize"] {
             background : #fff;

@@ -65,13 +65,13 @@ UI_splash.prototype.removeError = function(callback) {
 	__self.removeHoverListeners();
 	errorRemoved = function(e) {
 		if ( e.target == e.currentTarget ) {
-			loaderContainer.removeEventListener( "webkittransitionend", errorRemoved );
+			loaderContainer.removeEventListener( "webkitTransitionEnd", errorRemoved );
 			if ( callback !== undefined ) {
 				callback();
 			}
 		}
 	};
-	loaderContainer.addEventListener( "webkittransitionend", errorRemoved );
+	loaderContainer.addEventListener( "webkitTransitionEnd", errorRemoved );
 	UI.DOM.removeDataValue( __self.el,"data-ui-state","has__error" );
 };
 
@@ -81,8 +81,8 @@ UI_splash.prototype.hide = function(destroyAfterHide,callback) {
 
 	hideCallback = function(e) {
 		if ( e.target == e.currentTarget ) {
-			__self.el.removeEventListener( "webkittransitionend", hideCallback );
-			if ( callback !== undefined ) {
+			__self.el.removeEventListener( "webkitTransitionEnd", hideCallback );
+			if ( typeof callback === "function" ) {
 				callback();
 			}
 			if ( destroyAfterHide ) {
@@ -90,14 +90,14 @@ UI_splash.prototype.hide = function(destroyAfterHide,callback) {
 			}
 		};
 	};
-	__self.el.addEventListener( "webkittransitionend", hideCallback, false );
+	__self.el.addEventListener( "webkitTransitionEnd", hideCallback );
 
 	__self.el.style.transform = "translateY(-100px)";
 	__self.el.style.opacity   = 0;
 };
 
 UI_splash.prototype.destroy = function() {
-	var ___self = this;
+	var __self = this;
 
 	__self.el.remove();
 };

@@ -1115,7 +1115,9 @@
 							splash.addError( "We weren't able to load your user profile. Try logging in and reloading." );
 						}, 600);
 					} else {
-						App.setupUser(request);
+						setTimeout(function() {
+							App.setupUser(request);
+						},400);
 					}
 				},
 				error   : function(request) {
@@ -1309,35 +1311,23 @@
 			this.animateInUI();
 		},
 		animateInUI : function() {
-			var splash,removeSplash;
-			splash = document.querySelector("[data-js~='splash']");
-
-			removeSplash = function(e) {
-				if ( e.target == splash ) {
-					splash.removeEventListener("webkitTransitionEnd", removeSplash);
-					// fastdom.write(function() {
-						splash.style.display = "none";
-						//splash.remove();
-
-						offCanvasPanels.fileSummary.UI.showPanel();
-					// });
-					setTimeout(function(){
-						cuboids.appSuite.UI.show("front");
-						UI.DOM.removeDataValue( cuboids.app.el.querySelector("[data-ui-state~='is__camouflaged']"),"data-ui-state","is__camouflaged" );
-					},100);
-					setTimeout(function(){
-						cuboids.app.UI.show("front");
-						UI.DOM.removeDataValue( cuboids.appSuite.el.querySelector("[data-ui-state~='is__camouflaged']"),"data-ui-state","is__camouflaged" );
-					},280);
-					setTimeout(function() {
-						var inAppNotification = document.querySelector("[data-js='inAppNotification']");
-						UI.DOM.removeDataValue( inAppNotification,"data-ui-state","is__hidden" );
-					},800);
-				}
+			var prepUIForAnimateIn = function() {
+				console.log("fired");
+				offCanvasPanels.fileSummary.UI.showPanel();
+				setTimeout(function(){
+					cuboids.appSuite.UI.show("front");
+					UI.DOM.removeDataValue( cuboids.app.el.querySelector("[data-ui-state~='is__camouflaged']"),"data-ui-state","is__camouflaged" );
+				},100);
+				setTimeout(function(){
+					cuboids.app.UI.show("front");
+					UI.DOM.removeDataValue( cuboids.appSuite.el.querySelector("[data-ui-state~='is__camouflaged']"),"data-ui-state","is__camouflaged" );
+				},280);
+				setTimeout(function() {
+					var inAppNotification = document.querySelector("[data-js='inAppNotification']");
+					UI.DOM.removeDataValue( inAppNotification,"data-ui-state","is__hidden" );
+				},800);
 			};
 
-			splash.addEventListener("webkitTransitionEnd", removeSplash);
-			fastdom.write(function() {
 				// we do this so the main canvas can animate in on load
 				// the file summary off canvas panel changes the state of the main canvas depending on whether it's open or close
 				// so we simply want to give a unique state of pushed way back, and to have an opacity of zero
@@ -1347,9 +1337,7 @@
 				document.querySelector("[data-js~='app__mainCanvas']").offsetHeight;
 
 				// this moves the splash element up and fades it out
-				splash.style.transform = "translateY(-100px)";
-				splash.style.opacity   = 0;
-			});
+				splash.hide( true, prepUIForAnimateIn );
 		},
 		reValidateRecordField : function(e) {
 			var selectedField,fieldDisplayName,fieldName,reqRecords,API_URL,appLogo,fileLoader;
