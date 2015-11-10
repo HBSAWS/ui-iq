@@ -35,8 +35,10 @@
 			exclusions : {
 				get  : "/iqService/rest/" + file.role + "/" + file.report + "/excl.json",
 				post : {
-					create : "/iqService/rest/" + file.role + "/" + file.report + "/excl/create",
-					update : "/iqService/rest/" + file.role + "/" + file.report + "/excl/update"
+					create : "/iqService/rest/" + file.role + "/" + file.report + "/excl.json",
+					update : "/iqService/rest/" + file.role + "/" + file.report + "/excl.json"
+					// create : "/iqService/rest/" + file.role + "/" + file.report + "/excl/create",
+					// update : "/iqService/rest/" + file.role + "/" + file.report + "/excl/update"
 				}
 			}
 		};
@@ -428,7 +430,7 @@
 				clickOutsideExemptElements : [document.querySelector("[data-js~='appClickException']")],
 				closeOnEscape              : true,
 				closeOnEscapeException     : function() {
-					return App.UIState({ appSuiteApps : true, appSuiteSettings : true, });
+					return App.UIState({ appSuiteApps : true, appSuiteSettings : true });
 				},
 				mainCanvasElement          : document.querySelector("[data-js~='app__mainCanvas']"),
 				toggleBtnSelector          : "[data-js~='fileSummaryToggleIcon']",
@@ -772,7 +774,7 @@
 				scrollingElement 	              : document.querySelector("[data-js~='appHuver__recDetails']"),			
 				addStateToRowOnSelect : false,
 				onRowSelection        : function() {
-					offCanvasPanels.fileSummary.UI.hidePanel();
+					//offCanvasPanels.fileSummary.UI.hidePanel();
 					modals.iframe.UI.showModal();
 				},
 				exceptions : { allKeys : undefined }
@@ -1218,7 +1220,7 @@
 				for ( var exclusion = 0, totalExclusions = exclusions.length; exclusion < totalExclusions; exclusion++ ) {
 					var currentExclusion = exclusions[exclusion];
 					// we'll have to update this later when the two fields are made to match ( hbsId vs huId )  IMPORTANT NOTE!!
-					if ( currentExclusion.hbsId == currentRecord.huId ) {
+					if ( currentExclusion.prsnId == currentRecord.prsnId ) {
 						file.records[recordId]["exclusion"] = currentExclusion;
 						hasExclusion = true;
 					}
@@ -1338,6 +1340,7 @@
 
 				// this moves the splash element up and fades it out
 				splash.hide( true, prepUIForAnimateIn );
+
 		},
 		reValidateRecordField : function(e) {
 			var selectedField,fieldDisplayName,fieldName,reqRecords,API_URL,appLogo,fileLoader;

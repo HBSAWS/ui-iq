@@ -62,6 +62,10 @@ UI_splash.prototype.removeError = function(callback) {
 	var __self = this,loaderContainer;
 	loaderContainer = document.querySelector(".splash-loader-status");
 
+	for ( var button = 0, totalButtons = __self.errorOptions.length; button < totalButtons; button++ ) {
+		var currentButton = __self.errorOptions[button];
+		UI.DOM.removeDataValue( currentButton, "data-ui-state", "is__hovered" );
+	}
 	__self.removeHoverListeners();
 	errorRemoved = function(e) {
 		if ( e.target == e.currentTarget ) {

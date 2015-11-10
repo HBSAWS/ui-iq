@@ -280,14 +280,16 @@
 				cursor         : text;
 				font-family    : "Open Sans", sans-serif;
 				@include gridle_state(mobile) {
-					border-bottom  : 1px solid white;
+					min-height     : 0.95rem;
 					font-size      : 0.7rem;
-					line-height    : 0.7rem; 
+					line-height    : 0.95rem; 
+					border-bottom  : 1px solid white;
 				}
 				@include gridle_state(tablet) {
+					min-height     : 1.23rem;
+					font-size      : 0.85rem;
+					line-height    : 1.23rem;
 					border-bottom  : 2px solid white;
-					font-size      : 0.8rem;
-					line-height    : 0.8rem; 
 				}
 				font-weight    : 300;
 				@include prefix( user-select, text );

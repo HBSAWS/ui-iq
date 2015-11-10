@@ -3,7 +3,7 @@ var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
 
 	__self        = this;
 	__self.panel  = DOMelement;
-	__self.active = settings.showOnInit || false;
+	__self.active = ( settings.showOnInit !== undefined ) ? settings.showOnInit : false;
 
 	__self.mainCanvas                 = ( settings.mainCanvasElement !== undefined )          ? settings.mainCanvasElement          : undefined;
 	__self.onActiveUnfocusMainCanvas  = ( settings.onActiveUnfocusMainCanvas !== undefined )  ? settings.onActiveUnfocusMainCanvas  : false;
@@ -41,8 +41,6 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 
 	if ( __self.active ) {
 		__self.showPanel(false);
-	} else {
-		__self.hidePanel(false);
 	}
 
 	if ( __self.hideBtn !== undefined ) {
@@ -63,7 +61,7 @@ UI_offCanvasPanel.prototype.initialize_module = function(settings) {
 		// adds click event listeners for any toggle buttons
 		for ( var el = 0, len = __self.toggleBtn.length; el < len; el++ ) {
 			var currentToggleBtn = __self.toggleBtn[el];
-			
+
 			__self.updateToggleButtonState( currentToggleBtn );
 			currentToggleBtn.addEventListener('click', function(e) {
 				__self.togglePanel();
@@ -171,17 +169,16 @@ UI_offCanvasPanel.prototype.clickOutSideClose = function(e) {
 	var __self,level;
 	__self = this;
 	level  = 0;
-	console.log("fired clicked out side for : " + __self.panel.dataset.js);
-	if ( __self.clickOutsideException() ) {
-		return;
-	}
-	for (var element = e.target; element; element = element.parentNode) {
-		if ( element == __self.panel || __self.isShowBtn(element) || __self.isHideBtn(element) || __self.isToggleBtn(element) || __self.clickOutsideExemptElements.indexOf( element ) > -1 ) {
-		 	return;
+	if ( __self.active || !__self.clickOutsideException() ) {
+		console.log("fired clicked out side for : " + __self.panel.dataset.js);
+		for (var element = e.target; element; element = element.parentNode) {
+			if ( !__self.active || element == __self.panel || __self.isShowBtn(element) || __self.isHideBtn(element) || __self.isToggleBtn(element) || __self.clickOutsideExemptElements.indexOf( element ) > -1 ) {
+			 	return;
+			}
+			level++;
 		}
-		level++;
+		__self.hidePanel();
 	}
-	__self.hidePanel();
 	//e.stopPropagation();
 };
 

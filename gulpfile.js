@@ -1,23 +1,26 @@
 var gulp = require('gulp'),
 	
-	batch 		   = require('gulp-batch'),
-	bower          = require('gulp-bower'),
-	browserSync    = require('browser-sync'),
-	concat 		   = require('gulp-concat'),
-	del 		   = require('del'),
-	fs             = require('fs'),
-	jshint         = require('gulp-jshint'),
-	mainBowerFiles = require('main-bower-files'),
-	merge 		   = require("merge-stream"),
-	minifyHTML	   = require('gulp-minify-html'),
-	parseString    = require('xml2js').parseString,
-	rename   	   = require("gulp-rename"),
-	sass           = require('gulp-ruby-sass'),
-	sourcemaps 	   = require('gulp-sourcemaps'),
-	template  	   = require('gulp-template'),
-	uglifyCSS	   = require('gulp-uglifycss'),
-	uglify	   	   = require('gulp-uglify'),
-	xml2js         = require('xml2js');
+	batch 		    = require('gulp-batch'),
+	bower           = require('gulp-bower'),
+	browserSync     = require('browser-sync'),
+	concat 		    = require('gulp-concat'),
+	del 		    = require('del'),
+	fs              = require('fs'),
+	jshint          = require('gulp-jshint'),
+	mainBowerFiles  = require('main-bower-files'),
+	merge 		    = require("merge-stream"),
+	minifyHTML	    = require('gulp-minify-html'),
+	parseString     = require('xml2js').parseString,
+	proxyMiddleware = require('http-proxy-middleware'),
+	rename   	    = require("gulp-rename"),
+	sass            = require('gulp-ruby-sass'),
+	shell           = require('shelljs'),
+	sourcemaps 	    = require('gulp-sourcemaps'),
+	template  	    = require('gulp-template'),
+	uglifyCSS	    = require('gulp-uglifycss'),
+	uglify	   	    = require('gulp-uglify'),
+	xml2js          = require('xml2js');
+
 
 var config;
 config = {
@@ -49,6 +52,7 @@ config = {
 
 // INSTALLATION OF LIBRARY FILES  -- START
 	gulp.task('bower-download-files', function() {
+		shell.exec('npm install -g json-server');
 		return bower();
 	});
 
@@ -183,13 +187,13 @@ config = {
 
 
 
+gulp.task('start-REST-service', function() {
+	shell.exec('json-server API/generate.js --routes API/routes.json');
+});
 
-// watch and serve HTML/SASS/JS files
-var testingServer = browserSync.create("testing-server");
 
 gulp.task('serve-testing', function () {
 	config.server.is__testing = true;
-
 	if ( !config.server.is__compiled ) {
 		compileHTML();
 		compileSASS();
@@ -198,16 +202,26 @@ gulp.task('serve-testing', function () {
 		config.server.is__compiled = true;
 	}
 
+	// configure proxy middleware
+	// context: '/' will proxy all requests
+	//     use: '/api' to proxy request when path starts with '/api'
+	proxy = proxyMiddleware('/iqService', {
+	                target       : 'http://localhost:3000',
+	                changeOrigin : true   // for vhosted sites, changes host header to match to target's host
+	            });
+	// watch and serve HTML/SASS/JS files
+	testingServer = browserSync.create("testing-server");
     // Serve files from the root of this project
     testingServer.init({
-	    port: 5010,
-	    ui: {
-	        port: 5011
-	    },
-	    server : {
-	    	directory : true,
-	    	baseDir : './dist/'
-	    },
+		port  : 5010,
+		ui    : {
+		    port: 5011
+		},
+		server : {
+			directory  : true,
+			middleware : [proxy],
+			baseDir    : './dist/'
+		},
 	    startPath : "./index.html"
     });
 

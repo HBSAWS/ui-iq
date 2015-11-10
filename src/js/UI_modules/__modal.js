@@ -33,7 +33,7 @@ var UI_modal = function UI_modal(DOMelement,settings) {
 		}
 	};
 
-	__self.active              = false;
+	__self.active = false;
 };
 
 
@@ -49,9 +49,6 @@ UI_modal.prototype.isModalShowing = function() {
 UI_modal.prototype.showModal = function() {
 	var __self,modalState,modalWindowState,mainCanvasState,hideModal;
 	__self 	         = this;
-	// modalState       = "animate__in-delay-sm is__showing-modal";
-	// modalWindowState = "animate__in-delay-lg";
-	// mainCanvasState  = "animate__out scale__down";
 
 	if ( __self.closeOnEscape ) {
 		document.addEventListener('keydown', __self.__escapeClose);
@@ -63,14 +60,11 @@ UI_modal.prototype.showModal = function() {
 
 	UI.DOM.removeDataValue( __self.modal,       "data-ui-state", __self.states.hide.modal );
 	UI.DOM.removeDataValue( __self.modalWindow, "data-ui-state", __self.states.hide.modalWindow );
-	UI.DOM.removeDataValue( __self.mainCanvas,  "data-ui-state", __self.states.hide.modalCanvas );
+	UI.DOM.removeDataValue( __self.mainCanvas,  "data-ui-state", __self.states.hide.modalCanvas + " animate__in" );
 
 	UI.DOM.addDataValue( __self.modal,       "data-ui-state", __self.states.show.modal );
 	UI.DOM.addDataValue( __self.modalWindow, "data-ui-state", __self.states.show.modalWindow );
 	UI.DOM.addDataValue( __self.mainCanvas,  "data-ui-state", __self.states.show.modalCanvas );
-	// __self.modal.setAttribute("data-ui-state", modalState);
-	// __self.modalWindow.setAttribute("data-ui-state", modalWindowState);
-	// __self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
 
 	__self.active = true;
 };
@@ -78,9 +72,6 @@ UI_modal.prototype.showModal = function() {
 UI_modal.prototype.hideModal = function(callback) {
 	var __self,modalState,modalWindowState,mainCanvasState,modalClosed;
 	__self 	         = this;
-	// modalState       = "animate__out-delay move__top";
-	// modalWindowState = "animate__out scale__down rotate__top";
-	// mainCanvasState  = "animate__in-delay-lg";
 
 	// we need to make sure these functions don't fire until the modal has actually finished closing
 	modalClosed = function() {
@@ -95,7 +86,7 @@ UI_modal.prototype.hideModal = function(callback) {
 		__self.closeBtn.removeEventListener('click', __self.__hideModal);
 
 		__self.active = false;	
-		if ( callback !== undefined ) {
+		if ( typeof(callback) === "function" ) {
 			callback();
 		}	
 	}
@@ -108,12 +99,6 @@ UI_modal.prototype.hideModal = function(callback) {
 	UI.DOM.addDataValue( __self.modal,       "data-ui-state", __self.states.hide.modal );
 	UI.DOM.addDataValue( __self.modalWindow, "data-ui-state", __self.states.hide.modalWindow );
 	UI.DOM.addDataValue( __self.mainCanvas,  "data-ui-state", __self.states.hide.modalCanvas );
-
-	// fastdom.write(function() {
-	// 	__self.modal.setAttribute("data-ui-state", modalState);
-	// 	__self.modalWindow.setAttribute("data-ui-state", modalWindowState);
-	// 	__self.mainCanvas.setAttribute("data-ui-state", mainCanvasState);
-	// });
 };
 
 UI_modal.prototype.escapeClose = function(e) {
@@ -126,6 +111,7 @@ UI_modal.prototype.escapeClose = function(e) {
 UI_modal.prototype.clickOutSideClose = function(e) {
 	var __self = this;
 	if ( e.target == __self.modal ) {
+		console.log( __self.el );
 		__self.hideModal();
 	}
 };
