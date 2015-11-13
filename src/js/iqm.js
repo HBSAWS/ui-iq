@@ -280,6 +280,9 @@
 				}
 			}
 
+			if ( record.exclusion !== undefined ) {
+				exclusion["id"] = record.exclusion["id"]
+			}
 			exclusion["prsnId"]    = record.prsnId;
 			exclusion["group"]     = file.role;
 			exclusion["type"]      = file.report;
@@ -301,11 +304,24 @@
 				URL      : file.API.exclusions[method] + (( method === "update" ) ? "/" + file.records[exclusionData.prsnId].exclusion.id : ""),
 				headers  : 'application/json',
 				postData : JSON.stringify( exclusionData ),
-				success  : function(response) {
-					file.records[ exclusionData.prsnId ].exclusion = exclusionData;
-					UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
+				success  : function(data) {
+					if ( method === "create" ) {
+						var newExclusion = UI.request({
+							method  : "GET",
+							URL     : file.API.exclusions.get + "?prsnId=" + exclusionData.prsnId,
+							success : function(data) {
+								file.records[ exclusionData.prsnId ].exclusion = JSON.parse( data.response ).exclusions[0];
+								UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
 
-					notifications.inApp.updateStatus( "success", exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion." );
+								notifications.inApp.updateStatus( "success", exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion." );
+							} 
+						}) ;
+					} else {
+						file.records[ exclusionData.prsnId ].exclusion = exclusionData;
+						UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
+
+						notifications.inApp.updateStatus( "success", exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion." );
+					}
 				},
 				error    : function(response) {
 					notifications.inApp.updateStatus( "error", "Config HTTP error " + response.status + " " + response.statusText );

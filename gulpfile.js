@@ -108,7 +108,7 @@ config = {
 			.pipe(gulp.dest('./dist'))			
 			.on("end", function(){
 				if (config.server.is__running) {
-					testingServer.reload();
+					localServer.reload();
 				}
 			});	
 	};
@@ -134,7 +134,7 @@ config = {
 			.pipe(gulp.dest('./dist/js'))			
 			.on("end", function(){
 				if (config.server.is__running) {
-					testingServer.reload();
+					localServer.reload();
 				}
 			});
 
@@ -147,18 +147,10 @@ config = {
 			.pipe(gulp.dest('./dist/js'))			
 			.on("end", function(){
 				if (config.server.is__running) {
-					testingServer.reload();
+					localServer.reload();
 				}
 			});	
-
-		if (config.is__installing) {
-			var moveTestJsonFile = gulp.src('./src/js/migrate/*.{js,json,JSON}')
-				.pipe(gulp.dest('./dist/js'));
-
-			return merge(moveTestJsonFile,UI,IQM);
-		} else {
-			return merge(UI,IQM);
-		}
+		return merge(UI,IQM);
 	};
 	gulp.task("compile-js", compileJS);
 // JS  -- END
@@ -180,7 +172,7 @@ config = {
 			.pipe(gulp.dest('./dist'))			
 			.on("end", function(){
 				if (config.server.is__running) {
-					testingServer.reload();
+					localServer.reload();
 				}
 			});
 	};
@@ -189,12 +181,12 @@ config = {
 
 
 
-gulp.task('start-REST-service', function() {
+gulp.task('start-API', function() {
 	MOCK_API.listen(8080)
 });
 
 
-gulp.task('serve-testing', function () {
+gulp.task('start-server', function () {
 	config.server.is__testing = true;
 	if ( !config.server.is__compiled ) {
 		compileHTML();
@@ -205,24 +197,25 @@ gulp.task('serve-testing', function () {
 	}
 
 	// watch and serve HTML/SASS/JS files
-	testingServer = browserSync.create("testing-server");
+	localServer = browserSync.create("local-server");
     // Serve files from the root of this project
-    testingServer.init(null, {
-		proxy : 'http://localhost:8080',
-		port  : 5010,
-		ui    : {
+    localServer.init(null, {
+		proxy     : 'http://localhost:8080',
+		port      : 5010,
+		startPath : '/static/',
+		ui        : {
 		    port: 5011
 		},
     });
 
     gulp.watch('./src/**/*.scss', ['compile-sass']);
-    gulp.watch('./dist/css/*.css').on('change', testingServer.reload);
+    gulp.watch('./dist/css/*.css').on('change', localServer.reload);
 
     gulp.watch('./src/**/*.js', ['compile-js']);
-    gulp.watch('./dist/js/*.js').on('change', testingServer.reload);
+    gulp.watch('./dist/js/*.js').on('change', localServer.reload);
 
     gulp.watch('./src/*.html', ['compile-html']);
-    gulp.watch('./dist/*.html').on('change', testingServer.reload);    
+    gulp.watch('./dist/*.html').on('change', localServer.reload);    
 
     config.server.is__running = true;
 });
@@ -249,8 +242,8 @@ gulp.task("install",['cleanup-bower-files'], function() {
 // compiles sass, js and html files
 // these can be compiled individually with '$ gulp compile-<sass/js/html>'
 gulp.task("compile", ['compile-sass','compile-js', 'compile-html']);
-// to test locally type $gulp serve-testing
-gulp.task('default',['serve-testing']);
+// to test locally type $gulp start-server
+gulp.task('default',['start-server']);
 
 
 

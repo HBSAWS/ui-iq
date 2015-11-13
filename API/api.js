@@ -60,10 +60,8 @@ FileRepository.prototype.findIndex = function (toFind, identifyingObject) {
  */
 FileRepository.prototype.save = function (toSaveIn,data) {
     var index;
-    console.log( "data.id --> " + data.id );
-    console.log( "data --> " + JSON.stringify(data) ); 
     if (data.id == null || data.id == 0) {
-        data.Id = this.nextId;
+        data.id = this.nextId;
         this[toSaveIn].push(data);
         this.nextId++;
     } else {
