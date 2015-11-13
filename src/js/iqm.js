@@ -297,8 +297,8 @@
 
 			updateAPIURLs();
 			exclusionRequest = UI.request({ 
-				method   : "PUT", 
-				URL      : file.API.exclusions[method],
+				method   : ( method === "create" ) ? "POST" : "PUT", 
+				URL      : file.API.exclusions[method] + (( method === "update" ) ? "/" + file.records[exclusionData.prsnId].exclusion.id : ""),
 				headers  : 'application/json',
 				postData : JSON.stringify( exclusionData ),
 				success  : function(response) {

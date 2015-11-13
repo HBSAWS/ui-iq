@@ -3,6 +3,7 @@ var generateConfig = require("./generate/config"),
 	express            = require('../node_modules/express'),
 	bodyParser         = require('../node_modules/body-parser'),
 	_                  = require("lodash"),
+	path               = require("path"),
 	app                = express(),
 	fileRepository     = new api(),
 	API_URL_BASE       = '/iqService/rest',
@@ -10,6 +11,8 @@ var generateConfig = require("./generate/config"),
 
 // used to parse JSON object given in the body request
 app.use(bodyParser.json());
+// Serve up public/ftp folder 
+app.use('/static', express.static(__dirname + '/../dist/'));
 
 
 
@@ -50,7 +53,7 @@ app.get( API_URL, function (request, response) {
 // HTTP POST /files/
 // Body Param : the JSON file you want to create
 // Returns    : 200 HTTP code
-app.post( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/excl/create', function (request, response) {
+app.post( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/create', function (request, response) {
     var newData;
     newData = request.body;
 
@@ -66,7 +69,7 @@ app.post( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/excl/create', functio
  // Body Param : the JSON file you want to update
  // Returns    : 200 HTTP code
  // Error      : 404 HTTP code if the file doesn't exists
-app.put( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/excl/update/:id', function (request, response) {
+app.put( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/update/:id', function (request, response) {
     try {
 		var newData,id,persistedFile,updatedContent;
 		newData        = request.body;

@@ -203,31 +203,16 @@ gulp.task('serve-testing', function () {
 
 		config.server.is__compiled = true;
 	}
-    function err(err,req,res) {
-    	console.log(err,req,res);
-    }
-	// configure proxy middleware
-	// context: '/' will proxy all requests
-	//     use: '/api' to proxy request when path starts with '/api'
-	proxy = proxyMiddleware('/iqService', {
-	                target       : 'http://localhost:8080',
-	                changeOrigin : true // for vhosted sites, changes host header to match to target's host
-	});
 
 	// watch and serve HTML/SASS/JS files
 	testingServer = browserSync.create("testing-server");
     // Serve files from the root of this project
-    testingServer.init({
+    testingServer.init(null, {
+		proxy : 'http://localhost:8080',
 		port  : 5010,
 		ui    : {
 		    port: 5011
 		},
-		server : {
-			directory  : true,
-			middleware : [proxy],
-			baseDir    : './dist/'
-		},
-	    startPath : "./index.html"
     });
 
     gulp.watch('./src/**/*.scss', ['compile-sass']);
