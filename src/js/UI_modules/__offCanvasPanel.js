@@ -169,7 +169,7 @@ UI_offCanvasPanel.prototype.clickOutSideClose = function(e) {
 	var __self,level;
 	__self = this;
 	level  = 0;
-	if ( __self.active || !__self.clickOutsideException() ) {
+	if ( __self.active && !__self.clickOutsideException() ) {
 		console.log("fired clicked out side for : " + __self.panel.dataset.js);
 		for (var element = e.target; element; element = element.parentNode) {
 			if ( !__self.active || element == __self.panel || __self.isShowBtn(element) || __self.isHideBtn(element) || __self.isToggleBtn(element) || __self.clickOutsideExemptElements.indexOf( element ) > -1 ) {

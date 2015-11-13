@@ -26,7 +26,7 @@ UI_request.prototype.initialize = function() {
 	}
 	__self.XHR.onreadystatechange = function() {
 		if( this.readyState == 4) {
-			if( this.status == 200) {
+			if( this.status == 200 || this.status == 201 || this.status == 202 ) {
 				if ( __self.success !== undefined ) {
 					__self.success(this);
 				}

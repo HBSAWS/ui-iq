@@ -21,6 +21,8 @@ var gulp = require('gulp'),
 	uglify	   	    = require('gulp-uglify'),
 	xml2js          = require('xml2js');
 
+var MOCK_API        = require("./API/app");
+
 
 var config;
 config = {
@@ -52,7 +54,7 @@ config = {
 
 // INSTALLATION OF LIBRARY FILES  -- START
 	gulp.task('bower-download-files', function() {
-		shell.exec('npm install -g json-server');
+		shell.exec('npm install --save-dev json-server');
 		return bower();
 	});
 
@@ -188,7 +190,7 @@ config = {
 
 
 gulp.task('start-REST-service', function() {
-	shell.exec('json-server API/generate.js --routes API/routes.json');
+	MOCK_API.listen(8080)
 });
 
 
@@ -201,14 +203,17 @@ gulp.task('serve-testing', function () {
 
 		config.server.is__compiled = true;
 	}
-
+    function err(err,req,res) {
+    	console.log(err,req,res);
+    }
 	// configure proxy middleware
 	// context: '/' will proxy all requests
 	//     use: '/api' to proxy request when path starts with '/api'
 	proxy = proxyMiddleware('/iqService', {
-	                target       : 'http://localhost:3000',
-	                changeOrigin : true   // for vhosted sites, changes host header to match to target's host
-	            });
+	                target       : 'http://localhost:8080',
+	                changeOrigin : true // for vhosted sites, changes host header to match to target's host
+	});
+
 	// watch and serve HTML/SASS/JS files
 	testingServer = browserSync.create("testing-server");
     // Serve files from the root of this project

@@ -28,18 +28,14 @@
 		file.API = {
 			records : {
 				get  : {
-					active : "/iqService/rest/" + file.role + "/" + file.report + ".json?term=" + file.term + "&year=" + file.year + "&personId=" + file.records.active,
-					all    : "/iqService/rest/" + file.role + "/" + file.report + ".json?term=" + file.term + "&year=" + file.year
+					active : "/iqService/rest/" + file.role + "/" + file.report + "/records.json?term=" + file.term + "&year=" + file.year + "&personId=" + file.records.active,
+					all    : "/iqService/rest/" + file.role + "/" + file.report + "/records.json?term=" + file.term + "&year=" + file.year
 				}
 			},
 			exclusions : {
-				get  : "/iqService/rest/" + file.role + "/" + file.report + "/excl.json",
-				post : {
-					create : "/iqService/rest/" + file.role + "/" + file.report + "/excl.json",
-					update : "/iqService/rest/" + file.role + "/" + file.report + "/excl.json"
-					// create : "/iqService/rest/" + file.role + "/" + file.report + "/excl/create",
-					// update : "/iqService/rest/" + file.role + "/" + file.report + "/excl/update"
-				}
+				get    : "/iqService/rest/" + file.role + "/" + file.report + "/exclusions.json",
+				create : "/iqService/rest/" + file.role + "/" + file.report + "/exclusions/create",
+				update : "/iqService/rest/" + file.role + "/" + file.report + "/exclusions/update"
 			}
 		};
 	};
@@ -222,10 +218,10 @@
 			__self.exclusionSubmitBtn.addEventListener( 'click', function() {
 				if ( file.records[ file.records.active ].exclusion == undefined ) {
 					// if the active record doesn't have an exclusion we need to create a entry
-					__self.postExclusion("create");
+					__self.updateExclusion("create");
 				} else {
 					// if there is an exclusion already created then we so a simple update
-					__self.postExclusion("update");
+					__self.updateExclusion("update");
 				}
 			});
 			// the event listener for the btn that toggles the exclusion open and close
@@ -294,15 +290,15 @@
 
 			return exclusion;
 		},
-		postExclusion : function(POSTVerb) {
+		updateExclusion : function(method) {
 			var __self,exclusionData,exclusionRequest;
 			__self             = this;
 			exclusionData      = __self.returnExclusionValues();
 
 			updateAPIURLs();
 			exclusionRequest = UI.request({ 
-				method   : "POST", 
-				URL      : file.API.exclusions.post[POSTVerb],
+				method   : "PUT", 
+				URL      : file.API.exclusions[method],
 				headers  : 'application/json',
 				postData : JSON.stringify( exclusionData ),
 				success  : function(response) {
@@ -420,7 +416,7 @@
 
 
 
-	var offCanvasPanels = {
+	offCanvasPanels = {
 		fileSummary : {
 			el : document.querySelector("[data-js~='offCanvasPanel__fileSettings']"),
 			settings : {
@@ -1119,13 +1115,13 @@
 					} else {
 						setTimeout(function() {
 							App.setupUser(request);
-						},400);
+						},250);
 					}
 				},
 				error   : function(request) {
 					setTimeout(function() {
 						splash.addError( "We weren't able to load your user profile. Try logging in and reloading." );
-					}, 400);
+					}, 250);
 				} 
 			});
 			// we initialize the config loader
