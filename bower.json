@@ -9,16 +9,16 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "anima"      : "https://github.com/lvivski/anima.git",
-    "drop"       : "https://github.com/HubSpot/drop.git",
-    "fastclick"  : "https://github.com/ftlabs/fastclick.git",
-    "fastDOM"    : "https://github.com/wilsonpage/fastdom.git",
-    "jquery"     : "1.11.1",
-    "list"       : "https://github.com/javve/list.js.git",
-    "moment"     : "https://github.com/moment/moment.git",
-    "pikaday"    : "https://github.com/dbushell/Pikaday.git",
-    "tether"     : "https://github.com/HubSpot/tether.git",
-    "tooltip"    : "https://github.com/HubSpot/tooltip.git"
+    "drop": "https://github.com/HubSpot/drop.git",
+    "fastclick": "https://github.com/ftlabs/fastclick.git",
+    "fastdom": "~0.8.6",
+    "hammerjs": "~2.0.4",
+    "list": "https://github.com/javve/list.js.git",
+    "moment": "https://github.com/moment/moment.git",
+    "pikaday": "https://github.com/dbushell/Pikaday.git",
+    "tether": "~1.1.1",
+    "tooltip": "https://github.com/HubSpot/tooltip.git",
+    "movejs": "~0.4.0"
   },
   "ignore": [
     "**/.*",
@@ -26,5 +26,12 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "resolutions": {
+    "tether": "~1.0.0"
+  },
+  "devDependencies": {
+    "fastdom": "~0.8.6",
+    "movejs": "~0.4.0"
+  }
 }

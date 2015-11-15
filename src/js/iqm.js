@@ -320,7 +320,7 @@
 						file.records[ exclusionData.prsnId ].exclusion = exclusionData;
 						UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
 
-						notifications.inApp.updateStatus( "success", exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion." );
+						notifications.inApp.updateStatus( "success", "The exclusion in " + exclusionData.firstName + " " + exclusionData.lastName + "'s record has been updated." );
 					}
 				},
 				error    : function(response) {
@@ -1547,6 +1547,5 @@
 
 	modals.login.init();
 	App.getUser();
-
 
 

@@ -54,24 +54,34 @@ config = {
 
 // INSTALLATION OF LIBRARY FILES  -- START
 	gulp.task('bower-download-files', function() {
-		shell.exec('npm install --save-dev json-server');
 		return bower();
 	});
 
-	gulp.task('bower-extract-files', ['bower-download-files'], function() {
+	gulp.task('bower-update-file-names', ['bower-download-files'], function() {
+		return gulp.src('./bower_components/fastdom/index.js')
+			.pipe(rename({
+				basename : 'fastDOM',
+				extname  : '.js'
+			}))
+			.pipe(gulp.dest("./bower_components/fastdom/"))
+	});
+	gulp.task('bower-extract-files', ['bower-update-file-names'], function() {
 		return gulp.src(mainBowerFiles({
 			overrides : {
-				"anima"      : {
-					"main" : "anima.js"
-				},
 				"drop" : {
 					"main" : "dist/js/drop.js"
 				},
-				"jquery"     : {
+				"fastdom" : {
+					"main" : "fastDOM.js"
+				},
+				"jquery" : {
 					"main" : "dist/jquery.js"
 				},
-				"list"       : {
+				"list" : {
 					"main" : "dist/list.min.js"
+				},
+				"move" : {
+					"main" : "move.js"
 				},
 				"tether" : {
 					"main" : "dist/js/tether.js"

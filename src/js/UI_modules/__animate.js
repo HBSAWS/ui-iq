@@ -4,7 +4,7 @@ UI_animate = function(DOMelement, settings) {
 
 	__self.el             = DOMelement;
 	// the anima init and object instantiation
-	__self.animaObj       = anima.world()
+	__self.animaObj       = animatic.world();
 	__self.anima          = undefined;
 	// the predefined animation functions are : collapse, expand and swap
 	// these are the only animationNames currently allowed
@@ -68,68 +68,69 @@ UI_animate.prototype.collapse = function() {
 	__self = this;
 
 	if ( __self.speed == undefined ) {
-		duration = 120;
+		duration = '0.2s';
 	} else {
 		duration = __self.speed;
 	}
 
 	if ( __self.delay == undefined ) {
-		delay = 140;
+		delay = '0.14s';
 	} else {
 		delay = __self.delay;
 	}
+	if ( __self.onStart !== undefined ) {
+		__self.onStart(this);
+	}
 
-	__self.anima.animate({ 
-		height   : "0px",
-		duration : duration,
-		ease     : 'cubic-bezier(.43,0,0,1)',
-		delay    : 140
-	})
-	.on('start', function() {
-		if ( __self.onStart !== undefined ) {
-			__self.onStart(this);
-		}
-	})
-	.on('end', function() {
-		if ( __self.onComplete !== undefined ) {
-			__self.onComplete(this);
-		}
-	});
+	var newHeight = __self.el.offsetHeight + "px";
+	__self.el.style.height = newHeight;
+	move(__self.el)
+		.set('height',newHeight)
+		.duration('0.01s')
+		.ease('cubic-bezier(.43,0,0,1)')
+		.end();
+	move(__self.el)
+		.set('height','0px')
+		.duration(duration)
+		.ease('cubic-bezier(.43,0,0,1)')
+		.delay(delay)
+		.end(function() {
+			if ( __self.onComplete !== undefined ) {
+				__self.onComplete(this);
+			}
+		});
 };
 UI_animate.prototype.expand = function() {
 	var __self,duration,delay,newHeight;
 	__self    = this;
 
 	if ( __self.speed == undefined ) {
-		duration = 130;
+		duration = '0.2s';
 	} else {
 		duration = __self.speed;
 	}
 
 	if ( __self.delay == undefined ) {
-		delay = 0;
+		delay = '0s';
 	} else {
 		delay = __self.delay;
 	}
+	if ( __self.onStart !== undefined ) {
+		__self.onStart(this);
+	}
 
 	newHeight = __self.el.scrollHeight;
-	__self.anima.animate({ 
-		height   : newHeight + "px",
-		duration : duration,
-		ease     : "cubic-bezier(.43,0,0,1)",
-		delay    : delay
-	})
-	.on('start', function() {
-		if ( __self.onStart !== undefined ) {
-			__self.onStart(this);
-		}
-	})
-	.on('end', function() {
-		__self.el.style.height = "auto";
-		if ( __self.onComplete !== undefined ) {
-			__self.onComplete(this);
-		}
-	});
+	move(__self.el)
+		.set('height', newHeight + 'px')
+		.duration(duration)
+		.ease('cubic-bezier(.43,0,0,1)')
+		.delay(delay)
+		.end(function() {
+			__self.el.style.height = "auto";
+			if ( __self.onComplete !== undefined ) {
+				__self.onComplete(this);
+			}
+		});	
 };
 UI_animate.prototype.swap = function() {
 	var __self,oldItem,newItem,oldItemInner,newItemInner,oldItem__outerAnimation,oldItem__innerAnimation,newItem__outerPreAnimation,newItem__innerPreAnimation,newItem__outerAnimation,newItem__innerAnimation;
