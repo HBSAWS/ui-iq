@@ -1,4 +1,4 @@
-UI_animate = function(DOMelement, settings) {
+var UI_animate = function(DOMelement, settings) {
 	var __self;
 	__self = this;
 

@@ -20,10 +20,8 @@ UI_cuboid.prototype.show = function(side,callback) {
 		var onComplete = function(e) {
 			if ( e.target == e.currentTarget ) {
 				targetFace.removeEventListener( 'webkistTransitionEnd', onComplete );
-
-				if ( callback !== undefined && callback !== null ) {
-					callback();
-				}	
+				console.log(targetFace + " cuboid callback called");
+				callback();
 				e.stopPropagation();
 			}
 		};

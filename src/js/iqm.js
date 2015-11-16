@@ -42,19 +42,6 @@
 
 
 
-	// used like:
-	// element.dispatchEvent(clickEvent);
-	var __events = {
-		__click : new MouseEvent("click", {
-				"view": window,
-				"bubbles": true,
-				"cancelable": false
-		}),
-		__change : new Event('change')
-	};
-
-
-
 
 	var actionsheets = {
 		archiveFiles : {
@@ -313,18 +300,18 @@
 								file.records[ exclusionData.prsnId ].exclusion = JSON.parse( data.response ).exclusions[0];
 								UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
 
-								notifications.inApp.updateStatus( "success", exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion." );
+								notifications.inApp.UI.update( "success", exclusionData.firstName + " " + exclusionData.lastName + "'s record has been marked as an exclusion." );
 							} 
 						}) ;
 					} else {
 						file.records[ exclusionData.prsnId ].exclusion = exclusionData;
 						UI.DOM.addDataValue( tables.records.el.querySelector("[data-record='" + exclusionData.prsnId + "']"), "data-ui-state", "has__exclusion" );
 
-						notifications.inApp.updateStatus( "success", "The exclusion in " + exclusionData.firstName + " " + exclusionData.lastName + "'s record has been updated." );
+						notifications.inApp.UI.update( "success", "The exclusion in " + exclusionData.firstName + " " + exclusionData.lastName + "'s record has been updated." );
 					}
 				},
 				error    : function(response) {
-					notifications.inApp.updateStatus( "error", "Config HTTP error " + response.status + " " + response.statusText );
+					notifications.inApp.UI.update( "error", "Config HTTP error " + response.status + " " + response.statusText );
 				}
 			});
 			loaders.inApp( exclusionRequest );
@@ -426,6 +413,30 @@
 			},
 			updateModaliFrameSource : function(recordID) {
 				modals.iframe.iFrame.setAttribute('src', file.PDM_URL_base + file.role + "/btStuDtl/edit?prsnId=" + file.records.active );	
+			}
+		}
+	};
+
+
+
+
+	notifications = {
+		inApp : {
+			el   : document.querySelector("[data-js~='inAppNotification']"),
+			UI   : undefined,
+			init : function() {
+				var __self;
+				__self = this;
+
+				__self.UI = UI.notification( __self.el, {
+					closeIcon              : document.querySelector("[data-js~='inAppNotificationClose']"),
+					statusIcon             : document.querySelector("[data-js~='inAppNotificationIcon']"),
+					statusMessage          : document.querySelector("[data-js~='inAppNotificationMessage']"),
+					backing                : document.querySelector("[data-js~='inAppNotificationBacking']"),
+					cuboidReference        : cuboids.app.UI,
+					cuboidDefaultSide      : "front",
+					cuboidNotificationSide : "bottom"
+				});
 			}
 		}
 	};
@@ -613,9 +624,9 @@
 
 
 
-	var tables = {
+	tables = {
 		init : function() {
-			var __self,recordsTable,detailsTable; 
+			var __self,recordsTable,detailsTable,errorFilters,filterErrors; 
 			__self       = this;
 			recordsTable = __self.records.UI;
 			detailsTable = __self.details.UI;
@@ -657,19 +668,58 @@
 				},
 				exceptions : {
 					allKeys : function() {
-						var exception,tableIsNotActive,fileSummaryIsOpen,modalIsShowing;
-						exception = false;
+						return App.UIState({
+							exclusionFocused     : true,
+							iframeModal          : true,
+							fileSummaryOffCanvas : true
+						});
+					}
+				}
+			});
 
-						 // if the panel is showing, exception is true
-						fileSummaryIsOpen = ( offCanvasPanels.fileSummary.UI.isPanelShowing() ) ? true : false;
-						// if the modal is showing, exception is true
-						modalIsShowing    = ( modals.iframe.UI.isModalShowing() ) ? true : false; 
+			errorFilters = document.querySelectorAll("[data-js~='tableFilter'][value='has__error'");
+			filterErrors = function(tableName) {
+				var table,errorsAreFiltered,filterMethod,checkedStatus;
+				table = tables[tableName].UI;
+				// if true then errors are currently filtered
+				errorsAreFiltered = table.activeFilters.indexOf('has__error') > -1;
+				filterMethod      = ( errorsAreFiltered ) ? "unfilter" : "filter";
+				checkedStatus     = ( errorsAreFiltered ) ? false      : true;
 
-						if ( fileSummaryIsOpen || modalIsShowing ) {
-							exception = true;
-						}
+				tables[tableName].UI[filterMethod]("has__error");
+				for ( var filter = 0, totalFilters = errorFilters.length; filter < totalFilters; filter++ ) {
+					var currentFilter = errorFilters[filter];
+					if ( currentFilter.name === tableName ) {
+						errorFilters[filter].checked = checkedStatus;
+					}
+				}
+			};
+			for ( var filter = 0, totalFilters = errorFilters.length; filter < totalFilters; filter++ ) {
+				var currentFilter = errorFilters[filter];
+				currentFilter.addEventListener( 'click', function(e) {
+					filterErrors( e.currentTarget.name );
+				});
+			};
 
-						return exception;
+			UI.keyboard({
+				combination : ['alt','e'],
+				onPress     : function(e) {
+					if ( tables.records.UI.isTableFocused() ) {
+						filterErrors("records");
+					} else if ( tables.details.UI.isTableFocused() ) {
+						filterErrors("details");
+					}
+				}
+			});
+
+			UI.keyboard({
+				combination          : ['alt','space'],
+				preventDefaultAction : true,
+				onPress     : function(e) {
+					if ( tables.records.UI.isTableFocused() ) {
+						document.querySelector("[data-js~='recordsTable__search']").focus();
+					} else if ( tables.details.UI.isTableFocused() ) {
+						document.querySelector("[data-js~='detailsTable__search']").focus();
 					}
 				}
 			});
@@ -716,8 +766,7 @@
 					});
 				};
 				__self.settings.exceptions.allKeys = exception;
-				__self.UI    = UI.table( __self.el, __self.settings );
-				errorsFilter = document.querySelector("[data-js~='recordsTable__filter']");
+				__self.UI = UI.table( __self.el, __self.settings );
 
 				// adding the personIds the the table record objects
 				var tableRecordObjects = __self.UI.list.items;
@@ -729,43 +778,6 @@
 
 				__self.UI.filter("has__error");
 				__self.UI.focusTable();
-
-				errorsFilter.addEventListener( 'change', function(e) {
-					var filter,toFilter;
-					filter   = e.currentTarget;
-					toFilter = filter.value;
-
-					if ( filter.checked === true ) {
-						__self.UI.filter( toFilter );
-					} else {
-						__self.UI.unfilter( toFilter );
-					}
-				});
-
-				UI.keyboard({
-					combination : ['alt','e'],
-					onPress     : function(e) {
-						var toFilter = errorsFilter.value;
-
-						if ( errorsFilter.checked == true ) {
-							__self.UI.unfilter( toFilter );
-							errorsFilter.checked = false;
-						} else {
-							__self.UI.filter( toFilter );
-							errorsFilter.checked = true;
-						}
-					},
-					exception  : exception
-				});
-
-				UI.keyboard({
-					combination          : ['alt','space'],
-					preventDefaultAction : true,
-					onPress     : function(e) {
-						document.querySelector("[data-js~='recordsTable__search']").focus();
-					},
-					exception : exception
-				});
 			}
 		},
 		details : {
@@ -806,48 +818,8 @@
 				};
 				__self.settings.exceptions.allKeys = exception;
 				__self.UI    = UI.table( __self.el, __self.settings );
-				errorsFilter = document.querySelector("[data-js~='detailsTable__filter']");
-
-				errorsFilter.addEventListener( 'change', function(e) {
-					var filter,toFilter;
-					filter   = e.currentTarget;
-					toFilter = filter.value;
-
-					if ( filter.checked == true ) {
-						__self.UI.filter( toFilter );
-					} else {
-						__self.UI.unfilter( toFilter );
-					}
-				});
-
-				UI.keyboard({
-					combination : ['alt','e'],
-					onPress     : function(e) {
-						var toFilter = errorsFilter.value;
-
-						if ( errorsFilter.checked == true ) {
-							__self.UI.unfilter( toFilter );
-							errorsFilter.checked = false;
-						} else {
-							__self.UI.filter( toFilter );
-							errorsFilter.checked = true;
-						}
-					},
-					exception  : exception
-				});
-
-				UI.keyboard({
-					combination          : ['alt','space'],
-					preventDefaultAction : true,
-					onPress     : function(e) {
-						document.querySelector("[data-js~='detailsTable__search']").focus();
-					},
-					exception : exception
-				});
-				
 
 
-				var init = true;
 				// the click event listener for the table rows in the records table
 				document.querySelector("[data-js~='recordsTable']").addEventListener('click', function(e) {
 					var targetEl = e.target.parentElement;
@@ -858,7 +830,6 @@
 
 				__self.el.addEventListener("click", function(e) {
 					if ( e.target.parentElement.dataset.js === "show__iframe" ) {
-						offCanvasPanels.fileSummary.UI.hidePanel();
 						modals.iframe.UI.showModal();
 					}
 					e.stopPropagation();
@@ -874,6 +845,7 @@
 				record   = file.records[recordID];
 				toAdd    = [];
 
+				// if the record is already active we leave the function
 				if ( recordID === file.records.active ) {
 					return;
 				}
@@ -915,10 +887,7 @@
 					}
 				};
 				
-				// unfilter the details table so we can have access to all the fields temporarily
-				detailsTableFilterEl         = document.querySelector("[data-js~='detailsTable__filter']");
-				detailsTableFilterEl.checked = false;
-				detailsTableFilterEl.dispatchEvent(__events.__change);
+				tables.details.UI.unfilter("has__error");
 
 				// adds our new table rows via the 'toAdd' array we've just finished creating
 				__self.UI.add(toAdd);
@@ -926,11 +895,7 @@
 				__self.UI.remove("hbsId", "");
 				file.records.active = recordID;
 
-
-				// reapply the details table filter
-				deatilsTableFilterEl         = document.querySelector("[data-js~='detailsTable__filter']");
-				detailsTableFilterEl.checked = true;
-				detailsTableFilterEl.dispatchEvent(__events.__change);
+				tables.details.UI.filter("has__error");
 
 				var errorItems = tables.details.UI.list.visibleItems;
 				for ( var errorItem = 0, totalErrorItems = errorItems.length; errorItem < totalErrorItems; errorItem++ ){
@@ -950,10 +915,6 @@
 					var firstRow = tables.details.el.querySelector("tbody tr ");
 					tables.details.UI.highlightRow( firstRow );
 				}
-
-				// recordsData.active  = recordID;
-				// file.records.active = recordID;
-				init = false;
 			}
 		}
 	};
@@ -1297,7 +1258,7 @@
 			exclusions.init();
 			UI.glyphs();
 			modals.iframe.init();
-
+			
 			notifications.inApp.init();
 
 			offCanvasPanels.fileSummary.init();
@@ -1422,12 +1383,12 @@
 								errorStatus  = "error";
 								errorMessage = "Ugh, what a pesky error, it's still there!";
 							}
-							notifications.inApp.updateStatus( errorStatus, errorMessage );
+							notifications.inApp.UI.update( errorStatus, errorMessage );
 						}
 					}
 					else {
 						errorMessage = "Records HTTP error " + this.status + " " + this.statusText;
-						notifications.inApp.updateStatus( "error", errorMessage );
+						notifications.inApp.UI.update( "error", errorMessage );
 						//console.log("Records HTTP error "+this.status+" "+this.statusText);
 					}
 				}
@@ -1445,73 +1406,6 @@
 
 
 
-	var notifications = {
-		inApp : {
-			el         : document.querySelector( "[data-js~='inAppNotification']" ),
-			backing    : document.querySelector( "[data-js~='inAppNotificationBacking']" ),
-			message    : document.querySelector( "[data-js~='inAppNotificationMessage']" ),
-			close      : document.querySelector( "[data-js~='inAppNotificationClose']" ),
-			icon       : document.querySelector( "[data-js~='inAppNotificationIcon']" ),
-			status     : "error",
-			timer      : undefined,
-			init : function() {
-				notifications.inApp.close.addEventListener( 'click', function(e) {
-					notifications.inApp.hideNotification();
-					e.stopPropagation();
-				});
-
-				notifications.inApp.el.addEventListener( 'mouseover', function() {
-					clearTimeout( notifications.inApp.timer );
-				});
-
-				notifications.inApp.el.addEventListener( 'mouseout', function() {
-					notifications.inApp.timer = setTimeout(function() {
-													notifications.inApp.hideNotification();
-												}, 5000);
-				});
-			},
-			showNotification : function() {
-				var backing;
-				backing = notifications.inApp.backing;
-
-				cuboids.app.UI.show("bottom");
-				UI.DOM.addDataValue( backing,"data-ui-state","is__animating" );
-				UI.DOM.removeDataValue( backing,"data-ui-state","fade__out" );
-
-				notifications.inApp.timer = setTimeout(function() {
-												notifications.inApp.hideNotification();
-											}, 5000);
-			},
-			hideNotification : function() {
-				var backing;
-				backing = notifications.inApp.backing;
-
-				cuboids.app.UI.show("front");
-				setTimeout(function() {
-					UI.DOM.removeDataValue( backing,"data-ui-state","is__animating" );
-					UI.DOM.addDataValue( backing,"data-ui-state","fade__out" );
-				},700);
-			},
-			// status can be 'warning','error' or sucess
-			updateStatus : function( status,message ) {
-				var icon,backingStatus;
-
-				backingStatus = "is__" + status;
-
-				notifications.inApp.message.innerHTML = message;
-				UI.DOM.removeDataValue( notifications.inApp.backing,"data-ui-state", "is__" + notifications.inApp.status );
-				UI.DOM.addDataValue( notifications.inApp.backing,"data-ui-state", backingStatus );
-				if ( status === "error" || status === "warning" ) {
-					icon = "attention";
-				} else if ( status === "success" ) {
-					icon = "ok";
-				}
-				notifications.inApp.icon.setAttribute( "data-ui-icon", "place__before " + icon );
-				notifications.inApp.status = status;
-			}
-		}
-	};
-
 
 	var loaders = {
 		inApp : function(XMLHttpRequestObject) {
@@ -1526,7 +1420,7 @@
 				resetLoaderOnComplete   : true,
 				onComplete              : function() {
 					var stopRotating; 
-					notifications.inApp.showNotification();
+					notifications.inApp.UI.show();
 
 					stopRotating = function(e) {
 						UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");

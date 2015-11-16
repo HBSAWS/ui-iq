@@ -1,4 +1,4 @@
-var UI_offCanvasPanel = function UI_offCanvasPanel(DOMelement,settings) {
+var UI_offCanvasPanel = function (DOMelement,settings) {
 	var __self;
 
 	__self        = this;

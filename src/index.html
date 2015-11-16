@@ -672,7 +672,8 @@
                                                 </div>
                                                 <div class="navbar-right__default">
                                                     <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__tab-contents" data-js="tooltip__error">
-                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked data-js="recordsTable__filter">
+                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="records" value="has__error" data-js="tableFilter" checked>
+<!--                                                         <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked data-js="recordsTable__filter"> -->
                                                         <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
                                                             <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
                                                         </div>
@@ -764,7 +765,8 @@
                                                         <div class="toggler-label__bold">Exclude</div>
                                                     </div>
                                                     <div class="toggler_bold" data-ui-settings="mode__button size__large" data-js="tooltip__error">
-                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked data-js="detailsTable__filter">
+                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="details" value="has__error" checked data-js="tableFilter">
+<!--                                                         <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked data-js="detailsTable__filter"> -->
                                                         <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
                                                             <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
                                                         </div>
@@ -830,7 +832,6 @@
             <!-- CURRENT APP CONTAINER  ** END ** -->
         </div>
 
-        <script src="<%= _default%>animatic.js"></script>
         <script src="<%= _default%>move.js"></script>
         <script src="<%= _default%>hammer.js"></script>
         <script src="<%= _default%>moment.js"></script>

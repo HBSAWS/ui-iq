@@ -13,9 +13,9 @@ UI_splash.prototype.initialize = function() {
 	var __self = this,splashErrorButtons;
 
 	// chrome is the only browser right now handling this effect well
-	if ( navigator.userAgent.toLowerCase().indexOf('chrome') > -1 ) {
+	//if ( navigator.userAgent.toLowerCase().indexOf('chrome') > -1 ) {
 		UI.DOM.addDataValue( document.querySelector(".splash-loader-options"), "data-ui-state", "use__UIfilter" );
-	}
+	//}
 };
 
 UI_splash.prototype.addHoverListeners = function() {

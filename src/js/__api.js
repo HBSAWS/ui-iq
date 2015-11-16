@@ -24,6 +24,9 @@ UI = {
 	modal    : function(DOMelement,settings) {
 		return new UI_modal(DOMelement,settings);
 	},
+	notification : function(DOMelement,settings) {
+		return new UI_notification(DOMelement,settings);
+	},
 	panels  : function(DOMelement,settings) {
 		return new UI_panels(DOMelement,settings);
 	},

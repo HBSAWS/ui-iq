@@ -1,7 +1,9 @@
 var generateConfig     = require("./generate/config"),
 	api                = require("./api"),
+
 	express            = require('../node_modules/express'),
 	bodyParser         = require('../node_modules/body-parser'),
+
 	_                  = require("lodash"),
 	path               = require("path"),
 	app                = express(),
@@ -9,11 +11,11 @@ var generateConfig     = require("./generate/config"),
 	API_URL_BASE       = '/iqService/rest',
 	API_URL            = API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/:subFileContent.json';
 
+
 // used to parse JSON object given in the body request
 app.use(bodyParser.json());
 // Serve up public/ftp folder 
 app.use('/static', express.static(__dirname + '/../dist/'));
-
 
 
 
@@ -31,7 +33,7 @@ app.get( API_URL_BASE + '/:type(config.json|config.json?meta=true)', function (r
 // Returns : the list of files in JSON format
 app.get( API_URL, function (request, response) {
 	try {
-		var queries,subFileContent,__response;
+		var queries,subFileContent,__response,data;
 		// any queries such as '?term=s&year=1999' are stored in the '.query' object as key/value pairs
 		queries = request.query;
 		// the value of the 'subFileContent' not including the '.json' at the end
@@ -40,7 +42,6 @@ app.get( API_URL, function (request, response) {
 		subFileContent             = ( request.params.subFileContent === "excl" ) ? "exclusions" : request.params.subFileContent;
 		__response                 = {};
 		__response[subFileContent] = fileRepository.find( subFileContent, queries );
-
 		response.json( __response );
 	} catch (exception) {
 		response.sendStatus(404);

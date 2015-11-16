@@ -1,4 +1,4 @@
-var UI_modal = function UI_modal(DOMelement,settings) {
+var UI_modal = function (DOMelement,settings) {
 	var __self;
 
 	__self       = this;
