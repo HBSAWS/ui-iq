@@ -343,7 +343,7 @@
 			UI.animate( __self.exclusionNoteWrapper, { animationName : "expand" });
 			UI.DOM.removeDataValue( __self.exclusionNoteToggler, "data-ui-state", "rotate__90-neg" );
 		},
-		openExclusion : function(noteCollapsed) {
+		openExclusion : function(collapseNote) {
 			var __self,exclusionNoteToggler,exclusionNote,openExclusionUI;
 			__self = this;
 
@@ -360,7 +360,7 @@
 					}
 				}
 			};
-			if ( noteCollapsed ) {
+			if ( collapseNote ) {
 				UI.DOM.addDataValue( __self.exclusionNoteToggler, "data-ui-state", "rotate__90-neg" );
 				UI.animate( __self.exclusionNoteWrapper, { 
 					animationName : "collapse",
@@ -377,6 +377,7 @@
 			__self = this;
 
 			UI.animate( __self.exclusion, { animationName : "collapse"} );
+			__self.closeExclusionNote();
 			UI.DOM.addDataValue( document.querySelector(".exclude-content"), "data-ui-state", "animate__out scale__down fade__out" );
 			//document.querySelector(".exclude-content").setAttribute("data-ui-state", "animate__out scale__down fade__out");
 

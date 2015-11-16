@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+var gulp            = require('gulp'),
 	
 	batch 		    = require('gulp-batch'),
 	bower           = require('gulp-bower'),
@@ -14,12 +14,10 @@ var gulp = require('gulp'),
 	proxyMiddleware = require('http-proxy-middleware'),
 	rename   	    = require("gulp-rename"),
 	sass            = require('gulp-ruby-sass'),
-	shell           = require('shelljs'),
 	sourcemaps 	    = require('gulp-sourcemaps'),
 	template  	    = require('gulp-template'),
 	uglifyCSS	    = require('gulp-uglifycss'),
-	uglify	   	    = require('gulp-uglify'),
-	xml2js          = require('xml2js');
+	uglify	   	    = require('gulp-uglify');
 
 var MOCK_API        = require("./API/app");
 
@@ -254,28 +252,6 @@ gulp.task("install",['cleanup-bower-files'], function() {
 gulp.task("compile", ['compile-sass','compile-js', 'compile-html']);
 // to test locally type $gulp start-server
 gulp.task('default',['start-server']);
-
-
-
-
-
-
-
-
-
-
-
-
-gulp.task("convertXML", function() {
-	var parser = new xml2js.Parser();
-	fs.readFile(__dirname + '/src/xml/bio.xml', function(err, data) {
-		console.log(data);
-	    parser.parseString(data, function (err, result) {
-	        var convertedJSON = JSON.stringify(result);
-	       	fs.writeFile('./src/js/bio.json',convertedJSON );
-	    });
-	});
-});
 
 
 

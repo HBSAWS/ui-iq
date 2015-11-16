@@ -1,4 +1,4 @@
-var generateConfig = require("./generate/config"),
+var generateConfig     = require("./generate/config"),
 	api                = require("./api"),
 	express            = require('../node_modules/express'),
 	bodyParser         = require('../node_modules/body-parser'),
