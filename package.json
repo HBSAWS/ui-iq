@@ -21,6 +21,7 @@
     "gulp-uglifycss": "^1.0.4",
     "gulp-watch": "^4.3.5",
     "jshint": "^2.8.0",
+    "lodash": "^3.10.1",
     "main-bower-files": "^2.9.0",
     "merge-stream": "^1.0.0",
     "xml2js": "^0.4.12"

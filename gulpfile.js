@@ -80,7 +80,7 @@ config = {
 				"list" : {
 					"main" : "dist/list.min.js"
 				},
-				"move" : {
+				"movejs" : {
 					"main" : "move.js"
 				},
 				"tether" : {
