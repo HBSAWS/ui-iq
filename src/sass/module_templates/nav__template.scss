@@ -154,6 +154,8 @@ $darkSurface   : darken( $lightSurface, 20% );
 		}
 	}
 		[class^="navbar-back-icon_"] {
+			position    : relative;
+			top   	    : -1px;
 			font-size   : 1rem;
 			line-height : 1rem;			
 			@include gridle_state(mobile) {
@@ -167,7 +169,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 			-webkit-transition : -webkit-transform 0.46s cubic-bezier(.43,0,0,1); 
 
 			&:before {
-				content     : '\e83e';
+				content     : '\e804';
 				font-family : "HBS-modern";
 			}
 		}

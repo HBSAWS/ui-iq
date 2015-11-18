@@ -1,0 +1,133 @@
+[class^="code_"] {
+    position : relative;
+    display  : inline-block;
+    width    : 100%;
+    padding  : 10px 0px 0px 25px;
+    font-weight : 300;
+    color    : #404040;
+}
+    .code-object {
+        padding-left : 14px;
+        &[data-ui-state~="is__inArray"] {
+            > .code-object-title {
+                &:after {
+                    display : none;
+                }
+            }
+            > .code-object-state {
+                &:checked {
+                    ~ .code-object-content {
+                        display : inline-block;
+                    }
+                }
+            }
+        }
+    }
+        .code-object-state {
+            display : none;
+
+            ~ .code-object-content {
+                > .code-object-content-properties {
+                    display : none;
+                }
+            }
+            &:checked {
+                ~ .code-object-title,~ .code-object-header {
+                    &:before {
+                        @include prefix( transform, rotate(90deg) );
+                    }
+                }
+                ~ .code-object-content {
+                    display     : block;
+                    border-left : 1px dotted lightgrey;
+                    > .code-object-content-properties {
+                        display : block;
+                    }
+                }
+            }
+        }
+        .code-object-header {
+            position    : relative;
+            font-size   : 1.2rem;
+            line-height : 1.7rem; 
+            cursor      : pointer;
+            &:before {
+                content      : "\25B6";
+                position     : absolute;
+                display      : inline-block;
+                left         : -14px;
+                font-size    : 0.55rem;
+                margin-right : 8px;
+                color        : lightgrey;
+
+                @include prefix( transition, transform 0.25s );
+            } 
+            &:after {
+                content      : ":";
+                position     : relative;
+                display      : inline-block;
+                margin-left  : 5px;
+            }
+        }
+        .code-object-title {
+            position    : relative;
+            font-weight : 300;
+            font-size   : 1rem;
+            line-height : 1.4rem;
+            cursor   : pointer;
+            &:before {
+                content      : "\25B6";
+                position     : absolute;
+                display      : inline-block;
+                left         : -14px;
+                margin-right : 8px;
+                padding-top  : 2px;
+                font-size    : 0.55rem;
+                color        : lightgrey;
+
+                @include prefix( transition, transform 0.25s );
+            } 
+            &:after {
+                content      : ":";
+                position     : relative;
+                display      : inline-block;
+                margin-left  : 5px;
+            }
+        }
+        .code-object-content {
+            display      : inline-block;
+            padding-left : 6px;
+
+            &:before,&:after {
+                display     : inline-block;
+                font-size   : 0.8rem;
+                line-height : 1.5rem;
+            }
+            &[data-ui-settings~="type__array"] {
+                &:before {
+                    content : "[";
+                }
+                &:after {
+                    content : "]";
+                }
+            }
+            &[data-ui-settings~="type__object"] {
+                &:before {
+                    content : "{";
+                }
+                &:after {
+                    content : "}";
+                }
+            }
+        }
+            .code-object-content-properties {
+                display      : inline-block;
+                margin       : 0px;
+                padding-left : 20px;
+                list-style   : none;
+                font-weight  : 300;
+                font-size    : 1rem;
+                line-height  : 1.4rem;
+            }
+                .code-object-content-properties-property {
+                }

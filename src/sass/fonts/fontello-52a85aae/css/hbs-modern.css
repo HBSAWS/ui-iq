@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'hbs-modern';
-  src: url('../font/hbs-modern.eot?36877261');
-  src: url('../font/hbs-modern.eot?36877261#iefix') format('embedded-opentype'),
-       url('../font/hbs-modern.woff?36877261') format('woff'),
-       url('../font/hbs-modern.ttf?36877261') format('truetype'),
-       url('../font/hbs-modern.svg?36877261#hbs-modern') format('svg');
+  src: url('../font/hbs-modern.eot?42175480');
+  src: url('../font/hbs-modern.eot?42175480#iefix') format('embedded-opentype'),
+       url('../font/hbs-modern.woff?42175480') format('woff'),
+       url('../font/hbs-modern.ttf?42175480') format('truetype'),
+       url('../font/hbs-modern.svg?42175480#hbs-modern') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'hbs-modern';
-    src: url('../font/hbs-modern.svg?36877261#hbs-modern') format('svg');
+    src: url('../font/hbs-modern.svg?42175480#hbs-modern') format('svg');
   }
 }
 */
@@ -58,6 +58,11 @@
 .icon-angle-up:before { content: '\e801'; } /* '' */
 .icon-login:before { content: '\e802'; } /* '' */
 .icon-cancel:before { content: '\e803'; } /* '' */
+.icon-left-open-1:before { content: '\e804'; } /* '' */
+.icon-right-open-1:before { content: '\e805'; } /* '' */
+.icon-plus:before { content: '\e806'; } /* '' */
+.icon-down-open-1:before { content: '\e807'; } /* '' */
+.icon-up-open-1:before { content: '\e808'; } /* '' */
 .icon-angle-down:before { content: '\e80f'; } /* '' */
 .icon-sort:before { content: '\e813'; } /* '' */
 .icon-sort-down:before { content: '\e814'; } /* '' */
@@ -68,10 +73,6 @@
 .icon-angle-double-right:before { content: '\e819'; } /* '' */
 .icon-search:before { content: '\e81a'; } /* '' */
 .icon-hbs-logo:before { content: '\e81b'; } /* '' */
-.icon-right-open:before { content: '\e829'; } /* '' */
-.icon-left-open:before { content: '\e83e'; } /* '' */
-.icon-down-open:before { content: '\e83f'; } /* '' */
-.icon-up-open:before { content: '\e840'; } /* '' */
 .icon-file_exclusion:before { content: '\e842'; } /* '' */
 .icon-paper-plane-empty:before { content: '\e843'; } /* '' */
 .icon-paper-plane:before { content: '\e844'; } /* '' */

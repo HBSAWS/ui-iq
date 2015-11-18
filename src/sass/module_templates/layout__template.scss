@@ -127,6 +127,11 @@
             // the css producted is something like: 
                 //[class^="layout-"][data-ui-grid~="desktop_1"]
             // this can be used in conjunction with a class="layout-" data-ui-grid="mobile_12"
+        @for $i from 1 through 12 {
+            &[data-ui-grid~="#{$i}"] {
+                @include gridle($i);
+            }
+        }
         @each $breakpoint in $breakpoint-list {
             &[data-ui-grid~="#{$breakpoint}__offset-none"] {
                 @include gridle_state(#{$breakpoint}) {
@@ -248,6 +253,39 @@
             $increment : $increment + 8;
         }
         // PADDING AND MARGIN SETTINGS  -- END
+
+
+
+
+
+        // MOUT SETTINGS  -- START
+        &[data-ui-settings~="mount__flush"] {
+            padding : 0px;
+        }
+        &[data-ui-settings~="mount__thick"] {
+            @include gridle_state(mobile) {
+                padding : 0px;
+            }
+            @include gridle_state(phablet) {
+                padding : 30px 12px 30px 12px;
+                // &:nth-child(1) {
+                //     padding : 30px 12px 30px 30px;
+                // }
+                &:nth-last-child(1) {
+                    padding : 30px 30px 30px 30px;
+                }
+            }
+            @include gridle_state(desktop) {
+                padding : 30px 12px 30px 12px;
+                // &:nth-child(1) {
+                //     padding : 30px 12px 30px 30px;
+                // }
+                // &:nth-last-child(1) {
+                //     padding : 30px 30px 30px 12px;
+                // }
+            }
+        }
+        // MOUNT SETTINGS  -- START        
     }
     [class^="layout"] {
         font-size : 0px;
@@ -315,16 +353,37 @@
 
 
             // PERSPECTIVE SETTINGS  -- START
-            &[data-ui-settings~="perspective__small"] {
+            &[data-ui-settings~="perspective__close"] {
                 @include prefix(perspective, 800);
             }
-            &[data-ui-settings~="perspective__medium"] {
+            &[data-ui-settings~="perspective__moderate"] {
                 @include prefix(perspective, 1000);
             }
-            &[data-ui-settings~="perspective__large"] {
+            &[data-ui-settings~="perspective__far"] {
                 @include prefix(perspective, 1200);
             }
             // PERSPECTIVE SETTINGS  -- END
+
+
+            // PERSPECTIVE SETTINGS  -- START
+            &[data-ui-settings~="overflow__hidden"] {
+                overflow : hidden;
+            }
+            &[data-ui-settings~="overflow__auto"] {
+                overflow-y : auto;
+            }
+            // PERSPECTIVE SETTINGS  -- END
+
+
+            // HEIGHT SETTINGS  -- START
+            &[data-ui-settings~="height__parent"] {
+                height : 100%;
+            }
+            // HEIGHT SETTINGS  -- END
+
+
+
+
 
         // ***************************************************
         // UI-settings  -- END

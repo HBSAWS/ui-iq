@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mock API Settings</title>
+
+	<link href="/static/css/UI.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background:white;">
+
+<div class="layout__default" data-ui-settings="height__parent" data-ui-grid="12">
+    <div class="fader"></div>
+
+   	<div class="layout" data-ui-settings="overflow__hidden perspective__moderate height__parent" data-js="appHuver">
+
+    	<!-- left panel  ** START ** -->
+        <div class="offcanvaspanel_" data-ui-settings="popIn__phablet side__left layout__responsive" data-ui-grid="desktop__4" data-js="appHuver__records">
+            <div class="offcanvaspanel-content__default" data-ui-settings="material__film depth__low" data-js="appHuver__recordsInner">
+                <div class="fader"></div>
+				<div class="navbar_" data-ui-settings="mount__thick">
+                    <div class="navbar-left__default">
+                        <button class="navbar-back__highlight" data-ui-settings="material__paper" data-js="hideFileContents">
+                            <div class="navbar-back-icon__highlight"></div>
+                            <div class="navbar-back-text__highlight">hide</div>
+                        </button>
+                        <div class="navbar-title__default">
+                            <div class="navbar-title-text__default">
+                                Mock API 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navbar-right__default">
+						<button class="button__highlight" data-ui-settings="size__medium material__transparency" data-ui-icon="add place__before"></button>
+                    </div>
+                </div>
+                <!-- CODE  ** START ** -->
+				<div class="code_" data-ui-settings="mount__thick padding__top-none">
+					<div class="code-object">
+						<input class="code-object-state" id="tester" type="checkbox" checked="true">
+						<label class="code-object-header" for="tester">API End Points</label>
+						<div class="code-object-content">
+							<ul class="code-object-content-properties">
+								<li class="code-object-content-properties-property">
+									<div class="code-object">
+										<input class="code-object-state" id="config" type="checkbox">
+										<label class="code-object-title" for="config">"config"</label>
+										<div class="code-object-content" data-ui-settings="type__object">
+											<ul class="code-object-content-properties">
+												<li class="code-object-content-properties-property">test</li>
+												<li class="code-object-content-properties-property">test</li>
+												<li class="code-object-content-properties-property">test</li>
+											</ul>
+										</div>
+								</li>
+								<li class="code-object-content-properties-property">
+									<div class="code-object">
+										<input class="code-object-state" id="exclusions" type="checkbox">
+										<label class="code-object-title" for="exclusions">"exclusions"</label>
+										<div class="code-object-content" data-ui-settings="type__array">
+											<ul class="code-object-content-properties">
+												<li class="code-object-content-properties-property">test</li>
+												<li class="code-object-content-properties-property">test</li>
+												<li class="code-object-content-properties-property">test</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li class="code-object-content-properties-property">
+									<div class="code-object">
+										<input class="code-object-state" id="records" type="checkbox">
+										<label class="code-object-title" for="records">"records"</label>
+										<div class="code-object-content" data-ui-settings="type__array">
+											<ul class="code-object-content-properties">
+												<li class="code-object-content-properties-property">
+													<div class="code-object" data-ui-state="is__inArray">
+														<input class="code-object-state" id="record1" type="checkbox">
+														<label class="code-object-title" for="record1"></label>
+														<div class="code-object-content" data-ui-settings="type__object">
+															<ul class="code-object-content-properties">
+																<li class="code-object-content-properties-property">
+																	<div class="code-object">
+																		<input class="code-object-state" id="record1record" type="checkbox">
+																		<label class="code-object-title" for="record1record">"record"</label>
+																		<div class="code-object-content" data-ui-settings="type__object">
+																			<ul class="code-object-content-properties">
+																				<li class="code-object-content-properties-property">prsnId</li>
+																				<li class="code-object-content-properties-property">prsnId</li>
+																				<li class="code-object-content-properties-property">prsnId</li>
+																				<li class="code-object-content-properties-property">prsnId</li>
+																				<li class="code-object-content-properties-property">prsnId</li>
+																				<li class="code-object-content-properties-property">prsnId</li>
+																			</ul>
+																		</div>
+																	</div>
+																</li>
+																<li class="code-object-content-properties-property">
+																	<div class="code-object">
+																		<input class="code-object-state" id="record1errors" type="checkbox">
+																		<label class="code-object-title" for="record1errors">"errors"</label>
+																		<div class="code-object-content" data-ui-settings="type__array">
+																		</div>
+																	</div>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+                <!-- CODE  ** END ** -->
+
+			</div>
+		</div>
+		<!-- left panel  ** END ** -->
+
+		<!-- right panel  ** START ** -->
+		<div class="layout" data-ui-settings="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
+		    <div class="layout" data-ui-settings="depth__low" data-js="appHuver__details-inner">       
+		        <div class="fader"></div>
+
+		        <!-- navbar  ** START ** -->
+		        <div class="navbar__default" data-ui-settings="material__film mount__thick">
+		            <div class="navbar-left__default">
+		                <button class="navbar-back__highlight" data-ui-settings="material__paper" data-js="showFileContents">
+		                    <div class="navbar-back-icon__highlight"></div>
+		                    <div class="navbar-back-text__highlight">records</div>
+		                </button>
+		                <div class="navbar-title__default">
+		                    <div class="navbar-title-text__default" data-js="recordName">
+		                        API End Point Settings
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="navbar-right__default">
+		                <div class="toggler__bold" data-ui-settings="mode__check size__large">
+		                    <input class="toggler-input__bold" data-ui-settings="mode__check size__large" data-js="exclusionToggler" type="checkbox" value="is__exclusion">
+		                    <div class="toggler-toggle__bold" data-ui-settings="mode__check size__large">
+		                        <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__check size__large"></div>
+		                    </div>
+		                    <div class="toggler-label__bold">Exclude</div>
+		                </div>
+		                <div class="toggler_bold" data-ui-settings="mode__button size__large" data-js="tooltip__error">
+		                    <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="details" value="has__error" checked data-js="tableFilter">
+		                    <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
+		                        <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
+		                    </div>
+		                    <div class="toggler-label__bold">Errors</div>
+		                </div>
+		            </div>
+		        </div> 
+		        <!-- navbar  ** END ** -->  
+
+				<div class="layout__light" data-ui-settings="mount__thick padding__top-none">
+					<h3>Info</h3>    
+					<br>
+					<form>
+						<label>Name</label>
+						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+					</form>
+				</div>  
+		    </div>
+		</div>
+		<!-- right panel  ** END ** -->
+
+	</div>
+</div>
+
+
+
+</body>
+</html>

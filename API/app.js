@@ -1,8 +1,10 @@
 var generateConfig     = require("./generate/config"),
 	api                = require("./api"),
 
+	fs 				   = require('fs'),
 	express            = require('../node_modules/express'),
 	bodyParser         = require('../node_modules/body-parser'),
+	ejs  			   = require('ejs'),
 
 	_                  = require("lodash"),
 	path               = require("path"),
@@ -12,10 +14,29 @@ var generateConfig     = require("./generate/config"),
 	API_URL            = API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/:subFileContent.json';
 
 
+fs.readdir('./API/', function(err, files) {
+	for ( var file = 0, totalFiles = files.length; file < totalFiles; file++) {
+		var currentFile = files[file];
+		if ( currentFile === "configAPI.json") { 
+
+		}
+	}
+});
+
+// app.set('views', './API/settings');
+// app.set('view engine', 'ejs');
 // used to parse JSON object given in the body request
 app.use(bodyParser.json());
 // Serve up public/ftp folder 
 app.use('/static', express.static(__dirname + '/../dist/'));
+
+
+
+
+app.get('/settings/API', function (request, response) {
+	response.sendFile( path.join(__dirname + '/settings.html') );
+});
+
 
 
 
@@ -33,6 +54,7 @@ app.get( API_URL_BASE + '/:type(config.json|config.json?meta=true)', function (r
 // Returns : the list of files in JSON format
 app.get( API_URL, function (request, response) {
 	try {
+		console.log(__dirname);
 		var queries,subFileContent,__response,data;
 		// any queries such as '?term=s&year=1999' are stored in the '.query' object as key/value pairs
 		queries = request.query;

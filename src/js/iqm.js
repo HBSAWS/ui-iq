@@ -376,6 +376,42 @@
 			}
 		}
 	};
+
+
+
+
+	var loaders = {
+		inApp : function(XMLHttpRequestObject) {
+			var appLogo,loader;
+			// App logo in the App Navbar that will rotate on loading
+			appLogo    = document.querySelector("[data-js~='appLogo']");
+			// the in app loader
+			loader = document.querySelector("[data-js~='inApp__loader']");
+			UI.loader( loader, {
+				requests                : XMLHttpRequestObject,
+				loaderCompleteAnimation : "fade out",
+				resetLoaderOnComplete   : true,
+				onComplete              : function() {
+					var stopRotating; 
+					notifications.inApp.UI.show();
+
+					stopRotating = function(e) {
+						UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
+						appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
+						e.stopPropagation();
+					};
+					appLogo.addEventListener("webkitAnimationIteration", stopRotating);
+				}
+			});
+			UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
+		},
+		initializeApp : function(XMLHttpRequestObject,loader,onComplete) {
+			UI.loader( loader, {
+				requests                : XMLHttpRequestObject,
+				onComplete              : onComplete
+			});
+		}
+	};	
  
 
 
@@ -525,9 +561,9 @@
 					exception   : exception
 				});
 
-				adjustStyles = __self.adjustPanelStyles.bind(__self);
-				adjustStyles();
-				window.addEventListener('resize', adjustStyles );
+				// adjustStyles = __self.adjustPanelStyles.bind(__self);
+				// adjustStyles();
+				// window.addEventListener('resize', adjustStyles );
 			},
 			adjustPanelStyles : function() {
 				// when the window is at desktop reslutions we want the record and detail panels to sit next to each other
@@ -1407,38 +1443,7 @@
 
 
 
-	var loaders = {
-		inApp : function(XMLHttpRequestObject) {
-			var appLogo,loader;
-			// App logo in the App Navbar that will rotate on loading
-			appLogo    = document.querySelector("[data-js~='appLogo']");
-			// the in app loader
-			loader = document.querySelector("[data-js~='inApp__loader']");
-			UI.loader( loader, {
-				requests                : XMLHttpRequestObject,
-				loaderCompleteAnimation : "fade out",
-				resetLoaderOnComplete   : true,
-				onComplete              : function() {
-					var stopRotating; 
-					notifications.inApp.UI.show();
 
-					stopRotating = function(e) {
-						UI.DOM.removeDataValue( e.currentTarget,"data-ui-state","is__rotating");
-						appLogo.removeEventListener("webkitAnimationIteration", stopRotating);
-						e.stopPropagation();
-					};
-					appLogo.addEventListener("webkitAnimationIteration", stopRotating);
-				}
-			});
-			UI.DOM.addDataValue( appLogo,"data-ui-state","is__rotating");
-		},
-		initializeApp : function(XMLHttpRequestObject,loader,onComplete) {
-			UI.loader( loader, {
-				requests                : XMLHttpRequestObject,
-				onComplete              : onComplete
-			});
-		}
-	};
 
 	modals.login.init();
 	App.getUser();

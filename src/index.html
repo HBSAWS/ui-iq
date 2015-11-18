@@ -175,11 +175,11 @@
                 </div>
             </div>
         </nav>
-        <div class="deck__dark" data-ui-settings="dimensions__parent" data-js="appSuite">
+        <div class="appSuite" data-js="appSuite">
 
             <!-- SETTINGS AND APPS GRID CONTAINER  ** START ** -->
-            <div class="deck-slide_" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuitePreferences" data-ui-state="animate__off move__top" style="position:absolute;left:0px;top:0px;height:100%;"> <!-- was data-js="appSuite__apps" -->
-                <div class="deck-slide-content__light" data-ui-settings="dimensions__parent material__paper" data-js="animateInner">
+            <div class="appSuite-panel" data-js="appSuitePreferences" data-ui-state="animate__off move__top"> <!-- was data-js="appSuite__apps" -->
+                <div class="appSuite-panel-content" data-js="animateInner">
                     <div class="fader"></div>
                     <!-- APPS GRID  ** START ** -->
                     <div class="layout" data-ui-state="is__hidden" data-js="appSuiteApps"></div> <!-- was data-js="appsGrid" -->
@@ -342,8 +342,8 @@
             <!-- SETTINGS AND APPS GRID CONTAINER  ** FINISH ** -->
 
             <!-- CURRENT APP CONTAINER  ** START ** -->
-            <div class="deck-slide__dark" data-ui-settings="dimensions__parent" data-ui-grid="mobile__12" data-js="appSuiteApp" style="overflow-y:hidden;">  <!-- was data-js="appSuite__app" -->
-                <div class="deck-slide-content__default" data-ui-settings="dimensions__parent" data-js="animateInner" style="padding-top:50px;transform:translate(0px);overflow:hidden;">
+            <div class="appSuite-panel" data-ui-settings="navbar__top" data-js="appSuiteApp">  <!-- was data-js="appSuite__app" -->
+                <div class="appSuite-panel-content" data-js="animateInner">
 
                     <div class="fader"></div>
                     <nav class="nav__app">
@@ -406,7 +406,7 @@
                             </div>
                         </div>
                     </nav>
-                    <div class="layout__dark" data-ui-settings="mode__full" data-ui-grid="mobile_12" style="-webkit-perspective:1000;">
+                    <div class="layout__dark" data-ui-settings="height__parent perspective__moderate">
                         <!-- in App modal  ** START ** -->
                         <div class="modal_" data-ui-state="animate__in move__top" data-js="modal__iframe">
                             <div class="modal-window_" data-ui-state="animate__in scale__down rotate__top">
@@ -425,8 +425,8 @@
                         </div>
                         <!-- in App modal  ** END ** -->
                         <!-- offCanvas__fileSettings  ** START ** -->
-                        <div class="deck-slide__dark" data-ui-settings="offCanvas__right offCanvas__fixed material__film depth__medium" data-ui-state="move__right" data-js="offCanvasPanel__fileSettings" style="overflow:hidden;">
-                            <div class="deck-slide-content__dark" data-ui-settings="dimensions__parent">  
+                        <div class="offcanvaspanel__dark" data-ui-settings="side__right layout__constrained material__film depth__medium" data-ui-state="move__right" data-js="offCanvasPanel__fileSettings" style="overflow:hidden;">
+                            <div class="layout" data-ui-settings="height__parent">  
                                 <!-- actionsheet  ** START ** -->
                                 <div class="actionsheet_" data-js="actionsheetArchiveFiles" data-ui-state="move__bottom">
                                     <select class="actionsheet-select" data-js="actionsheetSelect">
@@ -647,13 +647,12 @@
 
 
 
-
-                        <div class="layout__default" data-ui-settings="mode__full" data-ui-state="animate__off scale__down-lg fade__out" data-ui-grid="mobile__12" data-js="app__mainCanvas">
+                        <div class="layout__default" data-ui-settings="height__parent" data-ui-state="animate__off scale__down-lg fade__out" data-ui-grid="12" data-js="app__mainCanvas">
                             <div class="fader"></div>
 
-                            <div class="deck__default" data-ui-settings="dimensions__parent" data-js="appHuver">
-                                <div class="deck-slide__default" data-ui-settings="mount__thick offCanvas__left offCanvas__responsive" data-ui-grid="desktop__4" data-js="appHuver__records">
-                                    <div class="deck-slide-content_" data-ui-settings="depth__low" data-js="appHuver__recordsInner">
+                            <div class="layout" data-ui-settings="overflow__hidden perspective__moderate height__parent" data-js="appHuver">
+                                <div class="offcanvaspanel_" data-ui-settings="popIn__phablet side__left layout__responsive" data-ui-grid="desktop__4" data-js="appHuver__records">
+                                    <div class="offcanvaspanel-content_" data-ui-settings="depth__low" data-js="appHuver__recordsInner">
                                         <div class="fader"></div>
 
                                         <div data-js="records__positionSticky">
@@ -673,7 +672,6 @@
                                                 <div class="navbar-right__default">
                                                     <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__tab-contents" data-js="tooltip__error">
                                                         <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="records" value="has__error" data-js="tableFilter" checked>
-<!--                                                         <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" value="has__error" checked data-js="recordsTable__filter"> -->
                                                         <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
                                                             <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
                                                         </div>
@@ -710,8 +708,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="deck-slide__default" data-ui-settings="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
-                                    <div class="deck-slide-content__light" data-ui-settings="depth__low" data-js="appHuver__details-inner">       
+                                <div class="layout" data-ui-settings="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
+                                    <div class="layout" data-ui-settings="depth__low" data-js="appHuver__details-inner">       
                                         <div class="fader"></div>
 
                                         <div data-js="details__positionSticky">
