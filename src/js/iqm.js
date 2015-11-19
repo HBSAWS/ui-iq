@@ -540,7 +540,7 @@
 			},
 			UI       : undefined,
 			init     : function() {
-				var __self,exception,adjustStyles;
+				var __self,exception,adjustPanel;
 				__self       = this;
 				exception    = function() {
 					return App.UIState({
@@ -560,6 +560,14 @@
 					},
 					exception   : exception
 				});
+
+				adjustPanel = function() {
+					if ( window.innerWidth >= 1300) {
+						__self.UI.showPanel(false);
+					}
+				};
+				adjustPanel();
+				window.addEventListener( 'resize', adjustPanel);
 			}
 		}
 	};
