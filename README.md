@@ -9,7 +9,7 @@ You can install the Homebrew package manger via your terminal with the following
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-<br>
+
 And then install node by typing :
 ```
 brew install node
