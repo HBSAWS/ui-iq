@@ -560,41 +560,6 @@
 					},
 					exception   : exception
 				});
-
-				// adjustStyles = __self.adjustPanelStyles.bind(__self);
-				// adjustStyles();
-				// window.addEventListener('resize', adjustStyles );
-			},
-			adjustPanelStyles : function() {
-				// when the window is at desktop reslutions we want the record and detail panels to sit next to each other
-				// if it's below desktop resolution we want the records panel to be a open and closeable panel
-				// when it's closeable we want no padding, when it's a none closeable we want it to have padding
-				var __self,panel,innerPanel,addToPanel,removeFromPanel,addToInnerPanel,removeFromInnerPanel;
-				__self     = this;
-				panel      = __self.el;
-				innerPanel = panel.querySelector("[data-js~='appHuver__recordsInner']");
-
-				if ( window.innerWidth < 1300 ) {
-					addToPanel           = "mount__none depth__medium";
-					removeFromPanel      = "mount__thick depth__none";
-
-					addToInnerPanel      = "material__film depth__none";
-					removeFromInnerPanel = "material__paper depth__low";
-				} else {
-					addToPanel           = "mount__thick depth__none";
-					removeFromPanel      = "mount__none depth__medium";
-
-					addToInnerPanel      = "material__paper depth__low";
-					removeFromInnerPanel = "material__film depth__none";
-					// we make sure the records panel is open automatically when we are over the 1300px width resolution
-					__self.UI.showPanel(false);
-				}
-
-				UI.DOM.removeDataValue( panel, "data-ui-settings", removeFromPanel );
-				UI.DOM.addDataValue( panel, "data-ui-settings", addToPanel );
-
-				UI.DOM.removeDataValue( innerPanel, "data-ui-settings", removeFromInnerPanel );
-				UI.DOM.addDataValue( innerPanel, "data-ui-settings", addToInnerPanel );
 			}
 		}
 	};

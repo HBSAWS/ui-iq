@@ -1,0 +1,130 @@
+{
+	"endpoints" : 
+	[
+		{
+			"name"    : "config.json",
+			"URL"     : "iqService/rest/",
+			"type"    : "object",
+			"content" : {
+				"object" : {
+					"name"    : "config",
+					"content" : {
+						"field" : {
+							"name" : "PDM_URL",
+							"type" : "URL",
+							"URL"  : "https://secure-stage.hbs.edu/pdm/sis/"
+						}
+					}
+				},
+				"object" : {
+					"name"    : "userInfo",
+					"content" : {
+						"field" : "firstName",
+						"field" : "lastName",
+						"array" : {
+							"name"    : "roles",
+							"amount"  : 1,
+							"content" : ["HBSW_ITG","IQ_ADMIN","IQ_IQ_ADMIN"]
+						}
+					}
+				}
+
+			}
+		},
+		{
+			"name"    : "records.json",
+			"URL"     : "iqService/rest/mba/bio/",
+			"type"    : "array",
+			"amount"  : 1800,
+			// filter can either be, 'top level', or drill down into an object on the top level.
+			// in this case we'd be filtering the 'record' object
+			"filter"  : "record",
+			"content" : {
+				"object" : {
+					"object" : {
+						"name"    : "record",
+						"filters" : [
+							{
+								// "id" is a present so it already knows the 'content' value, so we don't include it
+								"name" : "id"
+							},
+							{
+								"name" : "term"
+							},
+							{
+								"name" : "year"
+							},
+							{
+								// can have a custom item, but choose a value from a preset key/value pair
+								"name"    : "personId",
+								"content" : "prsnId"
+							}
+						],
+						"content" : {
+							"field" : "prsnId",
+							"field" : "huid",
+							"field" : "term",
+							"field" : "ethncCode",
+							"field" : "birthDay",
+							"field" : "gender",
+							"field" : "schoolCode",
+							"field" : "degPrgm",
+							"field" : "degPrgmNum",
+							"field" : "effDt",
+							"field" : "regStat",
+							"field" : "firstName",
+							"field" : "lastName",
+							"field" : "middleName",
+							"field" : "usCitz",
+							"field" : "nonCitzStat",
+							"field" : "addrTypeH",
+							"field" : "address1H",
+							"field" : "address2H",
+							"field" : "addrEffdtH",
+							"field" : "cityH",
+							"field" : "postalCodeH",
+							"field" : "cntryTypeCodeH",
+							"field" : "addrTypeP",
+							"field" : "address1P",
+							"field" : "address2P",
+							"field" : "cityP",
+							"field" : "postalCodeP",
+							"field" : "cntryTypeCodeP",
+							"field" : "timeStat",
+							"field" : "degCand",
+							"field" : "yrInPrgm",
+							"field" : "acadPlan",
+							"field" : "addrEffdt",
+							"field" : "estGradDate",
+							"field" : "lastRunDate"							
+						}
+					},
+					"array" : {
+						"name"    : "errors",
+						"amount"  : [2,10],
+						"content" : {
+							"object" : {
+								"field" : {
+									"name"    : "field",
+									"content" : ["cityH","firstName","lastName"]
+								},
+								"field" : {
+									"name"    : "message",
+									"content" : "required field"
+								},
+								"field" : {
+									"name"    : "type",
+									"content" : ["E","R"]
+								},
+								"field" : {
+									"name"    : "ind",
+									"content" : ["R","I"]
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	]
+}

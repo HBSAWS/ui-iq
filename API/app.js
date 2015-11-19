@@ -1,4 +1,5 @@
 var generateConfig     = require("./generate/config"),
+	// APIschema          = require("./schema.json"),
 	api                = require("./api"),
 
 	fs 				   = require('fs'),
@@ -23,8 +24,7 @@ fs.readdir('./API/', function(err, files) {
 	}
 });
 
-// app.set('views', './API/settings');
-// app.set('view engine', 'ejs');
+//console.log( JSON.stringify(APIschema) );
 // used to parse JSON object given in the body request
 app.use(bodyParser.json());
 // Serve up public/ftp folder 
