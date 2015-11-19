@@ -4,7 +4,7 @@
 **1. Install ruby Sass** 
 <br>
 SASS can be installed by running the following command : <br>
-<i><small>Used for compiling SASS in gulp</small></i>
+<i><code>Used for compiling SASS in gulp</code></i>
 ```
 sudo su -c "gem install sass"
 ```
