@@ -13,7 +13,8 @@ var library = {
 	exception          : [true,false,false,false,false,false,false,false,false]
 };
 
-var generator = {
+module.exports = function() {
+	return {
 	"prsnId"         : _.random(100000, 999999),
 	"huId"           : _.random(10000000, 99999999),
 	"term"           : ( Number( new Date().getFullYear().toString().substr(2,2) )  + _.random(0,4) ).toString() + _.sample(library.term),
@@ -51,7 +52,4 @@ var generator = {
 	"estGradDate"    : "2016-05-26T04:00:00.000+0000",
 	"lastRunDate"    : new Date("2015-03-25T12:00:00")
 };
-
-module.exports = function() {
-	return generator;
 }

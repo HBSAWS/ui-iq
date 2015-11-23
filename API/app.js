@@ -13,7 +13,7 @@ var fs 				   = require('fs'),
 
 
 	app                = express(),
-	fileRepository     = new api(),
+	repository     = new api(),
 	API_URL_BASE       = '/iqService/rest',
 	API_URL            = API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/:subFileContent.json';
 
@@ -26,11 +26,12 @@ app.use('/static', express.static(__dirname + '/../dist/'));
 
 
 var compileSchema = function(arrayToCompile,returnType,returnAmount) {
-	var compiledObject,__returnAmount,generate = generator();
+	var compiledObject,__returnAmount;
 	compiledObject = ( returnType === "object" )    ? {} : [];
 	__returnAmount = ( returnAmount === undefined ) ? 1  : returnAmount;
 
 	(function(count) {
+		var generate = generator();
 		if (count < __returnAmount) {
 			arrayToCompile.forEach(function (schema,index,array) {
 				var toAdd;
@@ -77,53 +78,78 @@ API_schema.forEach(function (endpoint) {
 		amount = undefined;
 	}
 	endpointData[endpoint.name] = compileSchema(endpoint.content, endpoint.type,amount);
+	repository.add( endpoint.name, endpointData[ endpoint.name ], ((endpoint.toFilter !== undefined) ? (endpoint.toFilter) : undefined) );
 
+	if ( endpoint.methods.indexOf("get") > -1 ) {
+		app.get( endpoint.URL + ":APIendpoint" + endpoint.ext, function (request,response) {
+			try {
+				var queries,APIendpoint,__response,data;
+				// any queries such as '?term=s&year=1999' are stored in the '.query' object as key/value pairs
+				queries = request.query;
+				// the value of the 'subFileContent' not including the '.json' at the end
+				// this is so we know what to return
+				// for example this might be 'records' or 'exclusions'
+				APIendpoint                = request.params.APIendpoint;
+				__response                 = {};
+				__response[APIendpoint] = repository.find( APIendpoint, queries );
+				response.json( __response );
+			} catch (exception) {
+				response.sendStatus(404);
+			}
+		});
+	}
+	if ( endpoint.methods.indexOf("put") > -1 ) {
+		app.put( endpoint.URL + ":APIendpoint" + '/update/:id', function (request, response) {
+			try {
+				var newData,id,APIendpoint,persistedFile,updatedContent;
+				newData        = request.body;
+				id             = parseInt(request.params.id);
+				APIendpoint    = request.params.APIendpoint;
+				persistedFile  = repository.find(APIendpoint, {"id" : id} )[0];
+				updatedContent = _.merge(persistedFile, newData);
 
-	app.get( endpoint.URL + "test/" + endpoint.name + endpoint.ext, function (request,response) {
-		//response.send( endpoint.name + endpoint.ext );
-		response.json( endpointData );
-	});
+				repository.save( "exclusions", updatedContent );
+				response.sendStatus(200);
+			} catch (exception) {
+			    response.sendStatus(404);
+			}
+		});
+	}
+	if ( endpoint.methods.indexOf("post") > -1 ) {
+		app.post( endpoint.URL + ":APIendpoint" + '/create', function (request, response) {
+			var newData,APIendpoint;
+			newData     = request.body;
+			APIendpoint = request.params.APIendpoint;
+
+			repository.save(APIendpoint, newData);
+			response.sendStatus(200);
+		});
+	}
+	if ( endpoint.methods.indexOf("delete") > -1 ) {
+		app.delete( endpoint.URL + ":APIendpoint" + '/delete/:id', function (request, response) {
+			try {
+				var id,APIendpoint;
+				id           = parseInt(request.params.id);
+				APIendpoint  = request.params.APIendpoint;
+				repository.remove(APIendpoint, {id : id} );
+				response.sendStatus(200);
+			} catch (exeception) {
+				response.sendStatus(404);
+			}
+		});
+	}
 });
 
 app.get('/', function (request,response) {
 
 });
 
+
+
+
+// URL for the mock API settings UI
 app.get('/settings/API', function (request, response) {
 	response.sendFile( path.join(__dirname + '/settings.html') );
-});
-
-
-
-
-// HTTP GET the user config
-// can break out meta from minimal config later if needed
-app.get( API_URL_BASE + '/:type(config.json|config.json?meta=true)', function (request, response) {
-	response.json( generateConfig );
-});
-
-
-
-
-// HTTP GET specific files
-// Param   : you can have parameters for any of the attributes in the root level of your fileRepository object that ISN'T another object, value only
-// Returns : the list of files in JSON format
-app.get( API_URL, function (request, response) {
-	try {
-		console.log(__dirname);
-		var queries,subFileContent,__response,data;
-		// any queries such as '?term=s&year=1999' are stored in the '.query' object as key/value pairs
-		queries = request.query;
-		// the value of the 'subFileContent' not including the '.json' at the end
-		// this is so we know what to return
-		// for example this might be 'records' or 'exclusions'
-		subFileContent             = ( request.params.subFileContent === "excl" ) ? "exclusions" : request.params.subFileContent;
-		__response                 = {};
-		__response[subFileContent] = fileRepository.find( subFileContent, queries );
-		response.json( __response );
-	} catch (exception) {
-		response.sendStatus(404);
-	}
 });
 
 
@@ -132,13 +158,13 @@ app.get( API_URL, function (request, response) {
 // HTTP POST /files/
 // Body Param : the JSON file you want to create
 // Returns    : 200 HTTP code
-app.post( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/create', function (request, response) {
-    var newData;
-    newData = request.body;
+// app.post( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/create', function (request, response) {
+// 	var newData;
+// 	newData = request.body;
 
-    fileRepository.save("exclusions", newData);
-    response.sendStatus(200);
-});
+// 	repository.save("exclusions", newData);
+// 	response.sendStatus(200);
+// });
 
 
 
@@ -148,20 +174,20 @@ app.post( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/create', f
  // Body Param : the JSON file you want to update
  // Returns    : 200 HTTP code
  // Error      : 404 HTTP code if the file doesn't exists
-app.put( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/update/:id', function (request, response) {
-    try {
-		var newData,id,persistedFile,updatedContent;
-		newData        = request.body;
-		id             = parseInt(request.params.id);
-		persistedFile  = fileRepository.find("exclusions", {"id" : id} )[0];
-		updatedContent = _.merge(persistedFile, newData);
+// app.put( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/update/:id', function (request, response) {
+//     try {
+// 		var newData,id,persistedFile,updatedContent;
+// 		newData        = request.body;
+// 		id             = parseInt(request.params.id);
+// 		persistedFile  = repository.find("exclusions", {"id" : id} )[0];
+// 		updatedContent = _.merge(persistedFile, newData);
 
-        fileRepository.save( "exclusions", updatedContent );
-        response.sendStatus(200);
-    } catch (exception) {
-        response.sendStatus(404);
-    }
-});
+//         repository.save( "exclusions", updatedContent );
+//         response.sendStatus(200);
+//     } catch (exception) {
+//         response.sendStatus(404);
+//     }
+// });
 
 
 
@@ -171,16 +197,16 @@ app.put( API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/exclusions/update/:id'
  // Body Param : the JSON file you want to update
  // Returns    : 200 HTTP code
  // Error      : 404 HTTP code if the file doesn't exists
-app.delete( API_URL, function (request, response) {
-    try {
-		// any queries such as '?term=s&year=1999' are stored in the '.query' object as key/value pairs
-		var query = request.query;
-        fileRepository.remove("files", {personId : query.personId} );
-        response.sendStatus(200);
-    } catch (exeception) {
-        response.sendStatus(404);
-    }
-});
+// app.delete( API_URL, function (request, response) {
+// 	try {
+// 		// any queries such as '?term=s&year=1999' are stored in the '.query' object as key/value pairs
+// 		var query = request.query;
+// 		repository.remove("files", {personId : query.personId} );
+// 		response.sendStatus(200);
+// 	} catch (exeception) {
+// 		response.sendStatus(404);
+// 	}
+// });
 
 //app.listen(8080); //to port on which the express server listen
 module.exports = app;

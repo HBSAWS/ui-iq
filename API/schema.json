@@ -5,6 +5,7 @@
 			"name"    : "config",
 			"ext"     : ".json",
 			"URL"     : "/iqService/rest/",
+			"methods" : ["get"],
 			"type"    : "object",
 			"content" : [
 				{
@@ -55,13 +56,14 @@
 			]
 		},
 		{
-			"name"    : "records",
-			"ext"     : ".json",
-			"URL"     : "/iqService/rest/mba/bio/",
-			"type"    : "array",
-			"amount"  : 1800,
-			"filter"  : "record",
-			"content" : [
+			"name"     : "records",
+			"ext"      : ".json",
+			"URL"      : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
+			"methods"  : ["get","post","put","delete"],
+			"type"     : "array",
+			"amount"   : 20,
+			"toFilter" : "record",
+			"content"  : [
 				{
 					"type" : "object",
 					"content" : [
@@ -69,6 +71,14 @@
 							"type"    : "object",
 							"name"    : "record",
 							"content" : [
+								{
+									"type" : "field",
+									"name" : "id"
+								},
+								{
+									"type" : "field",
+									"name" : "year"
+								},
 								{
 									"type" : "field",
 									"name" : "prsnId"
@@ -214,6 +224,64 @@
 									"name" : "lastRunDate"		
 								}
 							]		
+						},
+						{
+							"type"    : "array",
+							"name"    : "errors",
+							"content" : [
+								{
+									"type"    : "object",
+									"content" : [
+										{
+											"type"    : "field",
+											"name"    : "field",
+											"content" : "addrEffdt"
+										},
+										{
+											"type"    : "field",
+											"name"    : "message",
+											"content" : "required field"
+										},
+										{
+											"type"    : "field",
+											"name"    : "type",
+											"content" : "E"
+										},
+										{
+											"type"    : "field",
+											"name"    : "ind",
+											"content" : "R"
+										}
+
+									]
+								},
+								{
+									"type"    : "object",
+									"content" : [
+										{
+											"type"    : "field",
+											"name"    : "field",
+											"content" : "firstName"
+										},
+										{
+											"type"    : "field",
+											"name"    : "message",
+											"content" : "required field"
+										},
+										{
+											"type"    : "field",
+											"name"    : "type",
+											"content" : "E"
+										},
+										{
+											"type"    : "field",
+											"name"    : "ind",
+											"content" : "R"
+										}
+
+									]
+								}
+							]
 						}
 					]
 				}
