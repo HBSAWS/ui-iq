@@ -2,129 +2,222 @@
 	"endpoints" : 
 	[
 		{
-			"name"    : "config.json",
-			"URL"     : "iqService/rest/",
+			"name"    : "config",
+			"ext"     : ".json",
+			"URL"     : "/iqService/rest/",
 			"type"    : "object",
-			"content" : {
-				"object" : {
+			"content" : [
+				{
+					"type"    : "object",
 					"name"    : "config",
-					"content" : {
-						"field" : {
-							"name" : "PDM_URL",
-							"type" : "URL",
-							"URL"  : "https://secure-stage.hbs.edu/pdm/sis/"
+					"content" : [
+						{
+							"type"    : "field",
+							"name"    : "PDM_URL",
+							"content" : "https://secure-stage.hbs.edu/pdm/sis/"
 						}
-					}
+					]
 				},
-				"object" : {
+				{	"type"    : "object",
 					"name"    : "userInfo",
-					"content" : {
-						"field" : "firstName",
-						"field" : "lastName",
-						"array" : {
+					"content" : [
+						{
+							"type"    : "field",
+							"name"    : "firstName",
+							"content" : "Peter"
+						},
+						{
+							"type"    : "field",
+							"name"    : "lastName",
+							"content" : "Kloss"
+						},
+						{
+							"type"    : "array",
 							"name"    : "roles",
 							"amount"  : 1,
-							"content" : ["HBSW_ITG","IQ_ADMIN","IQ_IQ_ADMIN"]
+							"content" : [
+								{ 
+									"type"    : "string",
+									"content" : "HBSW_ITG"
+								},
+								{
+									"type"    : "string",
+									"content" : "IQ_ADMIN"
+								},
+								{
+									"type"    : "string",
+									"content" : "IQ_IQ_ADMIN"
+								}
+							]
 						}
-					}
+					]
 				}
-
-			}
+			]
 		},
 		{
-			"name"    : "records.json",
-			"URL"     : "iqService/rest/mba/bio/",
+			"name"    : "records",
+			"ext"     : ".json",
+			"URL"     : "/iqService/rest/mba/bio/",
 			"type"    : "array",
 			"amount"  : 1800,
-			// filter can either be, 'top level', or drill down into an object on the top level.
-			// in this case we'd be filtering the 'record' object
 			"filter"  : "record",
-			"content" : {
-				"object" : {
-					"object" : {
-						"name"    : "record",
-						"filters" : [
-							{
-								// "id" is a present so it already knows the 'content' value, so we don't include it
-								"name" : "id"
-							},
-							{
-								"name" : "term"
-							},
-							{
-								"name" : "year"
-							},
-							{
-								// can have a custom item, but choose a value from a preset key/value pair
-								"name"    : "personId",
-								"content" : "prsnId"
-							}
-						],
-						"content" : {
-							"field" : "prsnId",
-							"field" : "huid",
-							"field" : "term",
-							"field" : "ethncCode",
-							"field" : "birthDay",
-							"field" : "gender",
-							"field" : "schoolCode",
-							"field" : "degPrgm",
-							"field" : "degPrgmNum",
-							"field" : "effDt",
-							"field" : "regStat",
-							"field" : "firstName",
-							"field" : "lastName",
-							"field" : "middleName",
-							"field" : "usCitz",
-							"field" : "nonCitzStat",
-							"field" : "addrTypeH",
-							"field" : "address1H",
-							"field" : "address2H",
-							"field" : "addrEffdtH",
-							"field" : "cityH",
-							"field" : "postalCodeH",
-							"field" : "cntryTypeCodeH",
-							"field" : "addrTypeP",
-							"field" : "address1P",
-							"field" : "address2P",
-							"field" : "cityP",
-							"field" : "postalCodeP",
-							"field" : "cntryTypeCodeP",
-							"field" : "timeStat",
-							"field" : "degCand",
-							"field" : "yrInPrgm",
-							"field" : "acadPlan",
-							"field" : "addrEffdt",
-							"field" : "estGradDate",
-							"field" : "lastRunDate"							
-						}
-					},
-					"array" : {
-						"name"    : "errors",
-						"amount"  : [2,10],
-						"content" : {
-							"object" : {
-								"field" : {
-									"name"    : "field",
-									"content" : ["cityH","firstName","lastName"]
+			"content" : [
+				{
+					"type" : "object",
+					"content" : [
+						{
+							"type"    : "object",
+							"name"    : "record",
+							"content" : [
+								{
+									"type" : "field",
+									"name" : "prsnId"
 								},
-								"field" : {
-									"name"    : "message",
-									"content" : "required field"
+								{
+									"type" : "field",
+									"name" : "huid"
 								},
-								"field" : {
-									"name"    : "type",
-									"content" : ["E","R"]
+								{
+									"type" : "field",
+									"name" : "term"
 								},
-								"field" : {
-									"name"    : "ind",
-									"content" : ["R","I"]
+								{
+									"type" : "field",
+									"name" : "ethncCode"
+								},
+								{
+									"type" : "field",
+									"name" : "birthDay"
+								},
+								{
+									"type" : "field",
+									"name" : "gender"
+								},
+								{
+									"type" : "field",
+									"name" : "schoolCode"
+								},
+								{
+									"type" : "field",
+									"name" : "degPrgm"
+								},
+								{
+									"type" : "field",
+									"name" : "degPrgmNum"
+								},
+								{
+									"type" : "field",
+									"name" : "effDt"
+								},
+								{
+									"type" : "field",
+									"name" : "regStat"
+								},
+								{
+									"type" : "field",
+									"name" : "firstName"
+								},
+								{
+									"type" : "field",
+									"name" : "lastName"
+								},
+								{
+									"type" : "field",
+									"name" : "middleName"
+								},
+								{
+									"type" : "field",
+									"name" : "usCitz"
+								},
+								{
+									"type" : "field",
+									"name" : "nonCitzStat"
+								},
+								{
+									"type" : "field",
+									"name" : "addrTypeH"
+								},
+								{
+									"type" : "field",
+									"name" : "address1H"
+								},
+								{
+									"type" : "field",
+									"name" : "address2H"
+								},
+								{
+									"type" : "field",
+									"name" :"addrEffdtH"
+								},
+								{
+									"type" : "field",
+									"name" : "cityH"
+								},
+								{
+									"type" : "field",
+									"name" : "postalCodeH"
+								},
+								{
+									"type" : "field",
+									"name" : "cntryTypeCodeH"
+								},
+								{
+									"type" : "field",
+									"name" : "addrTypeP"
+								},
+								{
+									"type" : "field",
+									"name" : "address1P"
+								},
+								{
+									"type" : "field",
+									"name" : "address2P"
+								},
+								{
+									"type" : "field",
+									"name" : "cityP"
+								},
+								{
+									"type" : "field",
+									"name" : "postalCodeP"
+								},
+								{
+									"type" : "field",
+									"name" : "cntryTypeCodeP"
+								},
+								{
+									"type" : "field",
+									"name" : "timeStat"
+								},
+								{
+									"type" : "field",
+									"name" : "degCand"
+								},
+								{
+									"type" : "field",
+									"name" : "yrInPrgm"
+								},
+								{
+									"type" : "field",
+									"name" : "acadPlan"
+								},
+								{
+									"type" : "field",
+									"name" : "addrEffdt"
+								},
+								{
+									"type" : "field",
+									"name" : "estGradDate"
+								},
+								{
+									"type" : "field",
+									"name" : "lastRunDate"		
 								}
-							}
+							]		
 						}
-					}
+					]
 				}
-			}
+			]
 		}
 	]
 }

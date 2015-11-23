@@ -1,37 +1,93 @@
-var generateConfig     = require("./generate/config"),
-	// APIschema          = require("./schema.json"),
-	api                = require("./api"),
+var fs 				   = require('fs'),
+	_                  = require("lodash"),
+	path               = require("path"),
 
-	fs 				   = require('fs'),
 	express            = require('../node_modules/express'),
 	bodyParser         = require('../node_modules/body-parser'),
 	ejs  			   = require('ejs'),
 
-	_                  = require("lodash"),
-	path               = require("path"),
+	generateConfig     = require("./generate/config"),
+	generator          = require("./generator"),
+	API_schema         = JSON.parse( fs.readFileSync(path.join(__dirname + '/schema.json')) ).endpoints,
+	api                = require("./api"),
+
+
 	app                = express(),
 	fileRepository     = new api(),
 	API_URL_BASE       = '/iqService/rest',
 	API_URL            = API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/:subFileContent.json';
 
 
-fs.readdir('./API/', function(err, files) {
-	for ( var file = 0, totalFiles = files.length; file < totalFiles; file++) {
-		var currentFile = files[file];
-		if ( currentFile === "configAPI.json") { 
 
-		}
-	}
-});
-
-//console.log( JSON.stringify(APIschema) );
 // used to parse JSON object given in the body request
 app.use(bodyParser.json());
 // Serve up public/ftp folder 
 app.use('/static', express.static(__dirname + '/../dist/'));
 
 
+var compileSchema = function(arrayToCompile,returnType,returnAmount) {
+	var compiledObject,__returnAmount,generate = generator();
+	compiledObject = ( returnType === "object" )    ? {} : [];
+	__returnAmount = ( returnAmount === undefined ) ? 1  : returnAmount;
 
+	(function(count) {
+		if (count < __returnAmount) {
+			arrayToCompile.forEach(function (schema,index,array) {
+				var toAdd;
+				// defines what the 'toAdd' value is going to be
+				if ( schema.type === "object" ) {
+					toAdd = compileSchema( schema.content, schema.type );
+				} else if ( schema.type === "array" ) {
+					toAdd = compileSchema( schema.content, schema.type, ((schema.amount !== undefined) ? schema.amount : undefined) );
+				} else if ( schema.type ==="field" || schema.type === "string" ) {
+					toAdd = ( schema.content !== undefined ) ? schema.content : generate[schema.name];
+				}
+
+				// defines what the 'compiledObject' format is going to be
+				if ( returnType === "object" ) {
+					if ( schema.type !== "field" || schema.name !== undefined && schema.name !== null ) {
+						compiledObject[schema.name] = toAdd;
+					} else {
+						compiledObject = toAdd;
+					}
+				} else if ( returnType === "array" ) {
+					if ( schema.type !== "field" || schema.name !== undefined && schema.name !== null ) {
+						compiledObject.push( toAdd );
+					} else {
+						compiledObject.push( toAdd );
+					}
+				} else if ( returnType === "field" || "string" ) {
+					compiledObject = toAdd;
+				} 
+			});
+	        var caller = arguments.callee; 
+	        caller(count + 1);
+		}
+	})(0);
+
+	return compiledObject;
+};
+
+//console.log( JSON.stringify( API_schema ));
+API_schema.forEach(function (endpoint) {
+	var endpointData = {},amount;
+	if ( endpoint.type === "array" && endpoint.amount !== undefined && endpoint.amount > 0 ) {
+		amount = endpoint.amount;
+	} else {
+		amount = undefined;
+	}
+	endpointData[endpoint.name] = compileSchema(endpoint.content, endpoint.type,amount);
+
+
+	app.get( endpoint.URL + "test/" + endpoint.name + endpoint.ext, function (request,response) {
+		//response.send( endpoint.name + endpoint.ext );
+		response.json( endpointData );
+	});
+});
+
+app.get('/', function (request,response) {
+
+});
 
 app.get('/settings/API', function (request, response) {
 	response.sendFile( path.join(__dirname + '/settings.html') );
