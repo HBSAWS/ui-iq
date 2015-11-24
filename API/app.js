@@ -39,10 +39,10 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 			// forEach ** START **
 			schemaContentArray.forEach(function (schemaContentValue,schemaContentIndex) {
 				if ( schemaReturnType === "object" ) {
-					if ( schemaContentValue.__type === "object" || schemaContentValue.__type === "array" ) {
+					if ( schemaContentValue.type === "object" || schemaContentValue.type === "array" ) {
 						// a object can only have another object inside of it if it has a name
-						compiledSchema[schemaContentValue.name] = compileSchema(schemaContentValue.content,schemaContentValue.__type,schemaContentValue.amount);
-					} else if ( schemaContentValue.__type === "field" ) {
+						compiledSchema[schemaContentValue.name] = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount);
+					} else if ( schemaContentValue.type === "field" ) {
 						// the only other child an object can have is a field name/value pair
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
 						if ( relatedSchemaContent !== undefined && schemaContentValue.sample !== undefined ) {
@@ -54,10 +54,10 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 						}
 					}
 				} else if ( schemaReturnType === "array" ) {
-					if ( schemaContentValue.__type === "object" ) {
+					if ( schemaContentValue.type === "object" ) {
 						// arrays can only have nameless objects as children
-						compiledSchema.push( compileSchema(schemaContentValue.content,schemaContentValue.__type,schemaContentValue.amount) );
-					} else if ( schemaContentValue.__type === "field" ) {
+						compiledSchema.push( compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount) );
+					} else if ( schemaContentValue.type === "field" ) {
 						var schemaContentValueName = schemaContentValue.name;
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
 						if ( schemaContentValue.content === undefined && schemaContentValue.sample !== undefined ) {
@@ -67,12 +67,10 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 						} else if ( schemaContentValue.content !== undefined ) {
 							compiledSchema.push( {schemaContentValueName : schemaContentValue.content} );
 						}				
-					} else if ( schemaContentValue.__type === "string" ) {
+					} else if ( schemaContentValue.type === "string" ) {
 						compiledSchema.push( schemaContentValue.content );
 					}
-				} else if ( schemaReturnType === "field" ) {
-					console.log("is this even possible??");
-				}
+				} 
 			});
 			// forEach ** END **
 			var caller = arguments.callee;
@@ -88,19 +86,22 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 
 API_schema.forEach(function (endpoint) {
 	var endpointData = {};
-	if ( endpoint.relatedTo !== undefined ) {
-		var sampleSource,sampler;
-		sampleSource = repository.repositories[ endpoint["relatedTo"] ]["content"];
-		sampler      = _.sample(sampleSource, endpoint.amount);
-		if ( repository.repositories[ endpoint["relatedTo"] ]["toFilter"] !== undefined ) {
-			var filter = repository.repositories[endpoint.relatedTo]["toFilter"];
-			sampler    = sampler.forEach(function (value,index,array) {
-				return value[filter];
+	if ( endpoint.relatedSchema !== undefined ) {
+		var relatedSchema,relatedSchemasSampledContent;
+		relatedSchema                = repository.repositories[ endpoint["relatedSchema"] ]["content"];
+		relatedSchemasSampledContent = _.sample(relatedSchema, endpoint.amount);
+		// in objects where the main object isn't the root object, but more like a wrapper object, like records which is structured like { record : {}, errors :[] }
+			// we need to adjust the sampledContent to just be the 'record' object, so we can get to the core values of that endpoint's schema
+		if ( repository.repositories[ endpoint["relatedSchema"] ]["rootObject"] !== undefined ) {
+			var rootObject               = repository.repositories[endpoint.relatedSchema]["rootObject"];
+			relatedSchemasSampledContent = relatedSchemasSampledContent.forEach(function (endpointWrapperObject) {
+				return endpointWrapperObject[rootObject];
 			});
 		}
 	}
-	endpointData[endpoint.name] = compileSchema(endpoint.content, endpoint.__type, endpoint.amount, sampler);
-	repository.add( endpoint.name, endpointData[ endpoint.name ], endpoint.toFilter, endpoint.relatedTo );
+	// we take the endpoint's schema and compile it into the endpoint's data
+	endpointData[endpoint.name] = compileSchema( endpoint.content, endpoint.type, endpoint.amount, relatedSchemasSampledContent);
+	repository.add( endpoint.name, endpointData[ endpoint.name ], endpoint.toFilter, endpoint.relatedSchema );
 
 	if ( endpoint.methods.indexOf("get") > -1 ) {
 		app.get( endpoint.URL + ":APIendpoint" + endpoint.ext, function (request,response) {

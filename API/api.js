@@ -8,10 +8,6 @@ var Repositories = function() {
 	var file;
 
     this.repositories = {};
-
-	file            = generateFile(1800);
-    this.records    = file.records;
-    this.exclusions = file.exclusions;
 }
 
 
