@@ -40,8 +40,11 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 			schemaContentArray.forEach(function (schemaContentValue,schemaContentIndex) {
 				if ( schemaReturnType === "object" ) {
 					if ( schemaContentValue.type === "object" || schemaContentValue.type === "array" ) {
-						// a object can only have another object inside of it if it has a name
-						compiledSchema[schemaContentValue.name] = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount);
+						if ( schemaContentValue.name !== undefined ) {
+							compiledSchema[schemaContentValue.name] = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
+						} else {
+							compiledSchema = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
+						}
 					} else if ( schemaContentValue.type === "field" ) {
 						// the only other child an object can have is a field name/value pair
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
@@ -56,7 +59,7 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 				} else if ( schemaReturnType === "array" ) {
 					if ( schemaContentValue.type === "object" ) {
 						// arrays can only have nameless objects as children
-						compiledSchema.push( compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount) );
+						compiledSchema.push( compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent) );
 					} else if ( schemaContentValue.type === "field" ) {
 						var schemaContentValueName = schemaContentValue.name;
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
@@ -66,7 +69,7 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 							compiledSchema.push( {schemaContentValueName : generator[schemaContentValue.sample]} );
 						} else if ( schemaContentValue.content !== undefined ) {
 							compiledSchema.push( {schemaContentValueName : schemaContentValue.content} );
-						}				
+						}
 					} else if ( schemaContentValue.type === "string" ) {
 						compiledSchema.push( schemaContentValue.content );
 					}
@@ -88,7 +91,7 @@ API_schema.forEach(function (endpoint) {
 	var endpointData = {};
 	if ( endpoint.relatedSchema !== undefined ) {
 		var relatedSchema,relatedSchemasSampledContent;
-		relatedSchema                = repository.repositories[ endpoint["relatedSchema"] ]["content"];
+		relatedSchema                = repository.repositories[ endpoint["relatedSchema"] ]["endpointData"];
 		relatedSchemasSampledContent = _.sample(relatedSchema, endpoint.amount);
 		// in objects where the main object isn't the root object, but more like a wrapper object, like records which is structured like { record : {}, errors :[] }
 			// we need to adjust the sampledContent to just be the 'record' object, so we can get to the core values of that endpoint's schema
@@ -100,8 +103,8 @@ API_schema.forEach(function (endpoint) {
 		}
 	}
 	// we take the endpoint's schema and compile it into the endpoint's data
-	endpointData[endpoint.name] = compileSchema( endpoint.content, endpoint.type, endpoint.amount, relatedSchemasSampledContent);
-	repository.add( endpoint.name, endpointData[ endpoint.name ], endpoint.toFilter, endpoint.relatedSchema );
+	endpointData = compileSchema( endpoint.content, "object", 1, relatedSchemasSampledContent);
+	repository.add( endpoint.name, endpointData, endpoint.rootObject, endpoint.relatedSchema );
 
 	if ( endpoint.methods.indexOf("get") > -1 ) {
 		app.get( endpoint.URL + ":APIendpoint" + endpoint.ext, function (request,response) {
@@ -112,9 +115,9 @@ API_schema.forEach(function (endpoint) {
 				// the value of the 'subFileContent' not including the '.json' at the end
 				// this is so we know what to return
 				// for example this might be 'records' or 'exclusions'
-				APIendpoint                = request.params.APIendpoint;
-				__response                 = {};
-				__response[APIendpoint] = repository.find( APIendpoint, queries );
+				APIendpoint = request.params.APIendpoint;
+				__response  = {};
+				__response  = repository.find( APIendpoint, queries );
 				response.json( __response );
 			} catch (exception) {
 				response.sendStatus(404);

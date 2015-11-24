@@ -6,48 +6,52 @@
 			"ext"     : ".json",
 			"URL"     : "/iqService/rest/",
 			"methods" : ["get"],
-			"type"  : "object",
 			"content" : [
 				{
 					"type"  : "object",
-					"name"    : "config",
 					"content" : [
 						{
-							"type"  : "field",
-							"name"    : "PDM_URL",
-							"content" : "https://secure-stage.hbs.edu/pdm/sis/"
-						}
-					]
-				},
-				{	"type"  : "object",
-					"name"    : "userInfo",
-					"content" : [
-						{
-							"type"  : "field",
-							"name"    : "firstName",
-							"content" : "Peter"
-						},
-						{
-							"type"  : "field",
-							"name"    : "lastName",
-							"content" : "Kloss"
-						},
-						{
-							"type"  : "array",
-							"name"    : "roles",
-							"amount"  : 1,
+							"type"  : "object",
+							"name"    : "config",
 							"content" : [
-								{ 
-									"type"  : "string",
-									"content" : "HBSW_ITG"
+								{
+									"type"  : "field",
+									"name"    : "PDM_URL",
+									"content" : "https://secure-stage.hbs.edu/pdm/sis/"
+								}
+							]
+						},
+						{	"type"  : "object",
+							"name"    : "userInfo",
+							"content" : [
+								{
+									"type"  : "field",
+									"name"    : "firstName",
+									"content" : "Peter"
 								},
 								{
-									"type"  : "string",
-									"content" : "IQ_ADMIN"
+									"type"  : "field",
+									"name"    : "lastName",
+									"content" : "Kloss"
 								},
 								{
-									"type"  : "string",
-									"content" : "IQ_IQ_ADMIN"
+									"type"  : "array",
+									"name"    : "roles",
+									"amount"  : 1,
+									"content" : [
+										{ 
+											"type"  : "string",
+											"content" : "HBSW_ITG"
+										},
+										{
+											"type"  : "string",
+											"content" : "IQ_ADMIN"
+										},
+										{
+											"type"  : "string",
+											"content" : "IQ_IQ_ADMIN"
+										}
+									]
 								}
 							]
 						}
@@ -60,223 +64,228 @@
 			"ext"        : ".json",
 			"URL"        : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
 			"methods"    : ["get","post","put","delete"],
-			"type"     : "array",
-			"amount"     : 20,
 			"rootObject" : "record",
 			"content"    : [
 				{
-					"type"  : "object",
-					"content" : [
+					"type"    : "array",
+					"name"    : "records",
+					"amount"  : 20,
+					"content" : [			
 						{
 							"type"  : "object",
-							"name"    : "record",
-							"content" : [
-								{
-									"type" : "field",
-									"name"   : "id"
-								},
-								{
-									"type" : "field",
-									"name"   : "year"
-								},
-								{
-									"type" : "field",
-									"name"   : "prsnId"
-								},
-								{
-									"type" : "field",
-									"name"   : "huid"
-								},
-								{
-									"type" : "field",
-									"name"   : "term"
-								},
-								{
-									"type" : "field",
-									"name"   : "ethncCode"
-								},
-								{
-									"type" : "field",
-									"name"   : "birthDay"
-								},
-								{
-									"type" : "field",
-									"name"   : "gender"
-								},
-								{
-									"type" : "field",
-									"name"   : "schoolCode"
-								},
-								{
-									"type" : "field",
-									"name"   : "degPrgm"
-								},
-								{
-									"type" : "field",
-									"name"   : "degPrgmNum"
-								},
-								{
-									"type" : "field",
-									"name"   : "effDt"
-								},
-								{
-									"type" : "field",
-									"name"   : "regStat"
-								},
-								{
-									"type" : "field",
-									"name"   : "firstName"
-								},
-								{
-									"type" : "field",
-									"name"   : "lastName"
-								},
-								{
-									"type" : "field",
-									"name"   : "middleName"
-								},
-								{
-									"type" : "field",
-									"name"   : "usCitz"
-								},
-								{
-									"type" : "field",
-									"name"   : "nonCitzStat"
-								},
-								{
-									"type" : "field",
-									"name"   : "addrtypeH"
-								},
-								{
-									"type" : "field",
-									"name"   : "address1H"
-								},
-								{
-									"type" : "field",
-									"name"   : "address2H"
-								},
-								{
-									"type" : "field",
-									"name"   : "addrEffdtH"
-								},
-								{
-									"type" : "field",
-									"name"   : "cityH"
-								},
-								{
-									"type" : "field",
-									"name"   : "postalCodeH"
-								},
-								{
-									"type" : "field",
-									"name"   : "cntrytypeCodeH"
-								},
-								{
-									"type" : "field",
-									"name"   : "addrtypeP"
-								},
-								{
-									"type" : "field",
-									"name"   : "address1P"
-								},
-								{
-									"type" : "field",
-									"name"   : "address2P"
-								},
-								{
-									"type" : "field",
-									"name"   : "cityP"
-								},
-								{
-									"type" : "field",
-									"name"   : "postalCodeP"
-								},
-								{
-									"type" : "field",
-									"name"   : "cntrytypeCodeP"
-								},
-								{
-									"type" : "field",
-									"name"   : "timeStat"
-								},
-								{
-									"type" : "field",
-									"name"   : "degCand"
-								},
-								{
-									"type" : "field",
-									"name"   : "yrInPrgm"
-								},
-								{
-									"type" : "field",
-									"name"   : "acadPlan"
-								},
-								{
-									"type" : "field",
-									"name"   : "addrEffdt"
-								},
-								{
-									"type" : "field",
-									"name"   : "estGradDate"
-								},
-								{
-									"type" : "field",
-									"name"   : "lastRunDate"		
-								}
-							]		
-						},
-						{
-							"type"  : "array",
-							"name"    : "errors",
 							"content" : [
 								{
 									"type"  : "object",
+									"name"    : "record",
 									"content" : [
 										{
-											"type"  : "field",
-											"name"    : "field",
-											"content" : "addrEffdt"
+											"type" : "field",
+											"name"   : "id"
 										},
 										{
-											"type"  : "field",
-											"name"    : "message",
-											"content" : "required field"
+											"type" : "field",
+											"name"   : "year"
 										},
 										{
-											"type"  : "field",
-											"name"    : "type",
-											"content" : "E"
+											"type" : "field",
+											"name"   : "prsnId"
 										},
 										{
-											"type"  : "field",
-											"name"    : "ind",
-											"content" : "R"
+											"type" : "field",
+											"name"   : "huid"
+										},
+										{
+											"type" : "field",
+											"name"   : "term"
+										},
+										{
+											"type" : "field",
+											"name"   : "ethncCode"
+										},
+										{
+											"type" : "field",
+											"name"   : "birthDay"
+										},
+										{
+											"type" : "field",
+											"name"   : "gender"
+										},
+										{
+											"type" : "field",
+											"name"   : "schoolCode"
+										},
+										{
+											"type" : "field",
+											"name"   : "degPrgm"
+										},
+										{
+											"type" : "field",
+											"name"   : "degPrgmNum"
+										},
+										{
+											"type" : "field",
+											"name"   : "effDt"
+										},
+										{
+											"type" : "field",
+											"name"   : "regStat"
+										},
+										{
+											"type" : "field",
+											"name"   : "firstName"
+										},
+										{
+											"type" : "field",
+											"name"   : "lastName"
+										},
+										{
+											"type" : "field",
+											"name"   : "middleName"
+										},
+										{
+											"type" : "field",
+											"name"   : "usCitz"
+										},
+										{
+											"type" : "field",
+											"name"   : "nonCitzStat"
+										},
+										{
+											"type" : "field",
+											"name"   : "addrtypeH"
+										},
+										{
+											"type" : "field",
+											"name"   : "address1H"
+										},
+										{
+											"type" : "field",
+											"name"   : "address2H"
+										},
+										{
+											"type" : "field",
+											"name"   : "addrEffdtH"
+										},
+										{
+											"type" : "field",
+											"name"   : "cityH"
+										},
+										{
+											"type" : "field",
+											"name"   : "postalCodeH"
+										},
+										{
+											"type" : "field",
+											"name"   : "cntrytypeCodeH"
+										},
+										{
+											"type" : "field",
+											"name"   : "addrtypeP"
+										},
+										{
+											"type" : "field",
+											"name"   : "address1P"
+										},
+										{
+											"type" : "field",
+											"name"   : "address2P"
+										},
+										{
+											"type" : "field",
+											"name"   : "cityP"
+										},
+										{
+											"type" : "field",
+											"name"   : "postalCodeP"
+										},
+										{
+											"type" : "field",
+											"name"   : "cntrytypeCodeP"
+										},
+										{
+											"type" : "field",
+											"name"   : "timeStat"
+										},
+										{
+											"type" : "field",
+											"name"   : "degCand"
+										},
+										{
+											"type" : "field",
+											"name"   : "yrInPrgm"
+										},
+										{
+											"type" : "field",
+											"name"   : "acadPlan"
+										},
+										{
+											"type" : "field",
+											"name"   : "addrEffdt"
+										},
+										{
+											"type" : "field",
+											"name"   : "estGradDate"
+										},
+										{
+											"type" : "field",
+											"name"   : "lastRunDate"		
 										}
-
-									]
+									]		
 								},
 								{
-									"type"  : "object",
+									"type"  : "array",
+									"name"    : "errors",
 									"content" : [
 										{
-											"type"  : "field",
-											"name"    : "field",
-											"content" : "firstName"
+											"type"  : "object",
+											"content" : [
+												{
+													"type"  : "field",
+													"name"    : "field",
+													"content" : "addrEffdt"
+												},
+												{
+													"type"  : "field",
+													"name"    : "message",
+													"content" : "required field"
+												},
+												{
+													"type"  : "field",
+													"name"    : "type",
+													"content" : "E"
+												},
+												{
+													"type"  : "field",
+													"name"    : "ind",
+													"content" : "R"
+												}
+
+											]
 										},
 										{
-											"type"  : "field",
-											"name"    : "message",
-											"content" : "required field"
-										},
-										{
-											"type"  : "field",
-											"name"    : "type",
-											"content" : "E"
-										},
-										{
-											"type"  : "field",
-											"name"    : "ind",
-											"content" : "R"
+											"type"  : "object",
+											"content" : [
+												{
+													"type"  : "field",
+													"name"    : "field",
+													"content" : "firstName"
+												},
+												{
+													"type"  : "field",
+													"name"    : "message",
+													"content" : "required field"
+												},
+												{
+													"type"  : "field",
+													"name"    : "type",
+													"content" : "E"
+												},
+												{
+													"type"  : "field",
+													"name"    : "ind",
+													"content" : "R"
+												}
+											]
 										}
 									]
 								}
@@ -292,51 +301,56 @@
 			"URL"           : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
 			"methods"       : ["get","post","put","delete"],
 			"relatedSchema" : "records",
-			"type"        : "array",
-			"amount"        : 15,
 			"content"       : [
 				{
-					"type"  : "object",
+					"type"    : "array",
+					"name"    : "exclusions",
+					"amount"  : 20,
 					"content" : [
 						{
-							"type" : "field",
-							"name"   : "id",
-							"sample" : "id"
-						},
-						{
-							"type" : "field",
-							"name"   : "prsnId",
-							"sample" : "prsnId"
-						},
-						{
-							"type"  : "field",
-							"name"    : "group",
-							"sample"  : "degreeProgram"
-						},
-						{
-							"type" : "field",
-							"name"   : "type",
-							"sample" : "degPrgm"
-						},
-						{
-							"type" : "field",
-							"name"   : "firstName",
-							"sample" : "firstName"
-						},
-						{
-							"type" : "field",
-							"name"   : "lastName",
-							"sample" : "lastName"
-						},
-						{
-							"type"  : "field",
-							"name"    : "note",
-							"content" : "paragraph"
-						},
-						{
-							"type"  : "field",
-							"name"    : "startDate",
-							"content" : "date"
+							"type"  : "object",
+							"content" : [
+								{
+									"type" : "field",
+									"name"   : "id",
+									"sample" : "id"
+								},
+								{
+									"type" : "field",
+									"name"   : "prsnId",
+									"sample" : "prsnId"
+								},
+								{
+									"type"  : "field",
+									"name"    : "group",
+									"sample"  : "degreeProgram"
+								},
+								{
+									"type" : "field",
+									"name"   : "type",
+									"sample" : "degPrgm"
+								},
+								{
+									"type" : "field",
+									"name"   : "firstName",
+									"sample" : "firstName"
+								},
+								{
+									"type" : "field",
+									"name"   : "lastName",
+									"sample" : "lastName"
+								},
+								{
+									"type"  : "field",
+									"name"    : "note",
+									"content" : "paragraph"
+								},
+								{
+									"type"  : "field",
+									"name"    : "startDate",
+									"content" : "date"
+								}
+							]
 						}
 					]
 				}
