@@ -12,22 +12,21 @@ var Repositories = function() {
 
 
 Repositories.prototype.add = function(repositoryName,endpointData,rootObject,relatedTo) {
-    var __self = this;
+    var __self = this,wrapperObjectName;
 
     __self.repositories[repositoryName]                 = {};
     __self.repositories[repositoryName]["endpointData"] = endpointData;
+    wrapperObjectName = Object.keys(endpointData)[0];
     //console.log( "array: " + JSON.stringify(__self.repositories[repositoryName]["endpointData"]));
     if ( rootObject !== undefined ) {
         __self.repositories[repositoryName]["rootObject"] = rootObject;
         //if we are targeting a specific object in the main array we automatically give it an ID parameter
-        // __self.repositories[repositoryName]["endpointData"][relatedTo].forEach(function (value,index,array) {
-        //     array[index][rootObject].id = index;
-        // });
-
-        
+        __self.repositories[repositoryName]["endpointData"][wrapperObjectName].forEach(function (value,index,array) {
+            array[index][rootObject].id = index;
+        });
     } else if ( Array.isArray(__self.repositories[repositoryName]["endpointData"]) ) {
         //if the main endpoint is an array we add an ID parameter
-        __self.repositories[repositoryName]["endpointData"].forEach(function (value,index,array) {
+        __self.repositories[repositoryName]["endpointData"][wrapperObjectName].forEach(function (value,index,array) {
             array[index].id = index;
         });
     }

@@ -80,10 +80,6 @@
 									"content" : [
 										{
 											"type" : "field",
-											"name"   : "id"
-										},
-										{
-											"type" : "field",
 											"name"   : "year"
 										},
 										{
@@ -152,7 +148,7 @@
 										},
 										{
 											"type" : "field",
-											"name"   : "addrtypeH"
+											"name"   : "addrTypeH"
 										},
 										{
 											"type" : "field",
@@ -176,11 +172,11 @@
 										},
 										{
 											"type" : "field",
-											"name"   : "cntrytypeCodeH"
+											"name"   : "cntryTypeCodeH"
 										},
 										{
 											"type" : "field",
-											"name"   : "addrtypeP"
+											"name"   : "addrTypeP"
 										},
 										{
 											"type" : "field",
@@ -200,7 +196,7 @@
 										},
 										{
 											"type" : "field",
-											"name"   : "cntrytypeCodeP"
+											"name"   : "cntryTypeCodeP"
 										},
 										{
 											"type" : "field",
@@ -312,23 +308,18 @@
 							"content" : [
 								{
 									"type" : "field",
-									"name"   : "id",
-									"sample" : "id"
-								},
-								{
-									"type" : "field",
 									"name"   : "prsnId",
 									"sample" : "prsnId"
 								},
 								{
 									"type"  : "field",
 									"name"    : "group",
-									"sample"  : "degreeProgram"
+									"content" : "MBA"
 								},
 								{
 									"type" : "field",
-									"name"   : "type",
-									"sample" : "degPrgm"
+									"name"   : "bio",
+									"content" : "degPrgm"
 								},
 								{
 									"type" : "field",

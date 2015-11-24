@@ -38,10 +38,11 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 		if (count < returnAmount) { 
 			// forEach ** START **
 			schemaContentArray.forEach(function (schemaContentValue,schemaContentIndex) {
+				var schemaContentValueName = schemaContentValue.name;
 				if ( schemaReturnType === "object" ) {
 					if ( schemaContentValue.type === "object" || schemaContentValue.type === "array" ) {
-						if ( schemaContentValue.name !== undefined ) {
-							compiledSchema[schemaContentValue.name] = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
+						if ( schemaContentValueName !== undefined ) {
+							compiledSchema[schemaContentValueName] = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
 						} else {
 							compiledSchema = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
 						}
@@ -49,9 +50,9 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 						// the only other child an object can have is a field name/value pair
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
 						if ( relatedSchemaContent !== undefined && schemaContentValue.sample !== undefined ) {
-							compiledSchema[schemaContentValue.name] = relatedSchemaContent[count][schemaContentValue.sample];
+							compiledSchema[schemaContentValueName] = relatedSchemaContent[count][schemaContentValue.sample];
 						} else if ( schemaContentValue.content === undefined ) {
-							compiledSchema[schemaContentValue.name] = generator[schemaContentValue.name];
+							compiledSchema[schemaContentValueName] = generator[schemaContentValueName]["value"];
 						} else if ( schemaContentValue.content !== undefined ) {
 							compiledSchema[schemaContentValue.name] = schemaContentValue.content;
 						}
@@ -61,12 +62,11 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 						// arrays can only have nameless objects as children
 						compiledSchema.push( compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent) );
 					} else if ( schemaContentValue.type === "field" ) {
-						var schemaContentValueName = schemaContentValue.name;
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
 						if ( schemaContentValue.content === undefined && schemaContentValue.sample !== undefined ) {
 							compiledSchema.push( {schemaContentValueName : relatedSchemaContent[count][schemaContentValue.sample]} );
 						} else if ( schemaContentValue.content === undefined ) {
-							compiledSchema.push( {schemaContentValueName : generator[schemaContentValue.sample]} );
+							compiledSchema.push( {schemaContentValueName : generator[schemaContentValue.sample]["value"]} );
 						} else if ( schemaContentValue.content !== undefined ) {
 							compiledSchema.push( {schemaContentValueName : schemaContentValue.content} );
 						}
