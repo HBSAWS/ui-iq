@@ -7,13 +7,13 @@ var fs 				   = require('fs'),
 	ejs  			   = require('ejs'),
 
 	generateConfig     = require("./generate/config"),
-	generator          = require("./generator"),
+	generate           = require("./generator"),
 	API_schema         = JSON.parse( fs.readFileSync(path.join(__dirname + '/schema.json')) ).endpoints,
 	api                = require("./api"),
 
 
 	app                = express(),
-	repository     = new api(),
+	repository         = new api(),
 	API_URL_BASE       = '/iqService/rest',
 	API_URL            = API_URL_BASE + '/:type(mba|doc)/:type(bio|admit)/:subFileContent.json';
 
@@ -24,61 +24,83 @@ app.use(bodyParser.json());
 // Serve up public/ftp folder 
 app.use('/static', express.static(__dirname + '/../dist/'));
 
-
-var compileSchema = function(arrayToCompile,returnType,returnAmount) {
-	var compiledObject,__returnAmount;
-	compiledObject = ( returnType === "object" )    ? {} : [];
-	__returnAmount = ( returnAmount === undefined ) ? 1  : returnAmount;
+var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmount,relatedSchemaContent) {
+	var compiledSchema,returnAmount;
+	if ( schemaReturnType === "object" ) {
+		compiledSchema = {};
+	} else if ( schemaReturnType === "array" ) {
+		compiledSchema = [];
+	}
+	returnAmount   = ( schemaReturnAmount === undefined ) ? 1  : schemaReturnAmount;
 
 	(function(count) {
-		var generate = generator();
-		if (count < __returnAmount) {
-			arrayToCompile.forEach(function (schema,index,array) {
-				var toAdd;
-				// defines what the 'toAdd' value is going to be
-				if ( schema.type === "object" ) {
-					toAdd = compileSchema( schema.content, schema.type );
-				} else if ( schema.type === "array" ) {
-					toAdd = compileSchema( schema.content, schema.type, ((schema.amount !== undefined) ? schema.amount : undefined) );
-				} else if ( schema.type ==="field" || schema.type === "string" ) {
-					toAdd = ( schema.content !== undefined ) ? schema.content : generate[schema.name];
+		var generator = generate();
+		if (count < returnAmount) { 
+			// forEach ** START **
+			schemaContentArray.forEach(function (schemaContentValue,schemaContentIndex) {
+				if ( schemaReturnType === "object" ) {
+					if ( schemaContentValue.__type === "object" || schemaContentValue.__type === "array" ) {
+						// a object can only have another object inside of it if it has a name
+						compiledSchema[schemaContentValue.name] = compileSchema(schemaContentValue.content,schemaContentValue.__type,schemaContentValue.amount);
+					} else if ( schemaContentValue.__type === "field" ) {
+						// the only other child an object can have is a field name/value pair
+						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
+						if ( relatedSchemaContent !== undefined && schemaContentValue.sample !== undefined ) {
+							compiledSchema[schemaContentValue.name] = relatedSchemaContent[count][schemaContentValue.sample];
+						} else if ( schemaContentValue.content === undefined ) {
+							compiledSchema[schemaContentValue.name] = generator[schemaContentValue.name];
+						} else if ( schemaContentValue.content !== undefined ) {
+							compiledSchema[schemaContentValue.name] = schemaContentValue.content;
+						}
+					}
+				} else if ( schemaReturnType === "array" ) {
+					if ( schemaContentValue.__type === "object" ) {
+						// arrays can only have nameless objects as children
+						compiledSchema.push( compileSchema(schemaContentValue.content,schemaContentValue.__type,schemaContentValue.amount) );
+					} else if ( schemaContentValue.__type === "field" ) {
+						var schemaContentValueName = schemaContentValue.name;
+						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
+						if ( schemaContentValue.content === undefined && schemaContentValue.sample !== undefined ) {
+							compiledSchema.push( {schemaContentValueName : relatedSchemaContent[count][schemaContentValue.sample]} );
+						} else if ( schemaContentValue.content === undefined ) {
+							compiledSchema.push( {schemaContentValueName : generator[schemaContentValue.sample]} );
+						} else if ( schemaContentValue.content !== undefined ) {
+							compiledSchema.push( {schemaContentValueName : schemaContentValue.content} );
+						}				
+					} else if ( schemaContentValue.__type === "string" ) {
+						compiledSchema.push( schemaContentValue.content );
+					}
+				} else if ( schemaReturnType === "field" ) {
+					console.log("is this even possible??");
 				}
-
-				// defines what the 'compiledObject' format is going to be
-				if ( returnType === "object" ) {
-					if ( schema.type !== "field" || schema.name !== undefined && schema.name !== null ) {
-						compiledObject[schema.name] = toAdd;
-					} else {
-						compiledObject = toAdd;
-					}
-				} else if ( returnType === "array" ) {
-					if ( schema.type !== "field" || schema.name !== undefined && schema.name !== null ) {
-						compiledObject.push( toAdd );
-					} else {
-						compiledObject.push( toAdd );
-					}
-				} else if ( returnType === "field" || "string" ) {
-					compiledObject = toAdd;
-				} 
 			});
-	        var caller = arguments.callee; 
-	        caller(count + 1);
+			// forEach ** END **
+			var caller = arguments.callee;
+			caller(count + 1);
 		}
 	})(0);
 
-	return compiledObject;
+	return compiledSchema;
 };
 
-//console.log( JSON.stringify( API_schema ));
+
+
+
 API_schema.forEach(function (endpoint) {
-	var endpointData = {},amount;
-	if ( endpoint.type === "array" && endpoint.amount !== undefined && endpoint.amount > 0 ) {
-		amount = endpoint.amount;
-	} else {
-		amount = undefined;
+	var endpointData = {};
+	if ( endpoint.relatedTo !== undefined ) {
+		var sampleSource,sampler;
+		sampleSource = repository.repositories[ endpoint["relatedTo"] ]["content"];
+		sampler      = _.sample(sampleSource, endpoint.amount);
+		if ( repository.repositories[ endpoint["relatedTo"] ]["toFilter"] !== undefined ) {
+			var filter = repository.repositories[endpoint.relatedTo]["toFilter"];
+			sampler    = sampler.forEach(function (value,index,array) {
+				return value[filter];
+			});
+		}
 	}
-	endpointData[endpoint.name] = compileSchema(endpoint.content, endpoint.type,amount);
-	repository.add( endpoint.name, endpointData[ endpoint.name ], ((endpoint.toFilter !== undefined) ? (endpoint.toFilter) : undefined) );
+	endpointData[endpoint.name] = compileSchema(endpoint.content, endpoint.__type, endpoint.amount, sampler);
+	repository.add( endpoint.name, endpointData[ endpoint.name ], endpoint.toFilter, endpoint.relatedTo );
 
 	if ( endpoint.methods.indexOf("get") > -1 ) {
 		app.get( endpoint.URL + ":APIendpoint" + endpoint.ext, function (request,response) {

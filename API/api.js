@@ -17,22 +17,27 @@ var Repositories = function() {
 
 
 
-Repositories.prototype.add = function(repositoryName,repositoryData,subRepoToFilter) {
+Repositories.prototype.add = function(repositoryName,repositoryData,subRepo,relatedTo) {
     var __self = this;
 
     __self.repositories[repositoryName]                 = {};
     __self.repositories[repositoryName]["content"]      = repositoryData;
-    if ( subRepoToFilter !== undefined ) {
-        __self.repositories[repositoryName]["toFilter"] = subRepoToFilter;
+    if ( subRepo !== undefined ) {
+        __self.repositories[repositoryName]["toFilter"] = subRepo;
         // if we are targeting a specific object in the main array we automatically give it an ID parameter
         __self.repositories[repositoryName]["content"].forEach(function (value,index,array) {
-            array[index][subRepoToFilter].id = index;
+            array[index][subRepo].id = index;
         });
     } else if ( Array.isArray(__self.repositories[repositoryName]["content"]) ) {
-        // if the main endpoint is an array we add an ID parameter
+        //if the main endpoint is an array we add an ID parameter
         __self.repositories[repositoryName]["content"].forEach(function (value,index,array) {
             array[index].id = index;
         });
+    }
+
+    if ( relatedTo !== undefined ) {
+        __self.repositories[relatedTo]["relatedTo"]      = repositoryName;
+        __self.repositories[repositoryName]["relatedTo"] = relatedTo;
     }
 };
 
@@ -50,9 +55,14 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
     if ( subRepo !== undefined ) {
         filter[subRepo] = toFilter;
     } else {
-        filter = ( toFilter !== undefined ) ? toFilter : "";
+        filter = toFilter;
     }
-    file = _.filter(repo, filter );
+    if ( _.isEmpty(toFilter) ) {
+        file = repo;
+    } else {
+        file = _.filter(repo, filter );
+    }
+    file = repo;
     if ( file == undefined || file == undefined ) {
         throw new Error("Sorry, couldn't find anything that matched your query.");
     }
