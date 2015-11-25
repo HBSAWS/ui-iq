@@ -11,7 +11,7 @@ var Repositories = function() {
 
 
 
-Repositories.prototype.add = function(repositoryName,endpointData,rootObject,relatedTo) {
+Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArray,rootObject,relatedTo) {
     var __self = this,wrapperObjectName;
 
     __self.repositories[repositoryName]                 = {};

@@ -8,7 +8,7 @@ var fs 				   = require('fs'),
 
 	generateConfig     = require("./generate/config"),
 	generate           = require("./generator"),
-	API_schema         = JSON.parse( fs.readFileSync(path.join(__dirname + '/schema.json')) ).endpoints,
+	API_schema         = JSON.parse( fs.readFileSync(path.join(__dirname + '/schema.json')) ),
 	api                = require("./api"),
 
 
@@ -38,13 +38,16 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 		if (count < returnAmount) { 
 			// forEach ** START **
 			schemaContentArray.forEach(function (schemaContentValue,schemaContentIndex) {
-				var schemaContentValueName = schemaContentValue.name;
+				var schemaContentValueData, schemaContentValueName;
+				schemaContentValueName = schemaContentValue.name
+				schemaContentValueData = (schemaContentValue.content !== undefined) ? schemaContentValue.content : API_schema.templates[schemaContentValue.template];
+
 				if ( schemaReturnType === "object" ) {
 					if ( schemaContentValue.type === "object" || schemaContentValue.type === "array" ) {
 						if ( schemaContentValueName !== undefined ) {
-							compiledSchema[schemaContentValueName] = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
+							compiledSchema[schemaContentValueName] = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
 						} else {
-							compiledSchema = compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
+							compiledSchema = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
 						}
 					} else if ( schemaContentValue.type === "field" ) {
 						// the only other child an object can have is a field name/value pair
@@ -54,13 +57,13 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 						} else if ( schemaContentValue.content === undefined ) {
 							compiledSchema[schemaContentValueName] = generator[schemaContentValueName]["value"];
 						} else if ( schemaContentValue.content !== undefined ) {
-							compiledSchema[schemaContentValue.name] = schemaContentValue.content;
+							compiledSchema[schemaContentValueName] = schemaContentValue.content;
 						}
 					}
 				} else if ( schemaReturnType === "array" ) {
 					if ( schemaContentValue.type === "object" ) {
 						// arrays can only have nameless objects as children
-						compiledSchema.push( compileSchema(schemaContentValue.content,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent) );
+						compiledSchema.push( compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent) );
 					} else if ( schemaContentValue.type === "field" ) {
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
 						if ( schemaContentValue.content === undefined && schemaContentValue.sample !== undefined ) {
@@ -87,7 +90,7 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 
 
 
-API_schema.forEach(function (endpoint) {
+API_schema.endpoints.forEach(function (endpoint) {
 	var endpointData = {};
 	if ( endpoint.relatedSchema !== undefined ) {
 		var relatedSchema,relatedSchemasSampledContent;
@@ -104,7 +107,7 @@ API_schema.forEach(function (endpoint) {
 	}
 	// we take the endpoint's schema and compile it into the endpoint's data
 	endpointData = compileSchema( endpoint.content, "object", 1, relatedSchemasSampledContent);
-	repository.add( endpoint.name, endpointData, endpoint.rootObject, endpoint.relatedSchema );
+	repository.add( endpoint.name, endpointData, endpoint.pathToQueryArray, endpoint.rootObject, endpoint.relatedSchema );
 
 	if ( endpoint.methods.indexOf("get") > -1 ) {
 		app.get( endpoint.URL + ":APIendpoint" + endpoint.ext, function (request,response) {

@@ -1,4 +1,156 @@
 {
+	"templates" : {
+		"record" : [
+			{
+				"type" : "field",
+				"name"   : "year"
+			},
+			{
+				"type" : "field",
+				"name"   : "prsnId"
+			},
+			{
+				"type" : "field",
+				"name"   : "huid"
+			},
+			{
+				"type" : "field",
+				"name"   : "term"
+			},
+			{
+				"type" : "field",
+				"name"   : "ethncCode"
+			},
+			{
+				"type" : "field",
+				"name"   : "birthDay"
+			},
+			{
+				"type" : "field",
+				"name"   : "gender"
+			},
+			{
+				"type" : "field",
+				"name"   : "schoolCode"
+			},
+			{
+				"type" : "field",
+				"name"   : "degPrgm"
+			},
+			{
+				"type" : "field",
+				"name"   : "degPrgmNum"
+			},
+			{
+				"type" : "field",
+				"name"   : "effDt"
+			},
+			{
+				"type" : "field",
+				"name"   : "regStat"
+			},
+			{
+				"type" : "field",
+				"name"   : "firstName"
+			},
+			{
+				"type" : "field",
+				"name"   : "lastName"
+			},
+			{
+				"type" : "field",
+				"name"   : "middleName"
+			},
+			{
+				"type" : "field",
+				"name"   : "usCitz"
+			},
+			{
+				"type" : "field",
+				"name"   : "nonCitzStat"
+			},
+			{
+				"type" : "field",
+				"name"   : "addrTypeH"
+			},
+			{
+				"type" : "field",
+				"name"   : "address1H"
+			},
+			{
+				"type" : "field",
+				"name"   : "address2H"
+			},
+			{
+				"type" : "field",
+				"name"   : "addrEffdtH"
+			},
+			{
+				"type" : "field",
+				"name"   : "cityH"
+			},
+			{
+				"type" : "field",
+				"name"   : "postalCodeH"
+			},
+			{
+				"type" : "field",
+				"name"   : "cntryTypeCodeH"
+			},
+			{
+				"type" : "field",
+				"name"   : "addrTypeP"
+			},
+			{
+				"type" : "field",
+				"name"   : "address1P"
+			},
+			{
+				"type" : "field",
+				"name"   : "address2P"
+			},
+			{
+				"type" : "field",
+				"name"   : "cityP"
+			},
+			{
+				"type" : "field",
+				"name"   : "postalCodeP"
+			},
+			{
+				"type" : "field",
+				"name"   : "cntryTypeCodeP"
+			},
+			{
+				"type" : "field",
+				"name"   : "timeStat"
+			},
+			{
+				"type" : "field",
+				"name"   : "degCand"
+			},
+			{
+				"type" : "field",
+				"name"   : "yrInPrgm"
+			},
+			{
+				"type" : "field",
+				"name"   : "acadPlan"
+			},
+			{
+				"type" : "field",
+				"name"   : "addrEffdt"
+			},
+			{
+				"type" : "field",
+				"name"   : "estGradDate"
+			},
+			{
+				"type" : "field",
+				"name"   : "lastRunDate"		
+			}
+		]
+	},
 	"endpoints" : 
 	[
 		{
@@ -60,12 +212,13 @@
 			]
 		},
 		{
-			"name"       : "records",
-			"ext"        : ".json",
-			"URL"        : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
-			"methods"    : ["get","post","put","delete"],
-			"rootObject" : "record",
-			"content"    : [
+			"name"             : "records",
+			"ext"              : ".json",
+			"URL"              : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
+			"methods"          : ["get","post","put","delete"],
+			"rootObject"       : "record",
+			"pathToQueryArray" : "records",
+			"content"          : [
 				{
 					"type"    : "array",
 					"name"    : "records",
@@ -77,156 +230,7 @@
 								{
 									"type"  : "object",
 									"name"    : "record",
-									"content" : [
-										{
-											"type" : "field",
-											"name"   : "year"
-										},
-										{
-											"type" : "field",
-											"name"   : "prsnId"
-										},
-										{
-											"type" : "field",
-											"name"   : "huid"
-										},
-										{
-											"type" : "field",
-											"name"   : "term"
-										},
-										{
-											"type" : "field",
-											"name"   : "ethncCode"
-										},
-										{
-											"type" : "field",
-											"name"   : "birthDay"
-										},
-										{
-											"type" : "field",
-											"name"   : "gender"
-										},
-										{
-											"type" : "field",
-											"name"   : "schoolCode"
-										},
-										{
-											"type" : "field",
-											"name"   : "degPrgm"
-										},
-										{
-											"type" : "field",
-											"name"   : "degPrgmNum"
-										},
-										{
-											"type" : "field",
-											"name"   : "effDt"
-										},
-										{
-											"type" : "field",
-											"name"   : "regStat"
-										},
-										{
-											"type" : "field",
-											"name"   : "firstName"
-										},
-										{
-											"type" : "field",
-											"name"   : "lastName"
-										},
-										{
-											"type" : "field",
-											"name"   : "middleName"
-										},
-										{
-											"type" : "field",
-											"name"   : "usCitz"
-										},
-										{
-											"type" : "field",
-											"name"   : "nonCitzStat"
-										},
-										{
-											"type" : "field",
-											"name"   : "addrTypeH"
-										},
-										{
-											"type" : "field",
-											"name"   : "address1H"
-										},
-										{
-											"type" : "field",
-											"name"   : "address2H"
-										},
-										{
-											"type" : "field",
-											"name"   : "addrEffdtH"
-										},
-										{
-											"type" : "field",
-											"name"   : "cityH"
-										},
-										{
-											"type" : "field",
-											"name"   : "postalCodeH"
-										},
-										{
-											"type" : "field",
-											"name"   : "cntryTypeCodeH"
-										},
-										{
-											"type" : "field",
-											"name"   : "addrTypeP"
-										},
-										{
-											"type" : "field",
-											"name"   : "address1P"
-										},
-										{
-											"type" : "field",
-											"name"   : "address2P"
-										},
-										{
-											"type" : "field",
-											"name"   : "cityP"
-										},
-										{
-											"type" : "field",
-											"name"   : "postalCodeP"
-										},
-										{
-											"type" : "field",
-											"name"   : "cntryTypeCodeP"
-										},
-										{
-											"type" : "field",
-											"name"   : "timeStat"
-										},
-										{
-											"type" : "field",
-											"name"   : "degCand"
-										},
-										{
-											"type" : "field",
-											"name"   : "yrInPrgm"
-										},
-										{
-											"type" : "field",
-											"name"   : "acadPlan"
-										},
-										{
-											"type" : "field",
-											"name"   : "addrEffdt"
-										},
-										{
-											"type" : "field",
-											"name"   : "estGradDate"
-										},
-										{
-											"type" : "field",
-											"name"   : "lastRunDate"		
-										}
-									]		
+									"template" : "record"		
 								},
 								{
 									"type"  : "array",
@@ -292,12 +296,14 @@
 			]
 		},
 		{
-			"name"          : "exclusions",
-			"ext"           : ".json",
-			"URL"           : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
-			"methods"       : ["get","post","put","delete"],
-			"relatedSchema" : "records",
-			"content"       : [
+			"name"             : "exclusions",
+			"ext"              : ".json",
+			"URL"              : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
+			"methods"          : ["get","post","put","delete"],
+
+			"pathToQueryArray" : "exclusions",
+			"relatedSchema"    : "records",
+			"content"          : [
 				{
 					"type"    : "array",
 					"name"    : "exclusions",
