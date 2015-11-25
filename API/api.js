@@ -24,7 +24,7 @@ Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArr
     }
 
     // if an array can be queried we define the pathway to that array
-    if ( pathToQueryArray !== undefined && pathToQueryArray !== "_root" ) {
+    if ( pathToQueryArray !== undefined ) {
         __self.repositories[repositoryName]["pathToQueryArray"] = pathToQueryArray;
 
         // add unique id's to arrays that can be queried
@@ -38,7 +38,6 @@ Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArr
             });           
         }
     }
-
     // if there is a relationship with another endpoint we establish it here
     if ( relatedTo !== undefined ) {
         __self.repositories[relatedTo]["relatedTo"]      = repositoryName;
@@ -46,7 +45,39 @@ Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArr
     }
 };
 
+Repositories.prototype.getRawData = function (repositoryName,rawRootObject,rawQueryArray) {
+    var __self,endpointData,pathToQueryArray,rootObject,rawEndpointData;
+    __self           = this;
+    endpointData     = __self.repositories[repositoryName]["endpointData"];
+    pathToQueryArray = __self.repositories[repositoryName]["pathToQueryArray"];
+    rootObject       = __self.repositories[repositoryName]["rootObject"];
+    rawEndpointData  = {};
+    _.merge(rawEndpointData, endpointData);
 
+    if ( pathToQueryArray !== undefined && rawQueryArray ) {
+        rawEndpointData = rawEndpointData[pathToQueryArray];
+        if ( rootObject !== undefined && rawRootObject ) {
+            rawEndpointData.forEach(function (value,index,array) {
+                rawEndpointData[index] = value[rootObject];
+                return;
+            });
+        }
+    } else if ( rootObject !== undefined && rawRootObject ) {
+        if ( pathToQueryArray !== undefined ) {
+            rawEndpointData[pathToQueryArray].forEach(function (value,index,array) {
+                rawEndpointData[pathToQueryArray][index] = value[rootObject];
+                return;
+            });
+        } else {
+            rawEndpointData.forEach(function (value,index,array) {
+                rawEndpointData[index] = value[rootObject];
+                return;
+            });
+        }
+    }
+    
+    return rawEndpointData;
+};
 // Query an array
 	// 'toFind' = the name of the thing you want to query, ex : 'records','exceptions'
 	// toFilter = an object containing the key/value pairs you want to filter - the 'response.query' object can be passed here for example
@@ -55,14 +86,14 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
     __self           = this;
     endpointData     = __self.repositories[repositoryName]["endpointData"];
     pathToQueryArray = __self.repositories[repositoryName]["pathToQueryArray"];
+    rootObject       = __self.repositories[repositoryName]["rootObject"];
     queryable        = __self.repositories[repositoryName]["queryable"];
 
 
     if ( !queryable || _.isEmpty(toFilter) ) {
         file = endpointData;
     } else {
-        rootObject = __self.repositories[repositoryName]["rootObject"];
-        repo       = (pathToQueryArray !== undefined) ? endpointData[pathToQueryArray] : endpointData;
+        repo = (pathToQueryArray !== undefined) ? endpointData[pathToQueryArray] : endpointData;
 
         _.forIn(toFilter, function (value,key) {
             if ( !isNaN(value) ) {
@@ -80,7 +111,7 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
 
         if ( pathToQueryArray !== undefined ) {
             file = {};
-            file[pathToQueryArray] = _.filter(endpointData[pathToQueryArray], filter);
+            file[pathToQueryArray] = _.filter(repo, filter);
         } else {
             file = _.filter(repo, filter);
         }

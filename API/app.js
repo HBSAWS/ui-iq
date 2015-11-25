@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 // Serve up public/ftp folder 
 app.use('/static', express.static(__dirname + '/../dist/'));
 
-var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmount,relatedSchemaContent,compileMode) {
+var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmount,relatedSchemaContent,compileMode,generateCounter) {
 	var compiledSchema,returnAmount,compileMode;
 	if ( schemaReturnType === "object" ) {
 		compiledSchema = {};
@@ -34,6 +34,10 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 	returnAmount   = ( schemaReturnAmount == undefined ) ? 1  : schemaReturnAmount;
 	compileMode    = ( compileMode !== undefined)        ? compileMode : "data";
 
+	if ( returnAmount > 1 && relatedSchemaContent !== undefined ) {
+		var check = true;
+		relatedSchemaContent = _.sample(relatedSchemaContent,returnAmount);
+	}
 	(function(count) {
 		var generator = generate();
 		if (count < returnAmount) { 
@@ -47,15 +51,13 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 				if ( schemaReturnType === "object" ) {
 					if ( schemaContentValue.type === "object" || schemaContentValue.type === "array" ) {
 						if ( schemaContentValueName !== undefined ) {
-							compiledSchema[schemaContentValueName] = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode);
+							compiledSchema[schemaContentValueName] = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode,count);
 						} else {
-							compiledSchema = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode);
+							compiledSchema = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode,count);
 						}
 					} else if ( schemaContentValue.type === "field" ) {
-						// the only other child an object can have is a field name/value pair
-						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
 						if ( relatedSchemaContent !== undefined && schemaContentValue.sample !== undefined ) {
-							compiledSchema[schemaContentValueName] = relatedSchemaContent[count][schemaContentValue.sample];
+							compiledSchema[schemaContentValueName] = relatedSchemaContent[generateCounter][schemaContentValue.sample];
 						} else if ( schemaContentValue.content === undefined ) {
 							if ( compileMode === "data" ) {
 								compiledSchema[schemaContentValueName] = generator[schemaContentValueName]["value"];
@@ -71,16 +73,16 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 				} else if ( schemaReturnType === "array" ) {
 					if ( schemaContentValue.type === "object" ) {
 						// arrays can only have nameless objects as children
-						compiledSchema.push( compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode) );
+						compiledSchema.push( compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode,count) );
 					} else if ( schemaContentValue.type === "field" ) {
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
 						if ( relatedSchemaContent !== undefined && schemaContentValue.sample !== undefined ) {
-							compiledSchema.push( {schemaContentValueName : relatedSchemaContent[count][schemaContentValue.sample]} );
+							compiledSchema.push( {schemaContentValueName : relatedSchemaContent[generateCounter][schemaContentValue.sample]} );
 						} else if ( schemaContentValue.content === undefined ) {
 							if ( compileMode === "data" ) {
-								compiledSchema.push( {schemaContentValueName : generator[schemaContentValue.sample]["value"]} );
+								compiledSchema.push( {schemaContentValueName : generator[schemaContentValueName]["value"]} );
 							} else if ( compileMode === "blueprint" ) {
-								compiledSchema.push( {schemaContentValueName : { "title" : generator[schemaContentValue.sample]["title"] }} );
+								compiledSchema.push( {schemaContentValueName : { "title" : generator[schemaContentValueName]["title"] }} );
 							}
 						} else if ( schemaContentValue.content !== undefined ) {
 							compiledSchema.push( {schemaContentValueName : schemaContentValue.content} );
@@ -103,22 +105,12 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 
 
 API_schema.endpoints.forEach(function (endpoint) {
-	var endpointData = {};
-	if ( endpoint.relatedSchema !== undefined ) {
-		var relatedSchema,relatedSchemasSampledContent;
-		relatedSchema                = repository.repositories[ endpoint["relatedSchema"] ]["endpointData"];
-		relatedSchemasSampledContent = _.sample(relatedSchema, endpoint.amount);
-		// in objects where the main object isn't the root object, but more like a wrapper object, like records which is structured like { record : {}, errors :[] }
-			// we need to adjust the sampledContent to just be the 'record' object, so we can get to the core values of that endpoint's schema
-		if ( repository.repositories[ endpoint["relatedSchema"] ]["rootObject"] !== undefined ) {
-			var rootObject               = repository.repositories[endpoint.relatedSchema]["rootObject"];
-			relatedSchemasSampledContent = relatedSchemasSampledContent.forEach(function (endpointWrapperObject) {
-				return endpointWrapperObject[rootObject];
-			});
-		}
+	var endpointData = {},relatedSchemaData;
+	if ( endpoint["relatedSchema"] !== undefined ) {
+		relatedSchemaData = repository.getRawData( endpoint["relatedSchema"],true,true );
 	}
 	// we take the endpoint's schema and compile it into the endpoint's data
-	endpointData = compileSchema( endpoint.content, "object", 1, relatedSchemasSampledContent);
+	endpointData = compileSchema( endpoint.content, "object", 1, relatedSchemaData,undefined, 1 );
 	repository.add( endpoint.name, endpointData, endpoint.pathToQueryArray, endpoint.rootObject, endpoint.relatedSchema, endpoint.queryable );
 
 	if ( _.has(endpoint.methods, 'get') ) {

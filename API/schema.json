@@ -263,7 +263,7 @@
 				{
 					"type"    : "array",
 					"name"    : "records",
-					"amount"  : 20,
+					"amount"  : 2000,
 					"content" : [			
 						{
 							"type"    : "object",
@@ -364,7 +364,7 @@
 				{
 					"type"    : "array",
 					"name"    : "exclusions",
-					"amount"  : 20,
+					"amount"  : 150,
 					"content" : [
 						{
 							"type"    : "object",
