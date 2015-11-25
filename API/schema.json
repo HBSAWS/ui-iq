@@ -154,10 +154,11 @@
 	"endpoints" : 
 	[
 		{
-			"name"     : "config",
-			"ext"      : ".json",
-			"URL_BASE" : "/iqService/rest/",
-			"methods"          : {
+			"name"      : "config",
+			"ext"       : ".json",
+			"URL_BASE"  : "/iqService/rest/",
+			"queryable" : false,
+			"methods"   : {
 				"get"  : {
 					"ext" : ".json"
 				}
@@ -238,10 +239,11 @@
 			]
 		},
 		{
-			"name"             : "records",
-			"ext"              : ".json",
-			"URL_BASE"         : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
-			"methods"          : {
+			"name"      : "records",
+			"ext"       : ".json",
+			"URL_BASE"  : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
+			"queryable" : true,
+			"methods"   : {
 				"get"  : {
 					"ext" : ".json"
 				},
@@ -338,10 +340,11 @@
 			]
 		},
 		{
-			"name"             : "exclusions",
-			"ext"              : ".json",
-			"URL_BASE"         : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
-			"methods"          : {
+			"name"      : "exclusions",
+			"ext"       : ".json",
+			"URL_BASE"  : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
+			"queryable" : true,
+			"methods"   : {
 				"get"  : {
 					"ext" : ".json"
 				},

@@ -119,7 +119,7 @@ API_schema.endpoints.forEach(function (endpoint) {
 	}
 	// we take the endpoint's schema and compile it into the endpoint's data
 	endpointData = compileSchema( endpoint.content, "object", 1, relatedSchemasSampledContent);
-	repository.add( endpoint.name, endpointData, endpoint.pathToQueryArray, endpoint.rootObject, endpoint.relatedSchema );
+	repository.add( endpoint.name, endpointData, endpoint.pathToQueryArray, endpoint.rootObject, endpoint.relatedSchema, endpoint.queryable );
 
 	if ( _.has(endpoint.methods, 'get') ) {
 		app.get( endpoint.URL_BASE + ":APIendpoint" + (( endpoint.methods.get.ext !== undefined ) ? endpoint.methods.get.ext : ""), function (request,response) {

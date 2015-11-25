@@ -17,7 +17,7 @@ module.exports = function() {
 	return {
 		"year" : {
 			"title" : "Year",
-			"value" : _.random(1900, 2015)
+			"value" : _.random(2010, 2015)
 		},
 		"prsnId" : {
 			"title" : "Person Id",
@@ -33,7 +33,8 @@ module.exports = function() {
 		},
 		"term" : {
 			"title" : "Term",
-			"value" : ( Number( new Date().getFullYear().toString().substr(2,2) )  + _.random(0,4) ).toString() + _.sample(library.term)
+			"value" : _.sample(library.term)
+			// "value" : ( Number( new Date().getFullYear().toString().substr(2,2) )  + _.random(0,4) ).toString() + _.sample(library.term)
 		},
 		"ethncCode" : {
 			"title" : "Ethnicity Code",

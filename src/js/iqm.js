@@ -1159,11 +1159,11 @@
 			// fieldData = config.metadata
 			var bioFields,bioFieldNames,admitFields,admitFieldNames,buildFields;
 			// prsnId,degPrgmNum,etc
-			bioFields       = fieldData.bioFields;
+			bioFields       = Object.keys(fieldData.bio);
 			// the name is under the title attribute
-			bioFieldNames   = fieldData.bioMeta;
-			admitFields     = fieldData.admitFields;
-			admitFieldNames = fieldData.admitMeta;
+			bioFieldNames   = fieldData.bio;
+			admitFields     = Object.keys(fieldData.admit);
+			admitFieldNames = fieldData.admit;
 			buildFields     = function(report,fields,fieldNames) {
 				for ( var field = 0,len = fields.length; field < len; field++ ) {
 					var currentField = fields[field];

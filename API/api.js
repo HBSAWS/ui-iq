@@ -11,11 +11,12 @@ var Repositories = function() {
 
 
 
-Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArray,rootObject,relatedTo) {
+Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArray,rootObject,relatedTo,queryable) {
     var __self = this;
 
     __self.repositories[repositoryName]                 = {};
     __self.repositories[repositoryName]["endpointData"] = endpointData;
+    __self.repositories[repositoryName]["queryable"]    = queryable;
 
     // if there is a root object we define it here
     if ( rootObject !== undefined) {
@@ -50,19 +51,28 @@ Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArr
 	// 'toFind' = the name of the thing you want to query, ex : 'records','exceptions'
 	// toFilter = an object containing the key/value pairs you want to filter - the 'response.query' object can be passed here for example
 Repositories.prototype.find = function (repositoryName,toFilter) {
-    var __self,endpointData,repo,pathToQueryArray,rootObject,filter,file;
-    __self       = this;
-    endpointData = __self.repositories[repositoryName]["endpointData"];
+    var __self,queryable,endpointData,repo,pathToQueryArray,rootObject,filter,file;
+    __self           = this;
+    endpointData     = __self.repositories[repositoryName]["endpointData"];
+    pathToQueryArray = __self.repositories[repositoryName]["pathToQueryArray"];
+    queryable        = __self.repositories[repositoryName]["queryable"];
 
-    if ( _.isEmpty(toFilter) ) {
+
+    if ( !queryable || _.isEmpty(toFilter) ) {
         file = endpointData;
     } else {
-        pathToQueryArray = __self.repositories[repositoryName]["pathToQueryArray"];
-        rootObject       = __self.repositories[repositoryName]["rootObject"];
+        rootObject = __self.repositories[repositoryName]["rootObject"];
+        repo       = (pathToQueryArray !== undefined) ? endpointData[pathToQueryArray] : endpointData;
 
-        repo             = (pathToQueryArray !== undefined) ? endpointData[pathToQueryArray] : endpointData;
+        _.forIn(toFilter, function (value,key) {
+            if ( !isNaN(value) ) {
+                // the string has a number and we need to convert it
+                toFilter[key] = parseInt(value);
+            }
+        });
+
         if ( rootObject !== undefined ) {
-            filter             = {};
+            filter = {};
             filter[rootObject] = toFilter;
         } else {
             filter = toFilter;
