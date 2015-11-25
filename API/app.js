@@ -24,30 +24,32 @@ app.use(bodyParser.json());
 // Serve up public/ftp folder 
 app.use('/static', express.static(__dirname + '/../dist/'));
 
-var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmount,relatedSchemaContent) {
-	var compiledSchema,returnAmount;
+var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmount,relatedSchemaContent,compileMode) {
+	var compiledSchema,returnAmount,compileMode;
 	if ( schemaReturnType === "object" ) {
 		compiledSchema = {};
 	} else if ( schemaReturnType === "array" ) {
 		compiledSchema = [];
 	}
-	returnAmount   = ( schemaReturnAmount === undefined ) ? 1  : schemaReturnAmount;
+	returnAmount   = ( schemaReturnAmount == undefined ) ? 1  : schemaReturnAmount;
+	compileMode    = ( compileMode !== undefined)        ? compileMode : "data";
 
 	(function(count) {
 		var generator = generate();
 		if (count < returnAmount) { 
 			// forEach ** START **
 			schemaContentArray.forEach(function (schemaContentValue,schemaContentIndex) {
-				var schemaContentValueData, schemaContentValueName;
+				var schemaContentValueData, schemaContentValueName,schemaCompileMode;
 				schemaContentValueName = schemaContentValue.name
-				schemaContentValueData = (schemaContentValue.content !== undefined) ? schemaContentValue.content : API_schema.templates[schemaContentValue.template];
+				schemaContentValueData = (schemaContentValue.template == undefined) ? schemaContentValue.content : API_schema.templates[schemaContentValue.template.name];
+				schemaCompileMode      = (schemaContentValue.template == undefined) ? "data" : schemaContentValue.template.compileMode;
 
 				if ( schemaReturnType === "object" ) {
 					if ( schemaContentValue.type === "object" || schemaContentValue.type === "array" ) {
 						if ( schemaContentValueName !== undefined ) {
-							compiledSchema[schemaContentValueName] = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
+							compiledSchema[schemaContentValueName] = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode);
 						} else {
-							compiledSchema = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent);
+							compiledSchema = compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode);
 						}
 					} else if ( schemaContentValue.type === "field" ) {
 						// the only other child an object can have is a field name/value pair
@@ -55,7 +57,13 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 						if ( relatedSchemaContent !== undefined && schemaContentValue.sample !== undefined ) {
 							compiledSchema[schemaContentValueName] = relatedSchemaContent[count][schemaContentValue.sample];
 						} else if ( schemaContentValue.content === undefined ) {
-							compiledSchema[schemaContentValueName] = generator[schemaContentValueName]["value"];
+							if ( compileMode === "data" ) {
+								compiledSchema[schemaContentValueName] = generator[schemaContentValueName]["value"];
+							} else if ( compileMode === "blueprint") {
+								compiledSchema[schemaContentValueName] = {
+									"title" : generator[schemaContentValueName]["title"]
+								};
+							}
 						} else if ( schemaContentValue.content !== undefined ) {
 							compiledSchema[schemaContentValueName] = schemaContentValue.content;
 						}
@@ -63,13 +71,17 @@ var compileSchema = function(schemaContentArray,schemaReturnType,schemaReturnAmo
 				} else if ( schemaReturnType === "array" ) {
 					if ( schemaContentValue.type === "object" ) {
 						// arrays can only have nameless objects as children
-						compiledSchema.push( compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent) );
+						compiledSchema.push( compileSchema(schemaContentValueData,schemaContentValue.type,schemaContentValue.amount,relatedSchemaContent,schemaCompileMode) );
 					} else if ( schemaContentValue.type === "field" ) {
 						// a field value can either be given (hardcoded), generated or sampled from another schema it has a relationship to
-						if ( schemaContentValue.content === undefined && schemaContentValue.sample !== undefined ) {
+						if ( relatedSchemaContent !== undefined && schemaContentValue.sample !== undefined ) {
 							compiledSchema.push( {schemaContentValueName : relatedSchemaContent[count][schemaContentValue.sample]} );
 						} else if ( schemaContentValue.content === undefined ) {
-							compiledSchema.push( {schemaContentValueName : generator[schemaContentValue.sample]["value"]} );
+							if ( compileMode === "data" ) {
+								compiledSchema.push( {schemaContentValueName : generator[schemaContentValue.sample]["value"]} );
+							} else if ( compileMode === "blueprint" ) {
+								compiledSchema.push( {schemaContentValueName : { "title" : generator[schemaContentValue.sample]["title"] }} );
+							}
 						} else if ( schemaContentValue.content !== undefined ) {
 							compiledSchema.push( {schemaContentValueName : schemaContentValue.content} );
 						}
@@ -109,8 +121,8 @@ API_schema.endpoints.forEach(function (endpoint) {
 	endpointData = compileSchema( endpoint.content, "object", 1, relatedSchemasSampledContent);
 	repository.add( endpoint.name, endpointData, endpoint.pathToQueryArray, endpoint.rootObject, endpoint.relatedSchema );
 
-	if ( endpoint.methods.indexOf("get") > -1 ) {
-		app.get( endpoint.URL + ":APIendpoint" + endpoint.ext, function (request,response) {
+	if ( _.has(endpoint.methods, 'get') ) {
+		app.get( endpoint.URL_BASE + ":APIendpoint" + (( endpoint.methods.get.ext !== undefined ) ? endpoint.methods.get.ext : ""), function (request,response) {
 			try {
 				var queries,APIendpoint,__response,data;
 				// any queries such as '?term=s&year=1999' are stored in the '.query' object as key/value pairs
@@ -127,8 +139,8 @@ API_schema.endpoints.forEach(function (endpoint) {
 			}
 		});
 	}
-	if ( endpoint.methods.indexOf("put") > -1 ) {
-		app.put( endpoint.URL + ":APIendpoint" + '/update/:id', function (request, response) {
+	if ( _.has(endpoint.methods, 'put') ) {
+		app.put( endpoint.URL_BASE + ":APIendpoint" + (( endpoint.methods.put.ext !== undefined ) ? endpoint.methods.put.ext : "") + (( endpoint.methods.put.URL_SUFFIX !== undefined ) ? endpoint.methods.put.URL_SUFFIX : "") + '/:id', function (request, response) {
 			try {
 				var newData,id,APIendpoint,persistedFile,updatedContent;
 				newData        = request.body;
@@ -144,8 +156,8 @@ API_schema.endpoints.forEach(function (endpoint) {
 			}
 		});
 	}
-	if ( endpoint.methods.indexOf("post") > -1 ) {
-		app.post( endpoint.URL + ":APIendpoint" + '/create', function (request, response) {
+	if ( _.has(endpoint.methods, 'post') ) {
+		app.post( endpoint.URL + ":APIendpoint" + (( endpoint.methods.post.ext !== undefined ) ? endpoint.methods.post.ext : "") + (( endpoint.methods.post.URL_SUFFIX !== undefined ) ? endpoint.methods.post.URL_SUFFIX : ""), function (request, response) {
 			var newData,APIendpoint;
 			newData     = request.body;
 			APIendpoint = request.params.APIendpoint;
@@ -154,8 +166,8 @@ API_schema.endpoints.forEach(function (endpoint) {
 			response.sendStatus(200);
 		});
 	}
-	if ( endpoint.methods.indexOf("delete") > -1 ) {
-		app.delete( endpoint.URL + ":APIendpoint" + '/delete/:id', function (request, response) {
+	if ( _.has(endpoint.methods, 'delete') ) {
+		app.delete( endpoint.URL + ":APIendpoint" + (( endpoint.methods.delete.ext !== undefined ) ? endpoint.methods.delete.ext : "") + (( endpoint.methods.delete.URL_SUFFIX !== undefined ) ? endpoint.methods.delete.URL_SUFFIX : "") + '/:id', function (request, response) {
 			try {
 				var id,APIendpoint;
 				id           = parseInt(request.params.id);

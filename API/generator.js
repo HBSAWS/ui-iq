@@ -16,6 +16,7 @@ var library = {
 module.exports = function() {
 	return {
 		"year" : {
+			"title" : "Year",
 			"value" : _.random(1900, 2015)
 		},
 		"prsnId" : {
@@ -95,11 +96,11 @@ module.exports = function() {
 			"value" : Faker.address.streetAddress()
 		},
 		"address2H" : {
-			"title" : "Home Address Effdt",
+			"title" : "Home Address Effdt2",
 			"value" : Faker.address.secondaryAddress()
 		},
 		"addrEffdtH" : {
-			"title" : "",
+			"title" : "Home Address Effdt",
 			"value" : "2013-04-18T04:00:00.000+0000"
 		},
 		"cityH" : {

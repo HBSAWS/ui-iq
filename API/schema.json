@@ -3,207 +3,233 @@
 		"record" : [
 			{
 				"type" : "field",
-				"name"   : "year"
+				"name" : "year"
 			},
 			{
 				"type" : "field",
-				"name"   : "prsnId"
+				"name" : "prsnId"
 			},
 			{
 				"type" : "field",
-				"name"   : "huid"
+				"name" : "huid"
 			},
 			{
 				"type" : "field",
-				"name"   : "term"
+				"name" : "term"
 			},
 			{
 				"type" : "field",
-				"name"   : "ethncCode"
+				"name" : "ethncCode"
 			},
 			{
 				"type" : "field",
-				"name"   : "birthDay"
+				"name" : "birthDay"
 			},
 			{
 				"type" : "field",
-				"name"   : "gender"
+				"name" : "gender"
 			},
 			{
 				"type" : "field",
-				"name"   : "schoolCode"
+				"name" : "schoolCode"
 			},
 			{
 				"type" : "field",
-				"name"   : "degPrgm"
+				"name" : "degPrgm"
 			},
 			{
 				"type" : "field",
-				"name"   : "degPrgmNum"
+				"name" : "degPrgmNum"
 			},
 			{
 				"type" : "field",
-				"name"   : "effDt"
+				"name" : "effDt"
 			},
 			{
 				"type" : "field",
-				"name"   : "regStat"
+				"name" : "regStat"
 			},
 			{
 				"type" : "field",
-				"name"   : "firstName"
+				"name" : "firstName"
 			},
 			{
 				"type" : "field",
-				"name"   : "lastName"
+				"name" : "lastName"
 			},
 			{
 				"type" : "field",
-				"name"   : "middleName"
+				"name" : "middleName"
 			},
 			{
 				"type" : "field",
-				"name"   : "usCitz"
+				"name" : "usCitz"
 			},
 			{
 				"type" : "field",
-				"name"   : "nonCitzStat"
+				"name" : "nonCitzStat"
 			},
 			{
 				"type" : "field",
-				"name"   : "addrTypeH"
+				"name" : "addrTypeH"
 			},
 			{
 				"type" : "field",
-				"name"   : "address1H"
+				"name" : "address1H"
 			},
 			{
 				"type" : "field",
-				"name"   : "address2H"
+				"name" : "address2H"
 			},
 			{
 				"type" : "field",
-				"name"   : "addrEffdtH"
+				"name" : "addrEffdtH"
 			},
 			{
 				"type" : "field",
-				"name"   : "cityH"
+				"name" : "cityH"
 			},
 			{
 				"type" : "field",
-				"name"   : "postalCodeH"
+				"name" : "postalCodeH"
 			},
 			{
 				"type" : "field",
-				"name"   : "cntryTypeCodeH"
+				"name" : "cntryTypeCodeH"
 			},
 			{
 				"type" : "field",
-				"name"   : "addrTypeP"
+				"name" : "addrTypeP"
 			},
 			{
 				"type" : "field",
-				"name"   : "address1P"
+				"name" : "address1P"
 			},
 			{
 				"type" : "field",
-				"name"   : "address2P"
+				"name" : "address2P"
 			},
 			{
 				"type" : "field",
-				"name"   : "cityP"
+				"name" : "cityP"
 			},
 			{
 				"type" : "field",
-				"name"   : "postalCodeP"
+				"name" : "postalCodeP"
 			},
 			{
 				"type" : "field",
-				"name"   : "cntryTypeCodeP"
+				"name" : "cntryTypeCodeP"
 			},
 			{
 				"type" : "field",
-				"name"   : "timeStat"
+				"name" : "timeStat"
 			},
 			{
 				"type" : "field",
-				"name"   : "degCand"
+				"name" : "degCand"
 			},
 			{
 				"type" : "field",
-				"name"   : "yrInPrgm"
+				"name" : "yrInPrgm"
 			},
 			{
 				"type" : "field",
-				"name"   : "acadPlan"
+				"name" : "acadPlan"
 			},
 			{
 				"type" : "field",
-				"name"   : "addrEffdt"
+				"name" : "addrEffdt"
 			},
 			{
 				"type" : "field",
-				"name"   : "estGradDate"
+				"name" : "estGradDate"
 			},
 			{
 				"type" : "field",
-				"name"   : "lastRunDate"		
+				"name" : "lastRunDate"		
 			}
 		]
 	},
 	"endpoints" : 
 	[
 		{
-			"name"    : "config",
-			"ext"     : ".json",
-			"URL"     : "/iqService/rest/",
-			"methods" : ["get"],
-			"content" : [
+			"name"     : "config",
+			"ext"      : ".json",
+			"URL_BASE" : "/iqService/rest/",
+			"methods"          : {
+				"get"  : {
+					"ext" : ".json"
+				}
+			},
+			"content"  : [
 				{
-					"type"  : "object",
+					"type"    : "object",
 					"content" : [
 						{
-							"type"  : "object",
+							"type"    : "object",
 							"name"    : "config",
 							"content" : [
 								{
-									"type"  : "field",
+									"type"    : "field",
 									"name"    : "PDM_URL",
 									"content" : "https://secure-stage.hbs.edu/pdm/sis/"
 								}
 							]
 						},
-						{	"type"  : "object",
+						{	"type"    : "object",
 							"name"    : "userInfo",
 							"content" : [
 								{
-									"type"  : "field",
+									"type"    : "field",
 									"name"    : "firstName",
 									"content" : "Peter"
 								},
 								{
-									"type"  : "field",
+									"type"    : "field",
 									"name"    : "lastName",
 									"content" : "Kloss"
 								},
 								{
-									"type"  : "array",
+									"type"    : "array",
 									"name"    : "roles",
 									"amount"  : 1,
 									"content" : [
 										{ 
-											"type"  : "string",
+											"type"    : "string",
 											"content" : "HBSW_ITG"
 										},
 										{
-											"type"  : "string",
+											"type"    : "string",
 											"content" : "IQ_ADMIN"
 										},
 										{
-											"type"  : "string",
+											"type"    : "string",
 											"content" : "IQ_IQ_ADMIN"
 										}
 									]
+								}
+							]
+						},
+						{
+							"type"    : "object",
+							"name"    : "metadata",
+							"content" : [
+								{
+									"type"     : "object",
+									"name"     : "bio",
+									"template" : {
+										"name"        : "record",
+										"compileMode" : "blueprint"
+									}
+								},
+								{
+									"type"     : "object",
+									"name"     : "admit",
+									"template" : {
+										"name"        : "record",
+										"compileMode" : "blueprint"
+									}
 								}
 							]
 						}
@@ -214,8 +240,21 @@
 		{
 			"name"             : "records",
 			"ext"              : ".json",
-			"URL"              : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
-			"methods"          : ["get","post","put","delete"],
+			"URL_BASE"         : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
+			"methods"          : {
+				"get"  : {
+					"ext" : ".json"
+				},
+				"put" : {
+					"URL_SUFFIX" : "/create"
+				},
+				"post" : {
+					"URL_SUFFIX" : "/update"
+				},
+				"delete" : {
+					"URL_SUFFIX" : "/delete"
+				}
+			},
 			"rootObject"       : "record",
 			"pathToQueryArray" : "records",
 			"content"          : [
@@ -225,37 +264,40 @@
 					"amount"  : 20,
 					"content" : [			
 						{
-							"type"  : "object",
+							"type"    : "object",
 							"content" : [
 								{
-									"type"  : "object",
-									"name"    : "record",
-									"template" : "record"		
+									"type"        : "object",
+									"name"        : "record",
+									"template"    : {
+										"name"        : "record",
+										"compileMode" : "data"
+									}		
 								},
 								{
-									"type"  : "array",
+									"type"    : "array",
 									"name"    : "errors",
 									"content" : [
 										{
-											"type"  : "object",
+											"type"    : "object",
 											"content" : [
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "field",
 													"content" : "addrEffdt"
 												},
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "message",
 													"content" : "required field"
 												},
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "type",
 													"content" : "E"
 												},
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "ind",
 													"content" : "R"
 												}
@@ -266,22 +308,22 @@
 											"type"  : "object",
 											"content" : [
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "field",
 													"content" : "firstName"
 												},
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "message",
 													"content" : "required field"
 												},
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "type",
 													"content" : "E"
 												},
 												{
-													"type"  : "field",
+													"type"    : "field",
 													"name"    : "ind",
 													"content" : "R"
 												}
@@ -298,9 +340,21 @@
 		{
 			"name"             : "exclusions",
 			"ext"              : ".json",
-			"URL"              : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
-			"methods"          : ["get","post","put","delete"],
-
+			"URL_BASE"         : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
+			"methods"          : {
+				"get"  : {
+					"ext" : ".json"
+				},
+				"put" : {
+					"URL_SUFFIX" : "/create"
+				},
+				"post" : {
+					"URL_SUFFIX" : "/update"
+				},
+				"delete" : {
+					"URL_SUFFIX" : "/delete"
+				}
+			},
 			"pathToQueryArray" : "exclusions",
 			"relatedSchema"    : "records",
 			"content"          : [
@@ -310,40 +364,40 @@
 					"amount"  : 20,
 					"content" : [
 						{
-							"type"  : "object",
+							"type"    : "object",
 							"content" : [
 								{
-									"type" : "field",
+									"type"   : "field",
 									"name"   : "prsnId",
 									"sample" : "prsnId"
 								},
 								{
-									"type"  : "field",
+									"type"    : "field",
 									"name"    : "group",
 									"content" : "MBA"
 								},
 								{
-									"type" : "field",
-									"name"   : "bio",
+									"type"    : "field",
+									"name"    : "bio",
 									"content" : "degPrgm"
 								},
 								{
-									"type" : "field",
+									"type"   : "field",
 									"name"   : "firstName",
 									"sample" : "firstName"
 								},
 								{
-									"type" : "field",
+									"type"   : "field",
 									"name"   : "lastName",
 									"sample" : "lastName"
 								},
 								{
-									"type"  : "field",
+									"type"    : "field",
 									"name"    : "note",
 									"content" : "paragraph"
 								},
 								{
-									"type"  : "field",
+									"type"    : "field",
 									"name"    : "startDate",
 									"content" : "date"
 								}

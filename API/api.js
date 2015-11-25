@@ -12,25 +12,33 @@ var Repositories = function() {
 
 
 Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArray,rootObject,relatedTo) {
-    var __self = this,wrapperObjectName;
+    var __self = this;
 
     __self.repositories[repositoryName]                 = {};
     __self.repositories[repositoryName]["endpointData"] = endpointData;
-    wrapperObjectName = Object.keys(endpointData)[0];
-    //console.log( "array: " + JSON.stringify(__self.repositories[repositoryName]["endpointData"]));
-    if ( rootObject !== undefined ) {
+
+    // if there is a root object we define it here
+    if ( rootObject !== undefined) {
         __self.repositories[repositoryName]["rootObject"] = rootObject;
-        //if we are targeting a specific object in the main array we automatically give it an ID parameter
-        __self.repositories[repositoryName]["endpointData"][wrapperObjectName].forEach(function (value,index,array) {
-            array[index][rootObject].id = index;
-        });
-    } else if ( Array.isArray(__self.repositories[repositoryName]["endpointData"]) ) {
-        //if the main endpoint is an array we add an ID parameter
-        __self.repositories[repositoryName]["endpointData"][wrapperObjectName].forEach(function (value,index,array) {
-            array[index].id = index;
-        });
     }
 
+    // if an array can be queried we define the pathway to that array
+    if ( pathToQueryArray !== undefined && pathToQueryArray !== "_root" ) {
+        __self.repositories[repositoryName]["pathToQueryArray"] = pathToQueryArray;
+
+        // add unique id's to arrays that can be queried
+        if ( rootObject !== undefined ) {
+            __self.repositories[repositoryName]["endpointData"][pathToQueryArray].forEach(function (value,index,array) {
+                array[index][rootObject].id = index;
+            });
+        } else {
+            __self.repositories[repositoryName]["endpointData"][pathToQueryArray].forEach(function (value,index,array) {
+                array[index].id = index;
+            });           
+        }
+    }
+
+    // if there is a relationship with another endpoint we establish it here
     if ( relatedTo !== undefined ) {
         __self.repositories[relatedTo]["relatedTo"]      = repositoryName;
         __self.repositories[repositoryName]["relatedTo"] = relatedTo;
@@ -42,27 +50,37 @@ Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArr
 	// 'toFind' = the name of the thing you want to query, ex : 'records','exceptions'
 	// toFilter = an object containing the key/value pairs you want to filter - the 'response.query' object can be passed here for example
 Repositories.prototype.find = function (repositoryName,toFilter) {
-    var __self,repo,rootObject,filter,wrapperObjectName,file;
-    __self  = this;
-    repo    = __self.repositories[repositoryName]["endpointData"];
-    rootObject = __self.repositories[repositoryName]["rootObject"];
-    filter  = {};
+    var __self,endpointData,repo,pathToQueryArray,rootObject,filter,file;
+    __self       = this;
+    endpointData = __self.repositories[repositoryName]["endpointData"];
 
     if ( _.isEmpty(toFilter) ) {
-        file = repo;
-    } else if ( rootObject !== undefined ) {
-        filter[rootObject] = toFilter;
-        wrapperObjectName  = Object.keys(repo)[0];
-        file               = _.filter(repo[wrapperObjectName], filter);
+        file = endpointData;
     } else {
-        wrapperObjectName  = Object.keys(repo)[0];
-        file               = _.filter(repo[wrapperObjectName], toFilter);
+        pathToQueryArray = __self.repositories[repositoryName]["pathToQueryArray"];
+        rootObject       = __self.repositories[repositoryName]["rootObject"];
+
+        repo             = (pathToQueryArray !== undefined) ? endpointData[pathToQueryArray] : endpointData;
+        if ( rootObject !== undefined ) {
+            filter             = {};
+            filter[rootObject] = toFilter;
+        } else {
+            filter = toFilter;
+        }
+
+        file = _.filter(repo, filter);
     }
-    if ( file == undefined || file == undefined ) {
+
+
+    if ( file == undefined ) {
         throw new Error("Sorry, couldn't find anything that matched your query.");
     }
     return file;
 }
+
+
+
+
 /**
  * Find the index of a file
  * Param: id of the file to find
@@ -81,7 +99,7 @@ Repositories.prototype.findIndex = function (repositoryName, identifier) {
         __idendifier = identifier;
     }
 
-    index = _.findIndex(repo, __idendifier);
+    index = _.findIndex(repo, __identifier);
 
     // if ( __self.repositories[repositoryName]["endpointData"] !== undefined ) {
     //     _.findIndex(repo, identifyingObject)
