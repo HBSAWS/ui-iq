@@ -78,7 +78,12 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
             filter = toFilter;
         }
 
-        file = _.filter(repo, filter);
+        if ( pathToQueryArray !== undefined ) {
+            file = {};
+            file[pathToQueryArray] = _.filter(endpointData[pathToQueryArray], filter);
+        } else {
+            file = _.filter(repo, filter);
+        }
     }
 
 
