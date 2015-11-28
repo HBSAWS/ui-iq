@@ -247,14 +247,16 @@
 				"get"  : {
 					"ext" : ".json"
 				},
-				"put" : {
-					"URL_SUFFIX" : "/create"
-				},
 				"post" : {
+					"URL_SUFFIX"      : "/create",
+					"lookupAttribute" : "prsnId" 
+				},
+				"put" : {
 					"URL_SUFFIX" : "/update"
 				},
 				"delete" : {
-					"URL_SUFFIX" : "/delete"
+					"URL_SUFFIX"      : "/delete",
+					"lookupAttribute" : "prsnId" 
 				}
 			},
 			"rootObject"       : "record",
@@ -263,7 +265,7 @@
 				{
 					"type"    : "array",
 					"name"    : "records",
-					"amount"  : 2000,
+					"amount"  : 1800,
 					"content" : [			
 						{
 							"type"    : "object",
@@ -348,14 +350,16 @@
 				"get"  : {
 					"ext" : ".json"
 				},
-				"put" : {
+				"post" : {
 					"URL_SUFFIX" : "/create"
 				},
-				"post" : {
-					"URL_SUFFIX" : "/update"
+				"put" : {
+					"URL_SUFFIX"      : "/update",
+					"lookupAttribute" : "prsnId" 
 				},
 				"delete" : {
-					"URL_SUFFIX" : "/delete"
+					"URL_SUFFIX"      : "/delete",
+					"lookupAttribute" : "prsnId" 
 				}
 			},
 			"pathToQueryArray" : "exclusions",
@@ -369,6 +373,11 @@
 						{
 							"type"    : "object",
 							"content" : [
+								{
+									"type"   : "field",
+									"name"   : "id",
+									"sample" : "id"
+								},
 								{
 									"type"   : "field",
 									"name"   : "prsnId",

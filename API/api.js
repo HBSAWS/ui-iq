@@ -33,9 +33,9 @@ Repositories.prototype.add = function(repositoryName,endpointData,pathToQueryArr
                 array[index][rootObject].id = index;
             });
         } else {
-            __self.repositories[repositoryName]["endpointData"][pathToQueryArray].forEach(function (value,index,array) {
-                array[index].id = index;
-            });           
+            // __self.repositories[repositoryName]["endpointData"][pathToQueryArray].forEach(function (value,index,array) {
+            //     array[index].id = index;
+            // });           
         }
     }
     // if there is a relationship with another endpoint we establish it here
@@ -93,8 +93,6 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
     if ( !queryable || _.isEmpty(toFilter) ) {
         file = endpointData;
     } else {
-        repo = (pathToQueryArray !== undefined) ? endpointData[pathToQueryArray] : endpointData;
-
         _.forIn(toFilter, function (value,key) {
             if ( !isNaN(value) ) {
                 // the string has a number and we need to convert it
@@ -103,7 +101,7 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
         });
 
         if ( rootObject !== undefined ) {
-            filter = {};
+            filter             = {};
             filter[rootObject] = toFilter;
         } else {
             filter = toFilter;
@@ -111,9 +109,9 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
 
         if ( pathToQueryArray !== undefined ) {
             file = {};
-            file[pathToQueryArray] = _.filter(repo, filter);
+            file[pathToQueryArray] = _.filter(endpointData[pathToQueryArray], filter);
         } else {
-            file = _.filter(repo, filter);
+            file = _.filter(endpointData, filter);
         }
     }
 
@@ -132,29 +130,27 @@ Repositories.prototype.find = function (repositoryName,toFilter) {
  * Param: id of the file to find
  * Returns: the index of the file identified by id
  */
-Repositories.prototype.findIndex = function (repositoryName, identifier) {
-    var __self,repo,rootObject,__idendifier,result,index;
+Repositories.prototype.findIndex = function (repositoryName, toFind) {
+    var __self,endpointData,pathToQueryArray,rootObject,__idendifier,result,index;
     __self = this;
-    repo         = __self.repositories[repositoryName]["endpointData"];
-    rootObject      = __self.repositories[repositoryName]["rootObject"];
-    __idendifier = {};
+
+    endpointData     = __self.repositories[repositoryName]["endpointData"];
+    pathToQueryArray = __self.repositories[repositoryName]["pathToQueryArray"];
+    rootObject       = __self.repositories[repositoryName]["rootObject"];
 
     if ( rootObject !== undefined ) {
-        __idendifier[rootObject] = identifier;
+        find             = {};
+        find[rootObject] = toFind;
     } else {
-        __idendifier = identifier;
+        find = toFind;
     }
 
-    index = _.findIndex(repo, __identifier);
+    if ( pathToQueryArray !== undefined ) {
+        index = _.findIndex(endpointData[pathToQueryArray], find);
+    } else {
+        index = _.findIndex(endpointData, find);
+    }
 
-    // if ( __self.repositories[repositoryName]["endpointData"] !== undefined ) {
-    //     _.findIndex(repo, identifyingObject)
-    //     result = __self.repositories[repositoryName]["endpointData"].find( repositoryName, identifyingObject );
-    //     index  = __self.repositories[repositoryName]["endpointData"].indexOf(result[0]); 
-    // } else {
-    //     result = __self.repositories[repositoryName]["endpointData"].find( repositoryName, identifyingObject );
-    //     index  = __self.repositories[repositoryName]["endpointData"].indexOf(result[0]); 
-    // }
     if ( index == -1 ) {
         throw new Error('file not found');
     }

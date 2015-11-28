@@ -138,10 +138,11 @@ API_schema.endpoints.forEach(function (endpoint) {
 				newData        = request.body;
 				id             = parseInt(request.params.id);
 				APIendpoint    = request.params.APIendpoint;
-				persistedFile  = repository.find(APIendpoint, {"id" : id} )[0];
+				//persistedFile  = repository.getRawData( APIendpoint,true,true );
+				persistedFile  = repository.find(APIendpoint, {"id" : id} )[APIendpoint][0];
 				updatedContent = _.merge(persistedFile, newData);
 
-				repository.save( "exclusions", updatedContent );
+				repository.save( APIendpoint, updatedContent );
 				response.sendStatus(200);
 			} catch (exception) {
 			    response.sendStatus(404);
@@ -171,10 +172,6 @@ API_schema.endpoints.forEach(function (endpoint) {
 			}
 		});
 	}
-});
-
-app.get('/', function (request,response) {
-
 });
 
 

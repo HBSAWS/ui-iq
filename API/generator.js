@@ -17,7 +17,8 @@ module.exports = function() {
 	return {
 		"year" : {
 			"title" : "Year",
-			"value" : _.random(2010, 2015)
+			"value" : 2015
+			// "value" : _.random(2010, 2015)
 		},
 		"prsnId" : {
 			"title" : "Person Id",
