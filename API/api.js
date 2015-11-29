@@ -161,15 +161,33 @@ Repositories.prototype.findIndex = function (repositoryName, toFind) {
  * Param: file the file to save
  */
 Repositories.prototype.save = function (repositoryName,toSave) {
-    var __self,index;
-    __self   = this;
+    var __self,pathToQueryArray,rootObject,save,index;
+    __self           = this;
+    pathToQueryArray = __self.repositories[repositoryName]["pathToQueryArray"];
+    rootObject       = __self.repositories[repositoryName]["rootObject"];
+
+    if ( rootObject !== undefined ) {
+        save = {};
+        save[rootObject] = toSave;
+    } else {
+        save = toSave;
+    }
 
     if (toSave.id == null || toSave.id == 0) {
-        toSave.id = __self.repositories[repositoryName]["endpointData"].length;
-        __self.repositories[repositoryName]["endpointData"].push(toSave);
+        if ( pathToQueryArray !== undefined ) {
+            toSave.id = __self.repositories[repositoryName]["endpointData"][pathToQueryArray].length;
+            __self.repositories[repositoryName]["endpointData"][pathToQueryArray].push(save);
+        } else {
+            toSave.id = __self.repositories[repositoryName]["endpointData"].length;
+            __self.repositories[repositoryName]["endpointData"].push(save);
+        }
     } else {
         index = __self.findIndex(repositoryName, {"id" : toSave.id} );
-        __self.repositories[repositoryName]["endpointData"][index] = toSave;
+        if ( pathToQueryArray !== undefined ) {
+            __self.repositories[repositoryName]["endpointData"][pathToQueryArray][index] = save;
+        } else {
+            __self.repositories[repositoryName]["endpointData"][index] = save;
+        }
     }
 }
 /**

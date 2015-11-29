@@ -132,15 +132,15 @@ API_schema.endpoints.forEach(function (endpoint) {
 		});
 	}
 	if ( _.has(endpoint.methods, 'put') ) {
-		app.put( endpoint.URL_BASE + ":APIendpoint" + (( endpoint.methods.put.ext !== undefined ) ? endpoint.methods.put.ext : "") + (( endpoint.methods.put.URL_SUFFIX !== undefined ) ? endpoint.methods.put.URL_SUFFIX : "") + '/:id', function (request, response) {
+		app.put( endpoint.URL_BASE + ":APIendpoint" + (( endpoint.methods.put.ext !== undefined ) ? endpoint.methods.put.ext : "") + (( endpoint.methods.put.URL_SUFFIX !== undefined ) ? endpoint.methods.put.URL_SUFFIX : "") + '/:' + endpoint.methods.put.lookupAttribute, function (request, response) {
 			try {
-				var newData,id,APIendpoint,persistedFile,updatedContent;
-				newData        = request.body;
-				id             = parseInt(request.params.id);
-				APIendpoint    = request.params.APIendpoint;
-				//persistedFile  = repository.getRawData( APIendpoint,true,true );
-				persistedFile  = repository.find(APIendpoint, {"id" : id} )[APIendpoint][0];
-				updatedContent = _.merge(persistedFile, newData);
+				var newData,lookupAttribute,APIendpoint,persistedFile,updatedContent,toFind = {};
+				newData         = request.body;
+				lookupAttribute = parseInt(request.params[endpoint.methods.put.lookupAttribute]);
+				toFind[endpoint.methods.put.lookupAttribute] = lookupAttribute;console.log(JSON.stringify(toFind));
+				APIendpoint     = request.params.APIendpoint;
+				persistedFile   = repository.find(APIendpoint, toFind )[APIendpoint][0];
+				updatedContent  = _.merge(persistedFile, newData);
 
 				repository.save( APIendpoint, updatedContent );
 				response.sendStatus(200);
@@ -150,17 +150,17 @@ API_schema.endpoints.forEach(function (endpoint) {
 		});
 	}
 	if ( _.has(endpoint.methods, 'post') ) {
-		app.post( endpoint.URL + ":APIendpoint" + (( endpoint.methods.post.ext !== undefined ) ? endpoint.methods.post.ext : "") + (( endpoint.methods.post.URL_SUFFIX !== undefined ) ? endpoint.methods.post.URL_SUFFIX : ""), function (request, response) {
+		app.post( endpoint.URL_BASE + ":APIendpoint" + (( endpoint.methods.post.ext !== undefined ) ? endpoint.methods.post.ext : "") + (( endpoint.methods.post.URL_SUFFIX !== undefined ) ? endpoint.methods.post.URL_SUFFIX : ""), function (request, response) {
 			var newData,APIendpoint;
 			newData     = request.body;
 			APIendpoint = request.params.APIendpoint;
 
-			repository.save(APIendpoint, newData);
+			repository.save( APIendpoint, newData );
 			response.sendStatus(200);
 		});
 	}
 	if ( _.has(endpoint.methods, 'delete') ) {
-		app.delete( endpoint.URL + ":APIendpoint" + (( endpoint.methods.delete.ext !== undefined ) ? endpoint.methods.delete.ext : "") + (( endpoint.methods.delete.URL_SUFFIX !== undefined ) ? endpoint.methods.delete.URL_SUFFIX : "") + '/:id', function (request, response) {
+		app.delete( endpoint.URL_BASE + ":APIendpoint" + (( endpoint.methods.delete.ext !== undefined ) ? endpoint.methods.delete.ext : "") + (( endpoint.methods.delete.URL_SUFFIX !== undefined ) ? endpoint.methods.delete.URL_SUFFIX : "") + '/:' + endpoint.methods.put.lookupAttribute, function (request, response) {
 			try {
 				var id,APIendpoint;
 				id           = parseInt(request.params.id);

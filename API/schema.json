@@ -248,15 +248,15 @@
 					"ext" : ".json"
 				},
 				"post" : {
-					"URL_SUFFIX"      : "/create",
-					"lookupAttribute" : "prsnId" 
+					"URL_SUFFIX"      : "/create"
 				},
 				"put" : {
-					"URL_SUFFIX" : "/update"
+					"URL_SUFFIX" : "/update",
+					"lookupAttribute" : "id" 
 				},
 				"delete" : {
 					"URL_SUFFIX"      : "/delete",
-					"lookupAttribute" : "prsnId" 
+					"lookupAttribute" : "id" 
 				}
 			},
 			"rootObject"       : "record",
@@ -355,11 +355,11 @@
 				},
 				"put" : {
 					"URL_SUFFIX"      : "/update",
-					"lookupAttribute" : "prsnId" 
+					"lookupAttribute" : "id" 
 				},
 				"delete" : {
 					"URL_SUFFIX"      : "/delete",
-					"lookupAttribute" : "prsnId" 
+					"lookupAttribute" : "id" 
 				}
 			},
 			"pathToQueryArray" : "exclusions",
