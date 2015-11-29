@@ -137,7 +137,7 @@ API_schema.endpoints.forEach(function (endpoint) {
 				var newData,lookupAttribute,APIendpoint,persistedFile,updatedContent,toFind = {};
 				newData         = request.body;
 				lookupAttribute = parseInt(request.params[endpoint.methods.put.lookupAttribute]);
-				toFind[endpoint.methods.put.lookupAttribute] = lookupAttribute;console.log(JSON.stringify(toFind));
+				toFind[endpoint.methods.put.lookupAttribute] = lookupAttribute;  
 				APIendpoint     = request.params.APIendpoint;
 				persistedFile   = repository.find(APIendpoint, toFind )[APIendpoint][0];
 				updatedContent  = _.merge(persistedFile, newData);

@@ -138,52 +138,48 @@
 		                </div>
 		            </div>
 		            <div class="navbar-right__default">
-		                <div class="toggler__bold" data-ui-settings="mode__check size__large">
-		                    <input class="toggler-input__bold" data-ui-settings="mode__check size__large" data-js="exclusionToggler" type="checkbox" value="is__exclusion">
-		                    <div class="toggler-toggle__bold" data-ui-settings="mode__check size__large">
-		                        <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__check size__large"></div>
-		                    </div>
-		                    <div class="toggler-label__bold">Exclude</div>
-		                </div>
-		                <div class="toggler_bold" data-ui-settings="mode__button size__large" data-js="tooltip__error">
-		                    <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="details" value="has__error" checked data-js="tableFilter">
-		                    <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
-		                        <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
-		                    </div>
-		                    <div class="toggler-label__bold">Errors</div>
-		                </div>
+                        <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
+                            <input class="toggler-input___default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileStats">
+                            <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
+                                <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
+                                    Settings
+                                </div>
+                            </div>
+                        </div>
+                        <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
+                            <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
+                            <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
+                                <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
+                                    Content
+                                </div>
+                            </div>
+                        </div>
 		            </div>
 		        </div> 
 		        <!-- navbar  ** END ** -->  
 
 				<div class="layout__light" data-ui-settings="mount__thick padding__top-none">
-					<h3>Info</h3>    
-					<br>
 					<form class="form_">
 						<div class="form-row_-">
 							<label class="form-label_">Name</label>
-							<input class="form-field__accent" data-ui-settings="material__paper" type="text" placeholder="name">
+							<div class="form-field_">
+								<input class="form-field-input__accent" data-ui-settings="material__paper" type="text" placeholder="name">
+							</div>
 						</div>
 						<div class="form-row_">
-							<label class="form-label_">URL</label>
-							<input class="form-field__accent" data-ui-settings="material__paper" type="text" placeholder="URL">
+							<label class="form-label_">Base URL</label>
+							<div class="form-field_">
+								<input class="form-field-input__accent" data-ui-settings="material__paper" type="text" placeholder="URL">
+							</div>
 						</div>
 						<div class="form-row_">
-							<label class="form-label_">Type</label>
+							<label class="form-label_">Queryable</label>
 							<div style="flex : 3; display: flex;">
-                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileRecords" checked="">
-                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            array
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
                                     <input class="toggler-input___default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileStats">
                                     <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
                                         <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            object
+                                            True
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +187,44 @@
                                     <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
                                     <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
                                         <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            field
+                                            False
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						<div class="form-row_">
+							<label class="form-label_">Methods</label>
+							<div style="flex : 3; display: flex;">
+                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
+                                    <input class="toggler-input___default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileStats">
+                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
+                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
+                                            GET
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
+                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
+                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
+                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
+                                            POST
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
+                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
+                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
+                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
+                                            PUT
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
+                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
+                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
+                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
+                                            DELETE
                                         </div>
                                     </div>
                                 </div>

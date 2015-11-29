@@ -240,7 +240,6 @@
 		},
 		{
 			"name"      : "records",
-			"ext"       : ".json",
 			"URL_BASE"  : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
 			"queryable" : true,
 			"methods"   : {
@@ -343,7 +342,6 @@
 		},
 		{
 			"name"      : "exclusions",
-			"ext"       : ".json",
 			"URL_BASE"  : "/iqService/rest/:type(mba|doc)/:type(bio|admit)/",
 			"queryable" : true,
 			"methods"   : {
