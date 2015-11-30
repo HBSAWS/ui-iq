@@ -45,7 +45,7 @@
     * {
         // this must come first so that the 'visible' states can override it when used in conjunction with it 
         &[data-ui-state~="is__hidden"] {
-            display : none;
+            display : none !important;
         }  
         &[data-ui-state~="is__hidden-mobile"] {
             @media screen and (min-width : $grid__mobile + px) and (max-width: ($grid__phablet - 1) + px ){
