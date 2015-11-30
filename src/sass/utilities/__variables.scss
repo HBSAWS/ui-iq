@@ -1,11 +1,15 @@
+
+$breakpoints : "mobile","phablet","tablet","laptop","desktop","retina";
+$sides       : "top","right","bottom","left";
+$sizes       : "xxs","xs","sm","md","lg","xl","xxl";
+
+
 $color__brand   : #a41034;
 
 $color__primary : #4cc1bc;
 $color__dark    : #36393e;
 $color__offset  : #eee;
 $color__light   : #fff;
-
-
 
 $color_loud_background      : #4cc1bc;
 $color_loud_text            : #ffffff;

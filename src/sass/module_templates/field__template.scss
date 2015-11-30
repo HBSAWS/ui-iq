@@ -29,3 +29,95 @@
         }
     }
 }
+
+[class^="field_"] {
+    z-index     : 1;
+    position    : relative;
+    width       : 100%;
+    padding     : 6px 17px;
+    margin      : 0;
+    border      : none;
+    outline     : 0px;
+    font-size   : 0.7rem;
+    font-weight : 300;
+    font-family : $font__family;
+    overflow-x  : hidden;
+    background  : #ebeaea;
+    color       : #151515;
+    @include prefix(border-radius, 4px);
+
+    &[class$="_accent"] {
+        &::-webkit-input-placeholder {
+            color : $color_accent_placeholder;
+        }
+        &:-moz-placeholder           {
+            color : $color_accent_placeholder;
+        }
+        &::-moz-placeholder          {
+            color : $color_accent_placeholder;
+        }
+        &:-ms-input-placeholder      {
+            color : $color_accent_placeholder;
+        }
+    }
+
+    &[data-ui-settings~="label__float"] {
+        margin-top : 15px;
+        @include prefix(transition, 'color 0.2s ease, background 0.2s ease,transform 0.2s ease,margin 0.2s ease');
+        &:focus {
+            margin-top : 22px;
+            color      : white;
+            background : #4cc1bc;
+            transform  : scale(1.02);
+            @include prefix(transition, 'color 0.2s ease, background 0.2s ease,transform 0.2s ease');
+            + [class^="field-label_"] {
+                cursor : default;
+                &:before {    
+                    font-size   : 0.65rem;
+                    font-weight : 400;
+                    @include prefix(transform, translateY(0px) translateX(0px));
+                    @include prefix(transition, 'transform 0.2s ease, font-size 0.2s ease, color 0.2s ease');
+                }
+            }
+        }
+        &:valid {
+            margin-top : 22px;
+            + [class^="field-label_"] {
+                cursor : default;
+                &:before {    
+                    font-size   : 0.65rem;
+                    font-weight : 400;
+                    @include prefix(transform, translateY(0px) translateX(0px));
+                    @include prefix(transition, 'transform 0.2s ease, font-size 0.2s ease, color 0.2s ease');
+                }
+            }
+        }
+    }
+}
+
+
+[class^="field-label_"] {
+    z-index     : 2;
+    position    : relative;
+    display     : block;
+    white-space : nowrap;
+    padding     : 0;
+    margin      : 0;
+    width       : 10%;
+    cursor      : text;
+    @include prefix(transition, width 0.4s ease);
+
+    &:before {
+        content     : attr(data-ui-label);
+        z-index     : -1;
+        position    : absolute;
+        top         : -42px;
+        left        : 0px;
+        margin      : 0;
+        font-size   : 0.7rem;
+        font-weight : 300;
+        color       : #8F8F8F;
+        @include prefix(transform, translateY(22px) translateX(8px));
+        @include prefix(transition, 0.2s ease, 'font-size 0.2s ease, color 0.2s ease');
+    }
+}

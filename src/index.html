@@ -651,7 +651,7 @@
                             <div class="fader"></div>
 
                             <div class="layout" data-ui-settings="overflow__hidden perspective__moderate height__parent" data-js="appHuver">
-                                <div class="offcanvaspanel_" data-ui-settings="popIn__phablet side__left layout__responsive" data-ui-grid="desktop__4" data-js="appHuver__records">
+                                <div class="offcanvaspanel_" data-ui-settings="popIn__desktop side__left layout__responsive" data-js="appHuver__records">
                                     <div class="offcanvaspanel-content_" data-ui-settings="depth__low" data-js="appHuver__recordsInner">
                                         <div class="fader"></div>
 
@@ -671,17 +671,13 @@
                                                 </div>
                                                 <div class="navbar-right__default">
                                                     <div class="toggler__bold" data-ui-settings="mode__button size__large" data-ui-state="is__tab-contents" data-js="tooltip__error">
-                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="records" value="has__error" data-js="tableFilter" checked>
-                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
-                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
-                                                        </div>
+                                                        <input class="toggler-input__bold" type="checkbox" name="records" value="has__error" data-js="tableFilter" checked>
+                                                        <div class="toggler-toggle__bold" data-ui-icon="attention place__before"></div>
                                                         <div class="toggler-label__bold">Errors</div>
                                                     </div>
                                                     <div class="toggler__bold" data-ui-settings="mode__button size__large">
-                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox">
-                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
-                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-icon="file_exclusion  place__before"></div>
-                                                        </div>
+                                                        <input class="toggler-input__bold" type="checkbox">
+                                                        <div class="toggler-toggle__bold" data-ui-icon="file_exclusion place__before"></div>
                                                         <div class="toggler-label__bold">Excluded</div>
                                                     </div>
                                                 </div>
@@ -708,7 +704,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="layout" data-ui-settings="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails">
+                                <div class="layout" data-ui-settings="mount__thick" data-ui-grid="mobile__12 mobile__offset-none desktop__8 desktop__offset-4" data-js="appHuver__recDetails" style="overflow-y: scroll;height: 100%;">
                                     <div class="layout" data-ui-settings="depth__low" data-js="appHuver__details-inner">       
                                         <div class="fader"></div>
 
@@ -756,18 +752,13 @@
                                                 </div>
                                                 <div class="navbar-right__default">
                                                     <div class="toggler__bold" data-ui-settings="mode__check size__large">
-                                                        <input class="toggler-input__bold" data-ui-settings="mode__check size__large" data-js="exclusionToggler" type="checkbox" value="is__exclusion">
-                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__check size__large">
-                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__check size__large"></div>
-                                                        </div>
+                                                        <input class="toggler-input__bold" data-js="exclusionToggler" type="checkbox" value="is__exclusion">
+                                                        <div class="toggler-toggle__bold"></div>
                                                         <div class="toggler-label__bold">Exclude</div>
                                                     </div>
                                                     <div class="toggler_bold" data-ui-settings="mode__button size__large" data-js="tooltip__error">
-                                                        <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="details" value="has__error" checked data-js="tableFilter">
-<!--                                                         <input class="toggler-input__bold" data-ui-settings="mode__button size__large" type="checkbox" name="name-3" value="has__error" checked data-js="detailsTable__filter"> -->
-                                                        <div class="toggler-toggle__bold" data-ui-settings="mode__button size__large">
-                                                            <div class="toggler-toggle-indicator__bold" data-ui-settings="mode__button size__large" data-ui-state="" data-ui-icon="attention  place__before"></div>
-                                                        </div>
+                                                        <input class="toggler-input__bold" type="checkbox" name="details" value="has__error" checked data-js="tableFilter">
+                                                        <div class="toggler-toggle__bold" data-ui-icon="attention place__before"></div>
                                                         <div class="toggler-label__bold">Errors</div>
                                                     </div>
                                                 </div>

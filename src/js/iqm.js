@@ -1255,7 +1255,6 @@
 		},
 		setupUI : function() {
 			// APPLY ALL OF THE UI PLUGINS
-			UI.tabs();
 
 			actionsheets.archiveFiles.init();
 

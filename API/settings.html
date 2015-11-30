@@ -14,8 +14,8 @@
    	<div class="layout" data-ui-settings="overflow__hidden perspective__moderate height__parent" data-js="appHuver">
 
     	<!-- left panel  ** START ** -->
-        <div class="offcanvaspanel_" data-ui-settings="popIn__phablet side__left layout__responsive" data-ui-grid="desktop__4" data-js="appHuver__records">
-            <div class="offcanvaspanel-content__default" data-ui-settings="material__film depth__low" data-js="appHuver__recordsInner">
+        <div class="offcanvaspanel_" data-ui-settings="popIn__desktop side__left layout__responsive">
+            <div class="offcanvaspanel-content__default" data-ui-settings="material__film depth__low">
                 <div class="fader"></div>
 				<div class="navbar_" data-ui-settings="mount__thick">
                     <div class="navbar-left__default">
@@ -25,7 +25,7 @@
                         </button>
                         <div class="navbar-title__default">
                             <div class="navbar-title-text__default">
-                                Mock API 
+                                Endpoints
                             </div>
                         </div>
                     </div>
@@ -33,88 +33,13 @@
 						<button class="button__highlight" data-ui-settings="size__medium material__transparency" data-ui-icon="add place__before"></button>
                     </div>
                 </div>
-                <!-- CODE  ** START ** -->
-				<div class="code_" data-ui-settings="mount__thick padding__top-none">
-					<div class="code-object">
-						<input class="code-object-state" id="tester" type="checkbox" checked="true">
-						<label class="code-object-header" for="tester">API End Points</label>
-						<div class="code-object-content">
-							<ul class="code-object-content-properties">
-								<li class="code-object-content-properties-property">
-									<div class="code-object">
-										<input class="code-object-state" id="config" type="checkbox">
-										<label class="code-object-title" for="config">"config"</label>
-										<div class="code-object-content" data-ui-settings="type__object">
-											<ul class="code-object-content-properties">
-												<li class="code-object-content-properties-property">test</li>
-												<li class="code-object-content-properties-property">test</li>
-												<li class="code-object-content-properties-property">test</li>
-											</ul>
-										</div>
-								</li>
-								<li class="code-object-content-properties-property">
-									<div class="code-object">
-										<input class="code-object-state" id="exclusions" type="checkbox">
-										<label class="code-object-title" for="exclusions">"exclusions"</label>
-										<div class="code-object-content" data-ui-settings="type__array">
-											<ul class="code-object-content-properties">
-												<li class="code-object-content-properties-property">test</li>
-												<li class="code-object-content-properties-property">test</li>
-												<li class="code-object-content-properties-property">test</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-								<li class="code-object-content-properties-property">
-									<div class="code-object">
-										<input class="code-object-state" id="records" type="checkbox">
-										<label class="code-object-title" for="records">"records"</label>
-										<div class="code-object-content" data-ui-settings="type__array">
-											<ul class="code-object-content-properties">
-												<li class="code-object-content-properties-property">
-													<div class="code-object" data-ui-state="is__inArray">
-														<input class="code-object-state" id="record1" type="checkbox">
-														<label class="code-object-title" for="record1"></label>
-														<div class="code-object-content" data-ui-settings="type__object">
-															<ul class="code-object-content-properties">
-																<li class="code-object-content-properties-property">
-																	<div class="code-object">
-																		<input class="code-object-state" id="record1record" type="checkbox">
-																		<label class="code-object-title" for="record1record">"record"</label>
-																		<div class="code-object-content" data-ui-settings="type__object">
-																			<ul class="code-object-content-properties">
-																				<li class="code-object-content-properties-property">prsnId</li>
-																				<li class="code-object-content-properties-property">prsnId</li>
-																				<li class="code-object-content-properties-property">prsnId</li>
-																				<li class="code-object-content-properties-property">prsnId</li>
-																				<li class="code-object-content-properties-property">prsnId</li>
-																				<li class="code-object-content-properties-property">prsnId</li>
-																			</ul>
-																		</div>
-																	</div>
-																</li>
-																<li class="code-object-content-properties-property">
-																	<div class="code-object">
-																		<input class="code-object-state" id="record1errors" type="checkbox">
-																		<label class="code-object-title" for="record1errors">"errors"</label>
-																		<div class="code-object-content" data-ui-settings="type__array">
-																		</div>
-																	</div>
-																</li>
-															</ul>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-                <!-- CODE  ** END ** -->
-
+                <div>
+					<ul style="font-size:1rem;">
+						<li>Config</li>
+						<li>Records</li>
+						<li>Exceptions</li>
+					</ul>
+                </div>
 			</div>
 		</div>
 		<!-- left panel  ** END ** -->
@@ -133,105 +58,227 @@
 		                </button>
 		                <div class="navbar-title__default">
 		                    <div class="navbar-title-text__default" data-js="recordName">
-		                        API End Point Settings
+		                        Endpoint Setup
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="navbar-right__default">
-                        <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                            <input class="toggler-input___default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileStats">
-                            <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                    Settings
-                                </div>
-                            </div>
+                        <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small">
+                            <input class="toggler-input___default" type="radio" name="tabs__APIsetup" value="tab__APIsettings" checked>
+                            <div class="toggler-toggle__default" data-ui-label="Settings"></div>
                         </div>
-                        <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                            <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
-                            <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                    Content
-                                </div>
-                            </div>
+                        <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small">
+                            <input class="toggler-input__default" type="radio" name="tabs__APIsetup" value="tab__APIcontent">
+                            <div class="toggler-toggle__default" data-ui-label="Content"></div>
                         </div>
 		            </div>
 		        </div> 
 		        <!-- navbar  ** END ** -->  
 
-				<div class="layout__light" data-ui-settings="mount__thick padding__top-none">
+		        <!-- API SETTINGS TAB  ** START ** -->
+				<div class="layout__light" data-ui-settings="mount__thick padding__top-none" data-ui-tab="tab__APIsettings">
 					<form class="form_">
-						<div class="form-row_-">
-							<label class="form-label_">Name</label>
-							<div class="form-field_">
-								<input class="form-field-input__accent" data-ui-settings="material__paper" type="text" placeholder="name">
+						<div class="form-column_">
+							<div class="form-column-column_">
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="endpointName" required autocomplete="off" />
+								<label class="field-label_" for="endpointName" data-ui-label="Endpoint Name"></label>
+							</div>
+							<div class="form-column-column_">
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="endpointBaseURL" required autocomplete="off" />
+								<label class="field-label_" for="endpointBaseURL" data-ui-label="Base URL"></label>
 							</div>
 						</div>
-						<div class="form-row_">
-							<label class="form-label_">Base URL</label>
-							<div class="form-field_">
-								<input class="form-field-input__accent" data-ui-settings="material__paper" type="text" placeholder="URL">
+						<div class="form-column_">
+							<div class="form-column-column_">
+								<label>Queryable</label>
+								<div class="toggler__default" data-ui-settings="mode__switch size__small">
+									<input class="toggler-input___default" type="checkbox" checked="">
+									<div class="toggler-toggle__default"></div>
+								</div>
+							</div>
+							<div class="form-column-column_">
+								<label>Related To</label>
+								<select>
+									<option>Option 1</option>
+								</select>
 							</div>
 						</div>
-						<div class="form-row_">
-							<label class="form-label_">Queryable</label>
-							<div style="flex : 3; display: flex;">
-                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                                    <input class="toggler-input___default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileStats">
-                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            True
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
-                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            False
-                                        </div>
-                                    </div>
-                                </div>
+						<div class="form-title_">Methods</div>
+						<div style="flex : 3; display: flex;">
+                            <div class="toggler__default" data-ui-settings="mode__segmentcontrol fill__space size__small">
+                                <input class="toggler-input___default" type="radio" name="tabs__APImethods" value="tab__GETmethod" checked>
+                                <div class="toggler-toggle__default" data-ui-label="GET"></div>
                             </div>
-						</div>
-						<div class="form-row_">
-							<label class="form-label_">Methods</label>
-							<div style="flex : 3; display: flex;">
-                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                                    <input class="toggler-input___default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__fileStats">
-                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            GET
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
-                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            POST
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
-                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            PUT
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="toggler__default" data-ui-settings="mode__segmentcontrol size__small" style="flex:1;">
-                                    <input class="toggler-input__default" data-ui-settings="mode__segmentcontrol size__small" type="radio" name="tabs__fileSummary" value="tab__sendFile">
-                                    <div class="toggler-toggle__default" data-ui-settings="mode__segmentcontrol size__small">
-                                        <div class="toggler-toggle-indicator__default" data-ui-settings="mode__segmentcontrol size__small">
-                                            DELETE
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="toggler__default" data-ui-settings="mode__segmentcontrol fill__space size__small">
+                                <input class="toggler-input__default" type="radio" name="tabs__APImethods" value="tab__POSTmethod">
+                                <div class="toggler-toggle__default" data-ui-label="POST"></div>
                             </div>
+                            <div class="toggler__default" data-ui-settings="mode__segmentcontrol fill__space size__small">
+                                <input class="toggler-input__default" type="radio" name="tabs__APImethods" value="tab__PUTmethod">
+                                <div class="toggler-toggle__default" data-ui-label="PUT"></div>
+                            </div>
+                            <div class="toggler__default" data-ui-settings="mode__segmentcontrol fill__space size__small">
+                                <input class="toggler-input__default" type="radio" name="tabs__APImethods" value="tab__DELETEmethod">
+                                <div class="toggler-toggle__default" data-ui-label="DELETE"></div>
+                            </div>
+                        </div>
+
+                        <!-- GET METHOD TAB  ** START ** -->
+						<div class="form-column_" data-ui-tab="tab__GETmethod">
+							<div class="form-column-column_">
+								<input class="field_" data-ui-settings="label__float" type="text" name="" id="GET_extention" required />
+								<label class="field-label_" for="GET_extention" data-ui-label="Endpoint Extension"></label>
+							</div>
+							<div class="form-column-column_">
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="GET_URL_suffix" required />
+								<label class="field-label_" for="GET_URL_suffix" data-ui-label="URL Suffix"></label>
+							</div>
+							<div class="form-column-column_">
+								<input class="field_" data-ui-settings="label__float" data-ui-label="text" name="name" id="GET_lookup_attribute" required autocomplete="off" />
+								<label class="field-label_" for="GET_lookup_attribute" data-ui-label="Lookup Attribute"></label>
+							</div>
 						</div>
+						<!-- GET METHOD TAB  ** FINISH ** -->
+
+						<!-- POST METHOD TAB  ** START ** -->
+						<div data-ui-tab="tab__POSTmethod" data-ui-state="is__hidden">
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="" id="POST_extention" required />
+								<label class="field-label_" for="POST_extention" data-ui-label="Endpoint Extension"></label>
+							</div>
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="POST_URL_suffix" required />
+								<label class="field-label_" for="POST_URL_suffix" data-ui-label="URL Suffix"></label>
+							</div>
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="POST_lookup_attribute" required autocomplete="off" />
+								<label class="field-label_" for="POST_lookup_attribute" data-ui-label="Lookup Attribute"></label>
+							</div>
+						</div>
+						<!-- POST METHOD TAB  ** FINISH ** -->
+
+						<!-- PUT METHOD TAB  ** START ** -->
+						<div data-ui-tab="tab__PUTmethod" data-ui-state="is__hidden">
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="" id="PUT_extention" required />
+								<label class="field-label_" for="PUT_extention" data-ui-label="Endpoint Extension"></label>
+							</div>
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="PUT_URL_suffix" required />
+								<label class="field-label_" for="PUT_URL_suffix" data-ui-label="URL Suffix"></label>
+							</div>
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="PUT_lookup_attribute" required autocomplete="off" />
+								<label class="field-label_" for="PUT_lookup_attribute" data-ui-label="Lookup Attribute"></label>
+							</div>
+						</div>
+						<!-- PUT METHOD TAB  ** FINISH ** -->
+
+						<!-- DELETE METHOD TAB  ** START ** -->
+						<div data-ui-tab="tab__DELETEmethod" data-ui-state="is__hidden">
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="" id="DELETE_extention" required />
+								<label class="field-label_" for="DELETE_extention" data-ui-label="Endpoint Extension"></label>
+							</div>
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="DELETE_URL_suffix" required />
+								<label class="field-label_" for="DELETE_URL_suffix" data-ui-label="URL Suffix"></label>
+							</div>
+							<div>
+								<input class="field_" data-ui-settings="label__float" type="text" name="name" id="DELETE_lookup_attribute" required autocomplete="off" />
+								<label class="field-label_" for="DELETE_lookup_attribute" data-ui-label="Lookup Attribute"></label>
+							</div>
+						</div>
+						<!-- DELETE METHOD TAB  ** FINISH ** -->
 					</form>
 				</div>  
+				<!-- API SETTINGS TAB  ** END ** -->
+
+				<!-- API CONTENT TAB  ** START ** -->
+				<div class="layout__light" data-ui-settings="mount__thick padding__top-none" data-ui-state="is__hidden" data-ui-tab="tab__APIcontent">
+					<!-- CODE  ** START ** -->
+					<div class="code_" data-ui-settings="mount__thick padding__top-none">
+						<div class="code-object">
+							<input class="code-object-state" id="tester" type="checkbox" checked="true">
+							<label class="code-object-header" for="tester">Records End</label>
+							<div class="code-object-content">
+								<ul class="code-object-content-properties">
+									<li class="code-object-content-properties-property">
+										<div class="code-object">
+											<input class="code-object-state" id="config" type="checkbox">
+											<label class="code-object-title" for="config">"config"</label>
+											<div class="code-object-content" data-ui-settings="type__object">
+												<ul class="code-object-content-properties">
+													<li class="code-object-content-properties-property">test</li>
+													<li class="code-object-content-properties-property">test</li>
+													<li class="code-object-content-properties-property">test</li>
+												</ul>
+											</div>
+									</li>
+									<li class="code-object-content-properties-property">
+										<div class="code-object">
+											<input class="code-object-state" id="exclusions" type="checkbox">
+											<label class="code-object-title" for="exclusions">"exclusions"</label>
+											<div class="code-object-content" data-ui-settings="type__array">
+												<ul class="code-object-content-properties">
+													<li class="code-object-content-properties-property">test</li>
+													<li class="code-object-content-properties-property">test</li>
+													<li class="code-object-content-properties-property">test</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="code-object-content-properties-property">
+										<div class="code-object">
+											<input class="code-object-state" id="records" type="checkbox">
+											<label class="code-object-title" for="records">"records"</label>
+											<div class="code-object-content" data-ui-settings="type__array">
+												<ul class="code-object-content-properties">
+													<li class="code-object-content-properties-property">
+														<div class="code-object" data-ui-state="is__inArray">
+															<input class="code-object-state" id="record1" type="checkbox">
+															<label class="code-object-title" for="record1"></label>
+															<div class="code-object-content" data-ui-settings="type__object">
+																<ul class="code-object-content-properties">
+																	<li class="code-object-content-properties-property">
+																		<div class="code-object">
+																			<input class="code-object-state" id="record1record" type="checkbox">
+																			<label class="code-object-title" for="record1record">"record"</label>
+																			<div class="code-object-content" data-ui-settings="type__object">
+																				<ul class="code-object-content-properties">
+																					<li class="code-object-content-properties-property">prsnId</li>
+																					<li class="code-object-content-properties-property">prsnId</li>
+																					<li class="code-object-content-properties-property">prsnId</li>
+																					<li class="code-object-content-properties-property">prsnId</li>
+																					<li class="code-object-content-properties-property">prsnId</li>
+																					<li class="code-object-content-properties-property">prsnId</li>
+																				</ul>
+																			</div>
+																		</div>
+																	</li>
+																	<li class="code-object-content-properties-property">
+																		<div class="code-object">
+																			<input class="code-object-state" id="record1errors" type="checkbox">
+																			<label class="code-object-title" for="record1errors">"errors"</label>
+																			<div class="code-object-content" data-ui-settings="type__array">
+																			</div>
+																		</div>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- CODE  ** END ** -->
+				</div>
+				<!-- API CONTENT TAB  ** FINISH ** -->
 		    </div>
 		</div>
 		<!-- right panel  ** END ** -->
@@ -239,7 +286,7 @@
 	</div>
 </div>
 
-
+<script src="/static/js/UI.js"></script>
 
 </body>
 </html>

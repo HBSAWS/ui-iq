@@ -1,16 +1,43 @@
 [class^="form_"] {
-	display     : flex;
-	flex-wrap   : wrap;
-	font-size   : 1rem;
-	font-weight : 300;
+	display        : flex;
+	flex-direction : column;
+	flex-wrap      : wrap;
+	font-size      : 1rem;
+	font-weight    : 300;
 }
+	[class^="form-column_"] {
+		display         : flex;
+		flex-direction  : row;
+		align-items     : flex-end;
+		justify-content : space-around;
+		flex-wrap       : wrap;
+		[class^="form-column-column_"] {
+			flex : 1 100%;
+			@include gridle_state(laptop) {
+				flex : 1 50%;
+				&:nth-child(even) {
+					padding-left : 10px;
+				}
+			}
+		}
+	}
 	[class^="form-row_"] {
 		display    : flex;
 		flex       : 1 100%;
 		margin-top : 8px;
 	}
+	[class^="form-title_"] {
+		padding     : 12px 0px 6px 0px;
+		font-size   : 1rem;
+		font-weight : 300;
+		color       : #151515;
+	}
 	[class^="form-label_"] {
-		flex : 1;
+		display     : block;
+		padding     : 7px 0px 3px 0px;
+		font-size   : 0.7rem;
+		font-weight : 400;
+		color       : #8F8F8F;
 	}
 	[class^="form-field_"] {
 		flex : 3;
