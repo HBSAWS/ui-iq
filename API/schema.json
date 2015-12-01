@@ -247,7 +247,7 @@
 					"ext" : ".json"
 				},
 				"post" : {
-					"URL_SUFFIX"      : "/create"
+					"URL_SUFFIX" : "/create"
 				},
 				"put" : {
 					"URL_SUFFIX" : "/update",

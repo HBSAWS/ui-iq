@@ -114,16 +114,16 @@ br {
 
 	&[class*="_bold"] {
 		&[data-ui-settings~="material__paper"] {
-			background : $color_bold_background;
-			color      : $color_bold_text;
+			background : $color_primary_background;
+			color      : $color_primary_text;
 		}
 		&[data-ui-settings~="material__film"] {
-			background : rgba($color_bold_background, 0.96);
-			color      : $color_bold_text;
+			background : rgba($color_primary_background, 0.96);
+			color      : $color_primary_text;
 		}
 		&[data-ui-settings~="material__transparency"] {
 			background : transparent;
-			color      : $color_bold_text;
+			color      : $color_primary_text;
 		}
 
 

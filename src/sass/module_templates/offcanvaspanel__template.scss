@@ -63,7 +63,7 @@
 		left  : 0px;
 	}
 	&[data-ui-settings~="layout__constrained"] {
-		z-index : 2;
+		z-index : 12;
 
 		@include gridle(12, mobile);
 		@include gridle_state( phablet ) {
@@ -71,10 +71,10 @@
 		}
 	}
 	&[data-ui-settings~="layout__responsive"] {
-		z-index : 10;
+		z-index : 12;
 		@include gridle(12, mobile);
 		@include gridle(9, phablet);
-		@include gridle(6, tablet);
+		@include gridle(7, tablet);
 		@include gridle(5, laptop);
 		@include gridle(4, desktop);
 

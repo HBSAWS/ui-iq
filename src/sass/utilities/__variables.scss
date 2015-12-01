@@ -11,24 +11,30 @@ $color__dark    : #36393e;
 $color__offset  : #eee;
 $color__light   : #fff;
 
-$color_loud_background      : #4cc1bc;
-$color_loud_text            : #ffffff;
+// bold
+$color_primary_background   : #4cc1bc;// primary
+$color_primary_text         : #ffffff;// white
 
-$color_bold_background      : #36393e;
-$color_bold_text            : #ffffff;
+// dark
+$color_dark_background      : #36393e;// dark
+$color_dark_text            : #ffffff;// white
 
-$color_default_background   : #ffffff;
-$color_default_text         : #151515;
+// default
+$color_default_background   : #ffffff;// white
+$color_default_text         : #151515;// dark grey
 
-$color_mute_background      : #ffffff;
-$color_mute_text            : #c0c0c0;
+// mute
+$color_mute_background      : #ffffff;// white
+$color_mute_text            : #c0c0c0;// light grey
 
-$color_highlight_background : #ffffff;
-$color_highlight_text       : #4cc1bc;
+// highlight
+$color_highlight_background : #ffffff;// white
+$color_highlight_text       : #4cc1bc;// primary
 
-$color_accent_background    : #ebeaea;
-$color_accent_text          : #151515;
-$color_accent_placeholder   : #A9A9A9;
+// accent
+$color_accent_background    : #ebeaea;// light grey
+$color_accent_text          : #151515;// dark grey
+$color_accent_placeholder   : #A9A9A9;// medium grey
 
 
 

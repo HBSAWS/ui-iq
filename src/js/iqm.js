@@ -686,7 +686,7 @@
 				}
 			});
 
-			errorFilters = document.querySelectorAll("[data-js~='tableFilter'][value='has__error'");
+			errorFilters = document.querySelectorAll("[data-js~='tableFilter'][value='has__error']");
 			filterErrors = function(tableName) {
 				var table,errorsAreFiltered,filterMethod,checkedStatus;
 				table = tables[tableName].UI;
@@ -1255,6 +1255,11 @@
 		},
 		setupUI : function() {
 			// APPLY ALL OF THE UI PLUGINS
+			var uagent = navigator.userAgent.toLowerCase();
+			if(/safari/.test(uagent) && !/chrome/.test(uagent))
+			{
+			    document.querySelector(".nav__app").style.top = 50 + "px";
+			}
 
 			actionsheets.archiveFiles.init();
 

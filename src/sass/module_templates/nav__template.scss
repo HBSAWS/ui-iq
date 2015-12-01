@@ -42,10 +42,10 @@ $darkSurface   : darken( $lightSurface, 20% );
 	}
 	&[data-ui-settings~="mount__thick"] {
 		@include gridle_state(mobile) {
-			padding : 25px 35px 28px 35px;
+			padding : 20px 35px 20px 35px;
 		}
 		@include gridle_state(tablet) {
-			padding : 30px 40px;
+			padding : 30px 35px;
 		}
 	}
 
@@ -129,7 +129,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 		display         : flex;
 		align-items     : center;
 		justify-content : center;
-		padding         : 8px 17px 8px 0px;
+		padding         : 8px 12px 8px 0px;
 		border          : 0px;
 		outline         : none;
 		cursor          : pointer;
@@ -155,7 +155,6 @@ $darkSurface   : darken( $lightSurface, 20% );
 	}
 		[class^="navbar-back-icon_"] {
 			position    : relative;
-			top   	    : -1px;
 			font-size   : 1rem;
 			line-height : 1rem;			
 			@include gridle_state(mobile) {
@@ -187,6 +186,7 @@ $darkSurface   : darken( $lightSurface, 20% );
 	[class^="navbar-title_"] {
 		display     : flex;
 		align-items : center;
+		@include prefix(transform, translateY(-1px));
 
 		&[class$="_appsuite"] {
 			@include gridle_state(mobile) {
@@ -250,12 +250,12 @@ $darkSurface   : darken( $lightSurface, 20% );
 				max-width     : 150px;
 			}
 			@include gridle_state(mobile) {
-				font-size     : 1.3rem;
-				line-height   : 1.3rem;
+				font-size     : 1.2rem;
+				line-height   : 1.2rem;
 			}
 			@include gridle_state(tablet) {
-				font-size   : 1.6rem;
-				line-height : 1.6rem;
+				font-size   : 1.32rem;
+				line-height : 1.32rem;
 			}
 
 			&[class$="_HBS"] {

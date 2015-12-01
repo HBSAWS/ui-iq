@@ -1,133 +1,126 @@
-[class^="code_"] {
-    position : relative;
-    display  : inline-block;
-    width    : 100%;
-    padding  : 10px 0px 0px 25px;
-    font-weight : 300;
-    color    : #404040;
+.code {
+    position     : relative;
+    padding-left : 20px;
+    font-size    : 0.8rem;
+    border-left  : 1px dotted lightgrey;
+    &:before {
+        content : "{";
+    }
+    &:after {
+        content : "}";
+    }
 }
     .code-object {
-        padding-left : 14px;
-        &[data-ui-state~="is__inArray"] {
-            > .code-object-title {
+        &[data-ui-settings~="type__array"] {
+            > .code-object-name {
                 &:after {
-                    display : none;
+                    content  : " : \00a0 [";
                 }
             }
-            > .code-object-state {
-                &:checked {
-                    ~ .code-object-content {
-                        display : inline-block;
-                    }
+            > .code-object-content {
+                &:after {
+                    content      : "]";
+                }
+            }
+        }
+        &[data-ui-settings~="type__object"] {
+            > .code-object-name {
+                &:after {
+                    content  : " : \00a0 {";
+                }
+            }
+            > .code-object-content {
+                &:after {
+                    content      : "}";
                 }
             }
         }
     }
-        .code-object-state {
-            display : none;
-
-            ~ .code-object-content {
-                > .code-object-content-properties {
-                    display : none;
-                }
-            }
-            &:checked {
-                ~ .code-object-title,~ .code-object-header {
-                    &:before {
-                        @include prefix( transform, rotate(90deg) );
-                    }
-                }
-                ~ .code-object-content {
-                    display     : block;
-                    border-left : 1px dotted lightgrey;
-                    > .code-object-content-properties {
-                        display : block;
-                    }
-                }
-            }
-        }
-        .code-object-header {
-            position    : relative;
-            font-size   : 1.2rem;
-            line-height : 1.7rem; 
-            cursor      : pointer;
-            &:before {
-                content      : "\25B6";
-                position     : absolute;
-                display      : inline-block;
-                left         : -14px;
-                font-size    : 0.55rem;
-                margin-right : 8px;
-                color        : lightgrey;
-
-                @include prefix( transition, transform 0.25s );
-            } 
-            &:after {
-                content      : ":";
-                position     : relative;
-                display      : inline-block;
-                margin-left  : 5px;
-            }
-        }
-        .code-object-title {
-            position    : relative;
-            font-weight : 300;
-            font-size   : 1rem;
-            line-height : 1.4rem;
-            cursor   : pointer;
-            &:before {
-                content      : "\25B6";
-                position     : absolute;
-                display      : inline-block;
-                left         : -14px;
-                margin-right : 8px;
-                padding-top  : 2px;
-                font-size    : 0.55rem;
-                color        : lightgrey;
-
-                @include prefix( transition, transform 0.25s );
-            } 
-            &:after {
-                content      : ":";
-                position     : relative;
-                display      : inline-block;
-                margin-left  : 5px;
-            }
-        }
-        .code-object-content {
+    .code-object-toggler {
+        position  : relative;
+        font-size : 0.8rem;
+        cursor    : pointer;
+        &:before {
+            content      : "\25B6";
+            position     : relative;
             display      : inline-block;
-            padding-left : 6px;
+            font-size    : 0.55rem;
+            margin       : 0px 4px 0px 6px;
+            color        : lightgrey;
 
-            &:before,&:after {
-                display     : inline-block;
-                font-size   : 0.8rem;
-                line-height : 1.5rem;
+            @include prefix( transition, transform 0.25s );
+        } 
+    }
+    .code-object-input {
+        display : none;
+        ~ .code-object-toggler {
+            &:before {
+                @include prefix(transform, rotate(0deg));
             }
-            &[data-ui-settings~="type__array"] {
+        }
+        ~ .code-object-content {
+            display : inline;
+            margin  : 0px;
+            padding : 0px;
+            border  : 0px;
+            > .code-object-content-item {
+                display : none;
+            }
+            &:after {
+                display      : inline-block;
+                padding-left : 0px;
+            }
+        }
+        &:checked {
+            ~ .code-object-toggler {
                 &:before {
-                    content : "[";
+                    @include prefix(transform, rotate(90deg));
+                }
+            }
+            ~ .code-object-content {
+                display      : block;
+                border-left  : 1px dotted lightgrey;
+                margin       : 10px 0px 10px 15px;
+                padding      : 5px 0px 0px 0px;
+                > .code-object-content-item {
+                    display : block;
                 }
                 &:after {
-                    content : "]";
-                }
-            }
-            &[data-ui-settings~="type__object"] {
-                &:before {
-                    content : "{";
-                }
-                &:after {
-                    content : "}";
+                    display      : block;
+                    padding-left : 5px;
                 }
             }
         }
-            .code-object-content-properties {
-                display      : inline-block;
-                margin       : 0px;
-                padding-left : 20px;
-                list-style   : none;
-                font-weight  : 300;
-                font-size    : 1rem;
-                line-height  : 1.4rem;
-            }
-                .code-object-content-properties-property {
+    }
+    .code-object-name {
+        font-size : 0.8rem;
+        color     : #4cc1bc;
+        cursor    : pointer;
+        &:after {
+            position : relative;
+            color    : #151515;
+        }
+    }
+    .code-object-content {
+        list-style   : none;
+
+        &:after {
+            position     : relative;
+            font-size    : 0.8rem;
+        }
+    }
+        .code-object-content-item {
+            &:first-child {
+                padding-left : 10px;
+                > div {
+                    margin-right : 5px;
                 }
+            }
+            &:nth-child(2) {
+                margin-top : 15px;
+            }
+            &:last-child {
+                margin-bottom : 5px;
+            }
+            padding-left : 20px;
+        }

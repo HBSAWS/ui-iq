@@ -57,7 +57,7 @@
 
 	.fader {
 		position   : absolute;
-		z-index    : 111111;
+		z-index    : 10;
 		top        : 0px;
 		left       : 0px;
 		width      : 100%;
@@ -96,7 +96,6 @@
 	}
 	&[data-ui-state~="scale__up"] {
 		@include prefix(transform, translateZ(-12px) scale(1.2));
-		//@include prefix(transform, translateZ(-12px) scale(1.2));
 	}
 
 
