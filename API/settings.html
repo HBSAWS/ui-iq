@@ -14,7 +14,7 @@
    	<div class="layout" data-ui-settings="overflow__hidden perspective__moderate height__parent" data-js="appHuver">
 
     	<!-- left panel  ** START ** -->
-        <div class="offcanvaspanel_" data-ui-settings="popIn__desktop side__left layout__responsive">
+        <div class="offcanvaspanel_" data-ui-settings="popIn__desktop side__left layout__responsive" style="display:none;">
             <div class="offcanvaspanel-content__default" data-ui-settings="material__film depth__low">
                 <div class="fader"></div>
 				<div class="navbar_" data-ui-settings="mount__thick">
@@ -215,84 +215,153 @@
 				<!-- API CONTENT TAB  ** START ** -->
 				<div class="layout__light" data-ui-settings="mount__thick padding__top-none" data-ui-state="is__hidden" data-ui-tab="tab__APIcontent">
 					<!-- CODE  ** START ** -->
-					<div class="code">
-						<div class="code-object" data-ui-settings="type__array">
-							<input class="code-object-input" id="records" type="checkbox" />
-							<label class="code-object-toggler" for="records"></label>
-							<span class="code-object-name">"name"</span>
-							<span class="code-object-amount"></span>
-							<ul class="code-object-content">
-								<li class="code-object-content-item">
-									<div class="dropdown__accent">
-										<select class="dropdown-select__accent">
-											<option value="">type</option>
-											<option value="array">array</option>
-											<option value="object">object</option>
-										</select>
-									</div>
-									<div class="dropdown__accent">
-										<select class="dropdown-select__accent">
-											<option value="">options</option>
-											<optgroup label="ADD">
+					<ul class="code" data-js="schemaContent">
+						<li class="code-object-content-item">
+							<div class="code-options">
+								<select class="code-options-list" data-js="objectOptions">
+									<option value="">options</option>
+									<optgroup label="ADD">
+										<option value="array">array</option>
+										<option value="object">object</option>
+										<option value="generated field">field: generated</option>
+										<option value="sampled field">field: sampled</option>
+										<option value="custom field">field: custom</option>
+								</select>
+							</div>
+						</li>
+						<li class="code-object-content-item">
+							<div class="code-object" data-ui-settings="type__array">
+								<input class="code-object-input" id="records" type="checkbox" checked />
+								<label class="code-object-toggler" for="records"></label>
+								<span class="code-object-name" contenteditable="true">"name"</span>
+								<span class="code-object-amount" contenteditable="true">1800</span>
+								<ul class="code-object-content">
+									<li class="code-object-content-item">
+										<div class="code-options">
+											<select class="code-options-list" data-js="objectType">
+												<option value="">type</option>
 												<option value="array">array</option>
 												<option value="object">object</option>
-												<option value="generated field">field: generated</option>
-												<option value="sampled field">field: sampled</option>
-												<option value="custom field">field: custom</option>
-												<option value="string">string</option>
-												<option value="number">number</option>
-											<optgroup label="Other">
-												<option value="number">DELETE</option>
-										</select>
-									</div>
-								</li>
-								<li class="code-object-content-item">
-									<div class="code-object" data-ui-settings="type__array">
-										<input class="code-object-input" id="records-1" type="checkbox" />
-										<label class="code-object-toggler" for="records-1"></label>
-										<span class="code-object-name">"name"</span>
-										<span class="code-object-amount"></span>
-										<ul class="code-object-content">
-											<li class="code-object-content-item">
-												<div class="dropdown__accent">
-													<select class="dropdown-select__accent">
-														<option value="">type</option>
-													</select>
-												</div>
-												<div class="dropdown__accent">
-													<select class="dropdown-select__accent">
-														<option value="">options</option>
-													</select>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</li>
-								<li class="code-object-content-item">
-									<div class="code-object" data-ui-settings="type__object">
-										<input class="code-object-input" id="records-2" type="checkbox" />
-										<label class="code-object-toggler" for="records-2"></label>
-										<span class="code-object-name">"name"</span>
-										<span class="code-object-amount"></span>
-										<ul class="code-object-content">
-											<li class="code-object-content-item">
-												<div class="dropdown__accent">
-													<select class="dropdown-select__accent">
-														<option value="">type</option>
-													</select>
-												</div>
-												<div class="dropdown__accent">
-													<select class="dropdown-select__accent">
-														<option value="">options</option>
-													</select>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
+											</select>
+										</div>
+										<div class="code-options">
+											<select class="code-options-list" data-js="objectOptions">
+												<option value="">options</option>
+												<optgroup label="ADD">
+													<option value="array">array</option>
+													<option value="object">object</option>
+													<option value="generated field">field: generated</option>
+													<option value="sampled field">field: sampled</option>
+													<option value="custom field">field: custom</option>
+													<option value="string">string</option>
+													<option value="number">number</option>
+												<optgroup label="Other">
+													<option value="delete">delete</option>
+													<option value="number">create template</option>
+											</select>
+										</div>
+									</li>
+									<li class="code-object-content-item">
+										<div class="code-object" data-ui-settings="type__array">
+											<input class="code-object-input" id="records-1" type="checkbox" checked />
+											<label class="code-object-toggler" for="records-1"></label>
+											<span class="code-object-name">"name"</span>
+											<span class="code-object-amount"></span>
+											<ul class="code-object-content">
+												<li class="code-object-content-item">
+													<div class="code-options">
+														<select class="code-options-list" data-js="objectType">
+															<option value="">type</option>
+															<option value="array">array</option>
+															<option value="object">object</option>
+														</select>
+													</div>
+													<div class="code-options">
+														<select class="code-options-list" data-js="objectOptions">
+															<option value="">options</option>
+															<optgroup label="ADD">
+																<option value="array">array</option>
+																<option value="object">object</option>
+																<option value="generated field">field: generated</option>
+																<option value="sampled field">field: sampled</option>
+																<option value="custom field">field: custom</option>
+																<option value="string">string</option>
+																<option value="number">number</option>
+															<optgroup label="Other">
+																<option value="delete">delete</option>
+																<option value="number">create template</option>
+														</select>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="code-object-content-item">
+										<div class="code-object" data-ui-settings="type__object">
+											<input class="code-object-input" id="records-2" type="checkbox" checked />
+											<label class="code-object-toggler" for="records-2"></label>
+											<span class="code-object-name">"name"</span>
+											<span class="code-object-amount"></span>
+											<ul class="code-object-content">
+												<li class="code-object-content-item">
+													<div class="code-options">
+														<select class="code-options-list" data-js="objectType">
+															<option value="">type</option>
+															<option value="array">array</option>
+															<option value="object">object</option>
+														</select>
+													</div>
+													<div class="code-options">
+														<select class="code-options-list" data-js="objectOptions">
+															<option value="">options</option>
+															<optgroup label="ADD">
+																<option value="array">array</option>
+																<option value="object">object</option>
+																<option value="generated field">field: generated</option>
+																<option value="sampled field">field: sampled</option>
+																<option value="custom field">field: custom</option>
+																<option value="string">string</option>
+																<option value="number">number</option>
+															<optgroup label="Other">
+																<option value="delete">delete</option>
+																<option value="number">create template</option>
+														</select>
+													</div>
+												</li>
+												<li class="code-object-content-item">
+													<span class="code-key">generated key/value</span>
+													<span class="code-value">
+														<div class="code-options">
+															<select class="code-options-list" data-js="generatedValue">
+																<option value="">generated values</option>
+															</select>
+														</div>
+													</span>
+													<span class="code-remove" data-js="removeItem"></span>
+												</li>
+												<li class="code-object-content-item">
+													<span class="code-key">custom key</span>
+													<span class="code-value">
+														<div class="code-options">
+															<select class="code-options-list" data-js="objectOptions">
+																<option value="">sammpled values</option>
+															</select>
+														</div>
+													</span>
+													<span class="code-remove" data-js="removeItem"></span>
+												</li>
+												<li class="code-object-content-item">
+													<span class="code-key">custom key</span>
+													<span class="code-value">custom value</span>
+													<span class="code-remove" data-js="removeItem"></span>
+												</li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
 					<!-- CODE  ** END ** -->
 				</div>
 				<!-- API CONTENT TAB  ** FINISH ** -->
@@ -304,6 +373,9 @@
 </div>
 
 <script src="/static/js/UI.js"></script>
+<script type="text/javascript">
+	UI.APIschema(document.querySelector("[data-js~='schemaContent'"));
+</script>
 
 </body>
 </html>

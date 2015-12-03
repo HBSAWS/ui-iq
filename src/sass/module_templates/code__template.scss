@@ -1,16 +1,102 @@
 .code {
     position     : relative;
-    padding-left : 20px;
+    margin       : 0px;
+    padding-left : 0px;
+    list-style   : none; 
     font-size    : 0.8rem;
     border-left  : 1px dotted lightgrey;
     &:before {
-        content : "{";
+        content  : "{";
+        position : relative;
+        display  : block;
+        left     : 5px;
     }
     &:after {
-        content : "}";
+        content  : "}";
+        position : relative;
+        left     : 5px;
+    }
+    > .code-object-content-item {
+        &:first-child {
+            margin : 10px 0px 0px 0px;
+        }
     }
 }
+    .code-options {
+        position  : relative;
+        display   : inline-block;
+        max-width : 100%;
+        @include prefix(border-radius, 3px);
+        background-color : #F3F3F3;
+        &:first-child {
+            margin-right: 5px;
+        }
+        &:after {
+            content      : " ";
+            position     : absolute;
+            top          : 50%;
+            right        : 7px;
+            width        : 0;
+            height       : 0;
+            margin-top   : -2px;
+            border-left  : 3px solid transparent;
+            border-right : 3px solid transparent;
+            border-top   : 4px solid #aaa;  
+        }
+    }
+        .code-options-list {
+            width       : 100%;
+            padding     : 5px 20px 6px 10px;
+            font-size   : 0.65rem;
+            line-height : 0.8rem;
+            font-weight : 400;
+            font-family : "Open Sans", sans-serif;
+            border      : none;
+            cursor      : pointer;
+            outline     : none;
+            @include prefix(appearance, none);
+            background-color : transparent;
+            color            : #ABABAB;
+        }
+    .code-key {
+        flex      : 1;
+        font-size : 0.8rem;
+        cursor    : text;
+        outline   : none;
+        color     : #4cc1bc;
+    }
+    .code-value {
+        width   : 50%;
+        cursor  : text;
+        outline : none;
+        color   : #ABABAB;
+
+        &:before {
+            content : " \00a0 : \00a0 ";
+            color   : #151515;
+        }
+        &:after {
+            content : ",";
+            color   : #151515;
+        }
+        > .code-options {
+            margin-right : 0px;
+        }
+    }
+    .code-remove {
+        &:before {
+            content        : '\e803';
+            font-family    : "HBS-modern";
+            font-size      : 0.4rem;
+            line-height    : 0.6rem;
+            color          : #DADADA;
+            vertical-align : middle;
+            padding-left   : 5px;
+            cursor         : pointer;
+        }
+    }
     .code-object {
+        min-width : 350px;
         &[data-ui-settings~="type__array"] {
             > .code-object-name {
                 &:after {
@@ -19,7 +105,7 @@
             }
             > .code-object-content {
                 &:after {
-                    content      : "]";
+                    content      : "],";
                 }
             }
         }
@@ -31,7 +117,7 @@
             }
             > .code-object-content {
                 &:after {
-                    content      : "}";
+                    content      : "},";
                 }
             }
         }
@@ -41,10 +127,11 @@
         font-size : 0.8rem;
         cursor    : pointer;
         &:before {
-            content      : "\25B6";
+            content      : "\e814";
+            font-family  : "hbs-modern";
             position     : relative;
             display      : inline-block;
-            font-size    : 0.55rem;
+            font-size    : 0.65rem;
             margin       : 0px 4px 0px 6px;
             color        : lightgrey;
 
@@ -55,7 +142,7 @@
         display : none;
         ~ .code-object-toggler {
             &:before {
-                @include prefix(transform, rotate(0deg));
+                @include prefix(transform, rotate(-90deg));
             }
         }
         ~ .code-object-content {
@@ -74,16 +161,18 @@
         &:checked {
             ~ .code-object-toggler {
                 &:before {
-                    @include prefix(transform, rotate(90deg));
+                    @include prefix(transform, rotate(0deg) translateY(-2px));
                 }
             }
             ~ .code-object-content {
                 display      : block;
+                width        : 100%;
                 border-left  : 1px dotted lightgrey;
                 margin       : 10px 0px 10px 15px;
                 padding      : 5px 0px 0px 0px;
                 > .code-object-content-item {
-                    display : block;
+                    display     : flex;
+                    align-items : center;
                 }
                 &:after {
                     display      : block;
@@ -95,10 +184,30 @@
     .code-object-name {
         font-size : 0.8rem;
         color     : #4cc1bc;
-        cursor    : pointer;
+        cursor    : text;
+        outline   : none;
         &:after {
             position : relative;
             color    : #151515;
+        }
+    }
+    .code-object-amount {
+        padding     : 4px 10px 4px 8px;
+        font-size   : 0.6rem;
+        margin      : 0px 15px;
+        line-height : 0.65rem;
+        font-weight : 400;
+        font-family : "Open Sans", sans-serif;
+        border      : none;
+        cursor      : text;
+        outline     : none;
+        background  : #2D90E4;
+        color       : white;
+        @include prefix(border-radius, 4px);
+
+        &:empty {
+            padding : 0px;
+            margin  : 0px;
         }
     }
     .code-object-content {
@@ -111,6 +220,7 @@
     }
         .code-object-content-item {
             &:first-child {
+                margin-top   : 0px;
                 padding-left : 10px;
                 > div {
                     margin-right : 5px;
@@ -119,8 +229,30 @@
             &:nth-child(2) {
                 margin-top : 15px;
             }
+            margin-top : 10px;
             &:last-child {
                 margin-bottom : 5px;
+                > .code-object {
+                    &[data-ui-settings~="type__array"] {
+                        > .code-object-content {
+                            &:after {
+                                content : "]";
+                            }
+                        }
+                    }
+                    &[data-ui-settings~="type__object"] {
+                        > .code-object-content {
+                            &:after {
+                                content : "}";
+                            }
+                        }
+                    }
+                }
+                > .code-value {
+                    &:after {
+                        content : "";
+                    }
+                }
             }
             padding-left : 20px;
         }

@@ -5,6 +5,9 @@ UI = {
 	animate   : function(DOMelement,settings) {
 		new UI_animate(DOMelement,settings);
 	},
+	APIschema : function(DOMelement) {
+		return new UI_APIschema(DOMelement);
+	},
 	collection : function(items,activeItem) {
 		return new UI_collection(items,activeItem);
 	},
