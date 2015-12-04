@@ -58,12 +58,14 @@ UI_APIschema.prototype.initialize = function() {
 				toUpdateHTML = __self.createFieldHTML("sample");
 			} else if ( toUpdate === "custom field" ) {
 				toUpdateHTML = __self.createFieldHTML("custom");
+			} else if ( toUpdate === "single value" ) {
+				toUpdateHTML = __self.createValueHTML();
 			}
 		}
 
 		toUpdateIn.insertAdjacentHTML( "beforeend", toUpdateHTML );
-		toUpdateIn.querySelector('.code-object-content-item:last-child').querySelector('[data-js~="objectOptions"]').addEventListener("change", updateContentItem);
 		select.options[0].selected = true;
+		toUpdateIn.lastElementChild.querySelector('[data-js~="objectOptions"]').addEventListener("change", updateContentItem);
 	};
 
 
@@ -106,7 +108,7 @@ UI_APIschema.prototype.createObjectHTML = function (objectType) {
 					'<div class="code-object" data-ui-settings="type__' + objectType + '">' +
 					'<input class="code-object-input" id="records" type="checkbox" checked="">' +
 					'<label class="code-object-toggler" for="records"></label>' +
-					'<span class="code-object-name" contenteditable="true">"name"</span>' +
+					'<span class="code-object-name" contenteditable="true"></span>' +
 					((objectType === "array") ? '<span class="code-object-amount" contenteditable="true">1</span>': "")  +
 					'<ul class="code-object-content">' +
 						'<li class="code-object-content-item">' +
@@ -126,8 +128,7 @@ UI_APIschema.prototype.createObjectHTML = function (objectType) {
 										'<option value="generated field">field: generated</option>' +
 										'<option value="sampled field">field: sampled</option>' +
 										'<option value="custom field">field: custom</option>' +
-										'<option value="string">string</option>' +
-										'<option value="number">number</option>' +
+										'<option value="single value">single value</option>' +
 									'</optgroup><optgroup label="Other">' +
 										'<option value="delete">delete</option>' +
 										'<option value="number">create template</option>' +
@@ -170,11 +171,21 @@ UI_APIschema.prototype.createFieldHTML = function (fieldType) {
 	};
 
 	fieldTemplate = '<li class="code-object-content-item">' +
-		'<span class="code-key"' + ((fieldType === "generate") ? "" : editable) + '>' + field[fieldType]["key"] + '</span>' +
-		'<span class="code-value" contenteditable=' + ((fieldType === "custom") ? editable : "") + '>' + field[fieldType]["value"] + '</span>' +
+		'<span class="code-key" ' + ((fieldType === "generate") ? "" : editable) + '>' + field[fieldType]["key"] + '</span>' +
+		'<span class="code-value" ' + ((fieldType === "custom") ? editable : "") + '>' + field[fieldType]["value"] + '</span>' +
 		'<span class="code-remove" data-js="removeItem"></span>' +
 	'</li>';
 	return fieldTemplate;
+};
+
+UI_APIschema.prototype.createValueHTML = function () {
+	var valueTemplate;
+	valueTemplate = '<li class="code-object-content-item">' +
+						'<span class="code-value" contenteditable="true;">custom value</span>' +
+						'<span class="code-remove" data-js="removeItem"></span>' +
+					'</li>';
+
+	return valueTemplate;
 };
 
 
